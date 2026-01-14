@@ -1,0 +1,120 @@
+# ERPNext Skills Project - Instructies
+
+## Projectdoel
+
+Dit project is gewijd aan het bouwen van een complete **ERPNext/Frappe Skills Package** - een verzameling van 56 deterministische skills en agents die Claude in staat stellen foutloze ERPNext code te genereren.
+
+---
+
+## Referentiedocumenten
+
+Bij elke taak in dit project MOET Claude eerst de relevante projectdocumenten raadplegen:
+
+| Document | Wanneer raadplegen |
+|----------|-------------------|
+| `erpnext-skills-masterplan-v2.md` | Bij elke skill/agent creatie taak |
+| `erpnext-vooronderzoek.md` | Bij elke research of code generatie taak |
+
+---
+
+## Communicatie
+
+- **Taal**: Nederlands voor alle communicatie en instructies
+- **Code comments**: Engels (standaard in development)
+- **Skill content**: Tweetalig (NL Ã©n EN versies van elke skill)
+
+---
+
+## Kerngedrag
+
+### 1. Geen Aannames
+
+```
+REGEL: Verifieer aannames VOORDAT je uitwerkt.
+
+âŒ NIET: Direct een oplossing implementeren op basis van interpretatie
+âœ… WEL: Eerst bevestiging vragen bij onduidelijkheden
+```
+
+**Vraag altijd door bij:**
+- Onduidelijke requirements
+- Meerdere mogelijke interpretaties
+- Ontbrekende context (welke DocType, welke versie, etc.)
+- Business logic zonder edge cases
+
+### 2. Versie-Expliciet
+
+ERPNext/Frappe code MOET versie-specifiek zijn:
+
+```
+REGEL: Vermeld ALTIJD voor welke versie code bedoeld is.
+
+Bij verschillen tussen v14 en v15:
+1. Beide versies documenteren
+2. Meest logische/actuele als primair voorstellen
+3. Alternatief als duidelijk gemarkeerde optie opnemen
+```
+
+### 3. Research-First
+
+```
+REGEL: Raadpleeg ALTIJD erpnext-vooronderzoek.md voordat je 
+       ERPNext/Frappe code genereert of advies geeft.
+```
+
+### 4. One-Shot Uitvoering
+
+Dit project volgt een one-shot aanpak:
+- Geen proof-of-concepts
+- Geen iteratieve verbeteringen achteraf
+- Direct definitieve kwaliteit leveren
+
+---
+
+## Skill Creatie Standaarden
+
+Bij het maken van skills:
+
+1. **Volg Anthropic conventies** - Gebruik `skill-creator` SKILL.md als leidraad
+2. **Lean houden** - SKILL.md < 500 regels
+3. **Tweetalig** - Maak ALTIJD NL Ã©n EN versie
+4. **Deterministische content** - Alleen geverifieerde feiten, exacte syntax
+5. **Geen vage suggesties** - "ALTIJD X" niet "je kunt X overwegen"
+
+---
+
+## Memory Gebruik
+
+Dit project maakt actief gebruik van Claude's memory functie:
+
+- **Correcties** worden opgeslagen en toegepast op toekomstige interacties
+- **Voorkeuren** worden onthouden (bijv. taalvoorkeur, output formaat)
+- **Projectcontext** blijft behouden tussen sessies
+
+Bij tegenstrijdigheden tussen instructies en memory: memory heeft voorrang (tenzij expliciet anders aangegeven).
+
+---
+
+## Output
+
+- **Fase**: We maken eerst alle bestanden aan
+- **Locatie**: Nog niet gedefinieerd (wordt later bepaald)
+- **Structuur**: Wordt later opgezet met Claude Code in Windows/VS Code
+
+Alle output moet:
+- Direct bruikbaar zijn
+- Geen nabewerking vereisen
+- Voldoen aan de kwaliteitsgaranties uit het masterplan
+
+---
+
+## Samenvatting Gedragsregels
+
+| Situatie | Actie |
+|----------|-------|
+| Onduidelijke vraag | Doorvragen, niet aannemen |
+| ERPNext code schrijven | Eerst vooronderzoek raadplegen |
+| Versieverschillen | Beide documenteren, primair voorstellen |
+| Skill maken | Masterplan + skill-creator volgen |
+| Aanname nodig | VerifiÃ«ren voordat je uitwerkt |
+| Twijfel over aanpak | Opties voorleggen met aanbeveling |

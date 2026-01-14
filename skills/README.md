@@ -1,60 +1,62 @@
-# ERPNext Skills Packages
+# ERPNext Skills
 
-This directory contains the compiled skill packages (`.skill` files) that can be uploaded to Claude.ai projects.
+This directory contains all skill packages for the ERPNext/Frappe development skill package.
+
+## Directory Structure
+
+```
+skills/
+├── README.md          (this file)
+├── syntax/            Packaged .skill files (ready to use)
+└── source/            Unpacked source files (for browsing)
+```
+
+## Quick Start
+
+### Using Packaged Skills (.skill files)
+
+1. Go to [`syntax/`](syntax/)
+2. Download the `.skill` file you need (e.g., `erpnext-syntax-clientscripts-EN.skill`)
+3. Upload to your Claude.ai project as project knowledge
+
+### Browsing Skill Contents
+
+Want to see what's inside a skill before downloading?
+
+👉 Go to [`source/`](source/) to browse all SKILL.md files and reference documentation directly on GitHub.
 
 ## Available Skills
 
-### Syntax Skills (`skills/syntax/`)
+| Skill | Description | Package (NL) | Package (EN) |
+|-------|-------------|--------------|--------------|
+| **Client Scripts** | JavaScript for form interactions | [NL](syntax/erpnext-syntax-clientscripts-NL.skill) | [EN](syntax/erpnext-syntax-clientscripts-EN.skill) |
+| **Server Scripts** | Python sandbox scripts | [NL](syntax/erpnext-syntax-serverscripts-NL.skill) | [EN](syntax/erpnext-syntax-serverscripts-EN.skill) |
+| **Controllers** | Document Controllers (Python) | [NL](syntax/erpnext-syntax-controllers-NL.skill) | [EN](syntax/erpnext-syntax-controllers-EN.skill) |
+| **Hooks** | hooks.py configuration | [NL](syntax/erpnext-syntax-hooks-NL.skill) | [EN](syntax/erpnext-syntax-hooks-EN.skill) |
+| **Whitelisted** | API endpoint methods | [NL](syntax/erpnext-syntax-whitelisted-NL.skill) | [EN](syntax/erpnext-syntax-whitelisted-EN.skill) |
 
-These skills provide exact syntax references for ERPNext/Frappe development:
+## Coming Soon
 
-| Skill | NL | EN | Description |
-|-------|----|----|-------------|
-| **clientscripts** | ✅ | ✅ | Client-side JavaScript: form events, field manipulation, frappe.call |
-| **serverscripts** | ✅ | ✅ | Server Scripts: document events, API endpoints, scheduler events |
-| **hooks** | ✅ | ✅ | hooks.py configuration: doc_events, scheduler, fixtures, permissions |
-| **whitelisted** | ✅ | ✅ | Whitelisted API methods: @frappe.whitelist(), permissions, responses |
+- `erpnext-syntax-jinja` - Jinja Templates
+- `erpnext-syntax-scheduler` - Background Jobs
+- `erpnext-syntax-customapp` - Custom App Development
 
-### Planned Skills
-
-| Category | Skills | Status |
-|----------|--------|--------|
-| **Syntax** | controllers, jinja, scheduler, customapp | 🔜 In development |
-| **Implementation** | impl-clientscripts, impl-serverscripts, etc. | 📋 Planned |
-| **Error Handling** | errors-clientscripts, errors-serverscripts, etc. | 📋 Planned |
-| **Agents** | code-generator, debugger | 📋 Planned |
-
-## How to Use
-
-### In Claude.ai
-
-1. Download the `.skill` file you need
-2. Go to your Claude.ai project
-3. Upload the skill file to Project Knowledge
-4. Claude will automatically use the skill when generating ERPNext code
-
-### File Format
+## Skill Package Format
 
 Each `.skill` file is a ZIP archive containing:
-- `SKILL.md` - Main instructions and quick reference
-- `references/` - Detailed reference documentation
-  - `events.md` - Event listings
-  - `methods.md` - Method signatures
-  - `examples.md` - Working code examples
-  - `anti-patterns.md` - Common mistakes to avoid
 
-## Language Versions
-
-All skills are available in two languages:
-- **NL** - Dutch (Nederlands)
-- **EN** - English
-
-Both versions contain identical technical content, only the explanatory text differs.
+```
+skill-name/
+├── SKILL.md           Main skill file (<500 lines)
+└── references/        Detailed documentation
+    ├── methods.md
+    ├── events.md
+    ├── examples.md
+    └── anti-patterns.md
+```
 
 ## Version Compatibility
 
-All skills document compatibility with:
-- ERPNext v14
-- ERPNext v15
-
-Version-specific differences are clearly marked in the documentation.
+- ✅ ERPNext v14
+- ✅ ERPNext v15
+- 🔄 ERPNext v16 (review in progress)

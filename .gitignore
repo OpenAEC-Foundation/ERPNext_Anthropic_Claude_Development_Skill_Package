@@ -20,9 +20,6 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Skill packages (generated)
-*.skill
-
 # Temporary files
 *.tmp
 *.temp
@@ -38,7 +35,10 @@ Thumbs.db
 # Node (if any JS tooling)
 node_modules/
 
-# Distribution
+# Distribution (Python packages, NOT .skill files)
 dist/
 build/
 *.egg-info/
+
+# NOTE: .skill files are NOT ignored - they are our deliverables!
+# If you need to ignore local/draft skills, put them in a drafts/ folder

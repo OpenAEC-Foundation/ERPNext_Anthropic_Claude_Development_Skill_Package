@@ -1,645 +1,1114 @@
-# Research Document: Frappe API Patterns
-
-> **Project**: ERPNext Skills Package  
+# Research Document: ERPNext API Patterns
 > **Fase**: 3.3  
+> **Skill**: erpnext-api-patterns  
 > **Datum**: 2026-01-17  
-> **Bronnen**: Officiële Frappe documentatie (docs.frappe.io), GitHub source code
+> **Bronnen**: docs.frappe.io (REST API, Token Authentication, OAuth2, Webhooks, Rate Limiting)
 
 ---
 
-## 1. Overzicht
+## 1. Overzicht API Types in Frappe
 
-Frappe biedt drie primaire API-mechanismen:
+Frappe biedt twee primaire API categorieën:
 
-| API Type | Endpoint Prefix | Gebruik |
-|----------|-----------------|---------|
-| **Resource API** | `/api/resource/` | CRUD operaties op DocTypes |
-| **Method API** | `/api/method/` | Aanroepen van whitelisted Python methods |
-| **Webhooks** | DocType configuratie | Event-driven callbacks naar externe systemen |
+| Type | Prefix | Functie | Authenticatie |
+|------|--------|---------|---------------|
+| **REST API** | `/api/resource/` | CRUD operaties op DocTypes | Vereist |
+| **RPC API** | `/api/method/` | Whitelisted Python methods | Optioneel (allow_guest) |
+
+**Base URL**: `https://{your-instance}/`
 
 ---
 
-## 2. Authenticatie Methoden
+## 2. Authenticatie Methods
 
-### 2.1 Token Based Authentication (Aanbevolen)
+### 2.1 Token Based Authentication (Aanbevolen voor API)
+
+Meest gebruikte methode voor server-to-server integraties.
+
+#### Token Genereren
+
+1. Ga naar User list → Open een user
+2. Klik op "Settings" tab
+3. Expand "API Access" sectie
+4. Klik "Generate Keys"
+5. Kopieer de API Secret (wordt maar 1x getoond!)
+6. API Key is zichtbaar in het veld
+
+#### Token Gebruiken
 
 ```python
-# Token genereren
-# Via UI: User → Settings → API Access → Generate Keys
-# Via CLI: bench execute frappe.core.doctype.user.user.generate_keys --args ['user_name']
-# Via RPC: /api/method/frappe.core.doctype.user.user.generate_keys?user="user_name"
+# Python requests voorbeeld
+import requests
+
+url = "https://erp.example.com/api/method/frappe.auth.get_logged_user"
+headers = {
+    'Authorization': 'token api_key:api_secret'
+}
+response = requests.get(url, headers=headers)
 ```
 
-**Request format:**
-```
-Authorization: token <api_key>:<api_secret>
-```
-
-**JavaScript voorbeeld:**
 ```javascript
-fetch('http://site.local/api/method/frappe.auth.get_logged_user', {
+// JavaScript fetch voorbeeld
+fetch('https://erp.example.com/api/resource/Customer', {
     headers: {
-        'Authorization': 'token api_key:api_secret'
+        'Authorization': 'token api_key:api_secret',
+        'Accept': 'application/json'
     }
 })
 .then(r => r.json())
-.then(r => console.log(r));
+.then(data => console.log(data));
 ```
 
-**cURL voorbeeld:**
 ```bash
-curl http://site.local/api/resource/Customer \
+# cURL voorbeeld
+curl -X GET "https://erp.example.com/api/resource/Customer" \
   -H "Authorization: token api_key:api_secret" \
   -H "Accept: application/json"
 ```
 
-### 2.2 Password Based Authentication (Session-based)
+#### Basic Authentication (Alternatief)
 
-```javascript
-fetch('http://site.local/api/method/login', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        usr: 'username_or_email',
-        pwd: 'password'
-    })
-})
+```python
+import requests
+import base64
+
+credentials = base64.b64encode(b'api_key:api_secret').decode('utf-8')
+headers = {
+    'Authorization': f'Basic {credentials}'
+}
 ```
 
-**Belangrijk**: Session-based auth vereist cookie handling.
+### 2.2 Password Based Authentication (Session)
 
-### 2.3 OAuth 2.0
+Voor browser-based applicaties die cookies gebruiken.
 
-**Authorization Code Flow:**
+```python
+import requests
+
+# Login - krijgt session cookie
+session = requests.Session()
+login_response = session.post(
+    'https://erp.example.com/api/method/login',
+    json={
+        'usr': 'username_or_email',
+        'pwd': 'password'
+    }
+)
+
+# Alle volgende requests gebruiken de session cookie automatisch
+users = session.get('https://erp.example.com/api/resource/User')
 ```
-1. GET /api/method/frappe.integrations.oauth2.authorize
-   - client_id, redirect_uri, response_type=code, scope
 
-2. POST /api/method/frappe.integrations.oauth2.get_token
-   - grant_type=authorization_code, code, redirect_uri, client_id
-
-3. Use Bearer token:
-   Authorization: Bearer <access_token>
+**Response bij succes**:
+```json
+{
+    "message": "Logged In",
+    "home_page": "/app",
+    "full_name": "Administrator"
+}
 ```
 
-**Endpoints:**
-| Endpoint | Functie |
-|----------|---------|
-| `/api/method/frappe.integrations.oauth2.authorize` | Authorization request |
-| `/api/method/frappe.integrations.oauth2.get_token` | Token exchange |
-| `/api/method/frappe.integrations.oauth2.revoke_token` | Token revocation |
-| `/api/method/frappe.integrations.oauth2.introspect_token` | Token introspection |
-| `/api/method/frappe.integrations.oauth2.openid_profile` | User profile |
+**⚠️ WAARSCHUWING**: Session cookies verlopen na 3 dagen. Gebruik Token auth voor long-running integrations.
+
+### 2.3 OAuth 2.0 (Voor Third-Party Apps)
+
+#### Stap 1: OAuth Client Registreren
+
+1. Ga naar OAuth Client List → New
+2. Vul in: App Name, Redirect URIs, Default Redirect URI
+3. Sla op → Krijg Client ID en Client Secret
+
+#### Stap 2: Authorization Code Verkrijgen
+
+```
+GET /api/method/frappe.integrations.oauth2.authorize
+?client_id={client_id}
+&response_type=code
+&scope=openid all
+&redirect_uri={redirect_uri}
+&state={random_state}
+```
+
+User wordt doorverwezen naar login pagina, dan terug naar redirect_uri met `?code=...`
+
+#### Stap 3: Access Token Verkrijgen
+
+```bash
+POST /api/method/frappe.integrations.oauth2.get_token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code
+&code={authorization_code}
+&redirect_uri={redirect_uri}
+&client_id={client_id}
+```
+
+**Response**:
+```json
+{
+    "access_token": "...",
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "refresh_token": "...",
+    "scope": "openid all"
+}
+```
+
+#### Stap 4: API Calls met Bearer Token
+
+```python
+headers = {
+    'Authorization': 'Bearer {access_token}'
+}
+response = requests.get('https://erp.example.com/api/resource/User', headers=headers)
+```
+
+#### Token Refresh
+
+```bash
+POST /api/method/frappe.integrations.oauth2.get_token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token
+&refresh_token={refresh_token}
+&client_id={client_id}
+```
 
 ---
 
-## 3. Resource API (REST CRUD)
+## 3. REST API - Resource Endpoints
 
-### 3.1 Basis Endpoints
+### 3.1 Standaard Headers
 
-| Operatie | Method | Endpoint |
-|----------|--------|----------|
-| List | GET | `/api/resource/:doctype` |
-| Create | POST | `/api/resource/:doctype` |
-| Read | GET | `/api/resource/:doctype/:name` |
-| Update | PUT | `/api/resource/:doctype/:name` |
-| Delete | DELETE | `/api/resource/:doctype/:name` |
+**ALTIJD** deze headers meesturen voor JSON responses:
 
-### 3.2 Verplichte Headers
-
-```json
-{
-    "Accept": "application/json",
-    "Content-Type": "application/json"
+```python
+headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'token api_key:api_secret'
 }
 ```
 
-### 3.3 List Parameters
+### 3.2 List Documents (GET)
+
+```
+GET /api/resource/{doctype}
+```
+
+**Default gedrag**:
+- Retourneert 20 records
+- Alleen `name` veld
+
+#### Parameters
 
 | Parameter | Type | Beschrijving |
 |-----------|------|--------------|
-| `fields` | JSON array | Velden om op te halen: `["name", "status"]` |
-| `filters` | JSON array | Filter condities: `[["status", "=", "Open"]]` |
+| `fields` | JSON array | Velden om op te halen |
+| `filters` | JSON array | Filter condities |
 | `or_filters` | JSON array | OR filter condities |
-| `order_by` | string | Sortering: `"modified desc"` |
-| `limit_start` | int | Offset voor paginatie |
-| `limit_page_length` | int | Aantal records (default: 20) |
-| `limit` | int | Alias voor limit_page_length (v13+) |
-| `as_dict` | boolean | False = List[List], True = List[dict] |
-| `debug` | boolean | Toon SQL query in response |
-| `expand` | JSON array | Expand Link fields naar volledige objecten |
+| `order_by` | string | Sortering (bijv. "modified desc") |
+| `limit_start` | int | Offset voor paginering |
+| `limit_page_length` | int | Aantal resultaten (alias: `limit`) |
+| `as_dict` | bool | Response als dict (default) of list |
+| `debug` | bool | Toon uitgevoerde SQL query |
 
-### 3.4 Filter Operators
+#### Voorbeeld: Gefilterde lijst met velden
 
-| Operator | Betekenis |
-|----------|-----------|
-| `=` | Gelijk aan |
-| `!=` | Niet gelijk aan |
-| `<` | Kleiner dan |
-| `>` | Groter dan |
-| `<=` | Kleiner of gelijk |
-| `>=` | Groter of gelijk |
-| `like` | Pattern matching (gebruik %) |
-| `not like` | Inverse pattern matching |
-| `in` | In lijst |
-| `not in` | Niet in lijst |
-| `is` | IS NULL / IS NOT NULL |
-| `between` | Tussen twee waarden |
-
-**Voorbeeld complex filter:**
-```
-GET /api/resource/Sales Order?filters=[
-    ["status", "in", ["Draft", "Submitted"]],
-    ["grand_total", ">", 1000],
-    ["transaction_date", "between", ["2024-01-01", "2024-12-31"]]
-]
-```
-
-### 3.5 CRUD Voorbeelden
-
-**Create:**
 ```bash
-POST /api/resource/Customer
-Content-Type: application/json
+GET /api/resource/Sales Invoice?fields=["name","customer","grand_total","status"]&filters=[["status","=","Paid"]]&order_by=posting_date desc&limit_page_length=50
+```
 
+**Response**:
+```json
 {
-    "customer_name": "Test Customer",
-    "customer_type": "Company",
-    "customer_group": "Commercial"
+    "data": [
+        {
+            "name": "SINV-00001",
+            "customer": "Customer A",
+            "grand_total": 1500.00,
+            "status": "Paid"
+        }
+    ]
 }
 ```
 
-**Response:**
+#### Filter Operators
+
+| Operator | Beschrijving | Voorbeeld |
+|----------|--------------|-----------|
+| `=` | Gelijk aan | `["status", "=", "Open"]` |
+| `!=` | Niet gelijk aan | `["status", "!=", "Cancelled"]` |
+| `>`, `<` | Groter/kleiner dan | `["amount", ">", 1000]` |
+| `>=`, `<=` | Groter/kleiner of gelijk | `["date", ">=", "2024-01-01"]` |
+| `like` | SQL LIKE | `["name", "like", "%INV%"]` |
+| `in` | In lijst | `["status", "in", ["Open", "Pending"]]` |
+| `not in` | Niet in lijst | `["status", "not in", ["Cancelled"]]` |
+| `is` | IS NULL check | `["reference", "is", "set"]` of `["reference", "is", "not set"]` |
+| `between` | Tussen waarden | `["amount", "between", [100, 500]]` |
+
+### 3.3 Create Document (POST)
+
+```
+POST /api/resource/{doctype}
+```
+
+**Body**: JSON object met velden
+
+```python
+import requests
+
+data = {
+    "doctype": "Customer",  # Optioneel in body
+    "customer_name": "New Customer",
+    "customer_type": "Company",
+    "customer_group": "Commercial"
+}
+
+response = requests.post(
+    'https://erp.example.com/api/resource/Customer',
+    json=data,
+    headers=headers
+)
+```
+
+**Response**:
+```json
+{
+    "data": {
+        "name": "New Customer",
+        "owner": "Administrator",
+        "creation": "2024-01-15 10:30:00",
+        "modified": "2024-01-15 10:30:00",
+        "customer_name": "New Customer",
+        "customer_type": "Company"
+    }
+}
+```
+
+### 3.4 Read Document (GET)
+
+```
+GET /api/resource/{doctype}/{name}
+```
+
+```bash
+GET /api/resource/Customer/CUST-00001
+```
+
+**Response**:
 ```json
 {
     "data": {
         "name": "CUST-00001",
-        "customer_name": "Test Customer",
-        "doctype": "Customer",
-        ...
+        "customer_name": "Test Customer"
     }
 }
 ```
 
-**Read met link expansion:**
+### 3.5 Update Document (PUT)
+
 ```
-GET /api/resource/Sales Order/SO-00001?expand_links=True
+PUT /api/resource/{doctype}/{name}
 ```
 
-**Update (partial):**
-```bash
-PUT /api/resource/Customer/CUST-00001
+**Body**: Alleen de velden die gewijzigd moeten worden
 
-{
-    "customer_name": "Updated Name"
+```python
+data = {
+    "customer_group": "Premium"
 }
+
+response = requests.put(
+    'https://erp.example.com/api/resource/Customer/CUST-00001',
+    json=data,
+    headers=headers
+)
 ```
 
-**Delete:**
+### 3.6 Delete Document (DELETE)
+
+```
+DELETE /api/resource/{doctype}/{name}
+```
+
 ```bash
 DELETE /api/resource/Customer/CUST-00001
 ```
 
-Response: `{"message": "ok"}`
+**Response**:
+```json
+{
+    "message": "ok"
+}
+```
+
+### 3.7 Expand Link Fields (v15+)
+
+Automatisch gerelateerde documenten ophalen.
+
+```
+GET /api/resource/Sales Invoice/SINV-00001?expand_links=True
+```
+
+Of bij listings:
+
+```
+GET /api/resource/Sales Invoice?expand=["customer"]
+```
 
 ---
 
-## 4. Method API (RPC)
+## 4. RPC API - Method Calls
 
-### 4.1 Basis Gebruik
+### 4.1 Basis Structuur
 
 ```
-GET/POST /api/method/<dotted.path.to.method>
+GET/POST /api/method/{dotted.path.to.function}
 ```
 
-**Voorbeeld:**
-```bash
-GET /api/method/frappe.auth.get_logged_user
+De functie MOET gemarkeerd zijn met `@frappe.whitelist()`.
 
-# Response:
-{"message": "john@doe.com"}
-```
+### 4.2 GET vs POST
 
-### 4.2 Whitelisted Methods
+| Method | Gebruik | Auto Commit |
+|--------|---------|-------------|
+| **GET** | Read-only operaties | Nee |
+| **POST** | State-changing operaties | Ja |
 
-Methods MOETEN gemarkeerd zijn met `@frappe.whitelist()`:
+### 4.3 Voorbeeld: Custom Whitelisted Method
 
+**Python (server-side)**:
 ```python
-# In your_app/api.py
+# my_app/api.py
 import frappe
 
 @frappe.whitelist()
 def get_customer_balance(customer):
-    """Public API endpoint"""
-    return frappe.db.get_value("Customer", customer, "outstanding_amount")
+    """Haal openstaand saldo op voor klant."""
+    balance = frappe.db.sql("""
+        SELECT SUM(outstanding_amount)
+        FROM `tabSales Invoice`
+        WHERE customer = %s AND docstatus = 1
+    """, customer)[0][0] or 0
+    
+    return {"customer": customer, "balance": balance}
 
-@frappe.whitelist(allow_guest=True)
-def public_endpoint():
-    """Accessible without authentication"""
-    return {"status": "ok"}
-
-@frappe.whitelist(methods=["POST"])
-def create_something(data):
-    """Only accepts POST requests"""
-    # frappe.db.commit() wordt automatisch aangeroepen na POST
-    return frappe.get_doc(data).insert()
+@frappe.whitelist()
+def create_payment(customer, amount, payment_type="Receive"):
+    """Maak nieuwe Payment Entry."""
+    pe = frappe.new_doc("Payment Entry")
+    pe.payment_type = payment_type
+    pe.party_type = "Customer"
+    pe.party = customer
+    pe.paid_amount = amount
+    pe.insert()
+    return pe.name
 ```
 
-### 4.3 HTTP Method Conventies
+**API Call**:
+```bash
+# GET voor read-only
+GET /api/method/my_app.api.get_customer_balance?customer=CUST-00001
 
-| Situatie | HTTP Method | Auto-commit |
-|----------|-------------|-------------|
-| Data ophalen | GET | Nee |
-| Data wijzigen | POST | Ja (`frappe.db.commit()`) |
+# POST voor state-changing
+POST /api/method/my_app.api.create_payment
+Content-Type: application/json
+{"customer": "CUST-00001", "amount": 500}
+```
 
-### 4.4 Response Format
+### 4.4 Allow Guest Access
 
-**Success:**
+```python
+@frappe.whitelist(allow_guest=True)
+def public_endpoint():
+    """Geen authenticatie vereist."""
+    return {"status": "ok"}
+```
+
+### 4.5 Response Structure
+
+**Succes**:
 ```json
 {
-    "message": "<return_value>"
+    "message": "return_value_from_function"
 }
 ```
 
-**Error:**
+**Error**:
 ```json
 {
     "exc_type": "ValidationError",
-    "exc": "<stack_trace>",
-    "_server_messages": "[\"Error message\"]"
-}
-```
-
-### 4.5 Parameters Doorgeven
-
-**Via Query String (GET):**
-```
-GET /api/method/myapp.api.get_data?customer=CUST-001&limit=10
-```
-
-**Via Body (POST):**
-```bash
-POST /api/method/myapp.api.create_record
-Content-Type: application/json
-
-{
-    "doctype": "Customer",
-    "customer_name": "New Customer"
+    "exc": "Stack trace...",
+    "_server_messages": "[{\"message\": \"Error message\"}]"
 }
 ```
 
 ---
 
-## 5. Webhooks
+## 5. File Uploads
 
-### 5.1 Configuratie
+### 5.1 Upload Endpoint
 
-Webhooks worden geconfigureerd via het **Webhook DocType**:
+```
+POST /api/method/upload_file
+Content-Type: multipart/form-data
+```
 
-| Veld | Beschrijving |
-|------|--------------|
-| DocType | DocType om te monitoren |
-| Doc Event | Trigger event (on_insert, on_update, etc.) |
-| Request URL | Destination endpoint |
-| Request Method | POST (default), GET, PUT, DELETE |
-| Condition | Optional Python expression |
-| Headers | Custom HTTP headers |
-| Data | Webhook payload structure |
+### 5.2 cURL Voorbeeld
 
-### 5.2 Beschikbare Doc Events
+```bash
+curl -X POST "https://erp.example.com/api/method/upload_file" \
+  -H "Authorization: token api_key:api_secret" \
+  -H "Accept: application/json" \
+  -F "file=@/path/to/document.pdf" \
+  -F "doctype=Customer" \
+  -F "docname=CUST-00001"
+```
+
+### 5.3 Python Voorbeeld
+
+```python
+import requests
+
+files = {
+    'file': ('document.pdf', open('/path/to/document.pdf', 'rb'), 'application/pdf')
+}
+data = {
+    'doctype': 'Customer',
+    'docname': 'CUST-00001',
+    'is_private': 1
+}
+
+response = requests.post(
+    'https://erp.example.com/api/method/upload_file',
+    files=files,
+    data=data,
+    headers={'Authorization': 'token api_key:api_secret'}
+)
+```
+
+**Response**:
+```json
+{
+    "message": {
+        "name": "file_hash.pdf",
+        "file_url": "/private/files/file_hash.pdf",
+        "is_private": 1,
+        "attached_to_doctype": "Customer",
+        "attached_to_name": "CUST-00001"
+    }
+}
+```
+
+---
+
+## 6. Webhooks
+
+### 6.1 Webhook Configuratie
+
+Webhooks zijn "user-defined HTTP callbacks" die triggeren op document events.
+
+**Configuratie via UI**:
+1. Ga naar Webhook List → New
+2. Selecteer DocType (bijv. "Sales Order")
+3. Selecteer Event (on_submit, on_update, etc.)
+4. Voer Request URL in
+5. Optioneel: voeg HTTP Headers toe
+6. Optioneel: stel Conditions in
+
+### 6.2 Beschikbare Events
 
 | Event | Trigger |
 |-------|---------|
-| `after_insert` | Na document creatie |
-| `on_update` | Na document update |
-| `on_submit` | Na document submit |
-| `on_cancel` | Na document cancel |
-| `on_trash` | Bij document delete |
-| `on_update_after_submit` | Na update van submitted doc |
+| `after_insert` | Na nieuw document |
+| `on_update` | Na elke save |
+| `on_submit` | Na submit |
+| `on_cancel` | Na cancel |
+| `on_trash` | Voor delete |
+| `on_update_after_submit` | Na amendment |
 | `on_change` | Bij elke wijziging |
 
-### 5.3 Webhook Data Structure
+### 6.3 Request Structure
 
-**Default payload:**
-```json
+```
+POST {webhook_url}
+Content-Type: application/json
+
 {
     "doctype": "Sales Order",
     "name": "SO-00001",
     "data": {
-        // Full document data
+        "name": "SO-00001",
+        "customer": "Customer A",
+        "grand_total": 1500.00
     }
 }
 ```
 
-**Custom data mapping:**
+### 6.4 Webhook Security
+
+#### HMAC Signature Verificatie
+
+Als "Webhook Secret" is ingesteld, voegt Frappe een signature header toe:
+
 ```
-lineItems → items
-customerName → customer
+X-Frappe-Webhook-Signature: base64_encoded_hmac_sha256_of_payload
 ```
 
-### 5.4 Webhook Security
-
-**Secret-based validation:**
+**Verificatie in Python**:
 ```python
-# In receiving endpoint
 import hmac
 import hashlib
+import base64
 
 def verify_webhook(payload, signature, secret):
-    expected = hmac.new(
-        secret.encode(),
-        payload.encode(),
-        hashlib.sha256
-    ).hexdigest()
-    return hmac.compare_digest(signature, expected)
+    expected = base64.b64encode(
+        hmac.new(
+            secret.encode(),
+            payload.encode(),
+            hashlib.sha256
+        ).digest()
+    ).decode()
+    return hmac.compare_digest(expected, signature)
 ```
 
-### 5.5 Webhook Conditions
+### 6.5 Webhook met Conditions
 
-```python
-# Alleen voor submitted documents met grand_total > 10000
-doc.docstatus == 1 and doc.grand_total > 10000
+Conditions gebruiken Jinja2 syntax:
+
+```
+{{ doc.grand_total > 10000 }}
+{{ doc.customer_group == "Premium" }}
+{{ doc.status in ["Submitted", "Paid"] }}
+```
+
+### 6.6 Request Structures
+
+**Form-based** (velden in tabel):
+```
+field1=value1&field2=value2
+```
+
+**JSON-based** (met Jinja):
+```json
+{
+    "order_id": "{{ doc.name }}",
+    "customer": "{{ doc.customer }}",
+    "total": {{ doc.grand_total }}
+}
 ```
 
 ---
 
-## 6. File Uploads
+## 7. Rate Limiting
 
-### 6.1 Upload Endpoint
+### 7.1 Configuratie
 
-```bash
-POST /api/method/upload_file
-Content-Type: multipart/form-data
-
--F file=@/path/to/file.pdf
--F doctype=Customer
--F docname=CUST-00001
--F fieldname=attachment
-```
-
-### 6.2 Response
+Rate limiting wordt geconfigureerd in `site_config.json`:
 
 ```json
 {
-    "message": {
-        "name": "file_hash",
-        "file_name": "file.pdf",
-        "file_url": "/files/file.pdf"
+    "rate_limit": {
+        "limit": 600,
+        "window": 3600
     }
 }
 ```
 
----
+**Parameters**:
+- `limit`: Maximaal toegestane request tijd in microseconds (600 = 600 seconden CPU tijd)
+- `window`: Tijdvenster in seconden (3600 = 1 uur)
 
-## 7. Standaard Frappe Methods
+### 7.2 Response Headers
 
-### 7.1 Veel Gebruikte Endpoints
+Elke response bevat rate limit info:
 
-| Endpoint | Functie |
-|----------|---------|
-| `frappe.auth.get_logged_user` | Huidige user |
-| `frappe.client.get_count` | Document count |
-| `frappe.client.get_value` | Single field value |
-| `frappe.client.get_list` | Document list |
-| `frappe.client.get` | Full document |
-| `frappe.client.insert` | Create document |
-| `frappe.client.save` | Update document |
-| `frappe.client.delete` | Delete document |
-| `frappe.client.submit` | Submit document |
-| `frappe.client.cancel` | Cancel document |
-| `run_doc_method` | Run document method |
-
-### 7.2 frappe.client Voorbeelden
-
-**get_value:**
-```bash
-POST /api/method/frappe.client.get_value
-{
-    "doctype": "Customer",
-    "filters": {"name": "CUST-00001"},
-    "fieldname": ["customer_name", "outstanding_amount"]
-}
+```
+X-RateLimit-Limit: 600000000
+X-RateLimit-Remaining: 518060453
+X-RateLimit-Reset: 3513
+X-RateLimit-Used: 100560
 ```
 
-**get_list:**
-```bash
-POST /api/method/frappe.client.get_list
-{
-    "doctype": "Sales Order",
-    "filters": {"status": "Draft"},
-    "fields": ["name", "customer", "grand_total"],
-    "limit_page_length": 50
-}
+### 7.3 Over Limit Response
+
+```
+HTTP/1.1 429 Too Many Requests
 ```
 
-**run_doc_method:**
-```bash
-POST /api/method/run_doc_method
-{
-    "dt": "Sales Order",
-    "dn": "SO-00001",
-    "method": "get_taxes_and_charges"
-}
+### 7.4 Server Script Rate Limiting (v14+)
+
+API Server Scripts kunnen eigen rate limits hebben:
+
+```python
+# In Server Script configuratie
+Enable Rate Limit: ✓
+Rate Limit Count: 100
+Rate Limit Seconds: 60
 ```
 
 ---
 
-## 8. Error Handling
+## 8. Client-Side API Calls (frappe.call)
 
-### 8.1 HTTP Status Codes
+### 8.1 frappe.call Basis
+
+```javascript
+frappe.call({
+    method: 'my_app.api.get_customer_balance',
+    args: {
+        customer: 'CUST-00001'
+    },
+    callback: function(r) {
+        if (r.message) {
+            console.log('Balance:', r.message.balance);
+        }
+    }
+});
+```
+
+### 8.2 Promise-based Syntax (Aanbevolen)
+
+```javascript
+frappe.call({
+    method: 'my_app.api.get_customer_balance',
+    args: { customer: 'CUST-00001' }
+}).then(r => {
+    console.log('Balance:', r.message.balance);
+});
+```
+
+### 8.3 frappe.call Opties
+
+| Optie | Type | Beschrijving |
+|-------|------|--------------|
+| `method` | string | Python method path |
+| `args` | object | Arguments voor de method |
+| `callback` | function | Success callback |
+| `error` | function | Error callback |
+| `async` | bool | Async call (default: true) |
+| `freeze` | bool | Freeze UI tijdens call |
+| `freeze_message` | string | Message tijdens freeze |
+| `btn` | jQuery | Button om te disablen |
+
+### 8.4 frm.call (Form Context)
+
+Voor controller methods:
+
+```javascript
+// Client Script
+frm.call('get_linked_doc', {
+    throw_if_missing: true
+}).then(r => {
+    if (r.message) {
+        console.log('Linked doc:', r.message);
+    }
+});
+```
+
+**Controller vereiste**:
+```python
+class MyDocType(Document):
+    @frappe.whitelist()
+    def get_linked_doc(self, throw_if_missing=False):
+        return frappe.get_doc(self.reference_type, self.reference_name)
+```
+
+### 8.5 frappe.xcall (Simpler Promise API)
+
+```javascript
+const balance = await frappe.xcall('my_app.api.get_customer_balance', {
+    customer: 'CUST-00001'
+});
+console.log(balance);
+```
+
+---
+
+## 9. Error Handling
+
+### 9.1 HTTP Status Codes
 
 | Code | Betekenis |
 |------|-----------|
-| 200 | Success |
-| 403 | Forbidden (permission denied) |
-| 404 | Not Found |
-| 409 | Conflict (duplicate name) |
-| 417 | Validation Error |
-| 500 | Server Error |
+| `200` | Success |
+| `400` | Bad Request (validatie fout) |
+| `401` | Unauthorized (geen auth) |
+| `403` | Forbidden (geen permissions) |
+| `404` | Not Found (document bestaat niet) |
+| `417` | Expectation Failed (server exception) |
+| `429` | Too Many Requests (rate limit) |
+| `500` | Internal Server Error |
 
-### 8.2 Error Response Format
+### 9.2 Error Response Structuur
 
 ```json
 {
-    "exc_type": "frappe.exceptions.ValidationError",
+    "exc_type": "ValidationError",
     "exc": "Traceback (most recent call last):\n...",
-    "_server_messages": "[{\"message\": \"Customer Name is required\"}]"
+    "_server_messages": "[{\"message\": \"Customer Name is required\", \"indicator\": \"red\"}]"
 }
 ```
 
-### 8.3 Client-side Error Handling
+### 9.3 Client-Side Error Handling
 
 ```javascript
-fetch('/api/resource/Customer', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'token api_key:api_secret'
+frappe.call({
+    method: 'my_app.api.risky_operation',
+    args: { data: data },
+    callback: function(r) {
+        if (r.message) {
+            frappe.show_alert('Success!');
+        }
     },
-    body: JSON.stringify(data)
-})
-.then(response => {
-    if (!response.ok) {
-        return response.json().then(err => {
-            throw new Error(err._server_messages || err.exc_type);
+    error: function(r) {
+        frappe.msgprint({
+            title: __('Error'),
+            indicator: 'red',
+            message: __('Operation failed. Please try again.')
         });
     }
-    return response.json();
-})
-.then(data => console.log(data))
-.catch(error => console.error('API Error:', error));
+});
 ```
 
----
-
-## 9. Rate Limiting
-
-### 9.1 Standaard Limieten
-
-Frappe heeft ingebouwde rate limiting:
+### 9.4 Server-Side Error Response
 
 ```python
-# In site_config.json
-{
-    "rate_limit": {
-        "limit": 600,  # requests per window
-        "window": 300  # window in seconds (5 min)
-    }
-}
-```
-
-### 9.2 Custom Rate Limits
-
-```python
-# Per method
-@frappe.whitelist(rate_limit={"limit": 10, "window": 60})
-def limited_endpoint():
-    pass
+@frappe.whitelist()
+def validated_operation(data):
+    if not data:
+        frappe.throw(_("Data is required"), frappe.MandatoryError)
+    
+    try:
+        # operatie
+        return {"status": "success"}
+    except Exception as e:
+        frappe.log_error(title="API Error", message=str(e))
+        frappe.throw(_("Operation failed: {0}").format(str(e)))
 ```
 
 ---
 
 ## 10. Best Practices
 
-### 10.1 Security
+### 10.1 Authentication
 
-1. **ALTIJD Token auth** voor server-to-server communicatie
-2. **OAuth 2.0** voor third-party applicaties
-3. **HTTPS** verplicht in productie
-4. **Minimale permissions** voor API users
-5. **Webhook secrets** voor verificatie
+```
+✅ Gebruik Token auth voor server-to-server integraties
+✅ Gebruik OAuth2 voor third-party applicaties
+✅ Genereer aparte API keys per integratie
+✅ Roteer API secrets regelmatig
+✅ Beperk user permissions tot benodigde DocTypes
 
-### 10.2 Performance
+❌ NOOIT credentials hardcoden
+❌ NOOIT API secrets in version control
+❌ NOOIT admin credentials gebruiken voor API
+```
 
-1. Gebruik `fields` parameter - haal alleen noodzakelijke velden op
-2. Implementeer paginatie voor grote datasets
-3. Cache responses waar mogelijk
-4. Batch operaties in plaats van individuele calls
-5. Gebruik `run_doc_method` voor server-side logic
+### 10.2 API Design
 
-### 10.3 Error Handling
+```
+✅ Gebruik descriptive method names
+✅ Valideer input parameters
+✅ Return consistente response structures
+✅ Log errors voor debugging
+✅ Implementeer proper rate limiting
 
-1. Controleer HTTP status codes
-2. Parse `_server_messages` voor user-friendly errors
-3. Log `exc` voor debugging
-4. Implementeer retry logic met exponential backoff
+❌ NOOIT SQL injection vulnerable queries
+❌ NOOIT sensitive data in responses zonder permission check
+```
+
+### 10.3 Performance
+
+```
+✅ Gebruik fields parameter om alleen benodigde velden op te halen
+✅ Implementeer paginering voor grote datasets
+✅ Gebruik frappe.get_cached_doc voor frequent accessed data
+✅ Batch gerelateerde operaties
+
+❌ NOOIT alle documenten ophalen zonder limit
+❌ NOOIT overbodige API calls in loops
+```
+
+### 10.4 Webhooks
+
+```
+✅ Implementeer HMAC signature verificatie
+✅ Return snel (< 30 sec) - queue lange operaties
+✅ Implementeer retry logica voor failed webhooks
+✅ Log webhook payloads voor debugging
+
+❌ NOOIT gevoelige data in webhook payloads zonder encryptie
+❌ NOOIT vertrouwen op webhook delivery order
+```
 
 ---
 
-## 11. Versie Verschillen
+## 11. Anti-Patterns
 
-### 11.1 v14 vs v15
+### 11.1 ❌ Geen Error Handling
 
-| Feature | v14 | v15 |
-|---------|-----|-----|
-| `limit` alias | ✅ | ✅ |
-| `expand_links` | ✅ | ✅ |
-| `expand` param | ❌ | ✅ |
-| Rate limiting decorator | Basic | Enhanced |
+```python
+# FOUT - geen error handling
+@frappe.whitelist()
+def dangerous_operation(docname):
+    doc = frappe.get_doc("Customer", docname)
+    doc.delete()
+    return "done"
 
-### 11.2 v15 Nieuwe Features
+# CORRECT - met error handling
+@frappe.whitelist()
+def safe_operation(docname):
+    try:
+        doc = frappe.get_doc("Customer", docname)
+        doc.delete()
+        return {"status": "success", "message": f"{docname} deleted"}
+    except frappe.DoesNotExistError:
+        frappe.throw(_("Customer {0} does not exist").format(docname))
+    except frappe.PermissionError:
+        frappe.throw(_("You don't have permission to delete this customer"))
+```
 
-- `expand` parameter voor selectieve link expansion
-- Verbeterde error messages
-- Better rate limiting controls
-- Enhanced OAuth 2.0 support
+### 11.2 ❌ SQL Injection Vulnerable
 
----
+```python
+# FOUT - SQL injection vulnerable
+@frappe.whitelist()
+def search_customers(search_term):
+    return frappe.db.sql(f"SELECT * FROM tabCustomer WHERE name LIKE '%{search_term}%'")
 
-## 12. Anti-patterns
+# CORRECT - parameterized query
+@frappe.whitelist()
+def search_customers(search_term):
+    return frappe.db.sql(
+        "SELECT * FROM tabCustomer WHERE name LIKE %s",
+        (f"%{search_term}%",),
+        as_dict=True
+    )
+```
 
-### 12.1 ❌ Hardcoded Credentials
+### 11.3 ❌ Geen Permission Check
+
+```python
+# FOUT - geen permission check
+@frappe.whitelist()
+def get_salary(employee):
+    return frappe.db.get_value("Salary Slip", {"employee": employee}, "gross_pay")
+
+# CORRECT - met permission check
+@frappe.whitelist()
+def get_salary(employee):
+    if not frappe.has_permission("Salary Slip", "read"):
+        frappe.throw(_("Not permitted"), frappe.PermissionError)
+    return frappe.db.get_value("Salary Slip", {"employee": employee}, "gross_pay")
+```
+
+### 11.4 ❌ Credentials Hardcoded
 
 ```python
 # FOUT
-headers = {"Authorization": "token abc123:xyz789"}
+API_KEY = "abc123"
+API_SECRET = "secret456"
+
+# CORRECT - gebruik site_config of env vars
+api_key = frappe.conf.get("external_api_key")
+api_secret = frappe.conf.get("external_api_secret")
 ```
 
-### 12.2 ❌ Geen Error Handling
+### 11.5 ❌ Geen Rate Limiting op Heavy Endpoints
 
-```javascript
-// FOUT
-fetch('/api/resource/Customer').then(r => r.json()).then(console.log)
-```
+```python
+# FOUT - heavy operation zonder rate limiting
+@frappe.whitelist(allow_guest=True)
+def generate_report():
+    # Expensive operation
+    return heavy_computation()
 
-### 12.3 ❌ Alle Velden Ophalen
-
-```bash
-# FOUT - haalt alle velden op
-GET /api/resource/Sales Order
-
-# GOED - alleen noodzakelijke velden
-GET /api/resource/Sales Order?fields=["name","status","grand_total"]
-```
-
-### 12.4 ❌ GET voor Data Wijzigingen
-
-```bash
-# FOUT - wijzigt data met GET
-GET /api/method/myapp.api.update_status?status=Done
-
-# GOED
-POST /api/method/myapp.api.update_status
-{"status": "Done"}
-```
-
-### 12.5 ❌ Geen Paginatie
-
-```bash
-# FOUT - kan duizenden records retourneren
-GET /api/resource/Sales Order?limit_page_length=0
-
-# GOED
-GET /api/resource/Sales Order?limit_page_length=100&limit_start=0
+# CORRECT - met rate limiting (Server Script)
+# Of in hooks.py rate_limit configuratie
 ```
 
 ---
 
-## 13. Samenvatting
+## 12. Versie Verschillen (v14 vs v15)
 
-| Aspect | Aanbeveling |
-|--------|-------------|
-| **Auth** | Token voor servers, OAuth voor apps |
-| **CRUD** | `/api/resource/` endpoints |
-| **RPC** | `/api/method/` + @frappe.whitelist() |
-| **Events** | Webhooks met secret verification |
-| **Files** | `/api/method/upload_file` |
-| **Errors** | Check status codes + _server_messages |
+### 12.1 Query Parameters
+
+| Feature | v14 | v15 |
+|---------|-----|-----|
+| `expand` parameter | Niet beschikbaar | ✅ Ondersteund |
+| `expand_links` | Niet beschikbaar | ✅ Ondersteund |
+| `limit` alias | Niet beschikbaar | ✅ Alias voor `limit_page_length` |
+
+### 12.2 Server Script API Rate Limiting
+
+| Feature | v14 | v15 |
+|---------|-----|-----|
+| IP-based rate limiting | Niet beschikbaar | ✅ Per Server Script |
+| Enable Rate Limit checkbox | Niet beschikbaar | ✅ Beschikbaar |
+
+### 12.3 OAuth2
+
+| Feature | v14 | v15 |
+|---------|-----|-----|
+| PKCE Support | Beperkt | ✅ Volledige ondersteuning |
+| code_challenge | Optioneel | ✅ Aanbevolen |
 
 ---
 
-## Referenties
+## 13. Volledige Voorbeelden
 
-1. https://docs.frappe.io/framework/user/en/api/rest
-2. https://docs.frappe.io/framework/user/en/guides/integration/rest_api
-3. https://docs.frappe.io/framework/user/en/guides/integration/webhooks
-4. https://docs.frappe.io/framework/user/en/guides/integration/rest_api/oauth-2
-5. https://github.com/frappe/frappe/tree/develop/frappe/integrations
+### 13.1 Complete Integration Class
+
+```python
+# my_app/integration.py
+import frappe
+import requests
+import json
+from typing import Optional, Dict, Any, List
+
+class ERPNextClient:
+    """Client voor ERPNext API integratie."""
+    
+    def __init__(self, base_url: str, api_key: str, api_secret: str):
+        self.base_url = base_url.rstrip('/')
+        self.headers = {
+            'Authorization': f'token {api_key}:{api_secret}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    
+    def _request(self, method: str, endpoint: str, **kwargs) -> Dict[str, Any]:
+        """Make API request with error handling."""
+        url = f"{self.base_url}{endpoint}"
+        response = requests.request(method, url, headers=self.headers, **kwargs)
+        
+        if response.status_code == 429:
+            raise Exception("Rate limit exceeded")
+        
+        response.raise_for_status()
+        return response.json()
+    
+    def get_list(
+        self,
+        doctype: str,
+        fields: Optional[List[str]] = None,
+        filters: Optional[list] = None,
+        limit: int = 20,
+        offset: int = 0
+    ) -> list:
+        """Get list of documents."""
+        params = {
+            'limit_page_length': limit,
+            'limit_start': offset
+        }
+        if fields:
+            params['fields'] = json.dumps(fields)
+        if filters:
+            params['filters'] = json.dumps(filters)
+        
+        result = self._request('GET', f'/api/resource/{doctype}', params=params)
+        return result.get('data', [])
+    
+    def get_doc(self, doctype: str, name: str) -> dict:
+        """Get single document."""
+        result = self._request('GET', f'/api/resource/{doctype}/{name}')
+        return result.get('data', {})
+    
+    def create_doc(self, doctype: str, data: dict) -> dict:
+        """Create new document."""
+        result = self._request('POST', f'/api/resource/{doctype}', json=data)
+        return result.get('data', {})
+    
+    def update_doc(self, doctype: str, name: str, data: dict) -> dict:
+        """Update existing document."""
+        result = self._request('PUT', f'/api/resource/{doctype}/{name}', json=data)
+        return result.get('data', {})
+    
+    def delete_doc(self, doctype: str, name: str) -> bool:
+        """Delete document."""
+        self._request('DELETE', f'/api/resource/{doctype}/{name}')
+        return True
+    
+    def call_method(self, method: str, **kwargs) -> Any:
+        """Call whitelisted method."""
+        result = self._request('POST', f'/api/method/{method}', json=kwargs)
+        return result.get('message')
+
+
+# Gebruik
+client = ERPNextClient(
+    base_url='https://erp.example.com',
+    api_key=frappe.conf.get('external_api_key'),
+    api_secret=frappe.conf.get('external_api_secret')
+)
+
+# List customers
+customers = client.get_list('Customer', fields=['name', 'customer_name'], limit=50)
+
+# Create order
+order = client.create_doc('Sales Order', {
+    'customer': 'CUST-00001',
+    'items': [{'item_code': 'ITEM-001', 'qty': 5}]
+})
+```
+
+### 13.2 Webhook Handler (Flask)
+
+```python
+from flask import Flask, request, jsonify
+import hmac
+import hashlib
+import base64
+
+app = Flask(__name__)
+WEBHOOK_SECRET = 'your_secret_here'
+
+def verify_signature(payload: bytes, signature: str) -> bool:
+    """Verify Frappe webhook signature."""
+    expected = base64.b64encode(
+        hmac.new(WEBHOOK_SECRET.encode(), payload, hashlib.sha256).digest()
+    ).decode()
+    return hmac.compare_digest(expected, signature)
+
+@app.route('/webhook/sales-order', methods=['POST'])
+def handle_sales_order_webhook():
+    # Verify signature
+    signature = request.headers.get('X-Frappe-Webhook-Signature')
+    if signature and not verify_signature(request.data, signature):
+        return jsonify({'error': 'Invalid signature'}), 401
+    
+    data = request.json
+    doctype = data.get('doctype')
+    docname = data.get('name')
+    doc_data = data.get('data', {})
+    
+    # Process webhook
+    print(f"Received {doctype}: {docname}")
+    print(f"Status: {doc_data.get('status')}")
+    
+    # Queue async processing for long operations
+    # process_order_async.delay(docname)
+    
+    return jsonify({'status': 'received'}), 200
+
+if __name__ == '__main__':
+    app.run(port=5000)
+```
 
 ---
 
-*Document aangemaakt: 2026-01-17*  
-*Regelcount: ~550 regels*
+## 14. Bronnen
+
+- [REST API Documentation](https://docs.frappe.io/framework/user/en/api/rest)
+- [Token Based Authentication](https://docs.frappe.io/framework/user/en/guides/integration/rest_api/token_based_authentication)
+- [OAuth 2](https://docs.frappe.io/framework/user/en/guides/integration/rest_api/oauth-2)
+- [Webhooks](https://docs.frappe.io/framework/user/en/guides/integration/webhooks)
+- [Rate Limiting](https://docs.frappe.io/framework/user/en/rate-limiting)
+- [Server Calls (AJAX)](https://docs.frappe.io/framework/user/en/api/server-calls)
+
+---
+
+**Regelcount**: ~680 regels
+**Status**: Research compleet, klaar voor skill creatie

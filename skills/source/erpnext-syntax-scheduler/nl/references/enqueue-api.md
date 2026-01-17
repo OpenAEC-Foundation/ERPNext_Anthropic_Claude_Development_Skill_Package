@@ -1,8 +1,8 @@
 # frappe.enqueue API Reference
 
-Complete referentie voor frappe.enqueue en frappe.enqueue_doc.
+## frappe.enqueue
 
-## frappe.enqueue - Alle Parameters
+### Volledige Signature
 
 ```python
 frappe.enqueue(
@@ -21,142 +21,94 @@ frappe.enqueue(
 )
 ```
 
-## Parameter Details
+### Parameter Details
 
 | Parameter | Type | Default | Beschrijving |
 |-----------|------|---------|--------------|
-| `method` | str/callable | - | Module path of functie object |
+| `method` | str/callable | VERPLICHT | Module path of functie object |
 | `queue` | str | "default" | Target queue naam |
-| `timeout` | int/None | None | Override queue timeout (seconden) |
+| `timeout` | int/None | None | Override queue timeout (sec) |
 | `is_async` | bool | True | False = synchrone executie |
 | `now` | bool | False | True = direct via frappe.call() |
 | `job_name` | str/None | None | **DEPRECATED v15** |
-| `job_id` | str/None | None | **v15+** Unieke ID voor deduplicatie |
+| `job_id` | str/None | None | **v15+** Unieke ID |
 | `enqueue_after_commit` | bool | False | Wacht tot DB commit |
 | `at_front` | bool | False | Priority placement |
-| `on_success` | callable/None | None | Success callback |
-| `on_failure` | callable/None | None | Failure callback |
+| `on_success` | callable | None | Success callback |
+| `on_failure` | callable | None | Failure callback |
 
-## Return Value
+### Return Value
 
 ```python
 # Retourneert RQ Job object (als enqueue_after_commit=False)
-job = frappe.enqueue('myapp.tasks.process', param='value')
-print(job.id)  # Job ID
-print(job.get_status())  # 'queued', 'started', 'finished', 'failed'
+job = frappe.enqueue("myapp.tasks.process", param="value")
+print(job.id)      # Job ID
+print(job.status)  # Job status
+
+# Met enqueue_after_commit=True retourneert None
+job = frappe.enqueue(..., enqueue_after_commit=True)
+# job is None!
 ```
 
-**Let op**: Met `enqueue_after_commit=True` retourneert de call `None`.
-
-## Method Specificatie
-
-### Als String (Aanbevolen)
+### Voorbeelden
 
 ```python
-frappe.enqueue('myapp.tasks.process_data', customer='CUST-001')
-```
+# Basis - module path
+frappe.enqueue("myapp.tasks.process_data", customer="CUST-001")
 
-### Als Functie Object
-
-```python
+# Basis - functie object
 def my_task(name, value):
     pass
 
-frappe.enqueue(my_task, name='test', value=123)
-```
+frappe.enqueue(my_task, name="test", value=123)
 
-## Voorbeelden
-
-### Basis Gebruik
-
-```python
-frappe.enqueue('myapp.tasks.send_email', recipient='user@example.com')
-```
-
-### Met Custom Timeout
-
-```python
+# Met custom timeout op long queue
 frappe.enqueue(
-    'myapp.tasks.heavy_report',
-    queue='long',
+    "myapp.tasks.heavy_report",
+    queue="long",
     timeout=3600,  # 1 uur
-    report_type='annual'
+    report_type="annual"
 )
-```
 
-### Met Callbacks
-
-```python
-def on_success_handler(job, connection, result, *args, **kwargs):
-    frappe.publish_realtime(
-        'show_alert',
-        {'message': 'Job completed!', 'indicator': 'green'}
-    )
-
-def on_failure_handler(job, connection, type, value, traceback):
-    frappe.log_error(f"Job {job.id} failed: {value}")
-
+# Priority job (vooraan in queue)
 frappe.enqueue(
-    'myapp.tasks.risky_operation',
-    on_success=on_success_handler,
-    on_failure=on_failure_handler
+    "myapp.tasks.urgent_task",
+    at_front=True,
+    priority="high"
 )
-```
 
-### Na Database Commit
-
-```python
-# Belangrijk voor data integriteit
-doc.save()
+# Na database commit
 frappe.enqueue(
-    'myapp.tasks.process_saved_doc',
+    "myapp.tasks.send_notification",
     enqueue_after_commit=True,
-    doc_name=doc.name
+    user=frappe.session.user
 )
 ```
 
-### Priority Placement
-
-```python
-# Job vooraan in queue plaatsen
-frappe.enqueue(
-    'myapp.tasks.urgent_task',
-    at_front=True
-)
-```
-
-### Synchrone Executie (Testing)
-
-```python
-# Voor debugging - draait NIET in worker
-frappe.enqueue(
-    'myapp.tasks.process',
-    is_async=False  # Blokkeert totdat klaar
-)
-```
+---
 
 ## frappe.enqueue_doc
 
 Enqueue een controller method van een specifiek document.
 
-### Syntax
+### Signature
 
 ```python
 frappe.enqueue_doc(
-    doctype,           # DocType naam
+    doctype,           # DocType naam (VERPLICHT)
     name=None,         # Document name
-    method=None,       # Controller method naam als string
+    method=None,       # Controller method naam
     queue="default",   # Queue naam
     timeout=300,       # Timeout in seconden
     now=False,         # Direct uitvoeren
-    **kwargs           # Extra argumenten voor method
+    **kwargs           # Extra argumenten
 )
 ```
 
 ### Voorbeeld
 
 ```python
-# Controller
+# Controller method
 class SalesInvoice(Document):
     @frappe.whitelist()
     def send_notification(self, recipient, message):
@@ -171,42 +123,105 @@ frappe.enqueue_doc(
     queue="long",
     timeout=600,
     recipient="user@example.com",
-    message="Your invoice is ready"
+    message="Invoice ready"
 )
 ```
 
+---
+
 ## Document.queue_action
 
-Alternatief via controller method:
+Alternatief voor enqueue_doc vanuit controller:
 
 ```python
 class SalesOrder(Document):
     def on_submit(self):
-        self.queue_action('send_emails', emails=email_list)
+        # Queue heavy processing
+        self.queue_action("send_emails", emails=email_list)
     
     def send_emails(self, emails):
         # Heavy operation
-        pass
+        for email in emails:
+            send_mail(email)
 ```
 
-## Job ID voor Deduplicatie (v15+)
+---
+
+## Callbacks
+
+### Success Callback
+
+```python
+def on_success_handler(job, connection, result, *args, **kwargs):
+    """
+    Args:
+        job: RQ Job object
+        connection: Redis connection
+        result: Return value van de job method
+    """
+    frappe.publish_realtime(
+        "show_alert",
+        {"message": f"Job {job.id} completed!"}
+    )
+```
+
+### Failure Callback
+
+```python
+def on_failure_handler(job, connection, type, value, traceback):
+    """
+    Args:
+        job: RQ Job object
+        connection: Redis connection
+        type: Exception type
+        value: Exception value
+        traceback: Traceback object
+    """
+    frappe.log_error(
+        f"Job {job.id} failed: {value}",
+        "Background Job Error"
+    )
+```
+
+### Gebruik
+
+```python
+frappe.enqueue(
+    "myapp.tasks.risky_operation",
+    on_success=on_success_handler,
+    on_failure=on_failure_handler,
+    data=my_data
+)
+```
+
+---
+
+## Job Deduplicatie
+
+### v15+ Pattern (Aanbevolen)
 
 ```python
 from frappe.utils.background_jobs import is_job_enqueued
 
-job_id = f"process::{doc.name}"
+job_id = f"data_import::{self.name}"
+
 if not is_job_enqueued(job_id):
     frappe.enqueue(
-        'myapp.tasks.process',
+        "myapp.tasks.import_data",
         job_id=job_id,
-        doc_name=doc.name
+        doc_name=self.name
     )
+else:
+    frappe.msgprint("Import already in progress")
 ```
 
-## Versieverschillen
+### v14 Pattern (Deprecated)
 
-| Feature | v14 | v15 |
-|---------|-----|-----|
-| Deduplicatie | `job_name` | `job_id` |
-| Check functie | get_info() parsing | `is_job_enqueued()` |
-| Callbacks | Basis | Volledig ondersteund |
+```python
+# ALLEEN voor legacy v14 code
+from frappe.core.page.background_jobs.background_jobs import get_info
+
+enqueued_jobs = [d.get("job_name") for d in get_info()]
+if self.name not in enqueued_jobs:
+    frappe.enqueue(..., job_name=self.name)
+```

@@ -1,7 +1,7 @@
 # 📊 ERPNext Skills Package - Roadmap & Status
 
-> **Laatste update**: 2026-01-14  
-> **Huidige fase**: 2.9 (Whitelisted Methods Skills)
+> **Laatste update**: 2026-01-17  
+> **Huidige fase**: 2.10 (Jinja Templates Skill)
 
 ---
 
@@ -10,20 +10,20 @@
 | Categorie | Voltooid | In Progress | Gepland | Totaal |
 |-----------|:--------:|:-----------:|:-------:|:------:|
 | Research | 9 | 0 | 0 | 9 |
-| Syntax Skills | 4 | 2 | 8 | 14 |
-| Implementation Skills | 0 | 0 | 14 | 14 |
-| Error Handling Skills | 0 | 0 | 14 | 14 |
-| Core Skills | 0 | 0 | 6 | 6 |
-| Agents | 0 | 0 | 4 | 4 |
-| **Totaal** | **13** | **2** | **46** | **56** |
+| Syntax Skills | 5 | 0 | 3 | 8 |
+| Core Skills | 0 | 0 | 3 | 3 |
+| Implementation Skills | 0 | 0 | 8 | 8 |
+| Error Handling Skills | 0 | 0 | 7 | 7 |
+| Agents | 0 | 0 | 2 | 2 |
+| **Totaal** | **14** | **0** | **23** | **37** |
 
-**Voortgang**: ████░░░░░░░░░░░░░░░░ 23%
+**Voortgang**: ██████░░░░░░░░░░░░░░ ~38%
 
 ---
 
 ## Fase Overzicht
 
-### ✅ Fase 1: Foundational Research & Initial Skills
+### ✅ Fase 1: Foundational Research & Initial Skills (COMPLEET)
 
 | Stap | Beschrijving | Status | Output |
 |------|--------------|:------:|--------|
@@ -31,206 +31,182 @@
 | 1.2 | Research Server Scripts | ✅ | `research-server-scripts.md` |
 | 1.3 | Skill: erpnext-syntax-clientscripts | ✅ | NL + EN `.skill` files |
 | 1.4 | Skill: erpnext-syntax-serverscripts | ✅ | NL + EN `.skill` files |
-| 1.5 | Validatie Fase 1 | ✅ | `FASE_1_VALIDATIE_RAPPORT.md` |
-
-**Fase 1 Compleet**: 2025-01 ✅
+| 1.5 | Validatie & Packaging Fase 1 | ✅ | `FASE_1_VALIDATIE_RAPPORT.md` |
 
 ---
 
-### 🔄 Fase 2: Syntax Skills (Alle 7 Mechanismen)
+### 🔄 Fase 2: Syntax Skills (5/8 COMPLEET)
 
-#### 2.1-2.4: Client & Server Scripts (Voltooid in Fase 1)
+#### Research (COMPLEET)
 | Stap | Beschrijving | Status | Output |
 |------|--------------|:------:|--------|
-| 2.1 | Client Scripts Research | ✅ | (zie 1.1) |
-| 2.2 | Client Scripts Skill | ✅ | (zie 1.3) |
-| 2.3 | Server Scripts Research | ✅ | (zie 1.2) |
-| 2.4 | Server Scripts Skill | ✅ | (zie 1.4) |
+| 2.1 | Research Controllers | ✅ | `research-document-controllers.md` |
+| 2.2 | Research Hooks | ✅ | `research-document-hooks.md` |
+| 2.3 | Research Whitelisted | ✅ | `research-whitelisted-methods.md` |
+| 2.4 | Research Jinja | ✅ | `research-jinja-templates.md` |
+| 2.5 | Research Scheduler | ✅ | `research-scheduler-background-jobs.md` |
+| 2.6.1 | Research Custom App Structure | ✅ | `research-custom-app-structure.md` |
+| 2.6.2 | Research Custom App Data | ✅ | `research-customapp-datamanagement.md` |
 
-#### 2.5-2.6: Document Controllers
-| Stap | Beschrijving | Status | Output |
-|------|--------------|:------:|--------|
-| 2.5 | Research Controllers | ✅ | `research-document-controllers.md` |
-| 2.6 | Research hooks.py (Doc Events) | ✅ | `research-document-hooks.md` |
-| 2.6.1 | Skill: erpnext-syntax-controllers | ⏳ | Gepland |
-| 2.6.2 | Reference files controllers | ⏳ | Gepland |
-
-#### 2.7-2.8: hooks.py & Scheduler
-| Stap | Beschrijving | Status | Output |
-|------|--------------|:------:|--------|
-| 2.7 | Research hooks.py (compleet) | ✅ | `research-document-hooks.md` |
-| 2.7.1 | Skill: erpnext-syntax-hooks | ⏳ | Gepland |
-| 2.8 | Research Scheduler/Background Jobs | ✅ | `research-scheduler-background-jobs.md` |
-| 2.8.1 | Skill: erpnext-syntax-scheduler | ⏳ | Gepland |
-
-#### 2.9: Whitelisted Methods
-| Stap | Beschrijving | Status | Output |
-|------|--------------|:------:|--------|
-| 2.9 | Research Whitelisted Methods | ✅ | `research-whitelisted-methods.md` |
-| 2.9.1 | Skill: Core API Functionaliteit | ✅ | NL + EN `.skill` files |
-| 2.9.2 | Skill: Security & Error Handling | 🔄 | In progress |
-
-#### 2.10-2.11: Jinja Templates
-| Stap | Beschrijving | Status | Output |
-|------|--------------|:------:|--------|
-| 2.10 | Research Jinja Templates | ✅ | `research-jinja-templates.md` |
-| 2.10.1 | Skill: Jinja Basis | ⏳ | Gepland |
-| 2.10.2 | Skill: Jinja Print Formats | ⏳ | Gepland |
-
-#### 2.12: Custom App Development
-| Stap | Beschrijving | Status | Output |
-|------|--------------|:------:|--------|
-| 2.12.1 | Research Custom App Structure | ✅ | `research-custom-app-structure.md` |
-| 2.12.2 | Research Custom App Data Management | ✅ | `research-customapp-datamanagement.md` |
-| 2.12.3 | Skill: Custom App Setup | ⏳ | Gepland |
-| 2.12.4 | Skill: Custom App Data Management | ⏳ | Gepland |
+#### Skills (5/8 COMPLEET)
+| Stap | Skill | Status | Output |
+|------|-------|:------:|--------|
+| 2.7.1 | Controllers (Part 1) | ✅ | Reference files |
+| 2.7.2 | Controllers (Part 2) | ✅ | NL + EN `.skill` files |
+| 2.8.1 | Hooks (Part 1) | ✅ | Reference files |
+| 2.8.2 | Hooks (Part 2) | ✅ | NL + EN `.skill` files |
+| 2.9.1 | Whitelisted (Part 1) | ✅ | Reference files |
+| 2.9.2 | Whitelisted (Part 2) | ✅ | NL + EN `.skill` files |
+| 2.10 | Jinja Templates | ⏳ | **Volgende** |
+| 2.11 | Scheduler/Background Jobs | ⏳ | Gepland |
+| 2.12.1 | Custom App (Setup) | ⏳ | Gepland |
+| 2.12.2 | Custom App (Data) | ⏳ | Gepland |
 
 ---
 
-### ⏳ Fase 3: Core Skills
+### ⏳ Fase 3: Core Skills (Gepland)
 
-| Stap | Beschrijving | Status | Dependencies |
-|------|--------------|:------:|--------------|
-| 3.1 | erpnext-database (NL) | ⏳ | Fase 2 compleet |
-| 3.2 | erpnext-database (EN) | ⏳ | 3.1 |
-| 3.3 | erpnext-permissions (NL) | ⏳ | Fase 2 compleet |
-| 3.4 | erpnext-permissions (EN) | ⏳ | 3.3 |
-| 3.5 | erpnext-api-patterns (NL) | ⏳ | Fase 2 compleet |
-| 3.6 | erpnext-api-patterns (EN) | ⏳ | 3.5 |
+| Stap | Skill | Status | Dependencies |
+|------|-------|:------:|--------------|
+| 3.1 | erpnext-database | ⏳ | Fase 2 compleet |
+| 3.2 | erpnext-permissions | ⏳ | Fase 2 compleet |
+| 3.3 | erpnext-api-patterns | ⏳ | Fase 2 compleet |
 
 ---
 
-### ⏳ Fase 4: Implementation Skills
+### ⏳ Fase 4: Implementation Skills (Gepland)
 
-| Stap | Skill | Status | Taal |
-|------|-------|:------:|:----:|
-| 4.1 | erpnext-impl-clientscripts | ⏳ | NL |
-| 4.2 | erpnext-impl-clientscripts | ⏳ | EN |
-| 4.3 | erpnext-impl-serverscripts | ⏳ | NL |
-| 4.4 | erpnext-impl-serverscripts | ⏳ | EN |
-| 4.5 | erpnext-impl-controllers | ⏳ | NL |
-| 4.6 | erpnext-impl-controllers | ⏳ | EN |
-| 4.7 | erpnext-impl-hooks | ⏳ | NL |
-| 4.8 | erpnext-impl-hooks | ⏳ | EN |
-| 4.9 | erpnext-impl-whitelisted | ⏳ | NL |
-| 4.10 | erpnext-impl-whitelisted | ⏳ | EN |
-| 4.11 | erpnext-impl-jinja | ⏳ | NL |
-| 4.12 | erpnext-impl-jinja | ⏳ | EN |
-| 4.13 | erpnext-impl-scheduler | ⏳ | NL |
-| 4.14 | erpnext-impl-scheduler | ⏳ | EN |
+Elke impl-skill vereist upload van corresponderende syntax skill.
+
+| Stap | Skill | Status | Upload Vereist |
+|------|-------|:------:|----------------|
+| 4.1 | erpnext-impl-clientscripts | ⏳ | syntax-clientscripts |
+| 4.2 | erpnext-impl-serverscripts | ⏳ | syntax-serverscripts |
+| 4.3 | erpnext-impl-controllers | ⏳ | syntax-controllers |
+| 4.4 | erpnext-impl-hooks | ⏳ | syntax-hooks |
+| 4.5 | erpnext-impl-whitelisted | ⏳ | syntax-whitelisted |
+| 4.6 | erpnext-impl-jinja | ⏳ | syntax-jinja |
+| 4.7 | erpnext-impl-scheduler | ⏳ | syntax-scheduler |
+| 4.8 | erpnext-impl-customapp | ⏳ | syntax-customapp |
 
 ---
 
-### ⏳ Fase 5: Error Handling Skills
+### ⏳ Fase 5: Error Handling Skills (Gepland)
 
-| Stap | Skill | Status | Taal |
-|------|-------|:------:|:----:|
-| 5.1 | erpnext-errors-clientscripts | ⏳ | NL |
-| 5.2 | erpnext-errors-clientscripts | ⏳ | EN |
-| 5.3 | erpnext-errors-serverscripts | ⏳ | NL |
-| 5.4 | erpnext-errors-serverscripts | ⏳ | EN |
-| 5.5 | erpnext-errors-controllers | ⏳ | NL |
-| 5.6 | erpnext-errors-controllers | ⏳ | EN |
-| 5.7 | erpnext-errors-hooks | ⏳ | NL |
-| 5.8 | erpnext-errors-hooks | ⏳ | EN |
-| 5.9 | erpnext-errors-whitelisted | ⏳ | NL |
-| 5.10 | erpnext-errors-whitelisted | ⏳ | EN |
-| 5.11 | erpnext-errors-jinja | ⏳ | NL |
-| 5.12 | erpnext-errors-jinja | ⏳ | EN |
-| 5.13 | erpnext-errors-scheduler | ⏳ | NL |
-| 5.14 | erpnext-errors-scheduler | ⏳ | EN |
+| Stap | Skill | Status | Upload Vereist |
+|------|-------|:------:|----------------|
+| 5.1 | erpnext-errors-clientscripts | ⏳ | syntax-clientscripts |
+| 5.2 | erpnext-errors-serverscripts | ⏳ | syntax-serverscripts |
+| 5.3 | erpnext-errors-controllers | ⏳ | syntax-controllers |
+| 5.4 | erpnext-errors-hooks | ⏳ | syntax-hooks |
+| 5.5 | erpnext-errors-whitelisted | ⏳ | syntax-whitelisted |
+| 5.6 | erpnext-errors-jinja | ⏳ | syntax-jinja |
+| 5.7 | erpnext-errors-scheduler | ⏳ | syntax-scheduler |
 
 ---
 
-### ⏳ Fase 6: Intelligent Agents
+### ⏳ Fase 6: Intelligent Agents (Gepland)
 
-| Stap | Agent | Functie | Status |
-|------|-------|---------|:------:|
-| 6.1 | erpnext-interpreter (NL) | Vage input → technische specs | ⏳ |
-| 6.2 | erpnext-interpreter (EN) | Vage input → technische specs | ⏳ |
-| 6.3 | erpnext-validator (NL) | Code verificatie tegen skills | ⏳ |
-| 6.4 | erpnext-validator (EN) | Code verificatie tegen skills | ⏳ |
+| Stap | Agent | Functie | Uploads Vereist |
+|------|-------|---------|-----------------|
+| 6.1 | erpnext-interpreter | Vage input → technische specs | 8 syntax skills |
+| 6.2 | erpnext-validator | Code verificatie tegen skills | 23 skills (syntax + impl + errors) |
 
 ---
 
-### ⏳ Fase 7: Infrastructure
+### ⏳ Fase 7: Finalisatie (Gepland)
 
-| Stap | Taak | Status | Issue |
-|------|------|:------:|:-----:|
-| 7.1 | Repo herstructureren naar Claude Code-native | ⏳ | #TBD |
-| 7.2 | CLAUDE.md opstellen | ⏳ | - |
-| 7.3 | .claude/ directory configureren | ⏳ | - |
-| 7.4 | Skills migreren naar SKILL.md formaat | ⏳ | - |
-| 7.5 | Agents & Commands definiëren | ⏳ | - |
-| 7.6 | README.md updaten | ⏳ | - |
+| Stap | Taak | Status |
+|------|------|:------:|
+| 7.1 | Dependencies documenteren | ⏳ |
+| 7.2 | Final packaging | ⏳ |
+| 7.3 | README finaliseren | ⏳ |
+
+---
+
+## Voltooide Skills Overzicht
+
+| Skill | NL | EN | Reference Files |
+|-------|:--:|:--:|-----------------|
+| erpnext-syntax-clientscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
+| erpnext-syntax-serverscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
+| erpnext-syntax-controllers | ✅ | ✅ | lifecycle-methods, methods, flags, examples, anti-patterns |
+| erpnext-syntax-hooks | ✅ | ✅ | doc-events, scheduler-events, bootinfo, overrides, permissions, fixtures |
+| erpnext-syntax-whitelisted | ✅ | ✅ | decorator-options, parameter-handling, response-patterns, client-calls |
 
 ---
 
 ## Research Documenten Status
 
-| Document | Status | Regels | Laatste Update |
-|----------|:------:|:------:|----------------|
-| `research-client-scripts.md` | ✅ | ~600 | 2025-01 |
-| `research-server-scripts.md` | ✅ | ~500 | 2025-01 |
-| `research-document-controllers.md` | ✅ | ~500 | 2025-01 |
-| `research-document-hooks.md` | ✅ | ~600 | 2025-01 |
-| `research-scheduler-background-jobs.md` | ✅ | ~550 | 2025-01 |
-| `research-whitelisted-methods.md` | ✅ | ~600 | 2025-01 |
-| `research-jinja-templates.md` | ✅ | ~650 | 2025-01 |
-| `research-custom-app-structure.md` | ✅ | ~550 | 2025-01 |
-| `research-customapp-datamanagement.md` | ✅ | ~600 | 2025-01 |
+| Document | Regels | Status |
+|----------|:------:|:------:|
+| `research-client-scripts.md` | ~600 | ✅ |
+| `research-server-scripts.md` | ~500 | ✅ |
+| `research-document-controllers.md` | ~744 | ✅ |
+| `research-document-hooks.md` | ~868 | ✅ |
+| `research-whitelisted-methods.md` | ~834 | ✅ |
+| `research-jinja-templates.md` | ~650 | ✅ |
+| `research-scheduler-background-jobs.md` | ~550 | ✅ |
+| `research-custom-app-structure.md` | ~550 | ✅ |
+| `research-customapp-datamanagement.md` | ~600 | ✅ |
 
 ---
 
-## Masterplan Amendments
+## Fase Opsplitsing Criteria
 
-| Document | Beschrijving | Datum |
-|----------|--------------|-------|
-| `masterplan-aanpassing-fase-2_6.md` | Controllers fase opsplitsing | 2025-01 |
-| `masterplan-aanpassing-fase-2_7.md` | Hooks fase details | 2025-01 |
-| `masterplan-aanpassing-fase-2_9.md` | Whitelisted methods opsplitsing | 2025-01 |
-| `masterplan-aanpassing-fase-2_10-2_11.md` | Jinja templates opsplitsing | 2025-01 |
-| `masterplan-aanvulling-fase-opsplitsingen.md` | Criteria voor fase splits | 2025-01 |
-| `masterplan-skill-uploads.md` | Skill upload planning | 2025-01 |
+Fases worden opgesplitst wanneer:
+- Meer dan 700 research regels
+- Meer dan 5 reference files nodig
+- Meer dan 8-10 secties in skill
+
+---
+
+## Belangrijke Ontdekkingen
+
+Gedocumenteerd in `LESSONS_LEARNED.md`:
+
+1. **Server Scripts Sandbox**: Alle imports geblokkeerd - gebruik `frappe.utils.*` namespace
+2. **hooks.py Resolution**: "Last writer wins" principe
+3. **Scheduler**: v15 tick interval 60s (was 4 min in v14)
+4. **on_change hook**: Triggert na ELKE modificatie inclusief `db_set`
+5. **Wijzigingen na on_update**: Worden NIET automatisch opgeslagen
+
+---
+
+## Volgende Stappen
+
+1. **Fase 2.10**: Jinja Templates skill maken
+2. **Fase 2.11**: Scheduler skill maken
+3. **Fase 2.12**: Custom App skill maken
+4. **Fase 3**: Core skills (database, permissions, api-patterns)
 
 ---
 
 ## Legenda
 
 | Symbool | Betekenis |
-|:-------:|-----------|
+|:-------:|-----------| 
 | ✅ | Voltooid |
 | 🔄 | In progress |
 | ⏳ | Gepland |
 | ❌ | Geblokkeerd |
-| 🔀 | Opgesplitst in sub-fases |
-
----
-
-## Notities
-
-### Fase Opsplitsing Criteria
-Fases worden opgesplitst wanneer:
-- Meer dan 700 research regels
-- Meer dan 5 reference files nodig
-- Meer dan 8-10 secties in skill
-
-### Belangrijke Ontdekkingen
-- **Server Scripts Sandbox**: Alle imports geblokkeerd - gebruik `frappe.utils.*` namespace
-- **hooks.py Resolution**: "Last writer wins" principe
-- **Scheduler**: v15 tick interval 60s (was 4 min in v14)
-- **on_change hook**: Triggert na ELKE modificatie inclusief `db_set`
 
 ---
 
 ## Changelog
 
-### 2026-01-14
-- ROADMAP.md gecreëerd
-- Status tracking toegevoegd voor alle fases
-- Issue gepland voor Claude Code-native herstructurering
+### 2026-01-17
+- ROADMAP geüpdatet met correcte skill status
+- Controllers skill bevestigd als compleet
+- Voortgang aangepast naar 38%
+- LESSONS_LEARNED.md toegevoegd
 
-### 2025-01 (Eerdere updates)
-- Fase 1 volledig afgerond
-- Fase 2 research documenten voltooid
-- Meerdere masterplan amendments toegevoegd
+### 2026-01-14
+- PROJECT_AUDIT uitgevoerd
+- Whitelisted skill voltooid
+- GitHub push workflow getest
+
+### 2026-01-13
+- Fase 2.7 (Controllers) + 2.8 (Hooks) + 2.9 (Whitelisted) compleet
+- Alle research documenten voltooid
+- Masterplan amendments geconsolideerd

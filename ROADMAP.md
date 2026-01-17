@@ -1,7 +1,7 @@
 # 📊 ERPNext Skills Package - Roadmap & Status
 
 > **Laatste update**: 2026-01-17  
-> **Huidige fase**: Fase 4 - Implementation Skills (gepland)
+> **Huidige fase**: Fase 4 - Implementation Skills (in progress)
 
 ---
 
@@ -12,94 +12,56 @@
 | Research | 13 | 0 | 0 | 13 |
 | Syntax Skills | 8 | 0 | 0 | 8 |
 | Core Skills | 3 | 0 | 0 | 3 |
-| Implementation Skills | 0 | 0 | 8 | 8 |
+| Implementation Skills | 1 | 0 | 7 | 8 |
 | Error Handling Skills | 0 | 0 | 7 | 7 |
 | Agents | 0 | 0 | 2 | 2 |
-| **Totaal** | **24** | **0** | **17** | **41** |
+| **Totaal** | **25** | **0** | **16** | **41** |
 
-**Voortgang**: ███████████████░░░░░ ~58%
+**Voortgang**: ████████████████░░░░ ~61%
 
 ---
 
 ## Fase Overzicht
 
 ### ✅ Fase 1: Foundational Research & Initial Skills (COMPLEET)
-
-| Stap | Beschrijving | Status | Output |
-|------|--------------|:------:|--------|
-| 1.1 | Research Client Scripts | ✅ | `research-client-scripts.md` |
-| 1.2 | Research Server Scripts | ✅ | `research-server-scripts.md` |
-| 1.3 | Skill: erpnext-syntax-clientscripts | ✅ | NL + EN `.skill` files |
-| 1.4 | Skill: erpnext-syntax-serverscripts | ✅ | NL + EN `.skill` files |
-| 1.5 | Validatie & Packaging Fase 1 | ✅ | `FASE_1_VALIDATIE_RAPPORT.md` |
-
----
+*Alle stappen voltooid - zie vorige ROADMAP versies voor details*
 
 ### ✅ Fase 2: Syntax Skills (COMPLEET - 8/8)
-
-#### Research (COMPLEET)
-| Stap | Beschrijving | Status | Output |
-|------|--------------|:------:|--------|
-| 2.1 | Research Controllers | ✅ | `research-document-controllers.md` |
-| 2.2 | Research Hooks | ✅ | `research-document-hooks.md` |
-| 2.3 | Research Whitelisted | ✅ | `research-whitelisted-methods.md` |
-| 2.4 | Research Jinja | ✅ | `research-jinja-templates.md` |
-| 2.5 | Research Scheduler | ✅ | `research-scheduler-background-jobs.md` |
-| 2.6.1 | Research Custom App Structure | ✅ | `research-custom-app-structure.md` |
-| 2.6.2 | Research Custom App Data | ✅ | `research-customapp-datamanagement.md` |
-
-#### Skills (COMPLEET - 8/8)
-| Stap | Skill | Status | Output | Packaged |
-|------|-------|:------:|--------|:--------:|
-| 2.7 | Controllers | ✅ | NL + EN + refs | ✅ |
-| 2.8 | Hooks | ✅ | NL + EN + refs | ✅ |
-| 2.9 | Whitelisted | ✅ | NL + EN + refs | ✅ |
-| 2.10 | Jinja Templates | ✅ | NL + EN + 5 refs | ✅ |
-| 2.11 | Scheduler/Background Jobs | ✅ | NL + EN + 5 refs | ✅ |
-| 2.12 | Custom App | ✅ | NL + EN + 7 refs | ✅ |
-| - | Client Scripts | ✅ | NL + EN + refs | ✅ |
-| - | Server Scripts | ✅ | NL + EN + refs | ✅ |
-
----
+*Alle stappen voltooid - zie vorige ROADMAP versies voor details*
 
 ### ✅ Fase 3: Core Skills (COMPLEET - 3/3)
-
-| Stap | Skill | Status | Output | Packaged |
-|------|-------|:------:|--------|:--------:|
-| 3.1 | erpnext-database | ✅ | NL/EN + 5 refs | ✅ |
-| 3.2 | erpnext-permissions | ✅ | NL/EN + 5 refs | ✅ |
-| 3.3 | erpnext-api-patterns | ✅ | NL/EN + 9 refs | ✅ |
+*Alle stappen voltooid - zie vorige ROADMAP versies voor details*
 
 ---
 
-### ⏳ Fase 4: Implementation Skills (Gepland)
+### 🔄 Fase 4: Implementation Skills (In Progress - 1/8)
 
 Elke impl-skill vereist upload van corresponderende syntax skill.
 
-| Stap | Skill | Status | Upload Vereist |
-|------|-------|:------:|----------------|
-| 4.1 | erpnext-impl-clientscripts | ⏳ | syntax-clientscripts |
-| 4.2 | erpnext-impl-serverscripts | ⏳ | syntax-serverscripts |
-| 4.3 | erpnext-impl-controllers | ⏳ | syntax-controllers |
-| 4.4 | erpnext-impl-hooks | ⏳ | syntax-hooks |
-| 4.5 | erpnext-impl-whitelisted | ⏳ | syntax-whitelisted |
-| 4.6 | erpnext-impl-jinja | ⏳ | syntax-jinja |
-| 4.7 | erpnext-impl-scheduler | ⏳ | syntax-scheduler |
-| 4.8 | erpnext-impl-customapp | ⏳ | syntax-customapp |
+| Stap | Skill | Status | Output |
+|------|-------|:------:|--------|
+| 4.1 | erpnext-impl-clientscripts | ✅ | NL + EN + 3 refs |
+| 4.2 | erpnext-impl-serverscripts | ⏳ | - |
+| 4.3 | erpnext-impl-controllers | ⏳ | - |
+| 4.4 | erpnext-impl-hooks | ⏳ | - |
+| 4.5 | erpnext-impl-whitelisted | ⏳ | - |
+| 4.6 | erpnext-impl-jinja | ⏳ | - |
+| 4.7 | erpnext-impl-scheduler | ⏳ | - |
+| 4.8 | erpnext-impl-customapp | ⏳ | - |
 
 ---
 
 ### ⏳ Fase 5: Error Handling Skills (Gepland)
 
-| Stap | Skill | Status | Upload Vereist |
-|------|-------|:------:|----------------|
-| 5.1 | erpnext-errors-clientscripts | ⏳ | syntax-clientscripts |
-| 5.2 | erpnext-errors-serverscripts | ⏳ | syntax-serverscripts |
-| 5.3 | erpnext-errors-controllers | ⏳ | syntax-controllers |
-| 5.4 | erpnext-errors-hooks | ⏳ | syntax-hooks |
-| 5.5 | erpnext-errors-whitelisted | ⏳ | syntax-whitelisted |
-| 5.6 | erpnext-errors-jinja | ⏳ | syntax-jinja |
-| 5.7 | erpnext-errors-scheduler | ⏳ | syntax-scheduler |
+| Stap | Skill | Status |
+|------|-------|:------:|
+| 5.1 | erpnext-errors-clientscripts | ⏳ |
+| 5.2 | erpnext-errors-serverscripts | ⏳ |
+| 5.3 | erpnext-errors-controllers | ⏳ |
+| 5.4 | erpnext-errors-hooks | ⏳ |
+| 5.5 | erpnext-errors-whitelisted | ⏳ |
+| 5.6 | erpnext-errors-jinja | ⏳ |
+| 5.7 | erpnext-errors-scheduler | ⏳ |
 
 ---
 
@@ -108,7 +70,7 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 | Stap | Agent | Functie | Uploads Vereist |
 |------|-------|---------|-----------------| 
 | 6.1 | erpnext-interpreter | Vage input → technische specs | 8 syntax skills |
-| 6.2 | erpnext-validator | Code verificatie tegen skills | 23 skills (syntax + impl + errors) |
+| 6.2 | erpnext-validator | Code verificatie tegen skills | 23 skills |
 
 ---
 
@@ -124,84 +86,20 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 
 ## Voltooide Skills Overzicht
 
-| Skill | NL | EN | Reference Files | Packaged |
-|-------|:--:|:--:|-----------------|:--------:|
-| erpnext-syntax-clientscripts | ✅ | ✅ | events, methods, examples, anti-patterns | ✅ |
-| erpnext-syntax-serverscripts | ✅ | ✅ | events, methods, examples, anti-patterns | ✅ |
-| erpnext-syntax-controllers | ✅ | ✅ | lifecycle-methods, methods, flags, examples, anti-patterns | ✅ |
-| erpnext-syntax-hooks | ✅ | ✅ | doc-events, scheduler-events, bootinfo, overrides, permissions, fixtures | ✅ |
-| erpnext-syntax-whitelisted | ✅ | ✅ | decorator-options, parameter-handling, response-patterns, client-calls | ✅ |
-| erpnext-syntax-jinja | ✅ | ✅ | context-objects, methods-reference, filters-reference, examples, anti-patterns | ✅ |
-| erpnext-syntax-scheduler | ✅ | ✅ | scheduler-events, enqueue-api, queues, examples, anti-patterns | ✅ |
-| erpnext-syntax-customapp | ✅ | ✅ | structure, pyproject-toml, modules, patches, fixtures, examples, anti-patterns | ✅ |
-| erpnext-database | ✅ | ✅ | methods-reference, query-patterns, caching-patterns, examples, anti-patterns | ✅ |
-| erpnext-permissions | ✅ | ✅ | permission-types, permission-api, permission-hooks, examples, anti-patterns | ✅ |
-| erpnext-api-patterns | ✅ | ✅ | authentication (2), resource-api, method-api, rest-api, rpc-api, webhooks, examples, anti-patterns | ✅ |
-
----
-
-## Packaged .skill Files
-
-### Locatie: `skills/packaged/`
-| File | Size |
-|------|------|
-| erpnext-api-patterns-EN.skill | ~15KB |
-| erpnext-api-patterns-NL.skill | ~15KB |
-| erpnext-database-EN.skill | ~12KB |
-| erpnext-database-NL.skill | ~12KB |
-| erpnext-permissions-EN.skill | ~14KB |
-| erpnext-permissions-NL.skill | ~14KB |
-| erpnext-syntax-customapp-EN.skill | ~18KB |
-| erpnext-syntax-customapp-NL.skill | ~18KB |
-| erpnext-syntax-jinja-EN.skill | ~14KB |
-| erpnext-syntax-jinja-NL.skill | ~14KB |
-| erpnext-syntax-scheduler-en.skill | ~14KB |
-| erpnext-syntax-scheduler-nl.skill | ~14KB |
-
-### Locatie: `skills/syntax/`
-| File | Size |
-|------|------|
-| erpnext-syntax-clientscripts-EN.skill | ~13KB |
-| erpnext-syntax-clientscripts-NL.skill | ~14KB |
-| erpnext-syntax-controllers-EN.skill | ~25KB |
-| erpnext-syntax-controllers-NL.skill | ~25KB |
-| erpnext-syntax-hooks-EN.skill | ~26KB |
-| erpnext-syntax-hooks-NL.skill | ~26KB |
-| erpnext-syntax-serverscripts-EN.skill | ~18KB |
-| erpnext-syntax-serverscripts-NL.skill | ~18KB |
-| erpnext-syntax-whitelisted-EN.skill | ~27KB |
-| erpnext-syntax-whitelisted-NL.skill | ~29KB |
-
-**TOTAAL: 22 .skill files (11 skills × 2 talen)**
-
----
-
-## Research Documenten Status
-
-| Document | Regels | Status |
-|----------|:------:|:------:|
-| `research-client-scripts.md` | ~600 | ✅ |
-| `research-server-scripts.md` | ~500 | ✅ |
-| `research-document-controllers.md` | ~744 | ✅ |
-| `research-document-hooks.md` | ~868 | ✅ |
-| `research-whitelisted-methods.md` | ~834 | ✅ |
-| `research-jinja-templates.md` | ~650 | ✅ |
-| `research-scheduler-background-jobs.md` | ~550 | ✅ |
-| `research-custom-app-structure.md` | ~550 | ✅ |
-| `research-customapp-datamanagement.md` | ~600 | ✅ |
-| `research-database.md` | ~680 | ✅ |
-| `research-database-api.md` | ~550 | ✅ |
-| `research-permissions.md` | ~710 | ✅ |
-| `research-api-patterns.md` | ~1634 | ✅ |
-
----
-
-## Fase Opsplitsing Criteria
-
-Fases worden opgesplitst wanneer:
-- Meer dan 700 research regels
-- Meer dan 5 reference files nodig
-- Meer dan 8-10 secties in skill
+| Skill | NL | EN | Reference Files |
+|-------|:--:|:--:|-----------------|
+| erpnext-syntax-clientscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
+| erpnext-syntax-serverscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
+| erpnext-syntax-controllers | ✅ | ✅ | lifecycle, methods, flags, examples, anti-patterns |
+| erpnext-syntax-hooks | ✅ | ✅ | doc-events, scheduler, bootinfo, overrides, permissions, fixtures |
+| erpnext-syntax-whitelisted | ✅ | ✅ | decorator, parameters, responses, client-calls |
+| erpnext-syntax-jinja | ✅ | ✅ | context, methods, filters, examples, anti-patterns |
+| erpnext-syntax-scheduler | ✅ | ✅ | scheduler, enqueue, queues, examples, anti-patterns |
+| erpnext-syntax-customapp | ✅ | ✅ | structure, pyproject, modules, patches, fixtures, examples, anti-patterns |
+| erpnext-database | ✅ | ✅ | methods, queries, caching, examples, anti-patterns |
+| erpnext-permissions | ✅ | ✅ | types, api, hooks, examples, anti-patterns |
+| erpnext-api-patterns | ✅ | ✅ | authentication, resource, method, rest, rpc, webhooks, examples, anti-patterns |
+| **erpnext-impl-clientscripts** | ✅ | ✅ | **decision-tree, workflows, examples** |
 
 ---
 
@@ -224,8 +122,8 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 
 ## Volgende Stappen
 
-1. **Fase 4.1**: erpnext-impl-clientscripts (vereist upload syntax-clientscripts)
-2. **Fase 4.2**: erpnext-impl-serverscripts (vereist upload syntax-serverscripts)
+1. **Fase 4.2**: erpnext-impl-serverscripts (vereist upload syntax-serverscripts)
+2. **Fase 4.3-4.8**: Remaining implementation skills
 
 ---
 
@@ -242,61 +140,33 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 
 ## Changelog
 
+### 2026-01-17 (sessie 9)
+- **Fase 4.1 COMPLEET**: erpnext-impl-clientscripts skill
+- NL + EN versies met 3 reference files elk:
+  - decision-tree.md (event selection guide)
+  - workflows.md (7 implementation patterns)
+  - examples.md (10 complete examples)
+- **START FASE 4**: Implementation Skills
+- Voortgang: 58% → 61%
+
 ### 2026-01-17 (sessie 8)
-- **AUDIT & FIX**: Alle missende .skill packages gecreëerd
-- Toegevoegd aan `skills/packaged/`:
-  - erpnext-syntax-jinja-NL.skill + EN
-  - erpnext-syntax-customapp-NL.skill + EN
-  - erpnext-database-NL.skill + EN
-  - erpnext-permissions-NL.skill + EN
-  - erpnext-api-patterns-NL.skill + EN
-- **ALLE 11 SKILLS NU VOLLEDIG PACKAGED** (22 .skill files)
-- ROADMAP bijgewerkt met Packaged Files overzicht
-- Research documenten telling gecorrigeerd (13 totaal)
+- AUDIT & FIX: Alle missende .skill packages gecreëerd
+- ALLE 11 SKILLS NU VOLLEDIG PACKAGED (22 .skill files)
 
 ### 2026-01-17 (sessie 7)
-- Fase 3.3: Reference files vervolledigd (5 nieuwe files per taal)
-- Alle authenticatie, REST, RPC, webhook en anti-pattern docs compleet
+- Fase 3.3: Reference files vervolledigd
 - **FASE 3 DEFINITIEF COMPLEET**
-- Klaar voor Fase 4: Implementation Skills
 
 ### 2026-01-17 (sessie 6)
 - Fase 3.3 voltooid: erpnext-api-patterns skill
-- Research document: `research-api-patterns.md` (~1634 regels)
-- NL + EN versies met 9 reference files elk
-- **FASE 3 COMPLEET** - Alle 3 core skills voltooid
-- **Voortgang aangepast naar 58%**
+- **FASE 3 COMPLEET**
 
 ### 2026-01-17 (sessie 5)
-- Fase 3.1 voltooid: erpnext-database skill
-- Fase 3.2 voltooid: erpnext-permissions skill
-- Research documents compleet
-- NL + EN versies met 5 reference files elk
+- Fase 3.1 + 3.2 voltooid
 
 ### 2026-01-17 (sessie 4)
-- Fase 2.12 voltooid: erpnext-syntax-customapp skill
-- NL + EN versies met 7 reference files elk
 - **FASE 2 COMPLEET** - Alle 8 syntax skills voltooid
 
-### 2026-01-17 (sessie 3)
-- Fase 2.11 voltooid: erpnext-syntax-scheduler skill
-- NL + EN versies met 5 reference files elk
+---
 
-### 2026-01-17 (sessie 2)
-- Fase 2.10 voltooid: erpnext-syntax-jinja skill
-- NL + EN versies met 5 reference files elk
-
-### 2026-01-17 (sessie 1)
-- ROADMAP geüpdatet met correcte skill status
-- Controllers skill bevestigd als compleet
-- LESSONS_LEARNED.md toegevoegd
-
-### 2026-01-14
-- PROJECT_AUDIT uitgevoerd
-- Whitelisted skill voltooid
-- GitHub push workflow getest
-
-### 2026-01-13
-- Fase 2.7 (Controllers) + 2.8 (Hooks) + 2.9 (Whitelisted) compleet
-- Alle research documenten voltooid
-- Masterplan amendments geconsolideerd
+*Document gegenereerd als onderdeel van ERPNext Skills Package*

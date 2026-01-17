@@ -1438,3 +1438,96 @@ Voordat je begint met een skill package project:
 ---
 
 *Toegevoegd na Anthropic Tooling Analyse - 17 januari 2026, Sessie 10*
+
+
+---
+
+## 14. Engels-Only Skills: De Strategische Beslissing
+
+> **Besloten tijdens**: Mid-Project Review, Sessie 10
+> **Impact**: Projectomvang gehalveerd (56 → 28 skills)
+
+### 14.1 De Analyse
+
+We onderzochten Anthropic's eigen skill library:
+
+| Anthropic Skill | Taal | Meertalig? |
+|-----------------|------|:----------:|
+| docx | Engels | ❌ |
+| pdf | Engels | ❌ |
+| pptx | Engels | ❌ |
+| xlsx | Engels | ❌ |
+| frontend-design | Engels | ❌ |
+| skill-creator | Engels | ❌ |
+
+**Bevinding**: Anthropic maakt GEEN meertalige skills. Hun documentatie zegt niets over internationalisatie.
+
+### 14.2 Waarom Engels-Only Beter Is
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ SKILL INSTRUCTIES ZIJN VOOR CLAUDE, NIET VOOR GEBRUIKERS           │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Claude kan:                                                         │
+│ ✅ Engelse skill-instructies lezen                                 │
+│ ✅ Nederlandse/Duitse/Franse vragen begrijpen                      │
+│ ✅ In elke taal antwoorden                                         │
+│ ✅ Code met comments in elke taal genereren                        │
+│                                                                     │
+│ Conclusie: De taal van SKILL.md beïnvloedt de output NIET.         │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 14.3 Voordelen van Engels-Only
+
+| Aspect | Tweetalig (oud) | Engels-only (nieuw) |
+|--------|:---------------:|:-------------------:|
+| Skill folders | 56 | **28** |
+| Onderhoud bij updates | 2× werk | **1× werk** |
+| Consistentie | Risico op drift | **Gegarandeerd** |
+| Conformiteit Anthropic | Afwijkend | **100%** |
+| Reference file duplicatie | Ja | **Nee** |
+
+### 14.4 De Les
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Volg de impliciete best practices van het platform          │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Als het platform (Anthropic) iets NIET doet in hun eigen skills,   │
+│ is dat waarschijnlijk een bewuste keuze. Vraag jezelf af:          │
+│                                                                     │
+│ "Waarom doet Anthropic dit niet in hun eigen implementatie?"       │
+│                                                                     │
+│ Mogelijke antwoorden:                                               │
+│ • Het is niet nodig (zoals meertalige skills)                      │
+│ • Het werkt niet goed                                               │
+│ • Het voegt geen waarde toe                                         │
+│                                                                     │
+│ Volg het platform tenzij je een ZEER goede reden hebt om af te     │
+│ wijken én bereid bent het extra werk te doen.                      │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 14.5 Impact op Project
+
+| Metric | Voor | Na | Besparing |
+|--------|:----:|:--:|:---------:|
+| Totaal skill folders | 56 | 28 | 50% |
+| Nog te maken folders | 31 | 15 | 52% |
+| Reference files | ~168 | ~84 | 50% |
+| Geschatte tijd resterend | ~16 uur | ~8 uur | 50% |
+
+### 14.6 Wat Te Doen Met Bestaande NL Skills
+
+**Besluit**: Nederlandse versies worden NIET gemigreerd, alleen Engelse versies.
+
+De NL content was niet verspild - het hielp bij het ontwikkelen en valideren van de skill structuur. Maar voor de finale versie behouden we alleen Engels.
+
+---
+
+*Toegevoegd na strategische beslissing - 17 januari 2026, Sessie 10*

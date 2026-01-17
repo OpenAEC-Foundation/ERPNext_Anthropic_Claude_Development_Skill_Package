@@ -2,7 +2,7 @@
 
 > **Datum**: 17 januari 2026  
 > **Project**: ERPNext Skills Package  
-> **Versie**: 2 - Bijgewerkt na Anthropic tooling analyse
+> **Versie**: 2 - Gecorrigeerd na Anthropic tooling analyse
 
 ---
 
@@ -22,143 +22,137 @@
 
 ### 1.2 Kritieke Ontdekking: Tooling Incompatibiliteit
 
-**Tijdens deze review ontdekten we dat onze skill structuur NIET compatibel is met Anthropic's officiële tooling.**
+**Tijdens de mid-project review ontdekten we dat onze directory structuur NIET compatibel is met de officiële Anthropic tooling.**
 
-**Het probleem:**
+**Onze structuur:**
 ```
-# Onze structuur (FOUT):
 skill-name/
 ├── NL/
-│   └── SKILL.md     ← package_skill.py vindt dit NIET
+│   └── SKILL.md    ← In subfolder
 └── EN/
     └── SKILL.md
-
-# Anthropic verwacht:
-skill-name/
-└── SKILL.md         ← DIRECT in skill folder root
 ```
 
-**Impact:**
-- `quick_validate.py` faalt
-- `package_skill.py` faalt  
-- Handmatige workarounds nodig voor packaging
-- Niet toekomstbestendig
+**Anthropic's package_skill.py verwacht:**
+```python
+skill_md = skill_path / "SKILL.md"
+if not skill_md.exists():
+    return None  # SKILL.md moet DIRECT in root staan
+```
+
+**Impact**: Onze skills kunnen niet gepackaged worden met de officiële tooling.
 
 ### 1.3 Wat Gaat Goed ✅
 
-1. **Content kwaliteit is hoog** - Research grondig, skills deterministisch
-2. **Frontmatter correct** - name + description conform spec
-3. **Progressive disclosure** - SKILL.md lean, details in references/
-4. **GitHub workflow werkt** - Alles wordt gepusht
+1. **Research-first aanpak** - Alle 13 research documenten van hoge kwaliteit
+2. **Skill inhoud** - SKILL.md bestanden volgen Anthropic frontmatter conventies
+3. **Tweetalige content** - NL en EN versies consistent
+4. **GitHub integratie** - Alles wordt gepusht
 
 ### 1.4 Wat Moet Veranderen ❌
 
-1. **Directory structuur** - Van NL/EN subfolders naar aparte skills
-2. **Skill naming** - Taal suffix in naam (`-nl`, `-en`)
-3. **Package strategie** - Conform officiële tooling
+1. **Directory structuur** - Moet conform Anthropic tooling
+2. **Skill folders** - Aparte folder per taal (niet NL/EN subfolders)
+3. **README.md verwijderen** - Niet toegestaan in skill folders
 
 ---
 
-## Deel 2: Nieuwe Directory Structuur (Anthropic Conform)
+## Deel 2: Gecorrigeerde Directory Structuur
 
-### 2.1 Officiële Anthropic Skill Structuur
+### 2.1 Anthropic-Conforme Structuur
 
-```
-skill-name/
-├── SKILL.md              ← VERPLICHT in root
-├── references/           ← On-demand documentatie
-│   ├── methods.md
-│   ├── examples.md
-│   └── anti-patterns.md
-├── scripts/              ← Optioneel: uitvoerbare code
-└── assets/               ← Optioneel: templates, images
-```
-
-**Validatie regels (uit quick_validate.py):**
-- SKILL.md MOET in root staan
-- Name: kebab-case, max 64 chars
-- Description: max 1024 chars, geen < of >
-- Frontmatter: alleen name, description, license, metadata, compatibility, allowed-tools
-
-### 2.2 Nieuwe Structuur voor Meertalige Skills
-
-**Elke taalversie is een APARTE skill:**
+**NIEUWE CONVENTIE** - Elke taalversie is een aparte skill:
 
 ```
 ERPNext_Anthropic_Claude_Development_Skill_Package/
 │
+├── README.md                    # Project overview (NIET in skill folders)
+├── ROADMAP.md                   # Single source of truth voor status
+├── LESSONS_LEARNED.md           # Geleerde lessen
+├── WAY_OF_WORK.md              # Methodologie
+│
 ├── docs/
 │   ├── masterplan/
+│   │   ├── erpnext-skills-masterplan-v2.md
+│   │   ├── erpnext-vooronderzoek.md
 │   │   └── amendments/
 │   └── research/
+│       └── research-*.md
 │
 └── skills/
-    ├── syntax/
-    │   ├── erpnext-syntax-clientscripts-nl/
-    │   │   ├── SKILL.md
-    │   │   └── references/
-    │   │       ├── methods.md
-    │   │       ├── events.md
-    │   │       ├── examples.md
-    │   │       └── anti-patterns.md
+    │
+    ├── source/                  # Bronbestanden (Anthropic-conform)
     │   │
-    │   ├── erpnext-syntax-clientscripts-en/
-    │   │   ├── SKILL.md
-    │   │   └── references/
-    │   │       └── [zelfde structuur]
+    │   ├── syntax/
+    │   │   ├── erpnext-syntax-clientscripts-nl/
+    │   │   │   ├── SKILL.md              ← DIRECT in root
+    │   │   │   └── references/
+    │   │   │
+    │   │   ├── erpnext-syntax-clientscripts-en/
+    │   │   │   ├── SKILL.md
+    │   │   │   └── references/
+    │   │   │
+    │   │   └── ... (16 folders: 8 skills × 2 talen)
     │   │
-    │   ├── erpnext-syntax-serverscripts-nl/
-    │   ├── erpnext-syntax-serverscripts-en/
-    │   └── ... (16 syntax skill folders totaal)
+    │   ├── core/
+    │   │   └── ... (6 folders: 3 skills × 2 talen)
+    │   │
+    │   ├── impl/
+    │   │   └── ... (16 folders: 8 skills × 2 talen)
+    │   │
+    │   ├── errors/
+    │   │   └── ... (14 folders: 7 skills × 2 talen)
+    │   │
+    │   └── agents/
+    │       └── ... (4 folders: 2 agents × 2 talen)
     │
-    ├── core/
-    │   ├── erpnext-database-nl/
-    │   ├── erpnext-database-en/
-    │   ├── erpnext-permissions-nl/
-    │   ├── erpnext-permissions-en/
-    │   ├── erpnext-api-patterns-nl/
-    │   └── erpnext-api-patterns-en/
-    │
-    ├── impl/
-    │   ├── erpnext-impl-clientscripts-nl/
-    │   ├── erpnext-impl-clientscripts-en/
-    │   └── ... (16 impl skill folders totaal)
-    │
-    ├── errors/
-    │   └── ... (14 error skill folders totaal)
-    │
-    ├── agents/
-    │   ├── erpnext-interpreter-nl/
-    │   ├── erpnext-interpreter-en/
-    │   ├── erpnext-validator-nl/
-    │   └── erpnext-validator-en/
-    │
-    └── packaged/
-        ├── erpnext-syntax-clientscripts-nl.skill
-        ├── erpnext-syntax-clientscripts-en.skill
-        └── ... (56 .skill packages totaal)
+    └── packaged/                # Gedistribueerde .skill files
+        └── ... (56 .skill files totaal)
 ```
 
-### 2.3 Naming Conventions
+### 2.2 Naming Conventions
 
-| Element | Convention | Voorbeeld |
-|---------|------------|-----------|
-| Skill folder | `{prefix}-{type}-{topic}-{lang}` | `erpnext-syntax-clientscripts-nl` |
-| Package file | `{folder-name}.skill` | `erpnext-syntax-clientscripts-nl.skill` |
-| Reference files | `{descriptive-name}.md` | `methods.md`, `examples.md` |
+| Aspect | Conventie | Voorbeeld |
+|--------|-----------|-----------|
+| Skill folder | `{prefix}-{type}-{name}-{taal}` | `erpnext-syntax-clientscripts-nl` |
+| Taal suffix | lowercase: `nl`, `en` | Niet `NL` of `EN` |
+| SKILL.md | Altijd in folder root | `skill-name/SKILL.md` |
+| References | In `references/` subfolder | `skill-name/references/*.md` |
+| Package | Folder naam + `.skill` | `erpnext-syntax-clientscripts-nl.skill` |
 
-**Prefixes:**
-- `erpnext-syntax-*` - Syntax skills
-- `erpnext-impl-*` - Implementation skills
-- `erpnext-errors-*` - Error handling skills
-- `erpnext-*` - Core skills (geen type prefix)
-- `erpnext-interpreter-*`, `erpnext-validator-*` - Agents
+### 2.3 Validatie Regels (uit quick_validate.py)
 
-**Taal suffixes:**
-- `-nl` - Nederlandse versie
-- `-en` - Engelse versie
+| Veld | Vereiste | Maximum |
+|------|----------|:-------:|
+| `name` | kebab-case (a-z, 0-9, -) | 64 chars |
+| `description` | String, triggers bevatten | 1024 chars |
+| `compatibility` | Optional | 500 chars |
+| SKILL.md | DIRECT in skill folder | - |
 
-### 2.4 Folder Totalen
+### 2.4 Verboden Bestanden in Skill Folders
+
+- ❌ README.md
+- ❌ INSTALLATION_GUIDE.md
+- ❌ QUICK_REFERENCE.md
+- ❌ CHANGELOG.md
+
+---
+
+## Deel 3: Migratie Plan
+
+### 3.1 Migratie Stappen
+
+```
+STAP 1: Backup huidige staat
+STAP 2: Maak nieuwe directory structuur
+STAP 3: Migreer elke skill (NL → skill-nl/, EN → skill-en/)
+STAP 4: Valideer met quick_validate.py
+STAP 5: Package met package_skill.py
+STAP 6: Cleanup oude structuur
+STAP 7: Push naar GitHub
+```
+
+### 3.2 Skill Telling Na Migratie
 
 | Categorie | Skills | × Talen | Folders |
 |-----------|:------:|:-------:|:-------:|
@@ -171,250 +165,65 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 
 ---
 
-## Deel 3: Migratie Plan
-
-### 3.1 Overzicht Huidige vs Nieuwe Locaties
-
-**Syntax Skills:**
-| Huidig | Nieuw |
-|--------|-------|
-| `skills/source/erpnext-syntax-clientscripts/NL/` | `skills/syntax/erpnext-syntax-clientscripts-nl/` |
-| `skills/source/erpnext-syntax-clientscripts/EN/` | `skills/syntax/erpnext-syntax-clientscripts-en/` |
-
-**Core Skills:**
-| Huidig | Nieuw |
-|--------|-------|
-| `skills/NL/CORE/erpnext-database/` | `skills/core/erpnext-database-nl/` |
-| `skills/EN/CORE/erpnext-database/` | `skills/core/erpnext-database-en/` |
-
-### 3.2 Migratie Stappen
+## Deel 4: Geüpdatete Fase Prompt Template
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ MIGRATIE PROCEDURE                                                  │
+│ FASE [X.Y] PROMPT TEMPLATE (v2 - Anthropic Conform)                │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│ STAP 1: Nieuwe structuur aanmaken                                  │
-│ ─────────────────────────────────                                  │
-│ • Maak skills/syntax/, skills/core/, etc. folders                  │
-│ • Maak elke skill folder met -nl/-en suffix                        │
-│                                                                     │
-│ STAP 2: Content verplaatsen                                        │
-│ ─────────────────────────────                                      │
-│ • Verplaats SKILL.md naar nieuwe folder ROOT                       │
-│ • Verplaats references/ folder mee                                 │
-│ • Verifieer dat SKILL.md DIRECT in skill folder staat              │
-│                                                                     │
-│ STAP 3: Valideren                                                  │
-│ ────────────────                                                   │
-│ • Run quick_validate.py op ELKE skill folder                       │
-│ • Fix eventuele validation errors                                  │
-│                                                                     │
-│ STAP 4: Repackagen                                                 │
-│ ─────────────────                                                  │
-│ • Run package_skill.py op elke skill                               │
-│ • Verplaats .skill files naar skills/packaged/                     │
-│                                                                     │
-│ STAP 5: Opruimen                                                   │
-│ ───────────────                                                    │
-│ • Verwijder oude folder structuur                                  │
-│ • Verwijder README.md uit skills/ (niet toegestaan per Anthropic)  │
-│ • Update alle documentatie verwijzingen                            │
-│                                                                     │
-│ STAP 6: Pushen en verifiëren                                       │
-│ ──────────────────────────────                                     │
-│ • Push alle wijzigingen naar GitHub                                │
-│ • Verifieer structuur in GitHub web interface                      │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### 3.3 Geschatte Tijd
-
-| Stap | Geschatte tijd |
-|------|----------------|
-| Nieuwe structuur aanmaken | 10 min |
-| Content verplaatsen (25 skills × 2) | 45 min |
-| Valideren | 15 min |
-| Repackagen | 20 min |
-| Opruimen | 10 min |
-| Pushen en verifiëren | 15 min |
-| **TOTAAL** | **~2 uur** |
-
----
-
-## Deel 4: Checkpoints Systeem
-
-### 4.1 Verplichte Checkpoints
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ CHECKPOINT NA ELKE HOOFDFASE                                       │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│ 1. VALIDATIE (5 min)                                               │
-│    □ Run quick_validate.py op alle nieuwe skills                   │
-│    □ Alle skills MOETEN "Skill is valid!" returnen                 │
-│    □ NL én EN versies compleet?                                    │
-│                                                                     │
-│ 2. PACKAGING (5 min)                                               │
-│    □ Run package_skill.py op alle nieuwe skills                    │
-│    □ .skill files gegenereerd in skills/packaged/                  │
-│                                                                     │
-│ 3. GITHUB SYNC (5 min)                                             │
-│    □ Alle source folders gepusht                                   │
-│    □ Alle .skill packages gepusht                                  │
-│    □ ROADMAP.md bijgewerkt                                         │
-│                                                                     │
-│ 4. LESSONS LEARNED (5 min)                                         │
-│    □ Nieuwe inzichten → LESSONS_LEARNED.md                         │
-│    □ Problemen tegengekomen → documenteren                         │
-│                                                                     │
-│ 5. GO/NO-GO                                                        │
-│    □ Alle validaties geslaagd → Volgende fase                      │
-│    □ Issues gevonden → FIX voordat we doorgaan                     │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### 4.2 Checkpoint Momenten
-
-| Na Fase | Checkpoint Type |
-|---------|-----------------|
-| Migratie | **STRUCTUUR VALIDATIE** |
-| Fase 4 (alle impl) | Standaard |
-| Fase 5 (alle errors) | Standaard |
-| Fase 6 (agents) | Standaard |
-| Fase 7 (final) | **FINAL REVIEW** |
-
----
-
-## Deel 5: Geüpdatete Fase Prompts
-
-### 5.1 Fase Prompt Template (Nieuw)
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ FASE [X.Y] PROMPT TEMPLATE                                         │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
 │ STAP 0: CONTEXT OPHALEN (VERPLICHT)                                │
-│ ═══════════════════════════════════════════════════════════════════│
+│ • Haal ROADMAP.md op                                               │
+│ • Haal relevant research document op                               │
+│ • Bekijk skill-creator conventies                                  │
 │                                                                     │
-│ 1. Haal ROADMAP.md op → Check status                               │
-│ 2. Haal relevant research document op                              │
-│ 3. (Indien impl/error) Haal syntax skill op                        │
-│ 4. Bevestig vorige fase is COMPLEET en GEVALIDEERD                 │
+│ STAP 1: SKILL FOLDERS MAKEN                                        │
+│ • Maak [skill-name]-nl/ met SKILL.md in root                       │
+│ • Maak [skill-name]-en/ met SKILL.md in root                       │
 │                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 1: SKILL CREATIE                                              │
-│ ═══════════════════════════════════════════════════════════════════│
+│ STAP 2: VALIDEER MET OFFICIËLE TOOLING                             │
+│ • python quick_validate.py [skill-folder]                          │
 │                                                                     │
-│ Maak TWEE aparte skill folders:                                     │
+│ STAP 3: PACKAGE EN PUSH                                            │
+│ • python package_skill.py [skill-folder]                           │
+│ • Push source + package naar GitHub                                │
+│ • Update ROADMAP.md                                                 │
 │                                                                     │
-│ skills/[categorie]/[skill-name]-nl/                                │
-│ ├── SKILL.md          ← DIRECT in root!                            │
-│ └── references/                                                     │
-│                                                                     │
-│ skills/[categorie]/[skill-name]-en/                                │
-│ ├── SKILL.md          ← DIRECT in root!                            │
-│ └── references/                                                     │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 2: VALIDATIE (VERPLICHT)                                      │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Run voor BEIDE taalversies:                                         │
-│                                                                     │
-│ python quick_validate.py skills/[cat]/[skill]-nl                   │
-│ python quick_validate.py skills/[cat]/[skill]-en                   │
-│                                                                     │
-│ MOET "Skill is valid!" returnen. Zo niet → FIX EERST              │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 3: PACKAGING                                                  │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ python package_skill.py skills/[cat]/[skill]-nl skills/packaged/   │
-│ python package_skill.py skills/[cat]/[skill]-en skills/packaged/   │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 4: PUSH NAAR GITHUB                                           │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Push:                                                               │
-│ • skills/[categorie]/[skill]-nl/                                   │
-│ • skills/[categorie]/[skill]-en/                                   │
-│ • skills/packaged/[skill]-nl.skill                                 │
-│ • skills/packaged/[skill]-en.skill                                 │
-│ • ROADMAP.md (update status)                                        │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 5: BEVESTIGING                                                │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Rapporteer:                                                         │
-│ • Validatie resultaat (beide moeten "valid" zijn)                  │
-│ • GitHub locaties                                                   │
-│ • Volgende stap                                                     │
+│ STAP 4: CHECKPOINT                                                 │
+│ • Beide talen gevalideerd en gepackaged?                           │
+│ • Alles gepusht?                                                   │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## Deel 5: Beslispunten
+
+### Besluit 1: Migratie Timing
+
+**Optie A: Nu migreren (aanbevolen)**
+- Schone basis voor resterende 31 skills
+- Kost ~1-2 uur
+
+**Optie B: Aan het eind migreren**
+- Niet aanbevolen - meer risico
+
+### Besluit 2: Reference Files
+
+**Optie A: Volledige duplicatie (aanbevolen)**
+- 100% conform Anthropic
+- Elk skill is self-contained
 
 ---
 
 ## Deel 6: Actieplan
 
-### 6.1 Directe Acties
-
-| # | Actie | Status |
-|---|-------|:------:|
-| 1 | LESSONS_LEARNED.md updaten met tooling les | ✅ |
-| 2 | Amendment 5 updaten met correcte structuur | 🔄 (dit document) |
-| 3 | Besluit: Migratie nu of later? | ⏳ |
-
-### 6.2 Migratie Beslissing
-
-**Optie A: Nu migreren (AANBEVOLEN)**
-- Schone basis voor resterende 31 skills
-- Officiële tooling werkt
-- ~2 uur werk
-
-**Optie B: Aan het eind migreren**
-- Meer werk later (56 skills i.p.v. 25)
-- Twee systemen onderhouden
-- Risico op meer inconsistentie
-
-### 6.3 Na Migratie: Resterende Werk
-
-| Fase | Skills | Folders te maken |
-|------|:------:|:----------------:|
-| 4.2-4.8 | 7 impl | 14 |
-| 5 | 7 error | 14 |
-| 6 | 2 agent | 4 |
-| **TOTAAL** | **16** | **32** |
+1. ✅ LESSONS_LEARNED.md uitgebreid
+2. ✅ Amendment 5 v2 geschreven
+3. ⏳ Push Amendment 5 v2 naar GitHub
+4. ⏳ Besluit: Start migratie?
 
 ---
 
-## Deel 7: Conclusie
-
-### 7.1 Samenvatting Wijzigingen in Amendment 5 v2
-
-| Aspect | v1 | v2 |
-|--------|----|----|
-| Directory structuur | NL/EN subfolders | Aparte skill folders met -nl/-en suffix |
-| Validatie | Niet gespecificeerd | quick_validate.py verplicht |
-| Packaging | Handmatig | package_skill.py verplicht |
-| Totaal folders | 28 | 56 |
-
-### 7.2 Kernboodschap
-
-> **De officiële Anthropic tooling is de standaard.**
-> 
-> Onze skills MOETEN valideren met `quick_validate.py` en packagen met `package_skill.py`. Elke afwijking van de verwachte structuur creëert technische schuld.
-
----
-
-*Amendment 5 v2 - 17 januari 2026*
-*Bijgewerkt na Anthropic tooling analyse*
+*Dit document vervangt Amendment 5 v1.*

@@ -1,7 +1,7 @@
 # 📊 ERPNext Skills Package - Roadmap & Status
 
 > **Laatste update**: 2026-01-17  
-> **Huidige fase**: 2.12 (Custom App Skill)
+> **Huidige fase**: Fase 2 COMPLEET - Fase 3 volgende
 
 ---
 
@@ -10,14 +10,14 @@
 | Categorie | Voltooid | In Progress | Gepland | Totaal |
 |-----------|:--------:|:-----------:|:-------:|:------:|
 | Research | 9 | 0 | 0 | 9 |
-| Syntax Skills | 7 | 0 | 1 | 8 |
+| Syntax Skills | 8 | 0 | 0 | 8 |
 | Core Skills | 0 | 0 | 3 | 3 |
 | Implementation Skills | 0 | 0 | 8 | 8 |
 | Error Handling Skills | 0 | 0 | 7 | 7 |
 | Agents | 0 | 0 | 2 | 2 |
-| **Totaal** | **16** | **0** | **21** | **37** |
+| **Totaal** | **17** | **0** | **20** | **37** |
 
-**Voortgang**: █████████░░░░░░░░░░░ ~43%
+**Voortgang**: ██████████░░░░░░░░░░ ~46%
 
 ---
 
@@ -35,7 +35,7 @@
 
 ---
 
-### 🔄 Fase 2: Syntax Skills (7/8 COMPLEET)
+### ✅ Fase 2: Syntax Skills (COMPLEET - 8/8)
 
 #### Research (COMPLEET)
 | Stap | Beschrijving | Status | Output |
@@ -48,7 +48,7 @@
 | 2.6.1 | Research Custom App Structure | ✅ | `research-custom-app-structure.md` |
 | 2.6.2 | Research Custom App Data | ✅ | `research-customapp-datamanagement.md` |
 
-#### Skills (7/8 COMPLEET)
+#### Skills (COMPLEET - 8/8)
 | Stap | Skill | Status | Output |
 |------|-------|:------:|--------|
 | 2.7.1 | Controllers (Part 1) | ✅ | Reference files |
@@ -59,18 +59,18 @@
 | 2.9.2 | Whitelisted (Part 2) | ✅ | NL + EN `.skill` files |
 | 2.10 | Jinja Templates | ✅ | NL + EN skill + 5 reference files |
 | 2.11 | Scheduler/Background Jobs | ✅ | NL + EN skill + 5 reference files |
-| 2.12.1 | Custom App (Setup) | ⏳ | **Volgende** |
-| 2.12.2 | Custom App (Data) | ⏳ | Gepland |
+| 2.12.1 | Custom App (References) | ✅ | 7 reference files (NL + EN) |
+| 2.12.2 | Custom App (SKILL.md) | ✅ | NL + EN SKILL.md files |
 
 ---
 
-### ⏳ Fase 3: Core Skills (Gepland)
+### ⏳ Fase 3: Core Skills (Volgende)
 
 | Stap | Skill | Status | Dependencies |
-|------|-------|:------:|--------------|
-| 3.1 | erpnext-database | ⏳ | Fase 2 compleet |
-| 3.2 | erpnext-permissions | ⏳ | Fase 2 compleet |
-| 3.3 | erpnext-api-patterns | ⏳ | Fase 2 compleet |
+|------|-------|:------:|--------------| 
+| 3.1 | erpnext-database | ⏳ | Fase 2 compleet ✅ |
+| 3.2 | erpnext-permissions | ⏳ | Fase 2 compleet ✅ |
+| 3.3 | erpnext-api-patterns | ⏳ | Fase 2 compleet ✅ |
 
 ---
 
@@ -135,6 +135,7 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 | erpnext-syntax-whitelisted | ✅ | ✅ | decorator-options, parameter-handling, response-patterns, client-calls |
 | erpnext-syntax-jinja | ✅ | ✅ | context-objects, methods-reference, filters-reference, examples, anti-patterns |
 | erpnext-syntax-scheduler | ✅ | ✅ | scheduler-events, enqueue-api, queues, examples, anti-patterns |
+| erpnext-syntax-customapp | ✅ | ✅ | structure, pyproject-toml, modules, patches, fixtures, examples, anti-patterns |
 
 ---
 
@@ -173,14 +174,16 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 4. **on_change hook**: Triggert na ELKE modificatie inclusief `db_set`
 5. **Wijzigingen na on_update**: Worden NIET automatisch opgeslagen
 6. **Report Print Formats**: Gebruiken JavaScript templating, NIET Jinja
+7. **pyproject.toml**: Frappe gebruikt flit_core, `__version__` in `__init__.py` is VERPLICHT
+8. **Patches INI secties**: `[pre_model_sync]` voor oude velden, `[post_model_sync]` voor nieuwe
 
 ---
 
 ## Volgende Stappen
 
-1. **Fase 2.12**: Custom App skill maken (Setup + Data Management)
-2. **Fase 3**: Core skills (database, permissions, api-patterns)
-3. **Fase 4**: Implementation skills
+1. **Fase 3.1**: erpnext-database skill (database queries, ORM patterns)
+2. **Fase 3.2**: erpnext-permissions skill (DocType permissions, role-based access)
+3. **Fase 3.3**: erpnext-api-patterns skill (REST API, webhooks)
 
 ---
 
@@ -196,6 +199,12 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 ---
 
 ## Changelog
+
+### 2026-01-17 (sessie 4)
+- Fase 2.12 voltooid: erpnext-syntax-customapp skill
+- NL + EN versies met 7 reference files elk
+- **FASE 2 COMPLEET** - Alle 8 syntax skills voltooid
+- Voortgang aangepast naar 46%
 
 ### 2026-01-17 (sessie 3)
 - Fase 2.11 voltooid: erpnext-syntax-scheduler skill

@@ -11,13 +11,13 @@
 |-----------|:--------:|:-----------:|:-------:|:------:|
 | Research | 10 | 0 | 0 | 10 |
 | Syntax Skills | 8 | 0 | 0 | 8 |
-| Core Skills | 1 | 0 | 2 | 3 |
+| Core Skills | 2 | 0 | 1 | 3 |
 | Implementation Skills | 0 | 0 | 8 | 8 |
 | Error Handling Skills | 0 | 0 | 7 | 7 |
 | Agents | 0 | 0 | 2 | 2 |
-| **Totaal** | **19** | **0** | **19** | **38** |
+| **Totaal** | **20** | **0** | **18** | **38** |
 
-**Voortgang**: ████████████░░░░░░░░ ~50%
+**Voortgang**: █████████████░░░░░░░ ~53%
 
 ---
 
@@ -69,7 +69,7 @@
 | Stap | Skill | Status | Output |
 |------|-------|:------:|--------|
 | 3.1 | erpnext-database | ✅ | `research-database.md` + NL/EN skill + 5 reference files |
-| 3.2 | erpnext-permissions | ⏳ | - |
+| 3.2 | erpnext-permissions | ✅ | `research-permissions.md` + NL/EN skill + 5 reference files |
 | 3.3 | erpnext-api-patterns | ⏳ | - |
 
 ---
@@ -137,6 +137,7 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 | erpnext-syntax-scheduler | ✅ | ✅ | scheduler-events, enqueue-api, queues, examples, anti-patterns |
 | erpnext-syntax-customapp | ✅ | ✅ | structure, pyproject-toml, modules, patches, fixtures, examples, anti-patterns |
 | **erpnext-database** | ✅ | ✅ | methods-reference, query-patterns, caching-patterns, examples, anti-patterns |
+| erpnext-permissions | ✅ | ✅ | permission-types, permission-api, permission-hooks, examples, anti-patterns |
 
 ---
 
@@ -240,3 +241,9 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 - Fase 2.7 (Controllers) + 2.8 (Hooks) + 2.9 (Whitelisted) compleet
 - Alle research documenten voltooid
 - Masterplan amendments geconsolideerd
+
+### 2026-01-17 (sessie 6)
+- Fase 3.2 voltooid: erpnext-permissions skill
+- Research document: `research-permissions.md` (~710 regels)
+- NL + EN versies met 5 reference files elk
+- **Voortgang aangepast naar 53%**

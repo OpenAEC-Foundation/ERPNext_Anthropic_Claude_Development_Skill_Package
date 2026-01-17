@@ -711,3 +711,392 @@ Research document >700 regels?
 *Dit document is een levend document en wordt bijgewerkt naarmate het project vordert.*
 
 *Laatst bijgewerkt: 17 januari 2026 - Mid-Project Review toegevoegd (Sectie 8)*
+
+---
+
+## 8. Project Structuur Lessen (Mid-Project Review)
+
+> **Context**: Deze lessen komen uit een mid-project review na ~61% voltooiing. Ze zijn bijzonder waardevol omdat ze problemen identificeren die we TIJDENS het project ontdekten - en hoe je ze kunt voorkomen.
+
+### 8.1 Directory Structuur Vooraf Definiëren
+
+**Wat ging fout:**
+We begonnen met bouwen zonder een expliciete directory structuur in het masterplan. Dit resulteerde in organische groei:
+
+```
+# Wat we kregen (chaos):
+skills/
+├── packaged/          ← sommige .skill files
+├── syntax/            ← andere .skill files  
+├── source/            ← sommige bronbestanden
+├── NL/CORE/           ← core skills hier
+├── erpnext-syntax-jinja/     ← losse folder
+└── erpnext-permissions/      ← nog een losse folder
+
+# Wat we hadden moeten definiëren:
+skills/
+├── source/[categorie]/[skill]/[taal]/
+└── packaged/[categorie]/[skill]-[TAAL].skill
+```
+
+**Les voor de toekomst:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Definieer EXACTE directory structuur in masterplan          │
+│        VOORDAT je begint met bouwen.                                │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Specificeer voor ELKE deliverable:                                  │
+│ • Exact pad waar het bestand moet komen                            │
+│ • Naming convention (lowercase, hyphens, taal suffix)              │
+│ • Relatie tussen source files en packages                          │
+│                                                                     │
+│ Voorbeeld in masterplan:                                            │
+│                                                                     │
+│ "Syntax skill 'clientscripts' wordt opgeslagen als:                │
+│  - Source: skills/source/syntax/erpnext-syntax-clientscripts/NL/   │
+│  - Package: skills/packaged/syntax/erpnext-syntax-clientscripts-NL.skill" │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 8.2 Tussentijdse Evaluatie Checkpoints Inplannen
+
+**Wat ging fout:**
+Het masterplan had geen formele evaluatiemomenten. We gingen "gewoon door" van fase naar fase zonder te stoppen om te reflecteren. Problemen stapelden zich op.
+
+**Les voor de toekomst:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Plan VERPLICHTE checkpoints na elke hoofdfase               │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Checkpoint template (5-10 minuten):                                │
+│                                                                     │
+│ 1. VERIFICATIE                                                     │
+│    □ Alle deliverables aanwezig?                                   │
+│    □ Alles gepusht naar version control?                           │
+│    □ Status tracking bijgewerkt?                                   │
+│                                                                     │
+│ 2. KWALITEITSCHECK                                                 │
+│    □ Steekproef 1-2 deliverables op kwaliteit                      │
+│    □ Voldoet aan conventies?                                       │
+│                                                                     │
+│ 3. LESSONS LEARNED                                                 │
+│    □ Nieuwe inzichten documenteren                                 │
+│    □ Proces verbeteringen nodig?                                   │
+│                                                                     │
+│ 4. GO/NO-GO                                                        │
+│    □ Issues gevonden → FIX voordat we doorgaan                     │
+│    □ Alles OK → Volgende fase                                      │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Aanbevolen checkpoint momenten:**
+- Na elke hoofdfase (niet sub-fase)
+- Halverwege het project (mid-project review)
+- Voor de laatste fase (pre-final review)
+
+### 8.3 Single Source of Truth voor Status
+
+**Wat ging fout:**
+We hadden meerdere documenten die status bijhielden:
+- ROADMAP.md (actuele status)
+- Masterplan (oorspronkelijke planning)
+- Amendments (wijzigingen)
+- Commit messages (impliciete status)
+
+Dit leidde tot verwarring over "waar staan we nu eigenlijk?"
+
+**Les voor de toekomst:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Eén document is de SINGLE SOURCE OF TRUTH voor status       │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Duidelijke scheiding:                                               │
+│                                                                     │
+│ ROADMAP.md (of STATUS.md)                                          │
+│ └── SINGLE SOURCE voor huidige status                              │
+│     • Wat is voltooid                                               │
+│     • Wat is in progress                                            │
+│     • Wat is gepland                                                │
+│     • Changelog met datums                                          │
+│                                                                     │
+│ MASTERPLAN.md                                                       │
+│ └── Oorspronkelijke visie en planning                              │
+│     • Wordt NIET bijgewerkt voor status                            │
+│     • Blijft als referentie voor oorspronkelijke intentie          │
+│                                                                     │
+│ AMENDMENTS/                                                         │
+│ └── Wijzigingen aan het plan                                       │
+│     • Nieuwe fases, structuurwijzigingen                           │
+│     • Verwijst naar ROADMAP voor status impact                     │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 8.4 Amendments Consolideren
+
+**Wat ging fout:**
+We eindigden met 8+ losse amendments, elk voor een specifieke aanpassing. Dit maakte het moeilijk om het "huidige plan" te begrijpen zonder alle documenten te lezen.
+
+**Les voor de toekomst:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Consolideer amendments periodiek                            │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Opties:                                                             │
+│                                                                     │
+│ A. MASTERPLAN VERSIONING                                           │
+│    Na 3-5 amendments → Maak masterplan-v3.md                       │
+│    Incorporeer alle wijzigingen                                     │
+│    Archiveer oude amendments                                        │
+│                                                                     │
+│ B. CONSOLIDATED AMENDMENTS                                          │
+│    Na elke hoofdfase → Merge alle sub-amendments                   │
+│    Houd één "current-amendments.md" actueel                        │
+│                                                                     │
+│ C. LIVING DOCUMENT                                                  │
+│    Update masterplan direct (met change tracking)                  │
+│    Git history toont wijzigingen                                    │
+│                                                                     │
+│ Aanbeveling: Optie A voor grote projecten, Optie C voor kleine     │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 8.5 Fase Prompts Moeten Context Ophalen Bevatten
+
+**Wat ging fout:**
+Onze fase prompts begonnen direct met "doe X". Ze specificeerden niet dat Claude eerst de huidige status en relevante documenten moest ophalen. Dit leidde tot:
+- Soms verkeerde aannames over wat al gedaan was
+- Gemiste context uit eerdere fases
+- Inconsistenties tussen fases
+
+**Les voor de toekomst:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Elke fase prompt begint met STAP 0: CONTEXT OPHALEN         │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ STAP 0: CONTEXT OPHALEN (VERPLICHT)                                │
+│ ═══════════════════════════════════                                │
+│                                                                     │
+│ Voordat je begint met deze fase:                                    │
+│                                                                     │
+│ 1. Haal ROADMAP.md op                                              │
+│    → Bevestig vorige fase is COMPLEET                              │
+│    → Check huidige status                                           │
+│                                                                     │
+│ 2. Haal relevante bronnen op                                       │
+│    → Research documenten                                            │
+│    → Eerdere skills indien nodig                                    │
+│                                                                     │
+│ 3. Bevestig directory structuur                                     │
+│    → Waar moeten outputs komen?                                     │
+│    → Welke naming conventions?                                      │
+│                                                                     │
+│ PAS DAARNA: Start met de eigenlijke fase                           │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 8.6 Source en Package Relatie Expliciet Maken
+
+**Wat ging fout:**
+Het masterplan specificeerde niet of we:
+- Alleen source files moesten bewaren
+- Alleen packages moesten bewaren
+- Beide moesten bewaren (en zo ja, waar)
+
+Dit leidde tot inconsistente opslag.
+
+**Les voor de toekomst:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Specificeer source/package strategie in masterplan          │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Opties:                                                             │
+│                                                                     │
+│ A. ALLEEN SOURCE (aanbevolen voor development)                     │
+│    skills/source/                                                   │
+│    • SKILL.md en references/ worden gepusht                        │
+│    • .skill packages worden ON DEMAND gegenereerd                  │
+│    • Minder dubbel werk                                             │
+│                                                                     │
+│ B. ALLEEN PACKAGES (aanbevolen voor distribution)                  │
+│    skills/packaged/                                                 │
+│    • Alleen .skill files worden gepusht                            │
+│    • Source files zijn "build artifacts"                           │
+│    • Moeilijker te reviewen/bewerken                               │
+│                                                                     │
+│ C. BEIDE (onze uiteindelijke keuze)                                │
+│    skills/source/    → Voor development en review                  │
+│    skills/packaged/  → Voor distribution                           │
+│    • Meer werk, maar meeste flexibiliteit                          │
+│    • MOET consistent gehouden worden                               │
+│                                                                     │
+│ KIES ÉÉN STRATEGIE en documenteer het in het masterplan.           │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 9. AI-Assisted Development Lessen
+
+### 9.1 Claude's Filesystem Reset
+
+**Kritieke les:**
+Claude's werkdirectory (`/home/claude`) reset tussen sessies. Alles wat niet gepusht wordt naar externe opslag (GitHub) gaat verloren.
+
+**Implicaties:**
+- NOOIT een sessie eindigen zonder te pushen
+- Download belangrijke artifacts indien GitHub niet beschikbaar
+- Gebruik project knowledge voor essentiële referenties
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ SESSIE AFSLUITING CHECKLIST                                        │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ □ Alle nieuwe bestanden gepusht naar GitHub?                       │
+│ □ ROADMAP.md bijgewerkt met huidige status?                        │
+│ □ Belangrijke artifacts gedownload (indien nodig)?                 │
+│ □ Volgende stap gedocumenteerd?                                    │
+│                                                                     │
+│ ⚠️ NIETS in /home/claude overleeft de sessie!                      │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 9.2 Memory vs Project Knowledge vs GitHub
+
+**Wanneer wat gebruiken:**
+
+| Storage Type | Persistentie | Gebruik voor |
+|--------------|--------------|--------------|
+| **Memory** | Tussen sessies | Projectregels, voorkeuren, correcties |
+| **Project Knowledge** | Permanent | Referentie docs, tokens, instructies |
+| **GitHub** | Permanent | Alle project deliverables |
+| **Filesystem** | Alleen sessie | Tijdelijk werk |
+
+**Les:**
+Zorg dat ALLE deliverables naar GitHub gaan. Memory en Project Knowledge zijn voor meta-informatie, niet voor de eigenlijke output.
+
+### 9.3 Conversation Length Management
+
+**Probleem:**
+Complexe fases kunnen het gesprekslimiet bereiken voordat ze af zijn.
+
+**Preventieve maatregelen:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ FASE COMPLEXITEIT CHECK (vooraf)                                   │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Research document > 700 regels?           → SPLIT de fase          │
+│ Verwacht > 5 reference files?             → SPLIT de fase          │
+│ Verwacht > 10 code voorbeelden?           → SPLIT de fase          │
+│ Meerdere sub-onderwerpen > 3?             → Overweeg split         │
+│                                                                     │
+│ BIJ TWIJFEL: Split. Kleinere fases zijn beter dan incomplete.      │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Tijdens de fase:**
+- Push incrementeel (niet alleen aan het eind)
+- Monitor voortgang
+- Bij ~70% gesprekscapaciteit: overweeg af te ronden en door te gaan in nieuw gesprek
+
+---
+
+## 10. Masterplan Design Lessen
+
+### 10.1 Wat een Goed Masterplan MOET Bevatten
+
+Gebaseerd op onze ervaring, dit zijn de essentiële secties:
+
+```markdown
+# Masterplan Template voor AI Skill Packages
+
+## 1. Visie & Doelen
+- Wat bouwen we?
+- Voor wie?
+- Success criteria?
+
+## 2. Directory Structuur (EXPLICIET!)
+- Exacte paden voor ELKE deliverable type
+- Naming conventions
+- Source vs Package strategie
+
+## 3. Deliverables Index
+- Complete lijst van ALLE te maken items
+- Gegroepeerd per categorie
+- Met verwachte output formaat
+
+## 4. Fase Planning met Prompts
+- Elke fase heeft een complete prompt
+- Prompts bevatten STAP 0: CONTEXT OPHALEN
+- Prompts specificeren exacte output locaties
+
+## 5. Checkpoint Schema
+- Wanneer evalueren we?
+- Wat checken we?
+- Go/No-Go criteria?
+
+## 6. Single Source of Truth Definities
+- Welk document bevat status?
+- Welk document bevat planning?
+- Hoe gaan we om met wijzigingen?
+
+## 7. Kwaliteitscriteria
+- Per deliverable type
+- Meetbaar en verifieerbaar
+
+## 8. GitHub Workflow
+- Wat pushen we wanneer?
+- Commit message format?
+- Branch strategie?
+```
+
+### 10.2 Wat Wij Misten (en Jij Niet Moet Missen)
+
+| Wat we misten | Gevolg | Hoe te voorkomen |
+|---------------|--------|------------------|
+| Expliciete directory structuur | Chaos in repo | Sectie 2 in masterplan |
+| Checkpoint momenten | Problemen stapelden zich op | Sectie 5 in masterplan |
+| Source/Package strategie | Inconsistente opslag | Sectie 2 in masterplan |
+| Context ophalen in prompts | Soms verkeerde aannames | STAP 0 in elke prompt |
+| Single source of truth | Verwarring over status | Sectie 6 in masterplan |
+
+---
+
+## 11. Samenvatting: Top 10 Lessen voor Skill Package Development
+
+1. **Definieer directory structuur VOORAF** - Tot op bestandsniveau
+2. **Plan verplichte checkpoints** - Na elke hoofdfase
+3. **Eén document is de status truth** - ROADMAP.md, niet meerdere
+4. **Elke prompt begint met context ophalen** - STAP 0 is verplicht
+5. **Push na ELKE fase** - Claude's filesystem reset
+6. **Split grote fases proactief** - Beter te klein dan te groot
+7. **Specificeer source/package strategie** - Beiden of één, maar expliciet
+8. **Consolideer amendments periodiek** - Voorkom document sprawl
+9. **Research eerst, altijd** - Nooit bouwen zonder verificatie
+10. **Documenteer lessons learned continu** - Niet alleen aan het eind
+
+---
+
+*Toegevoegd tijdens Mid-Project Review - 17 januari 2026*

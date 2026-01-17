@@ -1,401 +1,310 @@
 # API Anti-Patterns
 
-> Veelvoorkomende fouten en hoe ze te vermijden.
-
----
-
-## 1. Hardcoded Credentials
-
-### ❌ FOUT
+## ❌ Geen Error Handling
 
 ```python
-# Credentials in code
-headers = {
-    'Authorization': 'token abc123xyz:secret789'
-}
-
-# Of in configuratiebestand in repo
-API_KEY = "abc123xyz"
-API_SECRET = "secret789"
-```
-
-### ✅ CORRECT
-
-```python
-import os
-
-# Uit environment variables
-API_KEY = os.environ.get('FRAPPE_API_KEY')
-API_SECRET = os.environ.get('FRAPPE_API_SECRET')
-
-if not API_KEY or not API_SECRET:
-    raise ValueError("API credentials not configured")
-
-headers = {
-    'Authorization': f'token {API_KEY}:{API_SECRET}'
-}
-```
-
-```bash
-# In .env bestand (NIET in git!)
-FRAPPE_API_KEY=abc123xyz
-FRAPPE_API_SECRET=secret789
-
-# .gitignore
-.env
-*.env
-```
-
----
-
-## 2. Geen Error Handling
-
-### ❌ FOUT
-
-```javascript
-// Blind vertrouwen op success
-const data = await fetch('/api/resource/Customer').then(r => r.json());
-console.log(data.data[0].name);  // Kan crashen
-```
-
-### ✅ CORRECT
-
-```javascript
-async function getCustomers() {
-    const response = await fetch('/api/resource/Customer', {
-        headers: { 'Authorization': `token ${API_KEY}:${API_SECRET}` }
-    });
-    
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error._server_messages || `HTTP ${response.status}`);
-    }
-    
-    const result = await response.json();
-    return result.data || [];
-}
-
-try {
-    const customers = await getCustomers();
-    if (customers.length > 0) {
-        console.log(customers[0].name);
-    }
-} catch (error) {
-    console.error('API Error:', error.message);
-}
-```
-
----
-
-## 3. Alle Velden Ophalen
-
-### ❌ FOUT
-
-```bash
-# Haalt ALLE velden op - traag en veel data
-GET /api/resource/Sales Order
-
-# Of erger - alle records zonder limit
-GET /api/resource/Sales Order?limit_page_length=0
-```
-
-### ✅ CORRECT
-
-```bash
-# Alleen benodigde velden
-GET /api/resource/Sales Order?fields=["name","status","grand_total"]&limit_page_length=20
-```
-
-**Impact:**
-- Minder data over de lijn
-- Snellere response
-- Minder server load
-
----
-
-## 4. GET voor Data Wijzigingen
-
-### ❌ FOUT
-
-```python
-# GET request die data wijzigt
+# FOUT - geen error handling
 @frappe.whitelist()
-def update_status(docname, status):
-    # Dit wordt aangeroepen met GET!
-    frappe.db.set_value("Task", docname, "status", status)
-    return {"success": True}
+def dangerous_operation(docname):
+    doc = frappe.get_doc("Customer", docname)
+    doc.delete()
+    return "done"
 
-# Aanroep
-GET /api/method/myapp.api.update_status?docname=TASK-001&status=Done
-```
-
-**Problemen:**
-- Geen auto-commit na GET
-- Kan gecached worden
-- Kan door prefetch/bots triggered worden
-
-### ✅ CORRECT
-
-```python
-@frappe.whitelist(methods=["POST"])
-def update_status(docname, status):
-    frappe.db.set_value("Task", docname, "status", status)
-    return {"success": True}
-
-# Aanroep
-POST /api/method/myapp.api.update_status
-{"docname": "TASK-001", "status": "Done"}
-```
-
----
-
-## 5. Geen Paginatie
-
-### ❌ FOUT
-
-```python
-# Haalt potentieel miljoenen records op
-all_orders = client.get_list('Sales Order', limit_page_length=0)
-
-for order in all_orders:  # Memory overflow
-    process(order)
-```
-
-### ✅ CORRECT
-
-```python
-def process_all_orders():
-    offset = 0
-    batch_size = 100
-    
-    while True:
-        orders = client.get_list(
-            'Sales Order',
-            limit_start=offset,
-            limit_page_length=batch_size
-        )
+# ✅ CORRECT - met error handling
+@frappe.whitelist()
+def safe_operation(docname):
+    try:
+        if not frappe.has_permission("Customer", "delete"):
+            frappe.throw(_("Not permitted"), frappe.PermissionError)
         
-        if not orders:
-            break
-        
-        for order in orders:
-            process(order)
-        
-        offset += batch_size
+        doc = frappe.get_doc("Customer", docname)
+        doc.delete()
+        return {"status": "success", "message": f"{docname} deleted"}
+    
+    except frappe.DoesNotExistError:
+        frappe.throw(_("Customer {0} does not exist").format(docname))
+    except frappe.PermissionError:
+        raise  # Re-raise permission errors
+    except Exception as e:
+        frappe.log_error(title="Delete Customer Error")
+        frappe.throw(_("Delete failed. Please try again."))
 ```
 
 ---
 
-## 6. Synchrone Webhook Processing
-
-### ❌ FOUT
+## ❌ SQL Injection Vulnerable
 
 ```python
-@app.route('/webhook', methods=['POST'])
-def handle_webhook():
-    data = request.get_json()
-    
-    # Lange operatie - webhook timeout
-    sync_to_erp(data)  # 30 seconden
-    send_notifications(data)  # 10 seconden
-    generate_reports(data)  # 20 seconden
-    
-    return 'OK'  # Te laat - al timeout
-```
+# FOUT - SQL injection vulnerable
+@frappe.whitelist()
+def search_customers(search_term):
+    return frappe.db.sql(
+        f"SELECT * FROM tabCustomer WHERE name LIKE '%{search_term}%'"
+    )
 
-### ✅ CORRECT
+# ✅ CORRECT - parameterized query
+@frappe.whitelist()
+def search_customers(search_term):
+    return frappe.db.sql(
+        "SELECT * FROM tabCustomer WHERE name LIKE %s",
+        (f"%{search_term}%",),
+        as_dict=True
+    )
 
-```python
-from celery import Celery
-
-celery = Celery('tasks')
-
-@app.route('/webhook', methods=['POST'])
-def handle_webhook():
-    data = request.get_json()
-    
-    # Queue voor async processing
-    process_webhook.delay(data)
-    
-    # Snel response
-    return 'OK', 200
-
-@celery.task
-def process_webhook(data):
-    sync_to_erp(data)
-    send_notifications(data)
-    generate_reports(data)
+# ✅ CORRECT - met get_all
+@frappe.whitelist()
+def search_customers(search_term):
+    return frappe.get_all(
+        "Customer",
+        filters={"name": ["like", f"%{search_term}%"]},
+        fields=["name", "customer_name"]
+    )
 ```
 
 ---
 
-## 7. Geen Retry Logic
-
-### ❌ FOUT
+## ❌ Geen Permission Check
 
 ```python
-def call_api(endpoint):
-    response = requests.get(endpoint)
-    return response.json()  # Faalt bij tijdelijke errors
-```
+# FOUT - geen permission check
+@frappe.whitelist()
+def get_salary(employee):
+    return frappe.db.get_value("Salary Slip", {"employee": employee}, "gross_pay")
 
-### ✅ CORRECT
-
-```python
-import time
-from requests.exceptions import RequestException
-
-def call_api_with_retry(endpoint, max_retries=3, backoff_factor=2):
-    for attempt in range(max_retries):
-        try:
-            response = requests.get(endpoint, timeout=30)
-            response.raise_for_status()
-            return response.json()
-        
-        except RequestException as e:
-            if attempt == max_retries - 1:
-                raise
-            
-            wait_time = backoff_factor ** attempt
-            print(f"Retry {attempt + 1}/{max_retries} after {wait_time}s")
-            time.sleep(wait_time)
+# ✅ CORRECT - met permission check
+@frappe.whitelist()
+def get_salary(employee):
+    if not frappe.has_permission("Salary Slip", "read"):
+        frappe.throw(_("Not permitted"), frappe.PermissionError)
+    
+    return frappe.db.get_value("Salary Slip", {"employee": employee}, "gross_pay")
 ```
 
 ---
 
-## 8. Webhook Zonder Idempotency
-
-### ❌ FOUT
+## ❌ Credentials Hardcoded
 
 ```python
-@app.route('/webhook', methods=['POST'])
-def handle_order():
-    data = request.get_json()
+# FOUT - hardcoded credentials
+API_KEY = "abc123"
+API_SECRET = "secret456"
+
+def call_external_api():
+    headers = {'Authorization': f'token {API_KEY}:{API_SECRET}'}
+    ...
+
+# ✅ CORRECT - uit site_config
+def call_external_api():
+    api_key = frappe.conf.get("external_api_key")
+    api_secret = frappe.conf.get("external_api_secret")
     
-    # Dubbele verwerking bij retry
-    create_invoice(data['order_id'])
-    send_confirmation_email(data['customer'])
+    if not api_key or not api_secret:
+        frappe.throw(_("API credentials not configured"))
+    
+    headers = {'Authorization': f'token {api_key}:{api_secret}'}
+    ...
 ```
 
-### ✅ CORRECT
-
-```python
-processed_webhooks = set()  # Of database
-
-@app.route('/webhook', methods=['POST'])
-def handle_order():
-    data = request.get_json()
-    
-    webhook_id = f"{data['doctype']}:{data['name']}:{data['event']}"
-    
-    if webhook_id in processed_webhooks:
-        return 'Already processed', 200
-    
-    # Process
-    create_invoice(data['order_id'])
-    send_confirmation_email(data['customer'])
-    
-    processed_webhooks.add(webhook_id)
-    return 'OK', 200
+**In site_config.json:**
+```json
+{
+    "external_api_key": "abc123",
+    "external_api_secret": "secret456"
+}
 ```
 
 ---
 
-## 9. Overmatige API Calls
-
-### ❌ FOUT
+## ❌ Geen Rate Limiting op Heavy Endpoints
 
 ```python
-# N+1 query probleem
-customers = client.get_list('Customer', fields=['name'])
+# FOUT - heavy operation zonder beperking
+@frappe.whitelist(allow_guest=True)
+def generate_report():
+    return expensive_computation()  # DoS risk!
 
-for customer in customers:
-    # Aparte call per customer
-    details = client.get_doc('Customer', customer['name'])
-    process(details)
-```
+# ✅ CORRECT - met rate limiting (via Server Script)
+# Server Script > Enable Rate Limit = True
+# Rate Limit Count = 10
+# Rate Limit Seconds = 60
 
-### ✅ CORRECT
-
-```python
-# Alles in één call
-customers = client.get_list(
-    'Customer',
-    fields=['name', 'customer_name', 'email_id', 'outstanding_amount'],
-    limit_page_length=100
-)
-
-for customer in customers:
-    process(customer)  # Alle data al beschikbaar
+# Of: permission check om guests te blokkeren
+@frappe.whitelist()  # Geen allow_guest
+def generate_report():
+    return expensive_computation()
 ```
 
 ---
 
-## 10. Secrets in Webhook URLs
-
-### ❌ FOUT
-
-```
-# Secret in URL - zichtbaar in logs
-Request URL: https://api.example.com/webhook?api_key=secret123
-```
-
-### ✅ CORRECT
-
-```
-# Secret in header
-Request URL: https://api.example.com/webhook
-
-Headers:
-X-API-Key: secret123
-X-Webhook-Signature: sha256=...
-```
-
----
-
-## 11. Geen Rate Limiting Handling
-
-### ❌ FOUT
+## ❌ Geen Paginering bij Grote Datasets
 
 ```python
-# Bombardeert API zonder pauze
-for i in range(10000):
-    client.create_doc('Customer', {'name': f'Cust-{i}'})
-```
+# FOUT - alle records ophalen
+@frappe.whitelist()
+def get_all_invoices():
+    return frappe.get_all("Sales Invoice")  # Kan duizenden records zijn!
 
-### ✅ CORRECT
-
-```python
-import time
-
-def batch_create_with_rate_limit(items, rate_per_second=10):
-    delay = 1.0 / rate_per_second
+# ✅ CORRECT - met paginering
+@frappe.whitelist()
+def get_invoices(page=0, page_size=20):
+    page_size = min(page_size, 100)  # Max limiet
     
-    for item in items:
-        try:
-            client.create_doc('Customer', item)
-        except Exception as e:
-            if '429' in str(e):  # Rate limited
-                time.sleep(60)  # Wait and retry
-                client.create_doc('Customer', item)
-        
-        time.sleep(delay)
+    return frappe.get_all(
+        "Sales Invoice",
+        fields=["name", "customer", "grand_total"],
+        limit_start=page * page_size,
+        limit_page_length=page_size,
+        order_by="modified desc"
+    )
 ```
 
 ---
 
-## Samenvatting Checklist
+## ❌ Sensitive Data in Logs
 
-| Check | Beschrijving |
-|-------|--------------|
-| ☐ | Credentials uit environment |
-| ☐ | Proper error handling |
-| ☐ | Specifieke fields ophalen |
-| ☐ | POST voor mutaties |
-| ☐ | Paginatie geïmplementeerd |
-| ☐ | Async webhook processing |
-| ☐ | Retry logic met backoff |
-| ☐ | Idempotent webhook handlers |
-| ☐ | Batch operations waar mogelijk |
-| ☐ | Secrets in headers, niet URLs |
-| ☐ | Rate limiting handling |
+```python
+# FOUT - credentials in logs
+@frappe.whitelist()
+def authenticate(username, password):
+    frappe.logger().info(f"Login attempt: {username}:{password}")  # NOOIT!
+    ...
+
+# ✅ CORRECT - alleen non-sensitive info
+@frappe.whitelist()
+def authenticate(username, password):
+    frappe.logger().info(f"Login attempt for user: {username}")
+    ...
+```
+
+---
+
+## ❌ Synchrone Lange Operaties
+
+```python
+# FOUT - blokkeert worker
+@frappe.whitelist()
+def process_large_file(file_url):
+    # 5 minuten processing...
+    return heavy_processing(file_url)
+
+# ✅ CORRECT - queue background job
+@frappe.whitelist()
+def process_large_file(file_url):
+    frappe.enqueue(
+        "my_app.tasks.heavy_processing",
+        file_url=file_url,
+        queue="long",
+        timeout=1800
+    )
+    return {"status": "queued", "message": "Processing started"}
+```
+
+---
+
+## ❌ Inconsistente Response Formats
+
+```python
+# FOUT - inconsistent
+@frappe.whitelist()
+def get_customer(name):
+    if not name:
+        return "Error: name required"  # String
+    doc = frappe.get_doc("Customer", name)
+    return doc.as_dict()  # Dict
+
+# ✅ CORRECT - consistent format
+@frappe.whitelist()
+def get_customer(name):
+    if not name:
+        frappe.throw(_("Customer name is required"))
+    
+    return {
+        "status": "success",
+        "data": frappe.get_doc("Customer", name).as_dict()
+    }
+```
+
+---
+
+## ❌ Geen Input Validatie
+
+```python
+# FOUT - geen validatie
+@frappe.whitelist()
+def create_order(customer, amount):
+    # Direct gebruiken zonder checks
+    order = frappe.new_doc("Sales Order")
+    order.customer = customer
+    order.grand_total = amount
+    order.insert()
+
+# ✅ CORRECT - met validatie
+@frappe.whitelist()
+def create_order(customer, amount):
+    # Valideer inputs
+    if not customer:
+        frappe.throw(_("Customer is required"))
+    
+    if not frappe.db.exists("Customer", customer):
+        frappe.throw(_("Customer {0} does not exist").format(customer))
+    
+    try:
+        amount = float(amount)
+    except (TypeError, ValueError):
+        frappe.throw(_("Amount must be a number"))
+    
+    if amount <= 0:
+        frappe.throw(_("Amount must be positive"))
+    
+    # Nu veilig gebruiken
+    order = frappe.new_doc("Sales Order")
+    order.customer = customer
+    order.grand_total = amount
+    order.insert()
+    
+    return {"name": order.name}
+```
+
+---
+
+## ❌ Admin Credentials voor API
+
+```python
+# FOUT - admin user voor integratie
+api_key = "Administrator_api_key"  # NOOIT!
+
+# ✅ CORRECT - dedicated API user met beperkte rechten
+# 1. Maak "API User" role
+# 2. Geef alleen benodigde permissions
+# 3. Maak dedicated user met die role
+# 4. Genereer API keys voor die user
+```
+
+---
+
+## ❌ Geen Timeout bij Externe Calls
+
+```python
+# FOUT - geen timeout
+response = requests.get(external_url)  # Kan eeuwig hangen
+
+# ✅ CORRECT - met timeout
+response = requests.get(external_url, timeout=30)
+```
+
+---
+
+## Checklist voor API Development
+
+```
+□ Permission check aanwezig?
+□ Input validatie compleet?
+□ SQL queries geparameteriseerd?
+□ Error handling implemented?
+□ Sensitive data niet gelogd?
+□ Response format consistent?
+□ Rate limiting waar nodig?
+□ Paginering voor lijsten?
+□ Credentials uit config?
+□ Timeouts ingesteld?
+```

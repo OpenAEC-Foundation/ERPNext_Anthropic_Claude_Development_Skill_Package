@@ -140,16 +140,19 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 
 ## Changelog
 
-### 2026-01-17 (sessie 10) - MID-PROJECT REVIEW
+### 2026-01-17 (sessie 10) - MID-PROJECT REVIEW & ANTHROPIC TOOLING ANALYSE
 - **MID-PROJECT REVIEW UITGEVOERD** @ 61% voortgang
-- Amendment 5 toegevoegd: Directory structuur standaardisatie
-- Amendment 5 toegevoegd: Checkpoint systematiek na elke hoofdfase
-- LESSONS_LEARNED.md uitgebreid met secties 8-11:
-  - Project Structuur Lessen
-  - AI-Assisted Development Lessen
-  - Masterplan Design Lessen
-  - Top 10 Samenvatting
-- **VOLGENDE**: Directory opschoning naar nieuwe structuur
+- **KRITIEKE ONTDEKKING**: Skill structuur niet compatibel met Anthropic tooling!
+  - `quick_validate.py` verwacht SKILL.md in folder ROOT
+  - NL/EN subfolders werken NIET met officiële tooling
+  - Nieuwe structuur: aparte folders met `-nl`/`-en` suffix
+- Amendment 5 v2: Anthropic-conforme directory structuur gedefinieerd
+- Amendment 5 v2: Verplichte validatie met quick_validate.py toegevoegd
+- LESSONS_LEARNED.md uitgebreid met secties 8-13:
+  - Sectie 8-11: Project structuur en AI workflow lessen
+  - Sectie 12: Anthropic Tooling Compatibiliteit (kritiek!)
+  - Sectie 13: Uitgebreide Top 15 lessen
+- **VOLGENDE**: Migratie naar Anthropic-conforme structuur (56 aparte skill folders)
 
 ### 2026-01-17 (sessie 9)
 - **Fase 4.1 COMPLEET**: erpnext-impl-clientscripts skill

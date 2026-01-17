@@ -1,8 +1,8 @@
 # frappe.enqueue API Reference
 
-Complete reference for frappe.enqueue and frappe.enqueue_doc.
+## frappe.enqueue
 
-## frappe.enqueue - All Parameters
+### Full Signature
 
 ```python
 frappe.enqueue(
@@ -21,149 +21,101 @@ frappe.enqueue(
 )
 ```
 
-## Parameter Details
+### Parameter Details
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `method` | str/callable | - | Module path or function object |
+| `method` | str/callable | REQUIRED | Module path or function object |
 | `queue` | str | "default" | Target queue name |
-| `timeout` | int/None | None | Override queue timeout (seconds) |
+| `timeout` | int/None | None | Override queue timeout (sec) |
 | `is_async` | bool | True | False = synchronous execution |
 | `now` | bool | False | True = direct via frappe.call() |
 | `job_name` | str/None | None | **DEPRECATED v15** |
-| `job_id` | str/None | None | **v15+** Unique ID for deduplication |
-| `enqueue_after_commit` | bool | False | Wait until DB commit |
+| `job_id` | str/None | None | **v15+** Unique ID |
+| `enqueue_after_commit` | bool | False | Wait for DB commit |
 | `at_front` | bool | False | Priority placement |
-| `on_success` | callable/None | None | Success callback |
-| `on_failure` | callable/None | None | Failure callback |
+| `on_success` | callable | None | Success callback |
+| `on_failure` | callable | None | Failure callback |
 
-## Return Value
+### Return Value
 
 ```python
 # Returns RQ Job object (if enqueue_after_commit=False)
-job = frappe.enqueue('myapp.tasks.process', param='value')
-print(job.id)  # Job ID
-print(job.get_status())  # 'queued', 'started', 'finished', 'failed'
+job = frappe.enqueue("myapp.tasks.process", param="value")
+print(job.id)      # Job ID
+print(job.status)  # Job status
+
+# With enqueue_after_commit=True returns None
+job = frappe.enqueue(..., enqueue_after_commit=True)
+# job is None!
 ```
 
-**Note**: With `enqueue_after_commit=True` the call returns `None`.
-
-## Method Specification
-
-### As String (Recommended)
+### Examples
 
 ```python
-frappe.enqueue('myapp.tasks.process_data', customer='CUST-001')
-```
+# Basic - module path
+frappe.enqueue("myapp.tasks.process_data", customer="CUST-001")
 
-### As Function Object
-
-```python
+# Basic - function object
 def my_task(name, value):
     pass
 
-frappe.enqueue(my_task, name='test', value=123)
-```
+frappe.enqueue(my_task, name="test", value=123)
 
-## Examples
-
-### Basic Usage
-
-```python
-frappe.enqueue('myapp.tasks.send_email', recipient='user@example.com')
-```
-
-### With Custom Timeout
-
-```python
+# With custom timeout on long queue
 frappe.enqueue(
-    'myapp.tasks.heavy_report',
-    queue='long',
+    "myapp.tasks.heavy_report",
+    queue="long",
     timeout=3600,  # 1 hour
-    report_type='annual'
+    report_type="annual"
 )
-```
 
-### With Callbacks
-
-```python
-def on_success_handler(job, connection, result, *args, **kwargs):
-    frappe.publish_realtime(
-        'show_alert',
-        {'message': 'Job completed!', 'indicator': 'green'}
-    )
-
-def on_failure_handler(job, connection, type, value, traceback):
-    frappe.log_error(f"Job {job.id} failed: {value}")
-
+# Priority job (front of queue)
 frappe.enqueue(
-    'myapp.tasks.risky_operation',
-    on_success=on_success_handler,
-    on_failure=on_failure_handler
+    "myapp.tasks.urgent_task",
+    at_front=True,
+    priority="high"
 )
-```
 
-### After Database Commit
-
-```python
-# Important for data integrity
-doc.save()
+# After database commit
 frappe.enqueue(
-    'myapp.tasks.process_saved_doc',
+    "myapp.tasks.send_notification",
     enqueue_after_commit=True,
-    doc_name=doc.name
+    user=frappe.session.user
 )
 ```
 
-### Priority Placement
-
-```python
-# Place job at front of queue
-frappe.enqueue(
-    'myapp.tasks.urgent_task',
-    at_front=True
-)
-```
-
-### Synchronous Execution (Testing)
-
-```python
-# For debugging - does NOT run in worker
-frappe.enqueue(
-    'myapp.tasks.process',
-    is_async=False  # Blocks until complete
-)
-```
+---
 
 ## frappe.enqueue_doc
 
 Enqueue a controller method of a specific document.
 
-### Syntax
+### Signature
 
 ```python
 frappe.enqueue_doc(
-    doctype,           # DocType name
+    doctype,           # DocType name (REQUIRED)
     name=None,         # Document name
-    method=None,       # Controller method name as string
+    method=None,       # Controller method name
     queue="default",   # Queue name
     timeout=300,       # Timeout in seconds
-    now=False,         # Execute immediately
-    **kwargs           # Extra arguments for method
+    now=False,         # Execute directly
+    **kwargs           # Extra arguments
 )
 ```
 
 ### Example
 
 ```python
-# Controller
+# Controller method
 class SalesInvoice(Document):
     @frappe.whitelist()
     def send_notification(self, recipient, message):
         # Long-running operation
         pass
 
-# Call
+# Call it
 frappe.enqueue_doc(
     "Sales Invoice",
     "SINV-00001",
@@ -171,42 +123,105 @@ frappe.enqueue_doc(
     queue="long",
     timeout=600,
     recipient="user@example.com",
-    message="Your invoice is ready"
+    message="Invoice ready"
 )
 ```
 
+---
+
 ## Document.queue_action
 
-Alternative via controller method:
+Alternative to enqueue_doc from controller:
 
 ```python
 class SalesOrder(Document):
     def on_submit(self):
-        self.queue_action('send_emails', emails=email_list)
+        # Queue heavy processing
+        self.queue_action("send_emails", emails=email_list)
     
     def send_emails(self, emails):
         # Heavy operation
-        pass
+        for email in emails:
+            send_mail(email)
 ```
 
-## Job ID for Deduplication (v15+)
+---
+
+## Callbacks
+
+### Success Callback
+
+```python
+def on_success_handler(job, connection, result, *args, **kwargs):
+    """
+    Args:
+        job: RQ Job object
+        connection: Redis connection
+        result: Return value of job method
+    """
+    frappe.publish_realtime(
+        "show_alert",
+        {"message": f"Job {job.id} completed!"}
+    )
+```
+
+### Failure Callback
+
+```python
+def on_failure_handler(job, connection, type, value, traceback):
+    """
+    Args:
+        job: RQ Job object
+        connection: Redis connection
+        type: Exception type
+        value: Exception value
+        traceback: Traceback object
+    """
+    frappe.log_error(
+        f"Job {job.id} failed: {value}",
+        "Background Job Error"
+    )
+```
+
+### Usage
+
+```python
+frappe.enqueue(
+    "myapp.tasks.risky_operation",
+    on_success=on_success_handler,
+    on_failure=on_failure_handler,
+    data=my_data
+)
+```
+
+---
+
+## Job Deduplication
+
+### v15+ Pattern (Recommended)
 
 ```python
 from frappe.utils.background_jobs import is_job_enqueued
 
-job_id = f"process::{doc.name}"
+job_id = f"data_import::{self.name}"
+
 if not is_job_enqueued(job_id):
     frappe.enqueue(
-        'myapp.tasks.process',
+        "myapp.tasks.import_data",
         job_id=job_id,
-        doc_name=doc.name
+        doc_name=self.name
     )
+else:
+    frappe.msgprint("Import already in progress")
 ```
 
-## Version Differences
+### v14 Pattern (Deprecated)
 
-| Feature | v14 | v15 |
-|---------|-----|-----|
-| Deduplication | `job_name` | `job_id` |
-| Check function | get_info() parsing | `is_job_enqueued()` |
-| Callbacks | Basic | Fully supported |
+```python
+# ONLY for legacy v14 code
+from frappe.core.page.background_jobs.background_jobs import get_info
+
+enqueued_jobs = [d.get("job_name") for d in get_info()]
+if self.name not in enqueued_jobs:
+    frappe.enqueue(..., job_name=self.name)
+```

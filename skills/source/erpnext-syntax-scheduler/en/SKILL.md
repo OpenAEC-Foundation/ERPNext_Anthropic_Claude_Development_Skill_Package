@@ -1,143 +1,100 @@
 ---
 name: erpnext-syntax-scheduler
-description: Deterministic syntax reference for Frappe Scheduler Events and Background Jobs (frappe.enqueue). Use for scheduler_events in hooks.py, frappe.enqueue/enqueue_doc API, queue configuration, job deduplication, error handling and monitoring. Covers v14/v15 version differences including job_id (v15) vs job_name (v14 deprecated).
+description: Scheduler and background jobs syntax for Frappe/ERPNext v14/v15. Use for scheduler_events in hooks.py, frappe.enqueue() for async jobs, queue configuration, job deduplication, error handling, and monitoring. Triggers on questions about scheduled tasks, background processing, cron jobs, RQ workers, job queues, async tasks.
 ---
 
 # ERPNext Syntax: Scheduler & Background Jobs
 
-Deterministic syntax for scheduler events and background jobs in Frappe/ERPNext v14 and v15.
+Deterministic syntax reference for Frappe scheduler events and background job processing.
 
-## When to Use This Skill
+## Quick Reference
 
-- Configure periodic tasks via `hooks.py`
-- Execute long operations asynchronously with `frappe.enqueue`
-- Configure queue types and timeouts
-- Implement job deduplication
-- Handle background job errors
-- Monitor and debug jobs
-
-## Critical Version Differences
-
-| Aspect | v14 | v15 |
-|--------|-----|-----|
-| Scheduler tick | ~240 sec (4 min) | ~60 sec |
-| Config key | `scheduler_interval` | `scheduler_tick_interval` |
-| Job deduplication | `job_name` | `job_id` + `is_job_enqueued()` |
-
-## Scheduler Events (hooks.py)
-
-### Event Types
+### Scheduler Events (hooks.py)
 
 ```python
 # hooks.py
 scheduler_events = {
-    "all": ["myapp.tasks.every_tick"],       # Every scheduler tick
-    "hourly": ["myapp.tasks.per_hour"],      # Every hour (default queue)
-    "daily": ["myapp.tasks.daily"],          # Every day
-    "weekly": ["myapp.tasks.weekly"],        # Every week
-    "monthly": ["myapp.tasks.monthly"],      # Every month
-    
-    # Long queue variants (for heavy processing)
-    "hourly_long": ["myapp.tasks.heavy_hourly"],
-    "daily_long": ["myapp.tasks.heavy_daily"],
-    "weekly_long": ["myapp.tasks.heavy_weekly"],
-    "monthly_long": ["myapp.tasks.heavy_monthly"],
-}
-```
-
-### Cron Syntax
-
-```python
-scheduler_events = {
+    "all": ["myapp.tasks.every_tick"],
+    "hourly": ["myapp.tasks.hourly_task"],
+    "daily": ["myapp.tasks.daily_task"],
+    "weekly": ["myapp.tasks.weekly_task"],
+    "monthly": ["myapp.tasks.monthly_task"],
+    "daily_long": ["myapp.tasks.heavy_daily"],  # Long queue
     "cron": {
-        "*/15 * * * *": ["myapp.tasks.every_15_min"],      # Every 15 min
-        "0 9 * * 1-5": ["myapp.tasks.weekday_9am"],        # Mon-Fri 9:00
-        "0 0 1 * *": ["myapp.tasks.first_of_month"],       # 1st of month
-        "15 18 * * *": ["myapp.tasks.daily_6_15pm"],       # Daily 18:15
+        "0 9 * * 1-5": ["myapp.tasks.weekday_9am"],
+        "*/15 * * * *": ["myapp.tasks.every_15_min"]
     }
 }
 ```
 
-**REQUIRED after changes:**
-```bash
-bench migrate
+**CRITICAL**: After EVERY change to scheduler_events: `bench migrate`
+
+### frappe.enqueue Basics
+
+```python
+# Simple
+frappe.enqueue("myapp.tasks.process", customer="CUST-001")
+
+# With queue and timeout
+frappe.enqueue(
+    "myapp.tasks.heavy_task",
+    queue="long",
+    timeout=3600,
+    param="value"
+)
+
+# With deduplication (v15)
+from frappe.utils.background_jobs import is_job_enqueued
+
+job_id = f"import::{doc.name}"
+if not is_job_enqueued(job_id):
+    frappe.enqueue("myapp.tasks.import_data", job_id=job_id, doc=doc.name)
 ```
 
-See [references/scheduler-events.md](references/scheduler-events.md) for complete cron syntax.
+## Scheduler Event Types
 
-## frappe.enqueue API
+| Event | Frequency | Queue |
+|-------|-----------|-------|
+| `all` | Every tick (v14: 4min, v15: 60s) | default |
+| `hourly` | Per hour | default |
+| `daily` | Per day | default |
+| `weekly` | Per week | default |
+| `monthly` | Per month | default |
+| `hourly_long` | Per hour | **long** |
+| `daily_long` | Per day | **long** |
+| `weekly_long` | Per week | **long** |
+| `monthly_long` | Per month | **long** |
+| `cron` | Custom schedule | configurable |
 
-### Basic Syntax
+**Version difference scheduler tick**:
+- v14: ~240 seconds (4 min)
+- v15: ~60 seconds
+
+## Queue Types
+
+| Queue | Timeout | Usage |
+|-------|---------|-------|
+| `short` | 300s (5 min) | Quick tasks, UI responses |
+| `default` | 300s (5 min) | Standard tasks |
+| `long` | 1500s (25 min) | Heavy processing, imports |
+
+## frappe.enqueue Parameters
 
 ```python
 frappe.enqueue(
-    method,                      # Function or module path (REQUIRED)
-    queue="default",             # "short", "default", "long"
+    method,                      # REQUIRED: function or module path
+    queue="default",             # Queue name
     timeout=None,                # Override timeout (seconds)
-    job_id=None,                 # v15: Unique ID for deduplication
+    is_async=True,               # False = execute directly
+    now=False,                   # True = via frappe.call()
+    job_id=None,                 # v15: unique ID for deduplication
     enqueue_after_commit=False,  # Wait for DB commit
-    at_front=False,              # Priority placement
+    at_front=False,              # Place at front of queue
     on_success=None,             # Success callback
     on_failure=None,             # Failure callback
     **kwargs                     # Arguments for method
 )
 ```
-
-### Examples
-
-```python
-# Basic
-frappe.enqueue('myapp.tasks.process', customer='CUST-001')
-
-# With timeout on long queue
-frappe.enqueue(
-    'myapp.tasks.heavy_report',
-    queue='long',
-    timeout=3600,
-    report_type='annual'
-)
-
-# With callbacks
-frappe.enqueue(
-    'myapp.tasks.risky_operation',
-    on_success=lambda job, conn, result: notify_success(),
-    on_failure=lambda job, conn, type, value, tb: log_failure()
-)
-
-# After database commit (for data integrity)
-frappe.enqueue(
-    'myapp.tasks.send_notification',
-    enqueue_after_commit=True,
-    user=frappe.session.user
-)
-```
-
-See [references/enqueue-api.md](references/enqueue-api.md) for all parameters.
-
-## frappe.enqueue_doc
-
-Enqueue a controller method of a document:
-
-```python
-frappe.enqueue_doc(
-    "Sales Invoice",
-    "SINV-00001",
-    "send_notification",
-    queue="long",
-    timeout=600,
-    recipient="user@example.com"
-)
-```
-
-## Queue Types
-
-| Queue | Default Timeout | Usage |
-|-------|-----------------|-------|
-| `short` | 300s (5 min) | Quick tasks, UI responses |
-| `default` | 300s (5 min) | Standard tasks |
-| `long` | 1500s (25 min) | Heavy processing, imports |
-
-See [references/queues.md](references/queues.md) for custom queue configuration.
 
 ## Job Deduplication
 
@@ -146,26 +103,26 @@ See [references/queues.md](references/queues.md) for custom queue configuration.
 ```python
 from frappe.utils.background_jobs import is_job_enqueued
 
-job_id = f"import::{self.name}"
+job_id = f"process::{doc.name}"
 if not is_job_enqueued(job_id):
     frappe.enqueue(
-        'myapp.tasks.import_data',
+        "myapp.tasks.process",
         job_id=job_id,
-        doc_name=self.name
+        doc_name=doc.name
     )
 ```
 
 ### v14 (Deprecated)
 
 ```python
-# DO NOT USE IN NEW CODE
+# DO NOT USE - only for legacy code
 from frappe.core.page.background_jobs.background_jobs import get_info
 enqueued = [d.get("job_name") for d in get_info()]
-if self.name not in enqueued:
-    frappe.enqueue(..., job_name=self.name)
+if name not in enqueued:
+    frappe.enqueue(..., job_name=name)
 ```
 
-## Error Handling
+## Error Handling Pattern
 
 ```python
 def process_records(records):
@@ -181,56 +138,66 @@ def process_records(records):
             )
 ```
 
-See [references/error-handling.md](references/error-handling.md) for patterns.
+## Callbacks
 
-## Monitoring
+```python
+def on_success_handler(job, connection, result, *args, **kwargs):
+    frappe.publish_realtime("show_alert", {"message": "Done!"})
 
-- **RQ Worker**: Search > RQ Worker (worker status)
-- **RQ Job**: Search > RQ Job (job status/errors)
-- **bench doctor**: Scheduler status per site
+def on_failure_handler(job, connection, type, value, traceback):
+    frappe.log_error(f"Job {job.id} failed: {value}")
 
-```bash
-bench doctor
+frappe.enqueue(
+    "myapp.tasks.risky_task",
+    on_success=on_success_handler,
+    on_failure=on_failure_handler
+)
 ```
-
-See [references/monitoring.md](references/monitoring.md) for details.
 
 ## User Context
 
-**IMPORTANT**: Scheduled jobs run as **Administrator**!
+**IMPORTANT**: Scheduler jobs run as **Administrator**!
 
 ```python
 def scheduled_task():
-    print(frappe.session.user)  # "Administrator"
+    # frappe.session.user = "Administrator"
     
-    # Explicitly set owner:
+    # Set explicit owner:
     doc = frappe.new_doc("ToDo")
-    doc.owner = "specific.user@example.com"
+    doc.owner = "user@example.com"
     doc.insert(ignore_permissions=True)
 ```
 
-## Best Practices
+## Monitoring
+
+| Tool | Description |
+|------|-------------|
+| RQ Worker (DocType) | Worker status, busy/idle |
+| RQ Job (DocType) | Job status, queue filter |
+| `bench doctor` | Scheduler status overview |
+| Scheduled Job Log | Execution history |
+
+## Version Differences v14 vs v15
+
+| Feature | v14 | v15 |
+|---------|-----|-----|
+| Tick interval | 4 min | 60 sec |
+| Config key | `scheduler_interval` | `scheduler_tick_interval` |
+| Deduplication | `job_name` | `job_id` + `is_job_enqueued()` |
+
+## Reference Files
+
+- **[scheduler-events.md](references/scheduler-events.md)**: All event types, cron syntax, configuration
+- **[enqueue-api.md](references/enqueue-api.md)**: Complete frappe.enqueue/enqueue_doc API
+- **[queues.md](references/queues.md)**: Queue types, timeouts, custom queues, workers
+- **[examples.md](references/examples.md)**: Complete working examples
+- **[anti-patterns.md](references/anti-patterns.md)**: Common mistakes and corrections
+
+## Critical Rules
 
 1. **ALWAYS** `bench migrate` after hooks.py scheduler_events changes
-2. **USE** appropriate queue: short/default/long
-3. **USE** `job_id` + `is_job_enqueued()` for deduplication (v15)
-4. **IMPLEMENT** error handling with commit/rollback per record
-5. **ENQUEUE** heavy tasks from scheduler events to long queue
-6. **NEVER** blocking waits in web requests
-7. **REMEMBER** that jobs run as Administrator
-
-## Anti-Patterns
-
-See [references/anti-patterns.md](references/anti-patterns.md) for mistakes to avoid:
-- Heavy processing directly in scheduler callback
-- No error handling (entire batch fails)
-- Blocking wait on job completion
-- Using `job_name` in v15+
-
-## Complete Examples
-
-See [references/examples.md](references/examples.md) for:
-- Data import with progress tracking
-- Email sending with retry logic
-- Cleanup jobs with error recovery
-- Report generation with notifications
+2. **USE** `job_id` + `is_job_enqueued()` for deduplication (v15)
+3. **CHOOSE** correct queue: short/default/long based on duration
+4. **COMMIT** per successful record, rollback on error
+5. **REMEMBER** that jobs run as Administrator
+6. **ENQUEUE** heavy tasks from scheduler events, don't execute directly

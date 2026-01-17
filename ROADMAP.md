@@ -1,7 +1,7 @@
 # 📊 ERPNext Skills Package - Roadmap & Status
 
 > **Laatste update**: 2026-01-17  
-> **Huidige fase**: 2.11 (Scheduler/Background Jobs Skill)
+> **Huidige fase**: 2.12 (Custom App Skill)
 
 ---
 
@@ -10,14 +10,14 @@
 | Categorie | Voltooid | In Progress | Gepland | Totaal |
 |-----------|:--------:|:-----------:|:-------:|:------:|
 | Research | 9 | 0 | 0 | 9 |
-| Syntax Skills | 6 | 0 | 2 | 8 |
+| Syntax Skills | 7 | 0 | 1 | 8 |
 | Core Skills | 0 | 0 | 3 | 3 |
 | Implementation Skills | 0 | 0 | 8 | 8 |
 | Error Handling Skills | 0 | 0 | 7 | 7 |
 | Agents | 0 | 0 | 2 | 2 |
-| **Totaal** | **15** | **0** | **22** | **37** |
+| **Totaal** | **16** | **0** | **21** | **37** |
 
-**Voortgang**: ████████░░░░░░░░░░░░ ~41%
+**Voortgang**: █████████░░░░░░░░░░░ ~43%
 
 ---
 
@@ -35,7 +35,7 @@
 
 ---
 
-### 🔄 Fase 2: Syntax Skills (6/8 COMPLEET)
+### 🔄 Fase 2: Syntax Skills (7/8 COMPLEET)
 
 #### Research (COMPLEET)
 | Stap | Beschrijving | Status | Output |
@@ -48,7 +48,7 @@
 | 2.6.1 | Research Custom App Structure | ✅ | `research-custom-app-structure.md` |
 | 2.6.2 | Research Custom App Data | ✅ | `research-customapp-datamanagement.md` |
 
-#### Skills (6/8 COMPLEET)
+#### Skills (7/8 COMPLEET)
 | Stap | Skill | Status | Output |
 |------|-------|:------:|--------|
 | 2.7.1 | Controllers (Part 1) | ✅ | Reference files |
@@ -58,8 +58,8 @@
 | 2.9.1 | Whitelisted (Part 1) | ✅ | Reference files |
 | 2.9.2 | Whitelisted (Part 2) | ✅ | NL + EN `.skill` files |
 | 2.10 | Jinja Templates | ✅ | NL + EN skill + 5 reference files |
-| 2.11 | Scheduler/Background Jobs | ⏳ | **Volgende** |
-| 2.12.1 | Custom App (Setup) | ⏳ | Gepland |
+| 2.11 | Scheduler/Background Jobs | ✅ | NL + EN skill + 5 reference files |
+| 2.12.1 | Custom App (Setup) | ⏳ | **Volgende** |
 | 2.12.2 | Custom App (Data) | ⏳ | Gepland |
 
 ---
@@ -67,7 +67,7 @@
 ### ⏳ Fase 3: Core Skills (Gepland)
 
 | Stap | Skill | Status | Dependencies |
-|------|-------|:------:|--------------| 
+|------|-------|:------:|--------------|
 | 3.1 | erpnext-database | ⏳ | Fase 2 compleet |
 | 3.2 | erpnext-permissions | ⏳ | Fase 2 compleet |
 | 3.3 | erpnext-api-patterns | ⏳ | Fase 2 compleet |
@@ -127,13 +127,14 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 ## Voltooide Skills Overzicht
 
 | Skill | NL | EN | Reference Files |
-|-------|:--:|:--:|-----------------| 
+|-------|:--:|:--:|-----------------|
 | erpnext-syntax-clientscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
 | erpnext-syntax-serverscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
 | erpnext-syntax-controllers | ✅ | ✅ | lifecycle-methods, methods, flags, examples, anti-patterns |
 | erpnext-syntax-hooks | ✅ | ✅ | doc-events, scheduler-events, bootinfo, overrides, permissions, fixtures |
 | erpnext-syntax-whitelisted | ✅ | ✅ | decorator-options, parameter-handling, response-patterns, client-calls |
 | erpnext-syntax-jinja | ✅ | ✅ | context-objects, methods-reference, filters-reference, examples, anti-patterns |
+| erpnext-syntax-scheduler | ✅ | ✅ | scheduler-events, enqueue-api, queues, examples, anti-patterns |
 
 ---
 
@@ -177,9 +178,9 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 
 ## Volgende Stappen
 
-1. **Fase 2.11**: Scheduler/Background Jobs skill maken
-2. **Fase 2.12**: Custom App skill maken
-3. **Fase 3**: Core skills (database, permissions, api-patterns)
+1. **Fase 2.12**: Custom App skill maken (Setup + Data Management)
+2. **Fase 3**: Core skills (database, permissions, api-patterns)
+3. **Fase 4**: Implementation skills
 
 ---
 
@@ -195,6 +196,11 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 ---
 
 ## Changelog
+
+### 2026-01-17 (sessie 3)
+- Fase 2.11 voltooid: erpnext-syntax-scheduler skill
+- NL + EN versies met 5 reference files elk
+- Voortgang aangepast naar 43%
 
 ### 2026-01-17 (sessie 2)
 - Fase 2.10 voltooid: erpnext-syntax-jinja skill

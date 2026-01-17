@@ -1100,3 +1100,182 @@ Gebaseerd op onze ervaring, dit zijn de essentiële secties:
 ---
 
 *Toegevoegd tijdens Mid-Project Review - 17 januari 2026*
+
+
+---
+
+## 12. Anthropic Tooling Compatibiliteit (Kritieke Ontdekking)
+
+> **Ontdekt tijdens**: Mid-Project Review, sessie 10
+> **Impact**: Hoog - Onze skill structuur was niet compatibel met officiële Anthropic tooling
+
+### 12.1 Het Probleem
+
+We ontdekten dat onze meertalige folder structuur **NIET werkt** met Anthropic's officiële `package_skill.py` en `quick_validate.py` scripts.
+
+**Wat Anthropic's tooling verwacht:**
+```
+skill-name/
+├── SKILL.md          ← DIRECT in de skill folder root
+└── references/
+```
+
+**Wat wij hadden gebouwd:**
+```
+skill-name/
+├── NL/
+│   ├── SKILL.md      ← In subfolder = FAALT VALIDATIE
+│   └── references/
+└── EN/
+    ├── SKILL.md
+    └── references/
+```
+
+**De fout in `package_skill.py` (regel 42-44):**
+```python
+skill_md = skill_path / "SKILL.md"
+if not skill_md.exists():
+    print(f"❌ Error: SKILL.md not found in {skill_path}")
+```
+
+### 12.2 Waarom Dit Belangrijk Is
+
+1. **Officiële tooling werkt niet** - We kunnen `package_skill.py` niet gebruiken
+2. **Validatie faalt** - `quick_validate.py` vindt geen SKILL.md
+3. **Niet toekomstbestendig** - Als Anthropic tooling verandert, zijn we niet compatibel
+4. **Distributie probleem** - Anderen kunnen onze skills niet standaard packagen
+
+### 12.3 De Juiste Structuur
+
+**Elke taalversie moet een APARTE skill zijn:**
+
+```
+skills/source/
+├── erpnext-syntax-clientscripts-nl/    ← Aparte skill folder
+│   ├── SKILL.md                         ← Direct in root
+│   └── references/
+│       ├── methods.md
+│       ├── events.md
+│       └── examples.md
+│
+├── erpnext-syntax-clientscripts-en/    ← Aparte skill folder
+│   ├── SKILL.md                         ← Direct in root
+│   └── references/
+│       └── ...
+```
+
+**Implicaties:**
+- 28 skills × 2 talen = **56 aparte skill folders**
+- Folder naam = Package naam (automatisch)
+- Geen speciale taal-handling nodig
+
+### 12.4 Validatie Regels (uit quick_validate.py)
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ ANTHROPIC SKILL VALIDATIE REGELS                                   │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ SKILL.md LOCATIE                                                   │
+│ • MOET direct in skill folder root staan                           │
+│ • NIET in subfolders                                                │
+│                                                                     │
+│ FRONTMATTER (YAML)                                                 │
+│ • Toegestane keys: name, description, license, metadata,           │
+│   compatibility, allowed-tools                                      │
+│ • GEEN andere keys toestaan                                         │
+│                                                                     │
+│ NAME VELD                                                          │
+│ • Verplicht                                                         │
+│ • kebab-case: alleen a-z, 0-9, en hyphens                          │
+│ • Mag niet starten/eindigen met hyphen                             │
+│ • Geen dubbele hyphens (--)                                        │
+│ • Maximum 64 karakters                                              │
+│                                                                     │
+│ DESCRIPTION VELD                                                   │
+│ • Verplicht                                                         │
+│ • Geen angle brackets (< of >)                                     │
+│ • Maximum 1024 karakters                                            │
+│ • MOET triggers bevatten (wanneer skill activeren)                 │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 12.5 Wat We Verkeerd Deden
+
+| Fout | Waarom het gebeurde | Hoe voorkomen |
+|------|---------------------|---------------|
+| Taal subfolders | Leek logisch voor organisatie | Check tooling VOORDAT je structuur kiest |
+| Niet getest met officiële tools | Aangenomen dat het zou werken | Test met `quick_validate.py` DIRECT na eerste skill |
+| Documentatie niet volledig gelezen | Focus op content, niet tooling | Lees HELE skill-creator SKILL.md inclusief scripts/ |
+
+### 12.6 Les voor de Toekomst
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Test met officiële tooling VOORDAT je verder bouwt          │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Bij het maken van een skill package:                                │
+│                                                                     │
+│ 1. Maak EERSTE skill                                                │
+│ 2. Run quick_validate.py DIRECT                                    │
+│ 3. Run package_skill.py DIRECT                                     │
+│ 4. VERIFIEER dat .skill bestand correct is                         │
+│ 5. PAS DAARNA door naar volgende skills                            │
+│                                                                     │
+│ Als je dit niet doet, kun je 25+ skills bouwen die allemaal        │
+│ herstructurering nodig hebben (zoals ons overkwam).                │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 12.7 Meertalige Skills - De Juiste Aanpak
+
+Aangezien Anthropic geen standaard heeft voor meertalige skills:
+
+**Conventie: Taal suffix in skill naam**
+
+```
+erpnext-syntax-clientscripts-nl    ← Nederlandse versie
+erpnext-syntax-clientscripts-en    ← Engelse versie
+```
+
+**Voordelen:**
+- 100% conform Anthropic tooling
+- Duidelijk welke taal
+- Standaard packaging werkt
+- Geen custom scripts nodig
+
+**Nadelen:**
+- Meer folders (56 i.p.v. 28)
+- Reference files gedupliceerd
+- Meer onderhoud bij updates
+
+**Afweging:** De voordelen van tooling-compatibiliteit wegen zwaarder dan de nadelen van duplicatie. Tooling-compatibiliteit is essentieel voor distributie en toekomstige updates.
+
+---
+
+## 13. Samenvatting: Uitgebreide Top 15 Lessen
+
+Bijgewerkt met nieuwe ontdekkingen:
+
+1. **Definieer directory structuur VOORAF** - Tot op bestandsniveau
+2. **Plan verplichte checkpoints** - Na elke hoofdfase
+3. **Eén document is de status truth** - ROADMAP.md, niet meerdere
+4. **Elke prompt begint met context ophalen** - STAP 0 is verplicht
+5. **Push na ELKE fase** - Claude's filesystem reset
+6. **Split grote fases proactief** - Beter te klein dan te groot
+7. **Specificeer source/package strategie** - Beiden of één, maar expliciet
+8. **Consolideer amendments periodiek** - Voorkom document sprawl
+9. **Research eerst, altijd** - Nooit bouwen zonder verificatie
+10. **Documenteer lessons learned continu** - Niet alleen aan het eind
+11. **TEST MET OFFICIËLE TOOLING DIRECT** - Na eerste skill, niet na 25
+12. **Lees volledige documentatie** - Inclusief scripts en voorbeelden
+13. **Meertalig = aparte skills** - Niet subfolders
+14. **Folder naam = package naam** - Kies namen zorgvuldig
+15. **Server Script sandbox blokkeert imports** - Gebruik frappe.* namespace
+
+---
+
+*Toegevoegd na Anthropic tooling analyse - 17 januari 2026*

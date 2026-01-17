@@ -1,7 +1,7 @@
 # Lessons Learned: ERPNext Skills Package Project
 
-> **Project**: ERPNext/Frappe Skills Package voor Claude
-> **Periode**: Januari 2025 - Januari 2026
+> **Project**: ERPNext/Frappe Skills Package voor Claude  
+> **Periode**: Januari 2025 - Januari 2026  
 > **Organisatie**: OpenAEC Foundation
 
 Dit document bevat alle geleerde lessen uit het ontwikkelen van een comprehensive AI skill package voor een open source project. De lessen zijn bruikbaar voor iedereen die een soortgelijk project wil opzetten.
@@ -17,6 +17,7 @@ Dit document bevat alle geleerde lessen uit het ontwikkelen van een comprehensiv
 5. [GitHub Integratie Lessen](#5-github-integratie-lessen)
 6. [Valkuilen en Oplossingen](#6-valkuilen-en-oplossingen)
 7. [Best Practices Samenvatting](#7-best-practices-samenvatting)
+8. [**META-LESSEN: Project Structuur & Planning**](#8-meta-lessen-project-structuur--planning) ← NIEUW
 
 ---
 
@@ -101,10 +102,31 @@ def on_update(self):
 ### 1.6 Queue Timeouts
 
 | Queue | Timeout | Gebruik |
-|-------|---------|---------|
+|-------|---------|---------┤
 | short | 300s (5 min) | Snelle operaties |
 | default | 300s (5 min) | Normale taken |
 | long | 1500s (25 min) | Zware verwerking |
+
+### 1.9 Database Operaties - Fase 3 Ontdekkingen
+
+**Drie abstractieniveaus kiezen:**
+
+```
+High-level ORM     → frappe.get_doc()      → Met validaties, langzamer
+Mid-level Query    → frappe.db.get_list()  → Sneller, met/zonder permissions
+Low-level SQL      → frappe.db.sql()       → Snelst, geen bescherming
+```
+
+**REGEL**: Altijd hoogst mogelijke abstractieniveau gebruiken.
+
+**Kritieke Insights:**
+
+1. **`db_set` bypassed ALLES** - Geen validate, geen on_update, geen permissions
+2. **Transaction hooks (v15+)** - `frappe.db.after_rollback.add()` en `frappe.db.after_commit.add()`
+3. **get_list vs get_all** - `get_list` past permissions toe, `get_all` niet
+4. **v16 Breaking Changes** - Aggregatie syntax is veranderd
+5. **SQL Injection risico** - Altijd parameterized queries gebruiken
+6. **N+1 Query Problem** - Batch fetch in plaats van loop queries
 
 ---
 
@@ -121,35 +143,17 @@ def on_update(self):
 | Secties/onderwerpen | >8-10 | Splitsen |
 | Gespreksduur | Near limit | Splitsen |
 
-**Opsplitsingsproces:**
-1. Identificeer logische scheiding (fundamentals vs. advanced)
-2. Maak amendment document
-3. Zorg dat delen onafhankelijk zijn (geen circular dependencies)
-4. Documenteer de rationale
-
 ### 2.2 Research-First Aanpak
 
 **Gouden regel**: Nooit skills maken zonder grondige research.
-
-Onze workflow:
-1. **Deep research** - Officiële docs, GitHub source, community (2023+)
-2. **Preliminary document** - Gestructureerde samenvatting
-3. **Verificatie** - Tegen source code controleren
-4. **Skill creatie** - Pas na volledige verificatie
 
 ### 2.3 One-Shot Mindset
 
 **Principe**: Plan grondig zodat elke fase in één keer correct uitgevoerd kan worden.
 
-- Geen "we fixen het later"
-- Geen proof-of-concepts
-- Direct definitieve kwaliteit
-
 ### 2.4 Bilingual Overhead
 
 Het maken van NL én EN versies **verdubbelt** de tijd maar vergroot het bereik aanzienlijk.
-
-**Tip**: Maak eerst de primaire taal volledig, vertaal dan systematisch. Niet gelijktijdig ontwikkelen.
 
 ---
 
@@ -157,44 +161,25 @@ Het maken van NL én EN versies **verdubbelt** de tijd maar vergroot het bereik 
 
 ### 3.1 Memory Gebruik
 
-Claude's memory feature is essentieel voor project continuïteit:
-- Correcties worden onthouden
-- Voorkeuren blijven behouden
-- Context blijft over sessies heen
-
-**Tip**: Gebruik memory_user_edits tool voor belangrijke projectregels.
+Claude's memory feature is essentieel voor project continuïteit.
 
 ### 3.2 Filesystem Reset
 
 **Kritiek**: Het Claude filesystem reset tussen sessies!
 
-**Oplossingen**:
-- Push naar GitHub na elke fase
-- Download belangrijke bestanden
-- Gebruik project knowledge voor persistente docs
-
 ### 3.3 Conversation Length Management
 
 Complexe fases kunnen het gesprekslimiet bereiken.
 
-**Oplossingen**:
-- Pre-split grote fases
-- Monitor voortgang
-- Save incrementeel naar GitHub
-
 ### 3.4 Token Opslaan
 
-GitHub tokens worden NIET onthouden tussen sessies.
-
-**Oplossing**: Sla tokens op in een `api-tokens.md` bestand in project knowledge (regenereer na sessie voor veiligheid!).
+GitHub tokens worden NIET onthouden tussen sessies. Sla op in `api-tokens.md`.
 
 ---
 
 ## 4. Skill Development Lessen
 
 ### 4.1 Anthropic Conventies
-
-**Strikt volgen van officiële conventies is essentieel:**
 
 | Component | Vereiste |
 |-----------|----------|
@@ -205,45 +190,17 @@ GitHub tokens worden NIET onthouden tussen sessies.
 
 ### 4.2 Deterministische Content
 
-Skills moeten onambigueus zijn:
-
 ```markdown
 # ❌ FOUT - Te vaag
 "Je kunt overwegen om X te gebruiken..."
-"Het is vaak een goed idee om..."
 
 # ✅ CORRECT - Deterministisch
 "ALTIJD X gebruiken wanneer Y"
-"NOOIT Z doen omdat [reden]"
 ```
 
-### 4.3 Skill Structuur
+### 4.3 Versie-Expliciet
 
-Effectieve skill organisatie:
-
-```
-skill-name/
-├── SKILL.md              # <500 regels, quick reference
-└── references/
-    ├── methods.md        # Complete API signatures
-    ├── events.md         # Event listings
-    ├── examples.md       # Werkende code voorbeelden
-    └── anti-patterns.md  # Wat NIET te doen
-```
-
-### 4.4 Versie-Expliciet
-
-**ALTIJD** documenteren voor welke versie code bedoeld is:
-
-```python
-# v14/v15 compatible
-def my_function():
-    pass
-
-# v15+ only (nieuw)
-def v15_only_function():
-    pass
-```
+**ALTIJD** documenteren voor welke versie code bedoeld is.
 
 ---
 
@@ -251,149 +208,441 @@ def v15_only_function():
 
 ### 5.1 Token Setup
 
-**Fine-grained Personal Access Token vereisten:**
-
-| Permission | Setting | Waarvoor |
-|------------|---------|----------|
-| Contents | Read and write | Push/pull code |
-| Metadata | Read-only | Repo info |
-| Issues | Read and write | Issues aanmaken |
-
-**Resource owner**: Organisatie (niet persoonlijk account)
+Fine-grained PAT met Contents (R/W), Metadata (R), Issues (R/W).
 
 ### 5.2 Claude Project Settings
 
-**Vereiste configuratie:**
-
-| Setting | Waarde |
-|---------|--------|
-| Network | "Package managers only" |
-| Additional domains | `api.github.com`, `github.com` |
+Network: "Package managers only" + `api.github.com`, `github.com` in allowed domains.
 
 **KRITIEK**: Domain toevoegingen werken pas in een NIEUW gesprek!
 
 ### 5.3 Git Clone Beperking
 
-`git clone` werkt NIET in Claude's container (proxy blokkeert).
-
-**Oplossing**: Gebruik GitHub API voor alle operaties:
-
-```bash
-# Content ophalen
-curl -H "Authorization: Bearer $TOKEN" \
-  -H "Accept: application/vnd.github.raw" \
-  "https://api.github.com/repos/owner/repo/contents/path/file.md"
-
-# Content pushen
-curl -X PUT -H "Authorization: Bearer $TOKEN" \
-  "https://api.github.com/repos/owner/repo/contents/path/file.md" \
-  -d '{"message":"commit msg","content":"base64_content","sha":"file_sha"}'
-```
+`git clone` werkt NIET - gebruik GitHub API voor alle operaties.
 
 ### 5.4 Push Na Elke Fase
 
 **Regel**: Werk dat niet gecommit is, bestaat niet.
 
-Na elke voltooide fase:
-1. Valideer bestanden
-2. Commit met beschrijvende message
-3. Push naar GitHub
-4. Verifieer in repo
-
 ---
 
 ## 6. Valkuilen en Oplossingen
 
-### 6.1 Valkuil: Aannemen zonder Verifiëren
-
-**Probleem**: Claude kan verouderde of incorrecte informatie hebben.
-
-**Oplossing**: 
-- Altijd web search voor actuele docs
-- Verifieer tegen GitHub source code
-- Community input alleen van 2023+
-
-### 6.2 Valkuil: Te Grote Fases
-
-**Probleem**: Fase wordt te groot voor één gesprek.
-
-**Oplossing**: 
-- Monitor criteria (>700 regels, >5 files, >8 secties)
-- Split proactief, niet reactief
-- Documenteer split in amendment
-
-### 6.3 Valkuil: Geen GitHub Sync
-
-**Probleem**: Werk verloren door filesystem reset.
-
-**Oplossing**: 
-- Push na ELKE fase
-- Geen uitzonderingen
-- Verifieer dat push gelukt is
-
-### 6.4 Valkuil: Token Vergeten
-
-**Probleem**: Nieuwe sessie, geen GitHub toegang.
-
-**Oplossing**: 
-- Token in project knowledge (api-tokens.md)
-- Regenereer na sessie voor veiligheid
-- Documenteer alle vereiste permissions
-
-### 6.5 Valkuil: Domains Niet Werkend
-
-**Probleem**: Domains toegevoegd maar werken niet.
-
-**Oplossing**: 
-- Domains werken pas in NIEUW gesprek
-- Niet alleen refresh, echt nieuw gesprek starten
-- Test met curl naar api.github.com
+| Valkuil | Oplossing |
+|---------|-----------|
+| Aannemen zonder verifiëren | Altijd web search, check source code |
+| Te grote fases | Monitor criteria, split proactief |
+| Geen GitHub sync | Push na ELKE fase |
+| Token vergeten | Token in project knowledge |
+| Domains niet werkend | Nieuw gesprek starten |
 
 ---
 
 ## 7. Best Practices Samenvatting
 
 ### Research
-
 1. ✅ Start met officiële documentatie
 2. ✅ Verifieer tegen GitHub source code
 3. ✅ Alleen community input van 2023+
-4. ✅ Documenteer bronnen
-5. ❌ Nooit aannemen zonder verificatie
 
 ### Skill Development
-
 1. ✅ SKILL.md <500 regels
 2. ✅ Deterministische formulering
 3. ✅ Decision trees voor complexe keuzes
-4. ✅ Beide taalversies maken
-5. ✅ Anti-patterns documenteren
-6. ❌ Geen vage suggesties
-
-### Project Management
-
-1. ✅ Research before action
-2. ✅ Monitor fase complexiteit
-3. ✅ Split proactief bij criteria overschrijding
-4. ✅ One-shot mindset
-5. ✅ Document everything
-6. ❌ Geen "we fixen het later"
 
 ### Version Control
-
 1. ✅ Push na ELKE fase
 2. ✅ Beschrijvende commit messages
 3. ✅ Verifieer push succesvol
-4. ✅ Token in project knowledge
-5. ❌ Nooit werk ongecommit laten
 
-### Claude Workflow
+---
 
-1. ✅ Memory voor belangrijke regels
-2. ✅ Project knowledge voor persistente docs
-3. ✅ Nieuw gesprek na settings wijzigingen
-4. ✅ Download belangrijke bestanden
-5. ❌ Niet vertrouwen op filesystem persistence
+## 8. META-LESSEN: Project Structuur & Planning
+
+> **Toegevoegd**: 17 januari 2026 (Mid-Project Review)
+> 
+> Deze sectie bevat de belangrijkste lessen over HOE je een skill package project moet opzetten - niet de technische inhoud, maar de project structuur en planning zelf.
+
+### 8.1 DEFINIEER DIRECTORY STRUCTUUR VOORAF
+
+**Wat ging fout:**
+We begonnen zonder expliciete directory conventies. Het masterplan beschreef WÁT we gingen maken, maar niet WAAR het moest komen. Resultaat na 61% voortgang:
+
+```
+❌ Chaotische structuur die organisch groeide:
+skills/
+├── packaged/          ← sommige .skill files
+├── syntax/            ← andere .skill files  
+├── source/            ← sommige bronbestanden
+├── impl/              ← weer andere .skill files
+├── NL/CORE/           ← core skills NL
+├── EN/CORE/           ← core skills EN
+├── erpnext-syntax-jinja/     ← losse folder
+├── erpnext-syntax-customapp/ ← losse folder
+└── erpnext-permissions/      ← nog een losse folder
+```
+
+**Wat we hadden moeten doen:**
+
+```
+✅ Definieer VOORAF in het masterplan:
+
+skills/
+├── source/                    # ALLE bronbestanden
+│   ├── syntax/
+│   │   └── [skill-naam]/
+│   │       ├── NL/
+│   │       │   ├── SKILL.md
+│   │       │   └── references/
+│   │       └── EN/
+│   ├── core/
+│   ├── impl/
+│   ├── errors/
+│   └── agents/
+│
+└── packaged/                  # ALLE .skill packages
+    ├── syntax/
+    ├── core/
+    ├── impl/
+    ├── errors/
+    └── agents/
+```
+
+**Les**: Neem een sectie "Directory Conventies" op in elk masterplan met:
+- Exacte paden voor elk bestandstype
+- Naming conventions (lowercase, hyphens, taal suffix)
+- Voorbeelden van complete paden
+
+---
+
+### 8.2 SPECIFICEER DELIVERABLES PER FASE
+
+**Wat ging fout:**
+Het masterplan zei "maak skill X" maar specificeerde niet:
+- Moeten we source files pushen?
+- Moeten we .skill packages pushen?
+- Beide?
+- Waar precies?
+
+**Wat we hadden moeten doen:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ DELIVERABLES TEMPLATE - Opnemen in masterplan                      │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Per voltooide skill worden ALTIJD gepusht:                         │
+│                                                                     │
+│ 1. SOURCE FILES                                                    │
+│    skills/source/[categorie]/[skill]/NL/SKILL.md                   │
+│    skills/source/[categorie]/[skill]/NL/references/*.md            │
+│    skills/source/[categorie]/[skill]/EN/SKILL.md                   │
+│    skills/source/[categorie]/[skill]/EN/references/*.md            │
+│                                                                     │
+│ 2. PACKAGES                                                        │
+│    skills/packaged/[categorie]/[skill]-NL.skill                    │
+│    skills/packaged/[categorie]/[skill]-EN.skill                    │
+│                                                                     │
+│ 3. STATUS UPDATE                                                   │
+│    ROADMAP.md (nieuwe status)                                       │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Les**: Elk masterplan moet een "Deliverables Checklist" bevatten die EXACT specificeert wat er gepusht moet worden per fase-type.
+
+---
+
+### 8.3 BOUW CHECKPOINTS IN VANAF HET BEGIN
+
+**Wat ging fout:**
+We hadden geen formele tussentijdse evaluatiemomenten gepland. We werkten fase na fase zonder te stoppen om te evalueren:
+- Is de structuur nog logisch?
+- Zijn er patronen die we kunnen verbeteren?
+- Moeten we het plan aanpassen?
+
+**Wat we hadden moeten doen:**
+
+```
+MASTERPLAN CHECKPOINT SCHEMA
+
+Fase 1-2 (Syntax Skills)
+    ↓
+┌───────────────────────────────┐
+│ CHECKPOINT A                  │
+│ - Structuur evaluatie         │
+│ - Zijn conventies werkbaar?   │
+│ - Lessons learned update      │
+└───────────────────────────────┘
+    ↓
+Fase 3 (Core Skills)
+    ↓
+┌───────────────────────────────┐
+│ CHECKPOINT B                  │
+│ - Quality check               │
+│ - Cross-references correct?   │
+└───────────────────────────────┘
+    ↓
+Fase 4-5 (Impl + Error Skills)
+    ↓
+┌───────────────────────────────┐
+│ CHECKPOINT C (MID-PROJECT)    │
+│ - Volledige review            │
+│ - Directory cleanup indien    │
+│   nodig                       │
+│ - Plan aanpassen              │
+└───────────────────────────────┘
+    ↓
+Fase 6-7 (Agents + Finalisatie)
+    ↓
+┌───────────────────────────────┐
+│ FINAL REVIEW                  │
+└───────────────────────────────┘
+```
+
+**Les**: Plan checkpoints VOORAF in het masterplan, niet achteraf wanneer problemen al zijn ontstaan.
+
+---
+
+### 8.4 HOUD ÉÉN SINGLE SOURCE OF TRUTH
+
+**Wat ging fout:**
+We hadden meerdere documenten die status bijhielden:
+- ROADMAP.md (actuele status)
+- Masterplan (oorspronkelijke planning)
+- 8 verschillende amendments
+- WAY_OF_WORK.md (methodologie)
+
+Soms was onduidelijk welk document "de waarheid" was.
+
+**Wat we hadden moeten doen:**
+
+```
+DOCUMENT HIËRARCHIE - Definieer vooraf
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ SINGLE SOURCE OF TRUTH: ROADMAP.md                                 │
+│ - Bevat: Actuele status, voortgang, wat is voltooid                │
+│ - Update: Na ELKE fase                                              │
+│ - Dit is altijd de meest actuele informatie                        │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ REFERENTIE: Masterplan                                             │
+│ - Bevat: Oorspronkelijke visie, fase definities, prompts           │
+│ - Update: Alleen bij fundamentele wijzigingen                      │
+│ - Blijft stabiel als referentiepunt                                │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ WIJZIGINGEN: Amendments (genummerd)                                │
+│ - Bevat: Specifieke aanpassingen op masterplan                     │
+│ - Update: Wanneer plan wijzigt                                      │
+│ - Altijd met rationale en datum                                     │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ KENNIS: LESSONS_LEARNED.md                                         │
+│ - Bevat: Technische en proces inzichten                            │
+│ - Update: Na nieuwe ontdekkingen                                    │
+│ - Bruikbaar voor toekomstige projecten                             │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Les**: Definieer vooraf welk document waarvoor dient en wat de "single source of truth" is voor projectstatus.
+
+---
+
+### 8.5 CONSOLIDEER AMENDMENTS PERIODIEK
+
+**Wat ging fout:**
+We maakten 8 losse amendments:
+- masterplan-aanpassing-fase-2_6.md
+- masterplan-aanpassing-fase-2_7.md
+- masterplan-aanpassing-fase-2_9.md
+- masterplan-aanpassing-fase-2_10-2_11.md
+- masterplan-aanvulling-fase-opsplitsingen.md
+- masterplan-skill-uploads.md
+- skill-uploads-voortgang.md
+- skill-uploads-voortgang-updated.md
+
+Dit maakt het moeilijk om het complete, actuele plan te reconstrueren.
+
+**Wat we hadden moeten doen:**
+
+```
+AMENDMENT CONSOLIDATIE REGEL
+
+Na elke 3-5 amendments OF bij een checkpoint:
+→ Consolideer alle actieve amendments in één "Amendment Summary"
+→ Archiveer oude amendments naar amendments/archive/
+→ Houd alleen actuele, geconsolideerde versie actief
+
+Voorbeeld:
+amendments/
+├── archive/
+│   ├── amendment-1-fase-2_6.md
+│   ├── amendment-2-fase-2_7.md
+│   └── ...
+├── CONSOLIDATED-AMENDMENTS-v2.md  ← Actuele geconsolideerde versie
+└── amendment-6-nieuwste.md        ← Meest recente, nog niet geconsolideerd
+```
+
+**Les**: Plan periodieke consolidatie van amendments om overzicht te behouden.
+
+---
+
+### 8.6 NEEM "CONTEXT OPHALEN" OP IN ELKE PROMPT
+
+**Wat ging fout:**
+Fase prompts in het masterplan begonnen direct met de taak, zonder expliciet te zeggen:
+1. Haal eerst de actuele status op
+2. Controleer of vorige fase compleet is
+3. Haal benodigde bronnen op
+
+Dit leidde soms tot werk dat niet goed aansloot op de vorige fase.
+
+**Wat we hadden moeten doen:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ STANDAARD PROMPT STRUCTUUR                                         │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ ═══════════════════════════════════════════════════════════════════│
+│ STAP 0: CONTEXT OPHALEN (VERPLICHT - ALTIJD EERSTE)                │
+│ ═══════════════════════════════════════════════════════════════════│
+│                                                                     │
+│ 1. Haal ROADMAP.md op → Check huidige status                       │
+│ 2. Bevestig dat vorige fase COMPLEET is                            │
+│ 3. Haal benodigde bronnen op (research docs, skills)               │
+│ 4. Bevestig directory conventies                                    │
+│                                                                     │
+│ PAS DAARNA:                                                        │
+│                                                                     │
+│ ═══════════════════════════════════════════════════════════════════│
+│ STAP 1: ONDERZOEK                                                  │
+│ ═══════════════════════════════════════════════════════════════════│
+│ [fase-specifieke instructies]                                       │
+│                                                                     │
+│ ═══════════════════════════════════════════════════════════════════│
+│ STAP 2: UITWERKING                                                 │
+│ ═══════════════════════════════════════════════════════════════════│
+│ [fase-specifieke instructies]                                       │
+│                                                                     │
+│ ═══════════════════════════════════════════════════════════════════│
+│ STAP 3: PUSH & VERIFICATIE (VERPLICHT - ALTIJD LAATSTE)            │
+│ ═══════════════════════════════════════════════════════════════════│
+│ 1. Push alle deliverables naar correcte locaties                   │
+│ 2. Update ROADMAP.md                                                │
+│ 3. Verifieer push succesvol                                         │
+│ 4. Rapporteer aan gebruiker                                         │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Les**: Elke fase-prompt moet beginnen met "STAP 0: Context Ophalen" en eindigen met "STAP N: Push & Verificatie".
+
+---
+
+### 8.7 TEST DE WORKFLOW VOOR JE BEGINT
+
+**Wat ging fout:**
+We ontdekten pas tijdens het project dat:
+- `git clone` niet werkt in Claude's container
+- Domain toevoegingen pas werken in een nieuw gesprek
+- Het filesystem reset tussen sessies
+
+Dit kostte tijd om op te lossen.
+
+**Wat we hadden moeten doen:**
+
+```
+PRE-PROJECT CHECKLIST - Voordat je aan een skill package begint
+
+□ GitHub API workflow testen
+  - Token configureren
+  - Test push/pull via API
+  - Documenteer exacte commando's
+
+□ Claude container limitaties identificeren
+  - Welke tools werken?
+  - Welke niet?
+  - Workarounds documenteren
+
+□ Project settings configureren
+  - Network settings
+  - Allowed domains
+  - Test in NIEUW gesprek
+
+□ Directory structuur aanmaken
+  - Maak lege structuur aan
+  - Push naar GitHub
+  - Bevestig dat structuur klopt
+
+□ Eerste fase als pilot
+  - Eén skill volledig doorlopen
+  - Alle stappen testen
+  - Workflow documenteren
+  - Pas masterplan aan indien nodig
+```
+
+**Les**: Doe een "pilot fase" waarin je de hele workflow test voordat je het volledige project plant.
+
+---
+
+### 8.8 SAMENVATTING: WAT WE ANDERS ZOUDEN DOEN
+
+Als we dit project opnieuw zouden beginnen:
+
+| Aspect | Wat we deden | Wat we zouden doen |
+|--------|--------------|-------------------|
+| **Directory structuur** | Niet vooraf gedefinieerd | Exact pad per bestandstype in masterplan |
+| **Deliverables** | Impliciet | Expliciete checklist per fase-type |
+| **Checkpoints** | Geen | Ingebouwd na elke hoofdfase |
+| **Source of truth** | Meerdere documenten | ROADMAP.md als single source |
+| **Amendments** | 8 losse bestanden | Periodiek consolideren |
+| **Prompts** | Direct naar taak | Altijd beginnen met context ophalen |
+| **Workflow** | Ontdekken tijdens project | Pilot fase vooraf |
+
+---
+
+### 8.9 TEMPLATE: MASTERPLAN SECTIE "PROJECT CONVENTIES"
+
+Voeg deze sectie toe aan elk toekomstig masterplan:
+
+```markdown
+## Project Conventies
+
+### Directory Structuur
+[Exacte structuur met voorbeeldpaden]
+
+### Naming Conventions
+- Skill namen: lowercase-met-hyphens
+- Taal suffix: -NL of -EN (hoofdletters)
+- Packages: skill-naam-TAAL.skill
+
+### Deliverables Per Fase Type
+| Fase Type | Source Files | Packages | Status Update |
+|-----------|--------------|----------|---------------|
+| Research  | docs/research/research-[topic].md | - | ROADMAP.md |
+| Syntax    | skills/source/syntax/[skill]/[taal]/ | skills/packaged/syntax/ | ROADMAP.md |
+| Impl      | skills/source/impl/[skill]/[taal]/ | skills/packaged/impl/ | ROADMAP.md |
+| Error     | skills/source/errors/[skill]/[taal]/ | skills/packaged/errors/ | ROADMAP.md |
+| Agent     | skills/source/agents/[agent]/[taal]/ | skills/packaged/agents/ | ROADMAP.md |
+
+### Checkpoints
+- Na Fase X: [beschrijving]
+- Na Fase Y: [beschrijving]
+- Mid-Project: [beschrijving]
+- Final: [beschrijving]
+
+### Document Hiërarchie
+- ROADMAP.md: Single source of truth voor status
+- Masterplan: Oorspronkelijke visie (stabiel)
+- Amendments: Wijzigingen (genummerd, periodiek consolideren)
+- LESSONS_LEARNED.md: Inzichten voor toekomstige projecten
+```
 
 ---
 
@@ -445,62 +694,20 @@ Research document >700 regels?
 □ Indien domains gewijzigd: nieuw gesprek nodig
 ```
 
+### E. Masterplan Conventies Checklist (NIEUW)
+
+```
+□ Directory structuur gedefinieerd met exacte paden
+□ Deliverables per fase-type gespecificeerd
+□ Checkpoints ingepland na elke hoofdfase
+□ Single source of truth aangewezen (ROADMAP.md)
+□ Amendment consolidatie schema
+□ Alle prompts beginnen met "STAP 0: Context Ophalen"
+□ Pilot fase gepland om workflow te testen
+```
+
 ---
 
 *Dit document is een levend document en wordt bijgewerkt naarmate het project vordert.*
 
-*Laatst bijgewerkt: 17 januari 2026*
-
-### 1.9 Database Operaties - Fase 3 Ontdekkingen
-
-**Drie abstractieniveaus kiezen:**
-
-```
-High-level ORM     → frappe.get_doc()      → Met validaties, langzamer
-Mid-level Query    → frappe.db.get_list()  → Sneller, met/zonder permissions
-Low-level SQL      → frappe.db.sql()       → Snelst, geen bescherming
-```
-
-**REGEL**: Altijd hoogst mogelijke abstractieniveau gebruiken.
-
-**Kritieke Insights:**
-
-1. **`db_set` bypassed ALLES** - Geen validate, geen on_update, geen permissions
-   ```python
-   # Alleen gebruiken voor:
-   # - Hidden fields
-   # - Counters/timestamps
-   # - Background jobs waar je ZEKER weet wat je doet
-   ```
-
-2. **Transaction hooks (v15+)** - Nieuwe manier om rollback te handlen
-   ```python
-   frappe.db.after_rollback.add(cleanup_function)
-   frappe.db.after_commit.add(notify_function)
-   ```
-
-3. **get_list vs get_all** - Subtiel maar belangrijk
-   - `get_list` → Past user permissions toe
-   - `get_all` → Geen permissions, admin-level access
-
-4. **v16 Breaking Changes** - Aggregatie syntax is veranderd!
-   ```python
-   # v14/v15: fields=['count(name) as count']
-   # v16:     fields=[{'COUNT': 'name', 'as': 'count'}]
-   ```
-
-5. **SQL Injection risico is REËEL** - Zelfs in interne scripts
-   ```python
-   # ❌ NOOIT
-   frappe.db.sql(f"SELECT * FROM `tabUser` WHERE name = '{input}'")
-   
-   # ✅ ALTIJD
-   frappe.db.sql("SELECT * FROM `tabUser` WHERE name = %(name)s", {'name': input})
-   ```
-
-6. **N+1 Query Problem** - Grootste performance killer
-   ```python
-   # Batch fetch in plaats van loop queries
-   docs = frappe.get_all('Customer', filters={'name': ['in', names]})
-   ```
-
+*Laatst bijgewerkt: 17 januari 2026 - Mid-Project Review toegevoegd (Sectie 8)*

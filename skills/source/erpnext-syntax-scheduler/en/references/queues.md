@@ -1,6 +1,4 @@
-# Queue Types Reference
-
-Complete reference for Frappe queue configuration.
+# Queue Types & Configuration
 
 ## Default Queues
 
@@ -8,60 +6,53 @@ Complete reference for Frappe queue configuration.
 |-------|-----------------|-------|
 | `short` | 300s (5 min) | Quick tasks, UI responses |
 | `default` | 300s (5 min) | Standard tasks |
-| `long` | 1500s (25 min) | Heavy processing, imports |
+| `long` | 1500s (25 min) | Heavy processing, imports, exports |
 
-## Queue Selection Criteria
-
-### short Queue
+## Queue Selection Guidelines
 
 ```python
-# Quick operations that shouldn't block UI
-frappe.enqueue('myapp.tasks.quick_update', queue='short')
+# SHORT queue - quick operations
+frappe.enqueue(
+    "myapp.tasks.update_status",
+    queue="short",
+    doc_name=doc.name
+)
+
+# DEFAULT queue - standard tasks
+frappe.enqueue(
+    "myapp.tasks.send_email",
+    # queue="default" is implicit
+    recipient=email
+)
+
+# LONG queue - heavy processing
+frappe.enqueue(
+    "myapp.tasks.generate_report",
+    queue="long",
+    timeout=3600,  # 1 hour
+    report_type="annual"
+)
 ```
 
-Use for:
-- Cache invalidation
-- Small notifications
-- Quick lookups
-- Tasks < 1 minute
-
-### default Queue
+## Custom Queue Timeout
 
 ```python
-# Standard tasks
-frappe.enqueue('myapp.tasks.process_order', queue='default')
+# Override default timeout
+frappe.enqueue(
+    "myapp.tasks.medium_task",
+    queue="default",
+    timeout=900,  # 15 minutes instead of 5
+    data=large_data
+)
 ```
 
-Use for:
-- Email sending
-- Document processing
-- API calls
-- Tasks 1-5 minutes
+## Custom Queues Configuration
 
-### long Queue
-
-```python
-# Heavy processing
-frappe.enqueue('myapp.tasks.generate_report', queue='long')
-```
-
-Use for:
-- Data imports
-- Bulk operations
-- Report generation
-- Tasks > 5 minutes
-
-## Custom Queue Configuration
-
-In `sites/common_site_config.json`:
+In `common_site_config.json`:
 
 ```json
 {
     "workers": {
-        "myqueue": {
-            "timeout": 5000,
-            "background_workers": 4
-        },
         "priority": {
             "timeout": 60,
             "background_workers": 2
@@ -69,6 +60,10 @@ In `sites/common_site_config.json`:
         "reports": {
             "timeout": 7200,
             "background_workers": 1
+        },
+        "imports": {
+            "timeout": 5000,
+            "background_workers": 4
         }
     }
 }
@@ -78,9 +73,9 @@ In `sites/common_site_config.json`:
 
 ```python
 frappe.enqueue(
-    'myapp.tasks.generate_annual_report',
-    queue='reports',
-    timeout=7200
+    "myapp.tasks.generate_large_report",
+    queue="reports",
+    report_id=report.name
 )
 ```
 
@@ -97,21 +92,12 @@ worker_long: bench worker --queue long --quiet
 ### Multi-Queue Worker
 
 ```bash
-# Worker consumes from multiple queues
+# One worker consumes from multiple queues
 bench worker --queue short,default
 bench worker --queue long
 ```
 
-### Priority Order
-
-Worker processes queues in specified order:
-
-```bash
-# short has priority over default
-bench worker --queue short,default
-```
-
-## Burst Mode
+### Burst Mode
 
 Temporary worker that stops when queue is empty:
 
@@ -119,78 +105,93 @@ Temporary worker that stops when queue is empty:
 bench worker --queue short --burst
 ```
 
-Use for:
+Useful for:
 - One-time batch processing
-- Testing
-- Deployment scripts
+- Development/testing
+- Temporary extra capacity
 
-## Timeout Override
+## Queue Priority
 
-Per-job timeout override:
+Jobs are processed in FIFO order within each queue.
 
 ```python
-# Override queue default
+# Place at front of queue (priority)
 frappe.enqueue(
-    'myapp.tasks.very_long_task',
-    queue='long',
-    timeout=7200  # 2 hours (override 25 min default)
+    "myapp.tasks.urgent_task",
+    at_front=True,
+    task_id=task.name
 )
 ```
 
 ## Queue Monitoring
 
-### Via Desk
-
-- **RQ Worker**: Shows worker status
-- **RQ Job**: Shows jobs per queue
-
-### Via CLI
+### Bench Commands
 
 ```bash
-# Queue status
+# Scheduler status
 bench doctor
 
-# Specific queue info
-bench execute frappe.utils.background_jobs.get_queue_info
+# View queue status
+bench --site mysite show-pending-jobs
+
+# Specific queue
+bench --site mysite show-pending-jobs --queue long
 ```
 
-## Scheduler Events and Queues
+### Via DocTypes
 
-| Event | Queue |
-|-------|-------|
-| `all`, `hourly`, `daily`, `weekly`, `monthly` | default |
-| `hourly_long`, `daily_long`, `weekly_long`, `monthly_long` | long |
+- **RQ Worker**: Worker status (busy/idle)
+- **RQ Job**: Job status per queue
+
+### Via Code
 
 ```python
-scheduler_events = {
-    "daily": ["myapp.tasks.quick_daily"],      # → default queue
-    "daily_long": ["myapp.tasks.heavy_daily"]  # → long queue
-}
+from frappe.utils.background_jobs import get_queue
+
+# Queue stats
+queue = get_queue("default")
+print(f"Jobs in queue: {len(queue)}")
+
+# Job status
+from rq.job import Job
+job = Job.fetch(job_id, connection=frappe.cache())
+print(job.get_status())
 ```
 
-## Best Practices
+## Queue Best Practices
 
-1. **Match queue to expected duration**
-   - < 1 min → short
-   - 1-5 min → default
-   - > 5 min → long
+### Choosing the Right Queue
 
-2. **Use timeout parameter for exceptions**
-   ```python
-   frappe.enqueue(..., queue='long', timeout=3600)
-   ```
+| Task Duration | Queue |
+|---------------|-------|
+| < 30 seconds | `short` |
+| 30s - 5 minutes | `default` |
+| 5 - 25 minutes | `long` |
+| > 25 minutes | `long` + custom timeout |
 
-3. **Monitor queue depths**
-   - Many pending jobs = need more workers
-   - Many failed jobs = improve error handling
+### Avoid Queue Blocking
 
-4. **Scale workers per queue**
-   ```json
-   {
-       "workers": {
-           "long": {
-               "background_workers": 2
-           }
-       }
-   }
-   ```
+```python
+# WRONG - blocks short queue
+frappe.enqueue(
+    "myapp.tasks.heavy_task",
+    queue="short"  # Timeout after 5 min!
+)
+
+# RIGHT - use long queue
+frappe.enqueue(
+    "myapp.tasks.heavy_task",
+    queue="long",
+    timeout=3600
+)
+```
+
+### Worker Scaling
+
+```bash
+# More workers for specific queue
+# In supervisor config or Procfile:
+worker_long_1: bench worker --queue long --quiet
+worker_long_2: bench worker --queue long --quiet
+worker_long_3: bench worker --queue long --quiet
+```

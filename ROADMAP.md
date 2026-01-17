@@ -1,7 +1,7 @@
 # 📊 ERPNext Skills Package - Roadmap & Status
 
 > **Laatste update**: 2026-01-17  
-> **Huidige fase**: Fase 3.1 - Database Skill (research compleet, skill in progress)
+> **Huidige fase**: Fase 3 - Core Skills (in progress)
 
 ---
 
@@ -9,15 +9,15 @@
 
 | Categorie | Voltooid | In Progress | Gepland | Totaal |
 |-----------|:--------:|:-----------:|:-------:|:------:|
-| Research | 10 | 0 | 2 | 12 |
+| Research | 10 | 0 | 0 | 10 |
 | Syntax Skills | 8 | 0 | 0 | 8 |
-| Core Skills | 0 | 1 | 2 | 3 |
+| Core Skills | 1 | 0 | 2 | 3 |
 | Implementation Skills | 0 | 0 | 8 | 8 |
 | Error Handling Skills | 0 | 0 | 7 | 7 |
 | Agents | 0 | 0 | 2 | 2 |
-| **Totaal** | **18** | **1** | **21** | **40** |
+| **Totaal** | **19** | **0** | **19** | **38** |
 
-**Voortgang**: ██████████░░░░░░░░░░ ~48%
+**Voortgang**: ████████████░░░░░░░░ ~50%
 
 ---
 
@@ -64,21 +64,13 @@
 
 ---
 
-### 🔄 Fase 3: Core Skills (In Progress)
+### 🔄 Fase 3: Core Skills (In Progress - 1/3)
 
-#### Research
-| Stap | Onderwerp | Status | Output |
-|------|-----------|:------:|--------|
-| 3.1-R | Database API Research | ✅ | `research-database-api.md` |
-| 3.2-R | Permissions Research | ⏳ | - |
-| 3.3-R | API Patterns Research | ⏳ | - |
-
-#### Skills
-| Stap | Skill | Status | Dependencies |
-|------|-------|:------:|--------------| 
-| 3.1 | erpnext-database | 🔄 | Research ✅ |
-| 3.2 | erpnext-permissions | ⏳ | Research pending |
-| 3.3 | erpnext-api-patterns | ⏳ | Research pending |
+| Stap | Skill | Status | Output |
+|------|-------|:------:|--------|
+| 3.1 | erpnext-database | ✅ | `research-database.md` + NL/EN skill + 5 reference files |
+| 3.2 | erpnext-permissions | ⏳ | - |
+| 3.3 | erpnext-api-patterns | ⏳ | - |
 
 ---
 
@@ -135,7 +127,7 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 ## Voltooide Skills Overzicht
 
 | Skill | NL | EN | Reference Files |
-|-------|:--:|:--:|-----------------|
+|-------|:--:|:--:|-----------------| 
 | erpnext-syntax-clientscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
 | erpnext-syntax-serverscripts | ✅ | ✅ | events, methods, examples, anti-patterns |
 | erpnext-syntax-controllers | ✅ | ✅ | lifecycle-methods, methods, flags, examples, anti-patterns |
@@ -144,6 +136,7 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 | erpnext-syntax-jinja | ✅ | ✅ | context-objects, methods-reference, filters-reference, examples, anti-patterns |
 | erpnext-syntax-scheduler | ✅ | ✅ | scheduler-events, enqueue-api, queues, examples, anti-patterns |
 | erpnext-syntax-customapp | ✅ | ✅ | structure, pyproject-toml, modules, patches, fixtures, examples, anti-patterns |
+| **erpnext-database** | ✅ | ✅ | methods-reference, query-patterns, caching-patterns, examples, anti-patterns |
 
 ---
 
@@ -160,7 +153,7 @@ Elke impl-skill vereist upload van corresponderende syntax skill.
 | `research-scheduler-background-jobs.md` | ~550 | ✅ |
 | `research-custom-app-structure.md` | ~550 | ✅ |
 | `research-customapp-datamanagement.md` | ~600 | ✅ |
-| `research-database-api.md` | ~700 | ✅ |
+| **`research-database.md`** | **~680** | ✅ |
 
 ---
 
@@ -185,14 +178,15 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 6. **Report Print Formats**: Gebruiken JavaScript templating, NIET Jinja
 7. **pyproject.toml**: Frappe gebruikt flit_core, `__version__` in `__init__.py` is VERPLICHT
 8. **Patches INI secties**: `[pre_model_sync]` voor oude velden, `[post_model_sync]` voor nieuwe
+9. **db_set**: Bypassed alle ORM validaties - gebruik met voorzichtigheid
+10. **Transaction hooks**: Beschikbaar vanaf v15 voor commit/rollback callbacks
 
 ---
 
 ## Volgende Stappen
 
-1. **Fase 3.1**: erpnext-database skill reference files + SKILL.md
-2. **Fase 3.2**: erpnext-permissions research + skill
-3. **Fase 3.3**: erpnext-api-patterns research + skill
+1. **Fase 3.2**: erpnext-permissions skill (roles, access control, permission queries)
+2. **Fase 3.3**: erpnext-api-patterns skill (REST API, webhooks, authentication)
 
 ---
 
@@ -210,15 +204,10 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 ## Changelog
 
 ### 2026-01-17 (sessie 5)
-- Fase 3.1 research gestart: erpnext-database
-- Uitgebreid research document (~700 regels) met:
-  - Document API (frappe.get_doc, new_doc, etc.)
-  - Database queries (get_list, get_all, get_value)
-  - Query Builder (frappe.qb)
-  - Transaction management
-  - Child tables
-  - Best practices en anti-patterns
-- Voortgang aangepast naar 48%
+- Fase 3.1 voltooid: erpnext-database skill
+- Research document: `research-database.md` (~680 regels)
+- NL + EN versies met 5 reference files elk
+- **Voortgang aangepast naar 50%**
 
 ### 2026-01-17 (sessie 4)
 - Fase 2.12 voltooid: erpnext-syntax-customapp skill

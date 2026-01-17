@@ -140,6 +140,17 @@ Gedocumenteerd in `LESSONS_LEARNED.md`:
 
 ## Changelog
 
+### 2026-01-17 (sessie 10) - MID-PROJECT REVIEW
+- **MID-PROJECT REVIEW UITGEVOERD** @ 61% voortgang
+- Amendment 5 toegevoegd: Directory structuur standaardisatie
+- Amendment 5 toegevoegd: Checkpoint systematiek na elke hoofdfase
+- LESSONS_LEARNED.md uitgebreid met secties 8-11:
+  - Project Structuur Lessen
+  - AI-Assisted Development Lessen
+  - Masterplan Design Lessen
+  - Top 10 Samenvatting
+- **VOLGENDE**: Directory opschoning naar nieuwe structuur
+
 ### 2026-01-17 (sessie 9)
 - **Fase 4.1 COMPLEET**: erpnext-impl-clientscripts skill
 - NL + EN versies met 3 reference files elk:

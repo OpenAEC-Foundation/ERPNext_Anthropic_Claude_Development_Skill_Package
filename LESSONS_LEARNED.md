@@ -1279,3 +1279,162 @@ Bijgewerkt met nieuwe ontdekkingen:
 ---
 
 *Toegevoegd na Anthropic tooling analyse - 17 januari 2026*
+
+
+---
+
+## 12. Anthropic Skill Tooling Compatibiliteit
+
+> **Ontdekt tijdens**: Mid-Project Review, Sessie 10
+> **Impact**: HOOG - Onze hele directory structuur was incompatibel met officiële tooling
+
+### 12.1 De Kritieke Ontdekking
+
+Wij ontwikkelden een meertalige skill structuur zonder de officiële Anthropic tooling te testen:
+
+```
+# WAT WIJ DEDEN (FOUT):
+erpnext-syntax-clientscripts/
+├── NL/
+│   ├── SKILL.md          ← In subfolder
+│   └── references/
+└── EN/
+    ├── SKILL.md
+    └── references/
+
+# WAT ANTHROPIC VERWACHT:
+erpnext-syntax-clientscripts/
+├── SKILL.md              ← DIRECT in root
+└── references/
+```
+
+**Het probleem**: `package_skill.py` zoekt naar `SKILL.md` direct in de skill folder:
+
+```python
+skill_md = skill_path / "SKILL.md"
+if not skill_md.exists():
+    print(f"❌ Error: SKILL.md not found in {skill_path}")
+    return None
+```
+
+### 12.2 Wat We Hadden Moeten Doen
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ REGEL: Test de officiële tooling VOORDAT je een structuur kiest    │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Bij het starten van een skill package project:                     │
+│                                                                     │
+│ 1. LEES de skill-creator SKILL.md volledig                         │
+│ 2. BEKIJK de scripts (package_skill.py, quick_validate.py)         │
+│ 3. MAAK een test skill met de officiële init_skill.py              │
+│ 4. TEST packaging VOORDAT je 10+ skills maakt                      │
+│                                                                     │
+│ "Measure twice, cut once"                                          │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 12.3 Meertalige Skills: De Juiste Aanpak
+
+Anthropic documentatie zegt **niets** over meertalige skills. Dit betekent:
+- Geen speciale ondersteuning in tooling
+- Elke taalversie moet een **aparte skill** zijn
+
+**Correcte structuur voor meertalige skills:**
+
+```
+skills/source/syntax/
+├── erpnext-syntax-clientscripts-nl/    ← Aparte skill voor NL
+│   ├── SKILL.md
+│   └── references/
+│       ├── methods.md
+│       ├── events.md
+│       └── examples.md
+│
+├── erpnext-syntax-clientscripts-en/    ← Aparte skill voor EN
+│   ├── SKILL.md
+│   └── references/
+│       └── ...
+│
+└── ...
+```
+
+**Gevolgen:**
+- 28 skills × 2 talen = **56 aparte skill folders**
+- Meer folders, maar 100% compatibel met tooling
+- `package_skill.py` werkt out-of-the-box
+- Skill naam = folder naam (automatisch)
+
+### 12.4 Validatie Regels uit quick_validate.py
+
+| Aspect | Vereiste | Max Length |
+|--------|----------|:----------:|
+| `name` | kebab-case (a-z, 0-9, hyphens) | 64 chars |
+| `description` | String, geen < of > | 1024 chars |
+| `compatibility` | Optional string | 500 chars |
+| Frontmatter keys | Alleen: name, description, license, metadata, compatibility | - |
+| SKILL.md locatie | **DIRECT in skill folder root** | - |
+
+### 12.5 Wat NIET in een Skill Mag (Officieel)
+
+Anthropic is expliciet:
+
+> "Do NOT create extraneous documentation or auxiliary files, including:
+> - README.md
+> - INSTALLATION_GUIDE.md
+> - QUICK_REFERENCE.md
+> - CHANGELOG.md"
+
+**Actie**: Verwijder alle README.md bestanden uit skill folders.
+
+### 12.6 De Drie Folder Types in een Skill
+
+| Folder | Doel | Wordt geladen in context? |
+|--------|------|:-------------------------:|
+| `references/` | Documentatie voor Claude | On-demand |
+| `scripts/` | Uitvoerbare code (Python/Bash) | Kan uitgevoerd worden zonder laden |
+| `assets/` | Templates, images voor output | Nee - alleen voor output |
+
+**Wij gebruiken alleen `references/`** - dat is correct voor documentatie-skills.
+
+### 12.7 Checklist voor Nieuwe Skill Packages
+
+Voordat je begint met een skill package project:
+
+```
+□ Lees skill-creator/SKILL.md volledig
+□ Bekijk en begrijp package_skill.py
+□ Bekijk en begrijp quick_validate.py
+□ Test init_skill.py met een dummy skill
+□ Test packaging workflow end-to-end
+□ Documenteer afwijkingen van standaard (bijv. meertaligheid)
+□ Plan directory structuur die werkt met officiële tooling
+```
+
+### 12.8 Impact op Ons Project
+
+| Aspect | Voor deze ontdekking | Na correctie |
+|--------|---------------------|--------------|
+| Skill folders | 28 (met NL/EN subfolders) | 56 (aparte skills per taal) |
+| Tooling compatibel | ❌ Nee | ✅ Ja |
+| Handmatig packagen | Ja (eigen zip scripts) | Nee (officiële tooling) |
+| Onderhoudbaarheid | Matig | Beter |
+
+---
+
+## 13. Samenvatting Nieuwe Lessen (Sessie 10)
+
+| # | Les | Categorie |
+|---|-----|-----------|
+| 1 | Test officiële tooling VOORDAT je structuur kiest | Planning |
+| 2 | Meertalige skills = aparte skill folders per taal | Structuur |
+| 3 | SKILL.md moet DIRECT in skill folder root staan | Structuur |
+| 4 | Geen README.md in skill folders | Conventies |
+| 5 | Lees package_skill.py en quick_validate.py | Tooling |
+| 6 | Description max 1024 chars, name max 64 chars | Validatie |
+
+---
+
+*Toegevoegd na Anthropic Tooling Analyse - 17 januari 2026, Sessie 10*

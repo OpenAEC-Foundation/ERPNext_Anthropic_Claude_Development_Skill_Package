@@ -450,3 +450,57 @@ Research document >700 regels?
 *Dit document is een levend document en wordt bijgewerkt naarmate het project vordert.*
 
 *Laatst bijgewerkt: 17 januari 2026*
+
+### 1.9 Database Operaties - Fase 3 Ontdekkingen
+
+**Drie abstractieniveaus kiezen:**
+
+```
+High-level ORM     → frappe.get_doc()      → Met validaties, langzamer
+Mid-level Query    → frappe.db.get_list()  → Sneller, met/zonder permissions
+Low-level SQL      → frappe.db.sql()       → Snelst, geen bescherming
+```
+
+**REGEL**: Altijd hoogst mogelijke abstractieniveau gebruiken.
+
+**Kritieke Insights:**
+
+1. **`db_set` bypassed ALLES** - Geen validate, geen on_update, geen permissions
+   ```python
+   # Alleen gebruiken voor:
+   # - Hidden fields
+   # - Counters/timestamps
+   # - Background jobs waar je ZEKER weet wat je doet
+   ```
+
+2. **Transaction hooks (v15+)** - Nieuwe manier om rollback te handlen
+   ```python
+   frappe.db.after_rollback.add(cleanup_function)
+   frappe.db.after_commit.add(notify_function)
+   ```
+
+3. **get_list vs get_all** - Subtiel maar belangrijk
+   - `get_list` → Past user permissions toe
+   - `get_all` → Geen permissions, admin-level access
+
+4. **v16 Breaking Changes** - Aggregatie syntax is veranderd!
+   ```python
+   # v14/v15: fields=['count(name) as count']
+   # v16:     fields=[{'COUNT': 'name', 'as': 'count'}]
+   ```
+
+5. **SQL Injection risico is REËEL** - Zelfs in interne scripts
+   ```python
+   # ❌ NOOIT
+   frappe.db.sql(f"SELECT * FROM `tabUser` WHERE name = '{input}'")
+   
+   # ✅ ALTIJD
+   frappe.db.sql("SELECT * FROM `tabUser` WHERE name = %(name)s", {'name': input})
+   ```
+
+6. **N+1 Query Problem** - Grootste performance killer
+   ```python
+   # Batch fetch in plaats van loop queries
+   docs = frappe.get_all('Customer', filters={'name': ['in', names]})
+   ```
+

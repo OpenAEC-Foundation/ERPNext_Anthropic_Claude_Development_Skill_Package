@@ -1,8 +1,8 @@
-# Mid-Project Review & Masterplan Amendment 5
+# Mid-Project Review & Masterplan Amendment 5 (v2)
 
 > **Datum**: 17 januari 2026  
 > **Project**: ERPNext Skills Package  
-> **Aanleiding**: Tussentijdse evaluatie halverwege het project
+> **Versie**: 2 - Bijgewerkt na Anthropic tooling analyse
 
 ---
 
@@ -20,205 +20,278 @@
 | Agents | 2 | 0 | 0% |
 | **TOTAAL** | **41** | **25** | **~61%** |
 
-### 1.2 Wat Gaat Goed ✅
+### 1.2 Kritieke Ontdekking: Tooling Incompatibiliteit
 
-1. **Research-first aanpak werkt uitstekend**
-   - Alle 13 research documenten zijn van hoge kwaliteit
-   - Verificatie tegen officiële bronnen consequent toegepast
-   - Kritieke ontdekkingen (bijv. Server Script sandbox) vroeg geïdentificeerd
+**Tijdens deze review ontdekten we dat onze skill structuur NIET compatibel is met Anthropic's officiële tooling.**
 
-2. **Skill kwaliteit is consistent**
-   - SKILL.md bestanden volgen Anthropic conventies
-   - Tweetalige versies (NL + EN) consequent geleverd
-   - Reference files goed gestructureerd
+**Het probleem:**
+```
+# Onze structuur (FOUT):
+skill-name/
+├── NL/
+│   └── SKILL.md     ← package_skill.py vindt dit NIET
+└── EN/
+    └── SKILL.md
 
-3. **GitHub integratie functioneert**
-   - Alle voltooide werk staat op GitHub
-   - Commits hebben beschrijvende messages
-   - Token workflow gedocumenteerd
+# Anthropic verwacht:
+skill-name/
+└── SKILL.md         ← DIRECT in skill folder root
+```
 
-4. **Lessons Learned actief bijgehouden**
-   - 83 regels technische lessen
-   - Best practices gedocumenteerd
-   - Valkuilen en oplossingen beschreven
+**Impact:**
+- `quick_validate.py` faalt
+- `package_skill.py` faalt  
+- Handmatige workarounds nodig voor packaging
+- Niet toekomstbestendig
 
-### 1.3 Wat Kan Beter ⚠️
+### 1.3 Wat Gaat Goed ✅
 
-1. **Directory structuur is organisch gegroeid en inconsistent**
-   ```
-   Huidige chaos:
-   skills/
-   ├── packaged/          ← sommige .skill files
-   ├── syntax/            ← andere .skill files
-   ├── source/            ← sommige bronbestanden
-   ├── impl/              ← impl .skill files
-   ├── NL/CORE/           ← core skills NL
-   ├── EN/CORE/           ← core skills EN
-   ├── erpnext-syntax-jinja/     ← losse skill folder
-   ├── erpnext-syntax-customapp/ ← losse skill folder
-   └── erpnext-permissions/      ← nog een losse folder
-   ```
+1. **Content kwaliteit is hoog** - Research grondig, skills deterministisch
+2. **Frontmatter correct** - name + description conform spec
+3. **Progressive disclosure** - SKILL.md lean, details in references/
+4. **GitHub workflow werkt** - Alles wordt gepusht
 
-2. **Masterplan specificeert niet waar bestanden moeten**
-   - Geen expliciete directory conventies
-   - Geen onderscheid tussen source files en packages
-   - Geen duidelijke naming conventions
+### 1.4 Wat Moet Veranderen ❌
 
-3. **Amendments zijn verspreid (8 stuks)**
-   - Moeilijk om totaaloverzicht te behouden
-   - Sommige overlappen of zijn achterhaald
-   - Geen geconsolideerde "current state"
-
-4. **Geen formele tussentijdse evaluatiemomenten**
-   - Checkpoint logica ontbreekt in masterplan
-   - Geen "stop en evalueer" triggers gedefinieerd
-
-5. **ROADMAP vs Masterplan duplicatie**
-   - ROADMAP.md bevat actuele status
-   - Masterplan bevat oorspronkelijke planning
-   - Soms onduidelijk wat de "single source of truth" is
-
-### 1.4 Afwijkingen van Oorspronkelijk Plan
-
-| Aspect | Masterplan Zei | Werkelijkheid | Impact |
-|--------|----------------|---------------|--------|
-| Directory structuur | `NL/CLIENT-SCRIPTS/`, `EN/...` | Gemengde locaties | Verwarrend |
-| Fase opsplitsing | Criteria in tekst | 5+ amendments gemaakt | Werkt, maar verspreid |
-| .skill packaging | Niet gespecificeerd | Nu in packaged/ en syntax/ | Inconsistent |
-| Tussentijdse reviews | Niet gepland | Ad-hoc (nu) | Gemist |
-
-### 1.5 Conclusie Review
-
-**We zijn ON TRACK qua inhoud en kwaliteit**, maar de organisatie en structuur zijn rommelig geworden. Dit is het perfecte moment om:
-
-1. Directory structuur te standaardiseren
-2. Tussentijdse evaluatie checkpoints toe te voegen
-3. Workflow voor resterende fases te verduidelijken
+1. **Directory structuur** - Van NL/EN subfolders naar aparte skills
+2. **Skill naming** - Taal suffix in naam (`-nl`, `-en`)
+3. **Package strategie** - Conform officiële tooling
 
 ---
 
-## Deel 2: Amendment 5 - Structuur & Checkpoints
+## Deel 2: Nieuwe Directory Structuur (Anthropic Conform)
 
-### 2.1 Gestandaardiseerde Directory Structuur
+### 2.1 Officiële Anthropic Skill Structuur
 
-**NIEUWE CONVENTIE** - Vanaf nu geldt:
+```
+skill-name/
+├── SKILL.md              ← VERPLICHT in root
+├── references/           ← On-demand documentatie
+│   ├── methods.md
+│   ├── examples.md
+│   └── anti-patterns.md
+├── scripts/              ← Optioneel: uitvoerbare code
+└── assets/               ← Optioneel: templates, images
+```
+
+**Validatie regels (uit quick_validate.py):**
+- SKILL.md MOET in root staan
+- Name: kebab-case, max 64 chars
+- Description: max 1024 chars, geen < of >
+- Frontmatter: alleen name, description, license, metadata, compatibility, allowed-tools
+
+### 2.2 Nieuwe Structuur voor Meertalige Skills
+
+**Elke taalversie is een APARTE skill:**
 
 ```
 ERPNext_Anthropic_Claude_Development_Skill_Package/
 │
-├── README.md                    # Project overview
-├── ROADMAP.md                   # SINGLE SOURCE OF TRUTH voor status
-├── LESSONS_LEARNED.md           # Geleerde lessen (levend document)
-├── WAY_OF_WORK.md              # Methodologie documentatie
-│
 ├── docs/
 │   ├── masterplan/
-│   │   ├── erpnext-skills-masterplan-v2.md   # Oorspronkelijk plan
-│   │   ├── erpnext-vooronderzoek.md          # Preliminair onderzoek
-│   │   └── amendments/                        # Alle wijzigingen
-│   │       ├── amendment-1-*.md
-│   │       ├── amendment-2-*.md
-│   │       └── ...
-│   │
-│   └── research/                # Alle research documenten
-│       ├── research-client-scripts.md
-│       ├── research-server-scripts.md
-│       └── ...
+│   │   └── amendments/
+│   └── research/
 │
 └── skills/
-    ├── README.md                # Index van alle skills
+    ├── syntax/
+    │   ├── erpnext-syntax-clientscripts-nl/
+    │   │   ├── SKILL.md
+    │   │   └── references/
+    │   │       ├── methods.md
+    │   │       ├── events.md
+    │   │       ├── examples.md
+    │   │       └── anti-patterns.md
+    │   │
+    │   ├── erpnext-syntax-clientscripts-en/
+    │   │   ├── SKILL.md
+    │   │   └── references/
+    │   │       └── [zelfde structuur]
+    │   │
+    │   ├── erpnext-syntax-serverscripts-nl/
+    │   ├── erpnext-syntax-serverscripts-en/
+    │   └── ... (16 syntax skill folders totaal)
     │
-    ├── source/                  # ALLE bronbestanden (SKILL.md + references/)
-    │   ├── syntax/
-    │   │   ├── erpnext-syntax-clientscripts/
-    │   │   │   ├── NL/
-    │   │   │   │   ├── SKILL.md
-    │   │   │   │   └── references/
-    │   │   │   └── EN/
-    │   │   │       ├── SKILL.md
-    │   │   │       └── references/
-    │   │   ├── erpnext-syntax-serverscripts/
-    │   │   └── ...
-    │   │
-    │   ├── core/
-    │   │   ├── erpnext-database/
-    │   │   ├── erpnext-permissions/
-    │   │   └── erpnext-api-patterns/
-    │   │
-    │   ├── impl/
-    │   │   ├── erpnext-impl-clientscripts/
-    │   │   └── ...
-    │   │
-    │   ├── errors/
-    │   │   └── ...
-    │   │
-    │   └── agents/
-    │       ├── erpnext-interpreter/
-    │       └── erpnext-validator/
+    ├── core/
+    │   ├── erpnext-database-nl/
+    │   ├── erpnext-database-en/
+    │   ├── erpnext-permissions-nl/
+    │   ├── erpnext-permissions-en/
+    │   ├── erpnext-api-patterns-nl/
+    │   └── erpnext-api-patterns-en/
     │
-    └── packaged/                # ALLE .skill packages
-        ├── syntax/
-        │   ├── erpnext-syntax-clientscripts-NL.skill
-        │   ├── erpnext-syntax-clientscripts-EN.skill
-        │   └── ...
-        ├── core/
-        ├── impl/
-        ├── errors/
-        └── agents/
+    ├── impl/
+    │   ├── erpnext-impl-clientscripts-nl/
+    │   ├── erpnext-impl-clientscripts-en/
+    │   └── ... (16 impl skill folders totaal)
+    │
+    ├── errors/
+    │   └── ... (14 error skill folders totaal)
+    │
+    ├── agents/
+    │   ├── erpnext-interpreter-nl/
+    │   ├── erpnext-interpreter-en/
+    │   ├── erpnext-validator-nl/
+    │   └── erpnext-validator-en/
+    │
+    └── packaged/
+        ├── erpnext-syntax-clientscripts-nl.skill
+        ├── erpnext-syntax-clientscripts-en.skill
+        └── ... (56 .skill packages totaal)
 ```
 
-**REGELS:**
-1. **Source files** gaan naar `skills/source/[categorie]/[skill-naam]/[taal]/`
-2. **Packages** gaan naar `skills/packaged/[categorie]/[skill-naam]-[TAAL].skill`
-3. **Naming**: lowercase met hyphens, taal suffix in CAPS (NL/EN)
-4. **Geen losse skill folders** in `skills/` root
+### 2.3 Naming Conventions
 
-### 2.2 Tussentijdse Evaluatie Checkpoints
+| Element | Convention | Voorbeeld |
+|---------|------------|-----------|
+| Skill folder | `{prefix}-{type}-{topic}-{lang}` | `erpnext-syntax-clientscripts-nl` |
+| Package file | `{folder-name}.skill` | `erpnext-syntax-clientscripts-nl.skill` |
+| Reference files | `{descriptive-name}.md` | `methods.md`, `examples.md` |
 
-**NIEUWE CONVENTIE** - Na elke hoofdfase volgt een verplichte checkpoint:
+**Prefixes:**
+- `erpnext-syntax-*` - Syntax skills
+- `erpnext-impl-*` - Implementation skills
+- `erpnext-errors-*` - Error handling skills
+- `erpnext-*` - Core skills (geen type prefix)
+- `erpnext-interpreter-*`, `erpnext-validator-*` - Agents
+
+**Taal suffixes:**
+- `-nl` - Nederlandse versie
+- `-en` - Engelse versie
+
+### 2.4 Folder Totalen
+
+| Categorie | Skills | × Talen | Folders |
+|-----------|:------:|:-------:|:-------:|
+| Syntax | 8 | 2 | 16 |
+| Core | 3 | 2 | 6 |
+| Implementation | 8 | 2 | 16 |
+| Error Handling | 7 | 2 | 14 |
+| Agents | 2 | 2 | 4 |
+| **TOTAAL** | **28** | **2** | **56** |
+
+---
+
+## Deel 3: Migratie Plan
+
+### 3.1 Overzicht Huidige vs Nieuwe Locaties
+
+**Syntax Skills:**
+| Huidig | Nieuw |
+|--------|-------|
+| `skills/source/erpnext-syntax-clientscripts/NL/` | `skills/syntax/erpnext-syntax-clientscripts-nl/` |
+| `skills/source/erpnext-syntax-clientscripts/EN/` | `skills/syntax/erpnext-syntax-clientscripts-en/` |
+
+**Core Skills:**
+| Huidig | Nieuw |
+|--------|-------|
+| `skills/NL/CORE/erpnext-database/` | `skills/core/erpnext-database-nl/` |
+| `skills/EN/CORE/erpnext-database/` | `skills/core/erpnext-database-en/` |
+
+### 3.2 Migratie Stappen
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ CHECKPOINT TEMPLATE - Na elke voltooide hoofdfase                  │
+│ MIGRATIE PROCEDURE                                                  │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│ 1. VERIFICATIE (5 min)                                             │
-│    □ Alle geplande deliverables aanwezig?                          │
-│    □ NL én EN versies compleet?                                    │
-│    □ Alle bestanden gepusht naar GitHub?                           │
-│    □ ROADMAP.md bijgewerkt?                                        │
+│ STAP 1: Nieuwe structuur aanmaken                                  │
+│ ─────────────────────────────────                                  │
+│ • Maak skills/syntax/, skills/core/, etc. folders                  │
+│ • Maak elke skill folder met -nl/-en suffix                        │
 │                                                                     │
-│ 2. KWALITEITSCHECK (5 min)                                         │
-│    □ SKILL.md < 500 regels?                                        │
-│    □ Reference files compleet?                                     │
-│    □ Code voorbeelden getest/geverifieerd?                         │
+│ STAP 2: Content verplaatsen                                        │
+│ ─────────────────────────────                                      │
+│ • Verplaats SKILL.md naar nieuwe folder ROOT                       │
+│ • Verplaats references/ folder mee                                 │
+│ • Verifieer dat SKILL.md DIRECT in skill folder staat              │
 │                                                                     │
-│ 3. LESSONS LEARNED (5 min)                                         │
-│    □ Nieuwe technische inzichten → LESSONS_LEARNED.md              │
-│    □ Nieuwe valkuilen ontdekt → documenteren                       │
-│    □ Proces verbeteringen → amendment indien nodig                 │
+│ STAP 3: Valideren                                                  │
+│ ────────────────                                                   │
+│ • Run quick_validate.py op ELKE skill folder                       │
+│ • Fix eventuele validation errors                                  │
 │                                                                     │
-│ 4. PLANNING VOLGENDE FASE (5 min)                                  │
-│    □ Wat is de volgende stap?                                      │
-│    □ Welke uploads/resources nodig?                                │
-│    □ Verwachte complexiteit?                                       │
+│ STAP 4: Repackagen                                                 │
+│ ─────────────────                                                  │
+│ • Run package_skill.py op elke skill                               │
+│ • Verplaats .skill files naar skills/packaged/                     │
 │                                                                     │
-│ 5. GO/NO-GO                                                        │
-│    □ Alle checks ✅ → Doorgaan naar volgende fase                  │
-│    □ Issues gevonden → Fix VOORDAT we doorgaan                     │
+│ STAP 5: Opruimen                                                   │
+│ ───────────────                                                    │
+│ • Verwijder oude folder structuur                                  │
+│ • Verwijder README.md uit skills/ (niet toegestaan per Anthropic)  │
+│ • Update alle documentatie verwijzingen                            │
+│                                                                     │
+│ STAP 6: Pushen en verifiëren                                       │
+│ ──────────────────────────────                                     │
+│ • Push alle wijzigingen naar GitHub                                │
+│ • Verifieer structuur in GitHub web interface                      │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-**CHECKPOINT MOMENTEN:**
-- Na Fase 4 (alle impl skills) → **MID-PROJECT REVIEW** (dit document)
-- Na Fase 5 (alle error skills) → Checkpoint
-- Na Fase 6 (agents) → Checkpoint
-- Na Fase 7 → **FINAL REVIEW**
+### 3.3 Geschatte Tijd
 
-### 2.3 Geüpdatete Fase Prompts
+| Stap | Geschatte tijd |
+|------|----------------|
+| Nieuwe structuur aanmaken | 10 min |
+| Content verplaatsen (25 skills × 2) | 45 min |
+| Valideren | 15 min |
+| Repackagen | 20 min |
+| Opruimen | 10 min |
+| Pushen en verifiëren | 15 min |
+| **TOTAAL** | **~2 uur** |
 
-Vanaf nu bevat elke fase-prompt een **research-first** en **checkpoint** sectie:
+---
+
+## Deel 4: Checkpoints Systeem
+
+### 4.1 Verplichte Checkpoints
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ CHECKPOINT NA ELKE HOOFDFASE                                       │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ 1. VALIDATIE (5 min)                                               │
+│    □ Run quick_validate.py op alle nieuwe skills                   │
+│    □ Alle skills MOETEN "Skill is valid!" returnen                 │
+│    □ NL én EN versies compleet?                                    │
+│                                                                     │
+│ 2. PACKAGING (5 min)                                               │
+│    □ Run package_skill.py op alle nieuwe skills                    │
+│    □ .skill files gegenereerd in skills/packaged/                  │
+│                                                                     │
+│ 3. GITHUB SYNC (5 min)                                             │
+│    □ Alle source folders gepusht                                   │
+│    □ Alle .skill packages gepusht                                  │
+│    □ ROADMAP.md bijgewerkt                                         │
+│                                                                     │
+│ 4. LESSONS LEARNED (5 min)                                         │
+│    □ Nieuwe inzichten → LESSONS_LEARNED.md                         │
+│    □ Problemen tegengekomen → documenteren                         │
+│                                                                     │
+│ 5. GO/NO-GO                                                        │
+│    □ Alle validaties geslaagd → Volgende fase                      │
+│    □ Issues gevonden → FIX voordat we doorgaan                     │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### 4.2 Checkpoint Momenten
+
+| Na Fase | Checkpoint Type |
+|---------|-----------------|
+| Migratie | **STRUCTUUR VALIDATIE** |
+| Fase 4 (alle impl) | Standaard |
+| Fase 5 (alle errors) | Standaard |
+| Fase 6 (agents) | Standaard |
+| Fase 7 (final) | **FINAL REVIEW** |
+
+---
+
+## Deel 5: Geüpdatete Fase Prompts
+
+### 5.1 Fase Prompt Template (Nieuw)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -229,314 +302,119 @@ Vanaf nu bevat elke fase-prompt een **research-first** en **checkpoint** sectie:
 │ STAP 0: CONTEXT OPHALEN (VERPLICHT)                                │
 │ ═══════════════════════════════════════════════════════════════════│
 │                                                                     │
-│ Voordat je begint:                                                  │
-│ 1. Haal ROADMAP.md op van GitHub → Check huidige status            │
-│ 2. Haal relevant research document op → Als startpunt              │
-│ 3. Haal relevante syntax skill op (indien impl/error fase)         │
-│ 4. Bevestig dat vorige fase COMPLEET is                            │
+│ 1. Haal ROADMAP.md op → Check status                               │
+│ 2. Haal relevant research document op                              │
+│ 3. (Indien impl/error) Haal syntax skill op                        │
+│ 4. Bevestig vorige fase is COMPLEET en GEVALIDEERD                 │
 │                                                                     │
 │ ═══════════════════════════════════════════════════════════════════│
-│ STAP 1: ONDERZOEK & VERIFICATIE                                    │
+│ STAP 1: SKILL CREATIE                                              │
 │ ═══════════════════════════════════════════════════════════════════│
 │                                                                     │
-│ [Fase-specifieke research instructies]                             │
+│ Maak TWEE aparte skill folders:                                     │
+│                                                                     │
+│ skills/[categorie]/[skill-name]-nl/                                │
+│ ├── SKILL.md          ← DIRECT in root!                            │
+│ └── references/                                                     │
+│                                                                     │
+│ skills/[categorie]/[skill-name]-en/                                │
+│ ├── SKILL.md          ← DIRECT in root!                            │
+│ └── references/                                                     │
 │                                                                     │
 │ ═══════════════════════════════════════════════════════════════════│
-│ STAP 2: UITWERKING                                                 │
+│ STAP 2: VALIDATIE (VERPLICHT)                                      │
 │ ═══════════════════════════════════════════════════════════════════│
 │                                                                     │
-│ [Fase-specifieke creatie instructies]                              │
+│ Run voor BEIDE taalversies:                                         │
+│                                                                     │
+│ python quick_validate.py skills/[cat]/[skill]-nl                   │
+│ python quick_validate.py skills/[cat]/[skill]-en                   │
+│                                                                     │
+│ MOET "Skill is valid!" returnen. Zo niet → FIX EERST              │
 │                                                                     │
 │ ═══════════════════════════════════════════════════════════════════│
-│ STAP 3: PUSH NAAR GITHUB (VERPLICHT)                               │
+│ STAP 3: PACKAGING                                                  │
 │ ═══════════════════════════════════════════════════════════════════│
 │                                                                     │
-│ Push alle deliverables:                                             │
-│ 1. Source files → skills/source/[categorie]/[skill]/[taal]/        │
-│ 2. .skill package → skills/packaged/[categorie]/                   │
-│ 3. Update ROADMAP.md met nieuwe status                             │
-│ 4. (Indien van toepassing) Update LESSONS_LEARNED.md               │
+│ python package_skill.py skills/[cat]/[skill]-nl skills/packaged/   │
+│ python package_skill.py skills/[cat]/[skill]-en skills/packaged/   │
 │                                                                     │
 │ ═══════════════════════════════════════════════════════════════════│
-│ STAP 4: BEVESTIGING                                                │
+│ STAP 4: PUSH NAAR GITHUB                                           │
 │ ═══════════════════════════════════════════════════════════════════│
 │                                                                     │
-│ Bevestig aan gebruiker:                                             │
-│ - Wat is opgeleverd                                                 │
-│ - Waar staat het op GitHub                                          │
-│ - Wat is de volgende stap                                           │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### 2.4 GitHub Push Workflow (Verduidelijkt)
-
-**Per voltooide skill worden BEIDE gepusht:**
-
-```bash
-# 1. SOURCE FILES (voor leesbaarheid en onderhoud)
-skills/source/[categorie]/[skill-naam]/NL/SKILL.md
-skills/source/[categorie]/[skill-naam]/NL/references/*.md
-skills/source/[categorie]/[skill-naam]/EN/SKILL.md
-skills/source/[categorie]/[skill-naam]/EN/references/*.md
-
-# 2. PACKAGED SKILL (voor distributie)
-skills/packaged/[categorie]/[skill-naam]-NL.skill
-skills/packaged/[categorie]/[skill-naam]-EN.skill
-
-# 3. ROADMAP UPDATE
-ROADMAP.md  (met nieuwe status)
-```
-
-### 2.5 Single Source of Truth
-
-| Document | Bevat | Update Frequentie |
-|----------|-------|-------------------|
-| **ROADMAP.md** | Actuele status, voortgang, changelog | Na ELKE fase |
-| **Masterplan** | Oorspronkelijke visie en planning | Alleen bij grote wijzigingen |
-| **Amendments** | Specifieke aanpassingen | Wanneer nodig |
-| **LESSONS_LEARNED.md** | Technische inzichten | Na nieuwe ontdekkingen |
-
-**ROADMAP.md is de SINGLE SOURCE OF TRUTH voor projectstatus.**
-
----
-
-## Deel 3: Actieplan
-
-### 3.1 Directe Acties (Deze Sessie)
-
-1. ✅ Mid-Project Review uitgevoerd (dit document)
-2. ⏳ Push dit Amendment naar GitHub
-3. ⏳ Update ROADMAP.md met checkpoint notatie
-4. ⏳ Besluit: Directory opschonen nu of later?
-
-### 3.2 Directory Opschoning
-
-**Optie A**: Nu opschonen (aanbevolen)
-- Alles naar nieuwe structuur verplaatsen
-- Kost ~30-45 minuten
-- Schone basis voor resterende fases
-
-**Optie B**: Aan het eind opschonen
-- Doorgaan met huidige structuur
-- Fase 7 wordt dan groter
-- Risico op meer inconsistentie
-
-**Aanbeveling**: Optie A - Nu opschonen voordat we Fase 4.2 starten.
-
-### 3.3 Resterende Fases met Checkpoints
-
-```
-HUIDIGE POSITIE: Fase 4.1 ✅
-                         ↓
-┌────────────────────────────────────────┐
-│ Fase 4.2 - 4.8: Implementation Skills  │
-│ (7 skills × 2 talen = 14 files)        │
-└────────────────────────────────────────┘
-                         ↓
-             ┌───────────────────┐
-             │ CHECKPOINT FASE 4 │
-             │ Mid-Project Eval  │
-             └───────────────────┘
-                         ↓
-┌────────────────────────────────────────┐
-│ Fase 5: Error Handling Skills          │
-│ (7 skills × 2 talen = 14 files)        │
-└────────────────────────────────────────┘
-                         ↓
-             ┌───────────────────┐
-             │ CHECKPOINT FASE 5 │
-             └───────────────────┘
-                         ↓
-┌────────────────────────────────────────┐
-│ Fase 6: Agents                         │
-│ (2 agents × 2 talen = 4 files)         │
-└────────────────────────────────────────┘
-                         ↓
-             ┌───────────────────┐
-             │ CHECKPOINT FASE 6 │
-             └───────────────────┘
-                         ↓
-┌────────────────────────────────────────┐
-│ Fase 7: Finalisatie                    │
-│ Dependencies, INDEX, INSTALL           │
-└────────────────────────────────────────┘
-                         ↓
-             ┌───────────────────┐
-             │ FINAL REVIEW      │
-             └───────────────────┘
-```
-
----
-
-## Deel 4: Geüpdatete Fase Prompts
-
-### 4.1 Prompt: Fase 4.2 (erpnext-impl-serverscripts)
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 4.2 - erpnext-impl-serverscripts                       │
-├─────────────────────────────────────────────────────────────────────┤
+│ Push:                                                               │
+│ • skills/[categorie]/[skill]-nl/                                   │
+│ • skills/[categorie]/[skill]-en/                                   │
+│ • skills/packaged/[skill]-nl.skill                                 │
+│ • skills/packaged/[skill]-en.skill                                 │
+│ • ROADMAP.md (update status)                                        │
 │                                                                     │
 │ ═══════════════════════════════════════════════════════════════════│
-│ STAP 0: CONTEXT OPHALEN                                            │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ 1. Haal ROADMAP.md op → Bevestig Fase 4.1 is compleet              │
-│ 2. Haal research-server-scripts.md op → Basis kennis               │
-│ 3. Haal erpnext-syntax-serverscripts skill op → Syntax reference   │
-│ 4. Bekijk erpnext-impl-clientscripts → Structuur voorbeeld         │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 1: ONDERZOEK                                                  │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Focus op IMPLEMENTATION patterns (niet syntax - die is al gedaan): │
-│                                                                     │
-│ 1. DECISION TREES:                                                  │
-│    - Welk Server Script type voor welk scenario?                   │
-│    - Document Event vs API vs Scheduler Event vs Permission Query  │
-│    - Wanneer Server Script vs Controller?                          │
-│                                                                     │
-│ 2. WORKFLOWS:                                                       │
-│    - Stapsgewijze implementatie voor elk script type               │
-│    - Van requirement naar werkende code                             │
-│    - Integratie met hooks.py                                        │
-│                                                                     │
-│ 3. REAL-WORLD VOORBEELDEN:                                         │
-│    - Minimaal 10 complete implementaties                            │
-│    - Van eenvoudig naar complex                                     │
-│    - Met edge case handling                                         │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 2: SKILL CREATIE                                              │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Maak NL + EN versies:                                               │
-│                                                                     │
-│ erpnext-impl-serverscripts/                                         │
-│ ├── NL/                                                             │
-│ │   ├── SKILL.md (<500 regels)                                     │
-│ │   └── references/                                                 │
-│ │       ├── decision-tree.md                                        │
-│ │       ├── workflows.md                                            │
-│ │       └── examples.md                                             │
-│ └── EN/                                                             │
-│     └── [zelfde structuur]                                          │
-│                                                                     │
-│ BELANGRIJK: Focus op WANNEER en HOE, niet op SYNTAX.               │
-│ Verwijs naar syntax skill voor exacte method signatures.           │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 3: PUSH NAAR GITHUB                                           │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Push naar:                                                          │
-│ - skills/source/impl/erpnext-impl-serverscripts/NL/                │
-│ - skills/source/impl/erpnext-impl-serverscripts/EN/                │
-│ - skills/packaged/impl/erpnext-impl-serverscripts-NL.skill         │
-│ - skills/packaged/impl/erpnext-impl-serverscripts-EN.skill         │
-│ - ROADMAP.md (update status)                                        │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ STAP 4: BEVESTIGING                                                │
+│ STAP 5: BEVESTIGING                                                │
 │ ═══════════════════════════════════════════════════════════════════│
 │                                                                     │
 │ Rapporteer:                                                         │
-│ - Deliverables                                                      │
-│ - GitHub locaties                                                   │
-│ - Eventuele nieuwe lessons learned                                  │
-│ - Volgende stap (Fase 4.3)                                          │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### 4.2 Prompt: Checkpoint Na Fase 4
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT: CHECKPOINT NA FASE 4                                       │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│ Na voltooiing van Fase 4.8, voer deze checkpoint uit:              │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ 1. VERIFICATIE                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ □ Zijn ALLE 8 impl skills compleet?                                │
-│ □ Hebben alle skills NL én EN versies?                             │
-│ □ Staan alle source files op GitHub?                               │
-│ □ Staan alle .skill packages op GitHub?                            │
-│ □ Is ROADMAP.md volledig bijgewerkt?                               │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ 2. KWALITEITSCHECK                                                 │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Steekproef 2-3 skills:                                              │
-│ □ SKILL.md < 500 regels?                                           │
-│ □ Decision tree aanwezig en bruikbaar?                             │
-│ □ Minimaal 5 werkende voorbeelden?                                 │
-│ □ Verwijzingen naar syntax skills correct?                         │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ 3. LESSONS LEARNED                                                 │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ □ Nieuwe technische inzichten gevonden?                            │
-│   → Toevoegen aan LESSONS_LEARNED.md                               │
-│ □ Patronen ontdekt in implementation skills?                       │
-│   → Documenteren                                                    │
-│ □ Proces verbeteringen nodig?                                       │
-│   → Amendment maken                                                 │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ 4. PLANNING FASE 5                                                 │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ □ Zijn alle vereiste syntax skills beschikbaar voor Fase 5?        │
-│ □ Verwachte complexiteit van error handling skills?                │
-│ □ Kunnen error skills parallel met impl patterns?                  │
-│                                                                     │
-│ ═══════════════════════════════════════════════════════════════════│
-│ 5. GO/NO-GO BESLISSING                                             │
-│ ═══════════════════════════════════════════════════════════════════│
-│                                                                     │
-│ Alle checks ✅ → Start Fase 5                                       │
-│ Issues gevonden → Fix VOORDAT we doorgaan                          │
+│ • Validatie resultaat (beide moeten "valid" zijn)                  │
+│ • GitHub locaties                                                   │
+│ • Volgende stap                                                     │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Deel 5: Conclusie & Beslispunten
+## Deel 6: Actieplan
 
-### 5.1 Samenvatting
+### 6.1 Directe Acties
 
-| Vraag | Antwoord |
-|-------|----------|
-| Zijn we on track? | **JA** - 61% voltooid, kwaliteit is goed |
-| Afgeweken van plan? | **DEELS** - Directory structuur inconsistent, maar inhoud klopt |
-| Trouw aan wensen? | **JA** - Research-first, deterministische content, bilingual |
-| Actie nodig? | **JA** - Directory opschonen, checkpoints toevoegen |
+| # | Actie | Status |
+|---|-------|:------:|
+| 1 | LESSONS_LEARNED.md updaten met tooling les | ✅ |
+| 2 | Amendment 5 updaten met correcte structuur | 🔄 (dit document) |
+| 3 | Besluit: Migratie nu of later? | ⏳ |
 
-### 5.2 Beslispunten voor Gebruiker
+### 6.2 Migratie Beslissing
 
-1. **Directory opschoning**: Nu (Optie A) of later (Optie B)?
-   - Aanbeveling: Nu
-   
-2. **Dit Amendment goedkeuren?**
-   - Nieuwe directory structuur
-   - Checkpoint systematiek
-   - Geüpdatete fase prompts
+**Optie A: Nu migreren (AANBEVOLEN)**
+- Schone basis voor resterende 31 skills
+- Officiële tooling werkt
+- ~2 uur werk
 
-3. **Volgende actie?**
-   - A: Eerst directory opschonen
-   - B: Direct door naar Fase 4.2
-   - C: Anders
+**Optie B: Aan het eind migreren**
+- Meer werk later (56 skills i.p.v. 25)
+- Twee systemen onderhouden
+- Risico op meer inconsistentie
+
+### 6.3 Na Migratie: Resterende Werk
+
+| Fase | Skills | Folders te maken |
+|------|:------:|:----------------:|
+| 4.2-4.8 | 7 impl | 14 |
+| 5 | 7 error | 14 |
+| 6 | 2 agent | 4 |
+| **TOTAAL** | **16** | **32** |
 
 ---
 
-*Dit document dient als formele mid-project review en Amendment 5 bij het ERPNext Skills Package Masterplan.*
+## Deel 7: Conclusie
+
+### 7.1 Samenvatting Wijzigingen in Amendment 5 v2
+
+| Aspect | v1 | v2 |
+|--------|----|----|
+| Directory structuur | NL/EN subfolders | Aparte skill folders met -nl/-en suffix |
+| Validatie | Niet gespecificeerd | quick_validate.py verplicht |
+| Packaging | Handmatig | package_skill.py verplicht |
+| Totaal folders | 28 | 56 |
+
+### 7.2 Kernboodschap
+
+> **De officiële Anthropic tooling is de standaard.**
+> 
+> Onze skills MOETEN valideren met `quick_validate.py` en packagen met `package_skill.py`. Elke afwijking van de verwachte structuur creëert technische schuld.
+
+---
+
+*Amendment 5 v2 - 17 januari 2026*
+*Bijgewerkt na Anthropic tooling analyse*

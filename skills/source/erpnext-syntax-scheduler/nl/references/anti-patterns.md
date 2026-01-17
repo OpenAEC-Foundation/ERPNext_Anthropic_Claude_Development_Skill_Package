@@ -1,51 +1,4 @@
-# Anti-Patterns Reference
-
-Veelgemaakte fouten en hoe ze te vermijden.
-
-## ❌ Heavy Processing in Scheduler Callback
-
-### Fout
-
-```python
-# hooks.py - FOUT!
-scheduler_events = {
-    "all": ["myapp.tasks.process_millions_of_records"]
-}
-
-# tasks.py
-def process_millions_of_records():
-    # Dit blokkeert de scheduler!
-    records = frappe.get_all("Item", limit=0)  # Miljoen records
-    for record in records:
-        heavy_processing(record)
-```
-
-### Correct
-
-```python
-# hooks.py
-scheduler_events = {
-    "all": ["myapp.tasks.check_and_enqueue"]
-}
-
-# tasks.py
-def check_and_enqueue():
-    """Light check, enqueue heavy work."""
-    if needs_processing():
-        frappe.enqueue(
-            'myapp.tasks.process_records',
-            queue='long',
-            timeout=3600
-        )
-
-def process_records():
-    """Heavy processing op long queue."""
-    records = frappe.get_all("Item", limit=0)
-    for record in records:
-        heavy_processing(record)
-```
-
----
+# Anti-Patterns: Wat te Vermijden
 
 ## ❌ Geen Error Handling
 
@@ -53,26 +6,59 @@ def process_records():
 
 ```python
 def process_all(records):
-    # FOUT - één error stopt alles
-    for r in records:
-        process(r)  # Exception = hele batch faalt
-    frappe.db.commit()
+    for record in records:
+        process_single(record)  # Eén failure stopt ALLES
 ```
 
 ### Correct
 
 ```python
 def process_all(records):
-    for r in records:
+    for record in records:
         try:
-            process(r)
-            frappe.db.commit()  # Commit per success
+            process_single(record)
+            frappe.db.commit()
         except Exception:
             frappe.db.rollback()
             frappe.log_error(
                 frappe.get_traceback(),
-                f"Process Error: {r}"
+                f"Process failed: {record}"
             )
+```
+
+---
+
+## ❌ Heavy Processing Direct in Scheduler Event
+
+### Fout
+
+```python
+# hooks.py
+scheduler_events = {
+    "all": ["myapp.tasks.process_millions_of_records"]
+}
+
+def process_millions_of_records():
+    # FOUT - blokkeert scheduler tick
+    for record in frappe.get_all("BigTable"):
+        heavy_operation(record)
+```
+
+### Correct
+
+```python
+# hooks.py
+scheduler_events = {
+    "all": ["myapp.tasks.trigger_processing"]
+}
+
+def trigger_processing():
+    # Scheduler triggert alleen, enqueue doet het werk
+    frappe.enqueue(
+        "myapp.tasks.process_millions_of_records",
+        queue="long",
+        timeout=3600
+    )
 ```
 
 ---
@@ -82,12 +68,12 @@ def process_all(records):
 ### Fout
 
 ```python
-# hooks.py - aangepast
+# hooks.py gewijzigd
 scheduler_events = {
     "hourly": ["myapp.tasks.new_task"]  # Nieuw toegevoegd
 }
 
-# Vergeten: bench migrate
+# FOUT - vergeten bench migrate
 # Nieuwe task wordt NIET uitgevoerd!
 ```
 
@@ -123,9 +109,9 @@ scheduler_events = {
 ```python
 def task_a():
     create_data()
-    # Expliciet volgende stap enqueuen
+    # Expliciet volgende stap triggeren
     frappe.enqueue(
-        'myapp.task_b',
+        "myapp.task_b",
         enqueue_after_commit=True
     )
 
@@ -143,7 +129,6 @@ def task_b():
 
 ```python
 def scheduled_task():
-    # FOUT - aanname over session user
     doc = frappe.new_doc("ToDo")
     doc.allocated_to = frappe.session.user  # = Administrator!
     doc.insert()
@@ -169,8 +154,7 @@ def scheduled_task():
 ```python
 @frappe.whitelist()
 def api_endpoint():
-    # FOUT - blokkeert user 5+ minuten
-    heavy_processing()
+    heavy_processing()  # Blokkeert user 5+ minuten
     return "Done"
 ```
 
@@ -180,10 +164,10 @@ def api_endpoint():
 @frappe.whitelist()
 def api_endpoint():
     frappe.enqueue(
-        'myapp.heavy_processing',
-        queue='long'
+        "myapp.heavy_processing",
+        queue="long"
     )
-    return {"status": "Processing started"}
+    return "Processing started"
 ```
 
 ---
@@ -196,14 +180,14 @@ def api_endpoint():
 import time
 
 @frappe.whitelist()
-def api_with_wait():
-    job = frappe.enqueue('myapp.heavy_task')
+def start_and_wait():
+    job = frappe.enqueue("myapp.heavy_task")
     
-    # FOUT - blokkeert web request!
-    while job.get_status() != 'finished':
+    # FOUT - blokkeert web request
+    while job.get_status() != "finished":
         time.sleep(1)
     
-    return job.result
+    return "Done"
 ```
 
 ### Correct
@@ -211,43 +195,42 @@ def api_with_wait():
 ```python
 @frappe.whitelist()
 def start_task():
-    """Start task, return job ID."""
-    job = frappe.enqueue(
-        'myapp.heavy_task',
-        on_success=lambda j, c, r: notify_user(r)
+    frappe.enqueue(
+        "myapp.heavy_task",
+        on_success=lambda j,c,r: frappe.publish_realtime(
+            "task_done",
+            {"result": r},
+            user=frappe.session.user
+        )
     )
-    return {"job_id": job.id}
-
-def notify_user(result):
-    frappe.publish_realtime('task_done', result)
+    return "Started - you will be notified"
 ```
 
 ---
 
-## ❌ job_name Gebruiken in v15+
+## ❌ job_name Gebruiken (v15 Deprecated)
 
-### Fout (v14 pattern)
+### Fout
 
 ```python
-# DEPRECATED in v15!
-from frappe.core.page.background_jobs.background_jobs import get_info
-
-enqueued_jobs = [d.get("job_name") for d in get_info()]
-if self.name not in enqueued_jobs:
-    frappe.enqueue(..., job_name=self.name)
+# v14 pattern - NIET GEBRUIKEN in v15
+frappe.enqueue(
+    "myapp.tasks.process",
+    job_name="my-unique-job"
+)
 ```
 
-### Correct (v15+)
+### Correct
 
 ```python
+# v15+ pattern
 from frappe.utils.background_jobs import is_job_enqueued
 
-job_id = f"data_import::{self.name}"
+job_id = "my-unique-job"
 if not is_job_enqueued(job_id):
     frappe.enqueue(
-        'myapp.tasks.import_data',
-        job_id=job_id,
-        doc_name=self.name
+        "myapp.tasks.process",
+        job_id=job_id
     )
 ```
 
@@ -262,108 +245,90 @@ def task_with_retry():
     try:
         external_api()
     except Exception:
-        # FOUT - direct retry kan overload veroorzaken
-        frappe.enqueue('myapp.task_with_retry')
+        # FOUT - direct retry zonder delay
+        frappe.enqueue("myapp.task_with_retry")
 ```
 
 ### Correct
 
 ```python
-def task_with_retry(retry_count=0, max_retries=3):
+def task_with_retry(retry_count=0):
     try:
         external_api()
     except Exception:
-        if retry_count < max_retries:
-            # Exponential backoff
-            delay = 60 * (2 ** retry_count)
-            frappe.enqueue(
-                'myapp.task_with_retry',
-                retry_count=retry_count + 1,
-                enqueue_after_commit=True
-            )
-        else:
+        if retry_count >= 3:
             frappe.log_error("Max retries exceeded")
-            raise
-```
-
----
-
-## ❌ Alle Data in Memory Laden
-
-### Fout
-
-```python
-def process_large_table():
-    # FOUT - laadt alles in memory
-    all_records = frappe.get_all("Big Table", limit=0)
-    for record in all_records:  # MemoryError!
-        process(record)
-```
-
-### Correct
-
-```python
-def process_large_table():
-    # Verwerk in chunks
-    offset = 0
-    batch_size = 1000
-    
-    while True:
-        records = frappe.get_all(
-            "Big Table",
-            limit=batch_size,
-            start=offset
-        )
+            return
         
-        if not records:
-            break
+        # Exponential backoff
+        delay = 2 ** retry_count  # 1, 2, 4 minuten
         
-        for record in records:
-            process(record)
-        
-        frappe.db.commit()
-        offset += batch_size
-```
-
----
-
-## ❌ Dubbele Job Executie
-
-### Fout
-
-```python
-def on_submit(self):
-    # FOUT - kan meerdere keren tegelijk draaien
-    frappe.enqueue('myapp.process', doc_name=self.name)
-```
-
-### Correct
-
-```python
-from frappe.utils.background_jobs import is_job_enqueued
-
-def on_submit(self):
-    job_id = f"process::{self.name}"
-    if not is_job_enqueued(job_id):
         frappe.enqueue(
-            'myapp.process',
-            job_id=job_id,
-            doc_name=self.name
+            "myapp.task_with_retry",
+            retry_count=retry_count + 1
         )
+```
+
+---
+
+## ❌ Verkeerde Queue voor Task Duration
+
+### Fout
+
+```python
+# Task duurt 30 minuten maar gebruikt short queue
+frappe.enqueue(
+    "myapp.tasks.long_running_task",
+    queue="short"  # Timeout na 5 min!
+)
+```
+
+### Correct
+
+```python
+frappe.enqueue(
+    "myapp.tasks.long_running_task",
+    queue="long",
+    timeout=2400  # 40 minuten
+)
+```
+
+---
+
+## ❌ Geen Commit Per Record
+
+### Fout
+
+```python
+def process_batch(records):
+    for record in records:
+        update_record(record)
+    
+    frappe.db.commit()  # Eén failure = alles weg
+```
+
+### Correct
+
+```python
+def process_batch(records):
+    for record in records:
+        try:
+            update_record(record)
+            frappe.db.commit()  # Commit per success
+        except Exception:
+            frappe.db.rollback()
+            frappe.log_error()
 ```
 
 ---
 
 ## Samenvatting: Best Practices
 
-| Aspect | DO | DON'T |
-|--------|----|----|
-| Heavy tasks | Enqueue naar long queue | Direct in scheduler callback |
-| Error handling | Try/except per record | Hele batch in één try |
-| hooks.py changes | `bench migrate` | Vergeten en verwachten dat het werkt |
-| Job dependencies | Expliciet enqueuen | Aannames over volgorde |
-| User context | Expliciet owner zetten | Aannemen dat session.user klopt |
-| Web requests | Enqueue en return | Blocking wait |
-| Deduplicatie (v15) | `job_id` + `is_job_enqueued()` | `job_name` (deprecated) |
-| Retries | Exponential backoff | Infinite direct retry |
-| Large datasets | Chunks/batches | Alles in memory |
+1. **ALTIJD** error handling met commit/rollback per record
+2. **ALTIJD** `bench migrate` na hooks.py wijzigingen
+3. **GEBRUIK** `job_id` + `is_job_enqueued()` voor deduplicatie (v15)
+4. **KIES** juiste queue: short/default/long
+5. **ENQUEUE** heavy tasks vanuit scheduler events
+6. **NOOIT** blocking waits in web requests
+7. **ONTHOUD** dat jobs als Administrator draaien
+8. **IMPLEMENTEER** retry met exponential backoff

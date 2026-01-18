@@ -4,13 +4,13 @@
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
 > **Laatste update**: 2026-01-18  
-> **Status**: ✅ v1.1 RELEASE COMPLEET  
+> **Status**: 🔄 Fase 8.8 - GitHub Community Standards  
 > **Masterplan**: [erpnext-skills-masterplan-v4.md](docs/masterplan/erpnext-skills-masterplan-v4.md)  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
 ---
 
-## 🎉 Project Status: COMPLETE
+## Project Status
 
 | Categorie | Voltooid | Totaal |
 |-----------|:--------:|:------:|
@@ -25,11 +25,97 @@
 **Skills**: ████████████████████ **100%** ✅  
 **V16 Compatibility**: ████████████████████ **100%** ✅  
 **Validation**: ████████████████████ **28/28 PASS** ✅  
-**Documentation**: ████████████████████ **100%** ✅
+**GitHub Community**: ██████░░░░░░░░░░░░░░ **2/7** 🔄
+
+---
+
+## Open Issues
+
+| # | Titel | Prioriteit | Status |
+|---|-------|:----------:|:------:|
+| #14 | Repository topics toevoegen | 🟢 | Open (handmatig) |
+| #15 | GitHub Community Standards | 🔴 | 🔄 In progress |
+
+---
+
+## 🔄 Fase 8.8: GitHub Community Standards
+
+**Doel:** Repository klaarmaken voor public release met volledige GitHub community compliance.
+
+**Gap Analyse:** [docs/GITHUB_BEST_PRACTICES_GAP_ANALYSIS.md](docs/GITHUB_BEST_PRACTICES_GAP_ANALYSIS.md)
+
+### Huidige Score: 2/7 → Doel: 7/7
+
+| Criterium | Status |
+|-----------|:------:|
+| README.md | ✅ |
+| LICENSE | ✅ |
+| CODE_OF_CONDUCT.md | ⏳ |
+| CONTRIBUTING.md | ⏳ |
+| SECURITY.md | ⏳ |
+| Issue Templates | ⏳ |
+| PR Template | ⏳ |
+
+### Substappen
+
+| Stap | Bestand | Beschrijving | Status |
+|------|---------|--------------|:------:|
+| 8.8.1 | `CODE_OF_CONDUCT.md` | Contributor Covenant v2.1 | ⏳ |
+| 8.8.2 | `CONTRIBUTING.md` | Bijdrage richtlijnen | ⏳ |
+| 8.8.3 | `SECURITY.md` | Security vulnerability policy | ⏳ |
+| 8.8.4 | `CHANGELOG.md` | Versie geschiedenis (Keep a Changelog) | ⏳ |
+| 8.8.5 | `INSTALL.md` | Volledige installatie instructies (niet redirect) | ⏳ |
+| 8.8.6 | `.github/ISSUE_TEMPLATE/bug_report.yml` | Bug report template | ⏳ |
+| 8.8.7 | `.github/ISSUE_TEMPLATE/feature_request.yml` | Feature request template | ⏳ |
+| 8.8.8 | `.github/ISSUE_TEMPLATE/config.yml` | Template configuratie | ⏳ |
+| 8.8.9 | `.github/PULL_REQUEST_TEMPLATE.md` | PR checklist | ⏳ |
+
+### Na Voltooiing
+- [ ] Repository public maken (handmatig via GitHub UI)
+- [ ] Topics toevoegen (Issue #14)
+- [ ] Description toevoegen aan repo
+- [ ] API tokens regenereren (security)
+
+---
+
+## Fase Overzicht
+
+### ✅ Fase 1-7: v1.0 Release (Compleet)
+
+Alle 28 skills en agents voltooid en gedocumenteerd.
+
+### ✅ Fase 8.1-8.7: Post-release Verbeteringen (v1.1)
+
+| Stap | Issue | Beschrijving | Status |
+|------|:-----:|--------------|:------:|
+| 8.1 | - | Kritische Reflectie | ✅ |
+| 8.2 | #10, #4 | V16 skill updates | ✅ |
+| 8.3 | - | Validatie & Testing | ✅ |
+| 8.4 | #9 | Agent Skills review | ✅ |
+| 8.5 | #5 | ~~Claude Code format~~ | ❌ Vervallen |
+| 8.6 | #11 | How-to-use docs | ✅ |
+| 8.7 | #12 | Final Polish & Release | ✅ |
+
+### 🔄 Fase 8.8: GitHub Community Standards (v1.2)
+
+| Stap | Beschrijving | Status |
+|------|--------------|:------:|
+| 8.8.1-8.8.3 | Community Health Files | ⏳ |
+| 8.8.4-8.8.5 | Documentation | ⏳ |
+| 8.8.6-8.8.9 | Issue & PR Templates | ⏳ |
+
+**Fase 8 Voortgang**: ████████████████░░░░ **78%**
 
 ---
 
 ## Release History
+
+### v1.2 (Planned) - GitHub Ready
+
+- ⏳ GitHub Community Standards compliance
+- ⏳ Issue & PR templates
+- ⏳ Complete INSTALL.md
+- ⏳ CHANGELOG.md
 
 ### v1.1 (2026-01-18) - Current
 
@@ -61,51 +147,20 @@
 
 ---
 
-## Fase Overzicht
-
-### ✅ Fase 1-7: v1.0 Release (Compleet)
-
-Alle 28 skills en agents voltooid en gedocumenteerd.
-
-### ✅ Fase 8: Post-release Verbeteringen (v1.1)
-
-| Stap | Issue | Beschrijving | Status |
-|------|:-----:|--------------|:------:|
-| 8.1 | - | Kritische Reflectie | ✅ |
-| 8.2 | #10, #4 | V16 skill updates | ✅ |
-| 8.3 | - | Validatie & Testing | ✅ |
-| 8.4 | #9 | Agent Skills review | ✅ |
-| 8.5 | #5 | ~~Claude Code format~~ | ❌ Vervallen |
-| 8.6 | #11 | How-to-use docs | ✅ |
-| 8.7 | #12 | Final Polish & Release | ✅ |
-
-**Fase 8**: ████████████████████ **100%** ✅
-
----
-
 ## Changelog
 
-### 2026-01-18 (sessie 23) - v1.1 RELEASE
+### 2026-01-18 (sessie 23) - Fase 8.8 Planning
 
-**Fase 8.6 - How-to-use Documentatie:**
-- `USAGE.md` gecreëerd met platform overzicht
-- `docs/usage/claude-code.md` - CLI installation guide
-- `docs/usage/claude-web.md` - Web installation guide  
-- `docs/usage/claude-desktop.md` - Desktop guide
-- Issue #11 gesloten
+**GitHub Best Practices Research:**
+- Gap analyse uitgevoerd tegen GitHub community standards
+- Huidige score: 2/7 (alleen README + LICENSE)
+- 9 bestanden geïdentificeerd die ontbreken
+- Fase 8.8 plan opgesteld
 
-**Fase 8.7 - Final Polish:**
+**Fase 8.6-8.7 Compleet:**
+- USAGE.md + platform guides
 - README.md volledig herschreven
-  - Correcte skill namen (`erpnext-syntax-*` etc.)
-  - Correcte agent namen
-  - Bijgewerkte project structuur
-  - Verwijzing naar USAGE.md
-  - Version bump naar v1.1
-- INSTALL.md vervangen met redirect naar USAGE.md
-- Issue #12 gesloten
-
-**Open Issue:**
-- #14: Repository topics handmatig toe te voegen (`erpnext`, `frappe`, `claude`, `anthropic`, `ai-skills`, `agent-skills`)
+- Issue #14 aangemaakt voor topics (handmatig)
 
 ---
 
@@ -156,3 +211,6 @@ Deze items zijn niet gepland maar kunnen in de toekomst worden overwogen:
 | 🔄 | In progress |
 | ⏳ | Gepland |
 | ❌ | Vervallen |
+| 🔴 | Hoge prioriteit |
+| 🟡 | Medium prioriteit |
+| 🟢 | Lage prioriteit |

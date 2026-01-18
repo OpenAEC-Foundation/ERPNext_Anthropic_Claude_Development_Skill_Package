@@ -1,6 +1,6 @@
 ---
 name: erpnext-syntax-whitelisted
-description: Deterministic syntax for Frappe Whitelisted Methods (Python API endpoints). Use when Claude needs to generate code for API functions, REST endpoints, @frappe.whitelist() decorator, frappe.call() or frm.call() invocations, permission checks in APIs, error handling patterns, or when questions concern API structure, response formats, or client-server communication. Triggers: "whitelisted", "API endpoint", "frappe.call", "frm.call", "REST API", "@frappe.whitelist", "allow_guest", "API method".
+description: Deterministic syntax for Frappe Whitelisted Methods (Python API endpoints) for v14/v15/v16. Use when Claude needs to generate code for API functions, REST endpoints, @frappe.whitelist() decorator, frappe.call() or frm.call() invocations, permission checks in APIs, error handling patterns, or when questions concern API structure, response formats, or client-server communication. Triggers: "whitelisted", "API endpoint", "frappe.call", "frm.call", "REST API", "@frappe.whitelist", "allow_guest", "API method".
 ---
 
 # ERPNext Syntax: Whitelisted Methods

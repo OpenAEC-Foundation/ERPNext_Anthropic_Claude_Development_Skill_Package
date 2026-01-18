@@ -1,6 +1,6 @@
 ---
 name: erpnext-syntax-controllers
-description: >
+description: ">"
   Deterministic syntax for Frappe Document Controllers (Python server-side).
   Use when Claude needs to generate code for DocType controllers, lifecycle
   hooks (validate, on_update, on_submit, etc.), document methods, controller

@@ -1,11 +1,6 @@
 ---
 name: erpnext-errors-database
-version: 1.0.0
-description: Error handling patterns for Frappe/ERPNext database operations. Covers DoesNotExistError, DuplicateEntryError, LinkExistsError, transaction rollback, connection errors, deadlocks, and safe query patterns. V14/V15/V16 compatible. Triggers: database error, DoesNotExistError, DuplicateEntryError, LinkExistsError, transaction rollback, connection error, deadlock, query error, frappe.db error, get_doc error.
-author: OpenAEC Foundation
-tags: [erpnext, frappe, database, error-handling, transactions, exceptions]
-languages: [en]
-frappe_versions: [v14, v15, v16]
+description: "Error handling patterns for ERPNext/Frappe database operations. Use when handling DoesNotExistError, DuplicateEntryError, transaction failures, and query errors. Covers retry patterns and data integrity. V14/V15/V16 compatible. Triggers: database error, DoesNotExistError, DuplicateEntryError, transaction failed, query error."
 ---
 
 # ERPNext Database - Error Handling

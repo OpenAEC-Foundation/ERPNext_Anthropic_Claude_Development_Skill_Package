@@ -1,7 +1,7 @@
 # LESSONS LEARNED - ERPNext Skills Package
 
 > **Project**: ERPNext Anthropic Claude Development Skill Package  
-> **Laatste update**: 17 januari 2026  
+> **Laatste update**: 18 januari 2026  
 > **Doel**: Documentatie van alle geleerde lessen tijdens development
 
 ---
@@ -298,7 +298,62 @@ Uit `quick_validate.py`:
 
 ---
 
-## 9. Top 10 Lessen
+## 9. Session Recovery Protocol
+
+**Geleerd uit**: Meerdere sessie-onderbrekingen door crashes/disconnects.
+
+### Het Probleem
+
+Claude's filesystem reset tussen sessies. Bij een onderbroken sessie:
+- Sommige bestanden zijn wel gepusht naar GitHub
+- Andere bestanden zijn verloren
+- Context over voortgang is weg
+
+### De Oplossing
+
+**Bij elke sessie die een vervolg zou kunnen zijn:**
+
+1. **Scan GitHub state EERST**
+   ```bash
+   # Check recente commits
+   curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+     ".../commits?per_page=5"
+   
+   # Check specifieke directories
+   curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+     ".../contents/skills/source/[category]"
+   ```
+
+2. **Check ROADMAP.md changelog**
+   - Laatste entry datum
+   - Laatst voltooide fase/stap
+   - Genoemde bestanden
+
+3. **Identificeer onderbrekingspunt**
+   - Vergelijk ROADMAP met actual files
+   - Wat bestaat wel/niet in repo?
+
+4. **Vraag bevestiging VOORDAT je verdergaat**
+   ```
+   "Ik zie dat fase X.Y gedeeltelijk voltooid is. 
+   De volgende bestanden zijn al gepusht: [lijst]
+   De volgende ontbreken: [lijst]
+   Zal ik verdergaan vanaf [specifieke stap]?"
+   ```
+
+### Preventie
+
+- Push elk bestand direct na creatie
+- Update ROADMAP.md na elke significante stap
+- Atomic commits (één logische wijziging per commit)
+
+### Key Principle
+
+> "GitHub is de source of truth. ALTIJD repo state scannen voordat je aanneemt dat je opnieuw moet beginnen."
+
+---
+
+## 10. Top 10 Lessen
 
 | # | Les |
 |---|-----|
@@ -311,7 +366,7 @@ Uit `quick_validate.py`:
 | 7 | **Eén source of truth voor status (ROADMAP.md)** |
 | 8 | **Split grote fases proactief (>700 regels research)** |
 | 9 | **Valideer altijd met officiële tooling** |
-| 10 | **Documenteer lessons learned continu** |
+| 10 | **Scan GitHub EERST bij sessie-hervatting** |
 
 ---
 
@@ -319,6 +374,8 @@ Uit `quick_validate.py`:
 
 | Datum | Wijziging |
 |-------|-----------|
+| 2026-01-18 | Sectie 9 toegevoegd: Session Recovery Protocol |
+| 2026-01-18 | Top 10 #10 bijgewerkt met recovery tip |
 | 2026-01-17 | Volledige herschrijving na mid-project review |
 | 2026-01-17 | Engels-only beslissing gedocumenteerd |
 | 2026-01-17 | Anthropic tooling compatibiliteit toegevoegd |

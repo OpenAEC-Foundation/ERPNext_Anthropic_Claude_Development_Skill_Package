@@ -141,8 +141,8 @@ Clear requirements document or section in masterplan
 ### Example Requirements (ERPNext Project)
 - Skills must be deterministic (no assumptions)
 - SKILL.md files must stay under 500 lines
-- All skills in Dutch AND English
-- Version-explicit for ERPNext v14 and v15
+- All skills in English only (Claude reads English, responds in any language)
+- Version-explicit for ERPNext v14, v15, and v16
 - Follow official Anthropic skill-creator conventions
 - One-shot execution (no proof-of-concepts)
 
@@ -300,14 +300,14 @@ Ensure quality and preserve all work in version control.
 Phase [number]: [action] [subject]
 
 Examples:
-- Phase 2.7: Add erpnext-syntax-controllers skill (NL+EN)
+- Phase 4.3: Add erpnext-impl-controllers skill
 - Phase 2.8.1: Add hooks event documentation
 - Phase 1.2: Complete server scripts research
 ```
 
 ### Post-Phase Checklist
 - [ ] All files validated
-- [ ] All language versions present
+- [ ] SKILL.md in folder root (Anthropic convention)
 - [ ] Files in correct repository location
 - [ ] Commit with descriptive message
 - [ ] Push to GitHub
@@ -584,7 +584,7 @@ To minimize recovery complexity:
 
 3. **Memory Helps Continuity**: Using Claude's memory feature to store project context greatly improved consistency across conversations.
 
-4. **Bilingual Takes Time**: Creating both language versions doubles the work but makes the package more accessible. (Later revised: English-only is better - see below)
+4. **English-Only Skills**: Skills are instructions FOR Claude, not for end users. Claude reads English and responds in ANY language. Creating bilingual skills doubles maintenance without functional benefit. See "Key Lesson: English-Only Skills" section below.
 
 5. **GitHub Integration is Essential**: Pushing after each phase prevents work loss and enables collaboration.
 
@@ -691,4 +691,4 @@ skill-name/
 
 ---
 
-*Updated: January 2026 - Added Session Recovery Protocol, Project Status Tracking principles*
+*Updated: January 2026 - Added Session Recovery Protocol, Project Status Tracking principles, English-only clarifications, v16 compatibility*

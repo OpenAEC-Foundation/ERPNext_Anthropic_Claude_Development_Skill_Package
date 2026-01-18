@@ -98,20 +98,25 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ### 2026-01-18 (sessie 12) - DOCUMENTATIE SYNC & CLEANUP
 
 **Documentatie bijgewerkt:**
-- WAY_OF_WORK.md: Session Recovery Protocol sectie toegevoegd
-- LESSONS_LEARNED.md: Sectie 9 (Session Recovery Protocol) + Top 10 #10 bijgewerkt
+- WAY_OF_WORK.md: Session Recovery Protocol + Project Status Tracking sectie
+- LESSONS_LEARNED.md: Sectie 9 (Session Recovery) + Sectie 10 (Single Source of Truth)
 - README.md: Status tabel bijgewerkt naar 46% (13/28 skills)
-- ROADMAP.md: Header toegevoegd - "Single Source of Truth" voor tracking
+- ROADMAP.md: Header "Single Source of Truth" + verplichte update na elke fase
+
+**Claude Project Instructies refactor:**
+- Status tracking VERWIJDERD uit instructies (was verouderd)
+- Verwijzing naar ROADMAP.md als enige bron voor status
+- ROADMAP update nu expliciet VERPLICHT na elke fase
+- Session Recovery Protocol trigger toegevoegd
 
 **Issues opgeschoond:**
 - Issue #1 gesloten (duplicate van #4 - V16 compat)
 - Issue #2 gesloten (duplicate van #5 - Claude Code format)
-- Issue #7 klaar (Session Recovery - geïmplementeerd)
-- Issue #8 aangemaakt voor documentatie sync
+- Issue #7 gesloten (Session Recovery - geïmplementeerd)
+- Issue #8 bijna klaar (wacht op handmatige instructies update)
 
-**Beslissing:**
-- Claude Project Instructies verwijzen nu naar ROADMAP voor status
-- Geen dubbele tracking meer - ROADMAP is single source of truth
+**Key insight:**
+> "Nooit status tracking op meerdere plekken. ROADMAP.md is single source of truth."
 
 ### 2026-01-18 (sessie 11) - FASE 4.2 COMPLEET
 

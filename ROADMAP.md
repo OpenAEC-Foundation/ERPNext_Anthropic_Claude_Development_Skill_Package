@@ -5,7 +5,7 @@
 
 > **Laatste update**: 2026-01-18  
 > **Status**: 🔄 Fase 8 - Post-release verbeteringen  
-> **Masterplan**: [erpnext-skills-masterplan-v3.md](docs/masterplan/erpnext-skills-masterplan-v3.md) → v4 gepland  
+> **Masterplan**: [erpnext-skills-masterplan-v4.md](docs/masterplan/erpnext-skills-masterplan-v4.md)  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
 ---
@@ -133,6 +133,25 @@ skills/source/
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 21 cont.) - Masterplan v4
+
+**Kritische reflectie & planning:**
+- Masterplan v4 aangemaakt met complete Fase 8 planning
+- Kritische reflectie: "100% compleet" vs "100% kwaliteit"
+- Test strategie toegevoegd (ontbrak in v1-v3)
+- V16 compatibility matrix geactualiseerd
+- Skill development workflow uitgebreid met validatie en test stappen
+
+**Nieuwe inzichten vastgelegd:**
+- Skills niet functioneel getest → risico
+- 9 skills missen V16 frontmatter
+- Validatie tooling niet consistent gebruikt
+
+**Referenties toegevoegd naar:**
+- LESSONS_LEARNED.md secties
+- WAY_OF_WORK.md secties
+- Gearchiveerde amendments
 
 ### 2026-01-18 (sessie 21) - Fase 8 Planning
 

@@ -32,13 +32,13 @@
 
 | # | Titel | Prioriteit | Status |
 |---|-------|:----------:|:------:|
-| #9 | Agent Skills standaard review | 🟡 | Open |
 | #11 | How-to-use documentatie | 🟢 | Open |
 | #12 | Masterplan v4 + Fase 8 | 🟡 | Open |
 
 **Gesloten:**
 - ~~#4 V16 compatibility review~~ → ✅ Compleet
 - ~~#5 Claude Code native format~~ → ❌ Niet meer nodig
+- ~~#9 Agent Skills standaard review~~ → ✅ Compleet
 - ~~#10 V16 skill updates (9 skills)~~ → ✅ Compleet
 
 ---
@@ -73,12 +73,12 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 | 8.1 | - | Kritische Reflectie (LESSONS_LEARNED §12-14) | ✅ |
 | 8.2 | ~~#10~~, ~~#4~~ | V16 skill updates (9 skills) | ✅ |
 | 8.3 | - | Validatie & Testing | ✅ |
-| 8.4 | #9 | Agent Skills standaard review | ⏳ |
+| 8.4 | ~~#9~~ | Agent Skills standaard review | ✅ |
 | ~~8.5~~ | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
 | 8.6 | #11 | How-to-use documentatie | ⏳ |
 | 8.7 | #12 | Final Polish & v1.1 Release | ⏳ |
 
-**Fase 8 Voortgang**: ██████░░░░░░░░░░░░░░ **30%**
+**Fase 8 Voortgang**: ████████████░░░░░░░░ **60%**
 
 ---
 
@@ -106,9 +106,38 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 
 ---
 
+## Agent Skills Review (Fase 8.4)
+
+All 28 skills validated against [agentskills.io](https://agentskills.io) specification:
+
+| Aspect | Status |
+|--------|:------:|
+| YAML Frontmatter | ✅ |
+| Name Format (kebab-case, <64 chars) | ✅ |
+| Description (<1024 chars) | ✅ |
+| Directory Structure | ✅ |
+| SKILL.md Size (<500 lines) | ✅ |
+
+**Decisions:**
+- "agents" folder: Keep as-is (renaming = breaking change)
+- Non-standard frontmatter fields: Keep (harmless, useful context)
+
+Full review: `docs/AGENT_SKILLS_REVIEW.md`
+
+---
+
 ## Changelog
 
-### 2026-01-18 (sessie 22) - Fase 8.1-8.3 Compleet
+### 2026-01-18 (sessie 23) - Fase 8.4 Sync
+
+**ROADMAP Sync:**
+- Issue #9 was al gesloten maar ROADMAP niet bijgewerkt
+- Fase 8.4 gemarkeerd als ✅ compleet
+- Voortgang bijgewerkt naar 60%
+
+---
+
+### 2026-01-18 (sessie 22) - Fase 8.1-8.4 Compleet
 
 **Fase 8.1 - Kritische Reflectie:**
 - Bevestigd dat LESSONS_LEARNED §12-14 al toegevoegd waren
@@ -125,9 +154,16 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 - 3 skills ingekort: impl-scheduler, errors-api, impl-jinja
 - **Resultaat: 28/28 skills PASS** ✅
 
+**Fase 8.4 - Agent Skills Review:**
+- Alle 28 skills gevalideerd tegen agentskills.io standaard
+- Package is **fully compliant**
+- Review gedocumenteerd in `docs/AGENT_SKILLS_REVIEW.md`
+- Issue #9 gesloten
+
 **Issues gesloten:**
 - #4: V16 compatibility review
 - #5: Claude Code native format (niet meer nodig)
+- #9: Agent Skills standaard review
 - #10: V16 skill updates
 
 ---

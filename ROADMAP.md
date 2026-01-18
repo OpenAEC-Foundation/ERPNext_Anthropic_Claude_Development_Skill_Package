@@ -5,7 +5,8 @@
 
 > **Laatste update**: 2026-01-18  
 > **Huidige fase**: Fase 4.3 Implementation Skills  
-> **Structuur**: Engels-only, Anthropic-conform
+> **Masterplan**: [erpnext-skills-masterplan-v3.md](docs/masterplan/erpnext-skills-masterplan-v3.md)  
+> **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
 ---
 
@@ -25,11 +26,24 @@
 
 ---
 
+## V16 Compatibility Status
+
+| Aspect | Status | Notes |
+|--------|:------:|-------|
+| `extend_doctype_class` hook | ⏳ | Te documenteren in hooks skills |
+| Data masking | ⏳ | Te documenteren in permissions skill |
+| UUID naming | ⏳ | Te documenteren in controllers skill |
+| Chrome PDF rendering | ⏳ | Te documenteren in jinja skills |
+| Scheduler tick interval | ✅ | Gedocumenteerd in research |
+
+---
+
 ## Volgende Stappen
 
 1. **Fase 4.3**: erpnext-impl-controllers
-2. **Fase 4.4**: erpnext-impl-hooks
+2. **Fase 4.4**: erpnext-impl-hooks (incl. V16 `extend_doctype_class`)
 3. **Fase 4.5-4.8**: Overige implementation skills
+4. **V16 Review**: Alle voltooide skills reviewen op V16 compatibility
 
 ---
 
@@ -94,6 +108,24 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 13) - MASTERPLAN V3 CONSOLIDATIE
+
+**Masterplan geconsolideerd:**
+- Alle amendments geïntegreerd in `erpnext-skills-masterplan-v3.md`
+- V16 compatibility sectie toegevoegd met breaking changes en nieuwe features
+- Versie matrix bijgewerkt (v14/v15/v16)
+
+**V16 Nieuwe Features Gedocumenteerd:**
+- `extend_doctype_class` hook (veiligere DocType extensie)
+- Data masking (field-level privacy)
+- UUID naming rule
+- Chrome-based PDF generation
+- Scheduler tick interval change (4min → 60sec)
+
+**Issues status:**
+- Issue #3 (Consolidate masterplan) → ✅ OPGELOST
+- Issue #4 (V16 compatibility) → 🔄 Geïntegreerd in masterplan, review nog te doen
 
 ### 2026-01-18 (sessie 12) - DOCUMENTATIE SYNC & CLEANUP
 

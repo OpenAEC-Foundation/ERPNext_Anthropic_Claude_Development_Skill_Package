@@ -5,12 +5,12 @@ description: Deterministic Jinja template syntax for ERPNext/Frappe Print Format
 author: OpenAEC Foundation
 tags: [erpnext, frappe, jinja, templates, print-formats, email-templates, portal-pages]
 languages: [en]
-frappe_versions: [v14, v15]
+frappe_versions: [v14, v15, v16]
 ---
 
 # ERPNext Jinja Templates Syntax Skill
 
-> Correct Jinja syntax for Print Formats, Email Templates, and Portal Pages in ERPNext/Frappe v14/v15.
+> Correct Jinja syntax for Print Formats, Email Templates, and Portal Pages in ERPNext/Frappe v14/v15/v16.
 
 ---
 
@@ -353,6 +353,49 @@ def get_company_logo(company):
 | frappe.utils.format_date with format | ✅ | ✅+ |
 
 ---
+## V16: Chrome PDF Rendering
+
+**Version 16 introduced Chrome-based PDF rendering** replacing wkhtmltopdf.
+
+### Key Differences
+
+| Aspect | v14/v15 (wkhtmltopdf) | v16 (Chrome) |
+|--------|----------------------|---------------|
+| CSS Support | Limited CSS3 | Full modern CSS |
+| Flexbox/Grid | Partial | Full support |
+| Page breaks | `page-break-*` | `break-*` preferred |
+| Fonts | System fonts | Web fonts supported |
+| Performance | Faster | Slightly slower |
+
+### CSS Updates for V16
+
+```css
+/* v14/v15 */
+.page-break { page-break-before: always; }
+
+/* v16 - both work, but break-* is preferred */
+.page-break { break-before: page; }
+```
+
+### Configuration (V16)
+
+```python
+# In site_config.json
+{
+    "pdf_engine": "chrome",  # or "wkhtmltopdf" for legacy
+    "chrome_path": "/usr/bin/chromium"
+}
+```
+
+### Print Format Compatibility
+
+Most print formats work unchanged. Update if using:
+- Complex CSS layouts (flexbox/grid now fully supported)
+- Custom fonts (web fonts now work)
+- Advanced page break control
+
+---
+
 
 ## Reference Files
 

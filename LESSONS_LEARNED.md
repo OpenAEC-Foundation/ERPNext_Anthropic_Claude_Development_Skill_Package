@@ -353,7 +353,50 @@ Claude's filesystem reset tussen sessies. Bij een onderbroken sessie:
 
 ---
 
-## 10. Top 10 Lessen
+## 10. Single Source of Truth voor Project Status
+
+**Geleerd uit**: Verwarring door dubbele tracking in Claude Project Instructies én ROADMAP.md
+
+### Het Probleem
+
+Status tracking op meerdere plekken:
+- Claude Project Instructies zeiden "Fase 2.10, 38%"
+- ROADMAP.md zei "Fase 4, 46%"
+- Welke is correct? → Verwarring en tijdverlies
+
+### De Oplossing
+
+**ROADMAP.md is de ENIGE plek voor status tracking.**
+
+| Document | Bevat | Bevat NIET |
+|----------|-------|------------|
+| Claude Project Instructies | HOW to work | WHERE we are |
+| ROADMAP.md | Current status, progress, changelog | Methodology |
+| WAY_OF_WORK.md | Methodology, workflows | Status |
+
+### Implementatie Regels
+
+1. **Nooit status hardcoden in instructies**
+   - Instructies verwijzen naar ROADMAP
+   - Status is altijd actueel via GitHub
+
+2. **ROADMAP update is VERPLICHT na elke fase**
+   - Changelog entry met datum
+   - Status tabel updaten
+   - "Volgende Stappen" bijwerken
+
+3. **Session start: ROADMAP eerst ophalen**
+   - Check laatste changelog entry
+   - Bevestig huidige fase
+   - Dan pas verdergaan
+
+### Key Principle
+
+> "Als ROADMAP niet bijgewerkt is, weet de volgende sessie niet waar we gebleven zijn."
+
+---
+
+## 11. Top 10 Lessen
 
 | # | Les |
 |---|-----|
@@ -374,6 +417,7 @@ Claude's filesystem reset tussen sessies. Bij een onderbroken sessie:
 
 | Datum | Wijziging |
 |-------|-----------|
+| 2026-01-18 | Sectie 10 toegevoegd: Single Source of Truth voor tracking |
 | 2026-01-18 | Sectie 9 toegevoegd: Session Recovery Protocol |
 | 2026-01-18 | Top 10 #10 bijgewerkt met recovery tip |
 | 2026-01-17 | Volledige herschrijving na mid-project review |

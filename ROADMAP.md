@@ -1,7 +1,7 @@
 # ROADMAP - ERPNext Skills Package
 
-> **Laatste update**: 2026-01-17  
-> **Huidige fase**: Migratie voltooid → Fase 4 Implementation Skills  
+> **Laatste update**: 2026-01-18  
+> **Huidige fase**: Fase 4 Implementation Skills  
 > **Structuur**: Engels-only, Anthropic-conform
 
 ---
@@ -13,12 +13,12 @@
 | Research | 13 | 0 | 13 |
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
-| Implementation Skills | 1 | 7 | 8 |
+| Implementation Skills | 2 | 6 | 8 |
 | Error Handling Skills | 0 | 7 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **12** | **16** | **28** |
+| **TOTAAL Skills** | **13** | **15** | **28** |
 
-**Voortgang**: ████████░░░░░░░░░░░░ ~43%
+**Voortgang**: █████████░░░░░░░░░░░ ~46%
 
 ---
 
@@ -41,8 +41,9 @@ skills/source/
 │   ├── erpnext-permissions/
 │   └── erpnext-api-patterns/
 │
-├── impl/             # 1/8 skills 🔄
-│   └── erpnext-impl-clientscripts/ ✅
+├── impl/             # 2/8 skills 🔄
+│   ├── erpnext-impl-clientscripts/ ✅
+│   └── erpnext-impl-serverscripts/ ✅
 │
 ├── errors/           # 0/7 skills ⏳
 │
@@ -62,12 +63,12 @@ Alle 8 syntax skills gemigreerd naar `skills/source/syntax/`.
 ### ✅ Fase 3: Core Skills (3/3 - COMPLEET)
 Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
-### 🔄 Fase 4: Implementation Skills (1/8 - IN PROGRESS)
+### 🔄 Fase 4: Implementation Skills (2/8 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
 | 4.1 | erpnext-impl-clientscripts | ✅ |
-| 4.2 | erpnext-impl-serverscripts | ⏳ |
+| 4.2 | erpnext-impl-serverscripts | ✅ |
 | 4.3 | erpnext-impl-controllers | ⏳ |
 | 4.4 | erpnext-impl-hooks | ⏳ |
 | 4.5 | erpnext-impl-whitelisted | ⏳ |
@@ -83,13 +84,35 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
 ## Volgende Stappen
 
-1. **Nu**: Oude structuur opruimen (NL folders, duplicaten)
-2. **Fase 4.2**: erpnext-impl-serverscripts
-3. **Fase 4.3-4.8**: Overige implementation skills
+1. **Fase 4.3**: erpnext-impl-controllers
+2. **Fase 4.4**: erpnext-impl-hooks
+3. **Fase 4.5-4.8**: Overige implementation skills
 
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 11) - FASE 4.2 VOLTOOID
+
+**Nieuwe skill gemaakt:**
+- `erpnext-impl-serverscripts` - Complete implementation skill voor Server Scripts
+
+**Structuur:**
+- SKILL.md (369 regels) - Hoofd workflow document
+- references/decision-tree.md - Complete beslisboom
+- references/workflows.md - 7 categorieën implementatie patronen
+- references/examples.md - 10 complete voorbeelden
+
+**Inhoud:**
+- Server Script vs Controller beslisboom
+- 4 script types: Document Event, API, Scheduler, Permission Query
+- Event name mapping (UI vs internal hooks)
+- 6 core workflows in SKILL.md
+- 7 workflow categorieën in references
+- Client + Server integration patronen
+- Implementation checklist
+
+**Voortgang**: 43% → 46%
 
 ### 2026-01-17 (sessie 10) - GROTE HERSTRUCTURERING
 
@@ -105,22 +128,6 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 - LESSONS_LEARNED.md: Secties 12-14 toegevoegd
 - Amendment 6: Engels-only + definitieve structuur
 - ROADMAP: Volledig herschreven
-
-**Nieuwe voortgang**: ~43% (was ~61% met NL+EN)
-
-### Eerdere sessies
-- Sessie 9: Fase 4.1 compleet
-- Sessie 1-8: Research, Syntax, Core skills
-
----
-
-## Legenda
-
-| Symbool | Betekenis |
-|:-------:|-----------|
-| ✅ | Voltooid |
-| 🔄 | In progress |
-| ⏳ | Gepland |
 
 ### 2026-01-17 (sessie 10 - vervolg) - CLEANUP VOLTOOID
 
@@ -139,7 +146,19 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 skills/source/
 ├── syntax/   8 skills ✅
 ├── core/     3 skills ✅
-└── impl/     1 skill  ✅
+└── impl/     2 skills ✅
 ```
 
-**Status**: Klaar voor Fase 4.2
+### Eerdere sessies
+- Sessie 9: Fase 4.1 compleet
+- Sessie 1-8: Research, Syntax, Core skills
+
+---
+
+## Legenda
+
+| Symbool | Betekenis |
+|:-------:|-----------:|
+| ✅ | Voltooid |
+| 🔄 | In progress |
+| ⏳ | Gepland |

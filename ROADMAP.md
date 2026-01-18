@@ -98,10 +98,17 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ### 2026-01-18 (sessie 12) - DOCUMENTATIE SYNC & CLEANUP
 
 **Documentatie bijgewerkt:**
-- WAY_OF_WORK.md: Session Recovery Protocol + Project Status Tracking sectie
+- WAY_OF_WORK.md: Session Recovery Protocol + Project Status Tracking + English-only clarifications
 - LESSONS_LEARNED.md: Sectie 9 (Session Recovery) + Sectie 10 (Single Source of Truth)
 - README.md: Status tabel bijgewerkt naar 46% (13/28 skills)
 - ROADMAP.md: Header "Single Source of Truth" + verplichte update na elke fase
+
+**WAY_OF_WORK.md specifieke updates:**
+- Verouderde "Dutch AND English" referenties verwijderd
+- Commit message voorbeelden geüpdatet (geen NL+EN meer)
+- Post-Phase checklist aangepast voor English-only
+- Lesson #4 herschreven: "English-Only Skills" i.p.v. "Bilingual Takes Time"
+- v14/v15 → v14/v15/v16 in requirements
 
 **Claude Project Instructies refactor:**
 - Status tracking VERWIJDERD uit instructies (was verouderd)

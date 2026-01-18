@@ -1,11 +1,6 @@
 ---
 name: erpnext-errors-permissions
-version: 1.0.0
-description: Error handling patterns for Frappe/ERPNext permission system. Covers permission check failures, permission hook errors, user permission errors, role-based access denials, and graceful permission degradation. Includes patterns for has_permission hooks, permission_query_conditions, and API endpoint protection. V14/V15/V16 compatible. Triggers: permission error, access denied, frappe.PermissionError, has_permission hook error, permission query error, role check error, user permission error, permission denied handling.
-author: OpenAEC Foundation
-tags: [erpnext, frappe, permissions, error-handling, security, access-control]
-languages: [en]
-frappe_versions: [v14, v15, v16]
+description: "Error handling patterns for ERPNext/Frappe permissions and access control. Use when handling PermissionError, has_permission failures, role issues, and document access problems. V14/V15/V16 compatible. Triggers: permission error, access denied, PermissionError, role error, has_permission failed, document access error."
 ---
 
 # ERPNext Permissions - Error Handling

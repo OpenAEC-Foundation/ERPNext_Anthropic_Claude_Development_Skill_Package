@@ -17,12 +17,12 @@
 | Research | 13 | 0 | 13 |
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
-| Implementation Skills | 3 | 5 | 8 |
+| Implementation Skills | 4 | 4 | 8 |
 | Error Handling Skills | 0 | 7 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **14** | **14** | **28** |
+| **TOTAAL Skills** | **15** | **13** | **28** |
 
-**Voortgang**: ██████████░░░░░░░░░░ ~50%
+**Voortgang**: ███████████░░░░░░░░░ ~54%
 
 ---
 
@@ -40,9 +40,9 @@
 
 ## Volgende Stappen
 
-1. **Fase 4.4**: erpnext-impl-hooks (incl. V16 `extend_doctype_class`)
-2. **Fase 4.5**: erpnext-impl-whitelisted
-3. **Fase 4.6-4.8**: Overige implementation skills
+1. **Fase 4.5**: erpnext-impl-whitelisted
+2. **Fase 4.6**: erpnext-impl-jinja
+3. **Fase 4.7-4.8**: erpnext-impl-scheduler, erpnext-impl-customapp
 4. **V16 Review**: Alle voltooide skills reviewen op V16 compatibility
 
 ---
@@ -89,14 +89,14 @@ Alle 8 syntax skills gemigreerd naar `skills/source/syntax/`.
 ### ✅ Fase 3: Core Skills (3/3 - COMPLEET)
 Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
-### 🔄 Fase 4: Implementation Skills (3/8 - IN PROGRESS)
+### 🔄 Fase 4: Implementation Skills (4/8 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
 | 4.1 | erpnext-impl-clientscripts | ✅ |
 | 4.2 | erpnext-impl-serverscripts | ✅ |
 | 4.3 | erpnext-impl-controllers | ✅ |
-| 4.4 | erpnext-impl-hooks | ⏳ |
+| 4.4 | erpnext-impl-hooks | ✅ |
 | 4.5 | erpnext-impl-whitelisted | ⏳ |
 | 4.6 | erpnext-impl-jinja | ⏳ |
 | 4.7 | erpnext-impl-scheduler | ⏳ |
@@ -109,6 +109,23 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 15) - FASE 4.4 COMPLEET
+
+**Voltooid:**
+- erpnext-impl-hooks skill compleet met:
+  - SKILL.md: Main decision trees, hook selection, implementation patterns
+  - references/decision-tree.md: Complete hook type selection flowcharts
+  - references/workflows.md: 10 step-by-step implementation workflows
+  - references/examples.md: 10 complete working examples
+  - references/anti-patterns.md: 15 common mistakes to avoid
+- V16 `extend_doctype_class` hook fully documented
+
+**Issues opgeschoond:**
+- Issue #6 gesloten (cleanup al gedaan)
+- Issue #8 gesloten (documentation sync al gedaan)
+
+**Nieuwe voortgang**: ~54% (was ~50%)
 
 ### 2026-01-18 (sessie 14) - FASE 4.3 COMPLEET
 

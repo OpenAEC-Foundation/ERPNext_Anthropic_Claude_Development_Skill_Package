@@ -1,0 +1,81 @@
+name: Bug Report
+description: Report an issue with a skill or documentation
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue! Please fill out the information below.
+
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Affected Skill
+      description: Which skill has the issue?
+      options:
+        - erpnext-client-scripts
+        - erpnext-server-scripts
+        - erpnext-hooks
+        - erpnext-controllers
+        - erpnext-whitelisted-methods
+        - erpnext-jinja-templates
+        - erpnext-scheduler
+        - erpnext-custom-app
+        - erpnext-database
+        - erpnext-permissions
+        - erpnext-api-patterns
+        - Implementation skill
+        - Error handling skill
+        - Agent
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: ERPNext/Frappe Version
+      description: Which version are you using?
+      options:
+        - V14
+        - V15
+        - V16
+        - Multiple versions
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What's the issue?
+      placeholder: Describe the problem...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen?
+    validations:
+      required: false
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Example
+      description: If applicable, paste the problematic code
+      render: python
+    validations:
+      required: false

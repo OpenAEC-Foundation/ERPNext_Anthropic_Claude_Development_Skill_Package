@@ -4,7 +4,7 @@
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
 > **Laatste update**: 2026-01-18  
-> **Huidige fase**: Fase 4.3 Implementation Skills  
+> **Huidige fase**: Fase 4.4 Implementation Skills  
 > **Masterplan**: [erpnext-skills-masterplan-v3.md](docs/masterplan/erpnext-skills-masterplan-v3.md)  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
@@ -17,12 +17,12 @@
 | Research | 13 | 0 | 13 |
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
-| Implementation Skills | 2 | 6 | 8 |
+| Implementation Skills | 3 | 5 | 8 |
 | Error Handling Skills | 0 | 7 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **13** | **15** | **28** |
+| **TOTAAL Skills** | **14** | **14** | **28** |
 
-**Voortgang**: █████████░░░░░░░░░░░ ~46%
+**Voortgang**: ██████████░░░░░░░░░░ ~50%
 
 ---
 
@@ -40,9 +40,9 @@
 
 ## Volgende Stappen
 
-1. **Fase 4.3**: erpnext-impl-controllers
-2. **Fase 4.4**: erpnext-impl-hooks (incl. V16 `extend_doctype_class`)
-3. **Fase 4.5-4.8**: Overige implementation skills
+1. **Fase 4.4**: erpnext-impl-hooks (incl. V16 `extend_doctype_class`)
+2. **Fase 4.5**: erpnext-impl-whitelisted
+3. **Fase 4.6-4.8**: Overige implementation skills
 4. **V16 Review**: Alle voltooide skills reviewen op V16 compatibility
 
 ---
@@ -66,9 +66,10 @@ skills/source/
 │   ├── erpnext-permissions/
 │   └── erpnext-api-patterns/
 │
-├── impl/             # 2/8 skills 🔄
+├── impl/             # 3/8 skills 🔄
 │   ├── erpnext-impl-clientscripts/ ✅
-│   └── erpnext-impl-serverscripts/ ✅
+│   ├── erpnext-impl-serverscripts/ ✅
+│   └── erpnext-impl-controllers/ ✅
 │
 ├── errors/           # 0/7 skills ⏳
 │
@@ -88,13 +89,13 @@ Alle 8 syntax skills gemigreerd naar `skills/source/syntax/`.
 ### ✅ Fase 3: Core Skills (3/3 - COMPLEET)
 Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
-### 🔄 Fase 4: Implementation Skills (2/8 - IN PROGRESS)
+### 🔄 Fase 4: Implementation Skills (3/8 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
 | 4.1 | erpnext-impl-clientscripts | ✅ |
 | 4.2 | erpnext-impl-serverscripts | ✅ |
-| 4.3 | erpnext-impl-controllers | ⏳ |
+| 4.3 | erpnext-impl-controllers | ✅ |
 | 4.4 | erpnext-impl-hooks | ⏳ |
 | 4.5 | erpnext-impl-whitelisted | ⏳ |
 | 4.6 | erpnext-impl-jinja | ⏳ |
@@ -108,6 +109,22 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 14) - FASE 4.3 COMPLEET
+
+**Voltooid:**
+- erpnext-impl-controllers skill compleet met:
+  - SKILL.md: Main decision trees, hook selection, implementation patterns
+  - references/decision-tree.md: Complete hook selection with execution orders
+  - references/workflows.md: 10 implementation workflows
+  - references/examples.md: 8 complete working examples
+  - references/anti-patterns.md: 13 common mistakes to avoid
+
+**Issues opgeschoond:**
+- Issue #6 gesloten (cleanup al gedaan in eerdere sessie)
+- Issue #8 gesloten (documentation sync al gedaan)
+
+**Nieuwe voortgang**: ~50% (was ~46%)
 
 ### 2026-01-18 (sessie 13 cont.) - AMENDMENTS CLEANUP
 

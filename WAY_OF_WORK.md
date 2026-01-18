@@ -402,6 +402,76 @@ Monitor these thresholds:
 
 ---
 
+## Session Recovery Protocol
+
+### Purpose
+Handle interrupted sessions (crashes, disconnects) gracefully and resume work without duplication or loss.
+
+### The Problem
+Claude's filesystem resets between sessions. When a session is interrupted mid-phase:
+- Some files may have been pushed to GitHub
+- Others may be lost
+- Context about progress is lost
+
+### Recovery Procedure
+
+When starting a session that might be a continuation of interrupted work:
+
+#### Step 1: Scan GitHub State
+```bash
+# Check recent commits
+curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+  "https://api.github.com/repos/[org]/[repo]/commits?per_page=5"
+
+# Check specific directories for recent files
+curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+  "https://api.github.com/repos/[org]/[repo]/contents/skills/source/[category]"
+```
+
+#### Step 2: Check ROADMAP.md
+The changelog section in ROADMAP.md contains the most recent completed work:
+```bash
+curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github.raw" \
+  "https://api.github.com/repos/[org]/[repo]/contents/ROADMAP.md"
+```
+
+Look for:
+- Last changelog entry date
+- Last completed phase/step
+- Files mentioned as created
+
+#### Step 3: Identify Interruption Point
+Compare:
+- What ROADMAP says was completed
+- What files actually exist in the repository
+- What the user says they were working on
+
+#### Step 4: Confirm Before Continuing
+Always ask the user before resuming:
+```
+"I see that Phase X.Y was partially completed. The following files 
+are already pushed:
+- file1.md ✅
+- file2.md ✅
+
+The following appear to be missing:
+- file3.md ❌
+
+Should I continue from [specific step]?"
+```
+
+### Prevention: Push Early, Push Often
+To minimize recovery complexity:
+1. Push each file immediately after creation
+2. Update ROADMAP.md changelog after each significant step
+3. Use atomic commits (one logical change per commit)
+
+### Key Principle
+> "GitHub is the source of truth. Always scan repository state before assuming you need to start fresh."
+
+---
+
 ## Tools & Resources
 
 ### Essential Tools
@@ -538,4 +608,4 @@ skill-name/
 
 ---
 
-*Updated: January 2026 - Lessons learned from mid-project review*
+*Updated: January 2026 - Added Session Recovery Protocol*

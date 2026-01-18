@@ -32,7 +32,6 @@
 
 | # | Titel | Prioriteit | Status |
 |---|-------|:----------:|:------:|
-| #11 | How-to-use documentatie | 🟢 | 🔄 In progress |
 | #12 | Masterplan v4 + Fase 8 | 🟡 | Open |
 
 **Gesloten:**
@@ -40,6 +39,7 @@
 - ~~#5 Claude Code native format~~ → ❌ Niet meer nodig
 - ~~#9 Agent Skills standaard review~~ → ✅ Compleet
 - ~~#10 V16 skill updates (9 skills)~~ → ✅ Compleet
+- ~~#11 How-to-use documentatie~~ → ✅ Compleet
 
 ---
 
@@ -60,10 +60,10 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 | 8.3 | - | Validatie & Testing | ✅ |
 | 8.4 | ~~#9~~ | Agent Skills standaard review | ✅ |
 | ~~8.5~~ | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
-| **8.6** | #11 | **How-to-use documentatie** | 🔄 |
+| 8.6 | ~~#11~~ | How-to-use documentatie | ✅ |
 | 8.7 | #12 | Final Polish & v1.1 Release | ⏳ |
 
-**Fase 8 Voortgang**: ████████████░░░░░░░░ **60%**
+**Fase 8 Voortgang**: ████████████████░░░░ **80%**
 
 ---
 
@@ -73,33 +73,33 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 
 | Stap | Beschrijving | Status |
 |------|--------------|:------:|
-| 8.6.1 | Research: Claude Code, Desktop, Mobile, Web docs | 🔄 |
-| 8.6.2 | Schrijven: USAGE.md + platform-specifieke guides | ⏳ |
-| 8.6.3 | README.md Quick Start update | ⏳ |
+| 8.6.1 | Research: Claude Code, Desktop, Mobile, Web docs | ✅ |
+| 8.6.2 | Schrijven: USAGE.md + platform-specifieke guides | ✅ |
+| 8.6.3 | README.md Quick Start update | ✅ |
 
 ### 8.6.1 Research Checklist
 
 | Platform | Bron | Status |
 |----------|------|:------:|
-| Claude Code (CLI) | docs.anthropic.com/claude-code | 🔄 |
-| Claude Desktop | support.claude.com | ⏳ |
-| Claude Mobile | support.claude.com | ⏳ |
-| Claude.ai Web | docs.claude.com | ⏳ |
+| Claude Code (CLI) | docs.anthropic.com/claude-code | ✅ |
+| Claude Desktop | support.claude.com | ✅ |
+| Claude Mobile | support.claude.com | ✅ (Not supported) |
+| Claude.ai Web | docs.claude.com | ✅ |
 
 ### 8.6.2 Te Creëren Bestanden
 
 | Bestand | Beschrijving | Status |
 |---------|--------------|:------:|
-| `USAGE.md` | Algemene gebruiksinstructies (root) | ⏳ |
-| `docs/usage/claude-code.md` | Claude Code CLI specifiek | ⏳ |
-| `docs/usage/claude-desktop.md` | Desktop app specifiek | ⏳ |
-| `docs/usage/claude-web.md` | Web interface specifiek | ⏳ |
+| `USAGE.md` | Algemene gebruiksinstructies (root) | ✅ |
+| `docs/usage/claude-code.md` | Claude Code CLI specifiek | ✅ |
+| `docs/usage/claude-desktop.md` | Desktop app specifiek | ✅ |
+| `docs/usage/claude-web.md` | Web interface specifiek | ✅ |
 
 ### Acceptatiecriteria
-- [ ] Gebruiker kan binnen 5 minuten skills laden
-- [ ] Stap-voor-stap instructies per platform
-- [ ] Troubleshooting sectie
-- [ ] Screenshots/voorbeelden waar relevant
+- [x] Gebruiker kan binnen 5 minuten skills laden
+- [x] Stap-voor-stap instructies per platform
+- [x] Troubleshooting sectie
+- [ ] Screenshots/voorbeelden waar relevant (nice-to-have)
 
 ---
 
@@ -123,13 +123,23 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 
 ## Changelog
 
-### 2026-01-18 (sessie 23) - Fase 8.6 Start
+### 2026-01-18 (sessie 23) - Fase 8.6 Compleet
 
-**ROADMAP Updates:**
-- Fase 8.4 sync (Issue #9 was al gesloten)
-- Fase 8.6 gedetailleerd plan toegevoegd
-- Substappen 8.6.1-8.6.3 gedefinieerd
-- Research gestart met Claude Code documentatie
+**Fase 8.6 - How-to-use Documentatie:**
+- Research gedaan voor alle Claude platforms
+- `USAGE.md` gecreëerd (algemene instructies)
+- `docs/usage/claude-code.md` - Claude Code CLI guide
+- `docs/usage/claude-web.md` - Claude.ai Web guide
+- `docs/usage/claude-desktop.md` - Claude Desktop guide
+- README.md bijgewerkt met links naar USAGE.md
+- Issue #11 gesloten
+
+**Key Findings:**
+- Claude Mobile ondersteunt GEEN custom skills
+- Skills synchen automatisch tussen Desktop en Web
+- Claude Code heeft meeste flexibiliteit (personal + project skills)
+
+**Voortgang:** Fase 8 nu op 80%
 
 ---
 

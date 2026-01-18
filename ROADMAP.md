@@ -4,16 +4,16 @@
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
 > **Laatste update**: 2026-01-18  
-> **Status**: ✅ PROJECT COMPLEET - v1.0 Release  
-> **Masterplan**: [erpnext-skills-masterplan-v3.md](docs/masterplan/erpnext-skills-masterplan-v3.md)  
+> **Status**: 🔄 Fase 8 - Post-release verbeteringen  
+> **Masterplan**: [erpnext-skills-masterplan-v3.md](docs/masterplan/erpnext-skills-masterplan-v3.md) → v4 gepland  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
 ---
 
 ## Quick Status
 
-| Categorie | Voltooid | Te Maken | Totaal |
-|-----------|:--------:|:--------:|:------:|
+| Categorie | Voltooid | Te Doen | Totaal |
+|-----------|:--------:|:-------:|:------:|
 | Research | 13 | 0 | 13 |
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
@@ -22,7 +22,20 @@
 | Agents | 2 | 0 | 2 |
 | **TOTAAL Skills** | **28** | **0** | **28** |
 
-**Voortgang**: ████████████████████ **100%** 🎉
+**Skills Voortgang**: ████████████████████ **100%** ✅
+
+---
+
+## Open Issues (Fase 8)
+
+| # | Titel | Prioriteit | Status |
+|---|-------|:----------:|:------:|
+| #4 | V16 compatibility review | 🟡 | Bijna klaar |
+| #5 | Claude Code native format | 🟡 | Open |
+| #9 | Agent Skills standaard review | 🟡 | Open |
+| #10 | V16 skill updates (9 skills) | 🔴 | **Nieuw** |
+| #11 | How-to-use documentatie | 🟢 | **Nieuw** |
+| #12 | Masterplan v4 + Fase 8 | 🟡 | **Nieuw** |
 
 ---
 
@@ -33,31 +46,44 @@
 | `extend_doctype_class` hook | ✅ | Gedocumenteerd in impl-hooks |
 | Data masking | ✅ | Gedocumenteerd in erpnext-permissions |
 | UUID naming | ✅ | Gedocumenteerd in syntax-controllers |
-| Chrome PDF rendering | ✅ | Gedocumenteerd in impl-jinja |
-| Scheduler tick interval | ✅ | Gedocumenteerd in impl-scheduler |
+| Chrome PDF rendering | ⚠️ | Alleen in impl-jinja, ontbreekt in syntax-jinja |
+| Scheduler tick interval | ✅ | Gedocumenteerd in syntax-scheduler |
+| **9 skills V16 frontmatter** | ❌ | Issue #10 |
 
-**V16 Compatibility Review: COMPLEET ✅**
+**V16 Compatibility Review: 90% - Issue #10 open**
 
 ---
 
-## Project Status
+## Fase Overzicht
 
-🎉🎉🎉 **PROJECT COMPLEET!** 🎉🎉🎉
+### ✅ Fase 1-7: COMPLEET (v1.0 Release)
 
-**Alle 28 skills en agents zijn voltooid en gedocumenteerd.**
+Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 
-| Milestone | Status |
-|-----------|:------:|
-| 28 Skills & Agents | ✅ |
-| V16 Compatibility | ✅ |
-| Documentation (INDEX, INSTALL, DEPENDENCIES) | ✅ |
-| README v1.0 | ✅ |
-| Cleanup | ✅ |
+| Fase | Beschrijving | Status |
+|------|--------------|:------:|
+| 1 | Research (13 docs) | ✅ |
+| 2 | Syntax Skills (8) | ✅ |
+| 3 | Core Skills (3) | ✅ |
+| 4 | Implementation Skills (8) | ✅ |
+| 5 | Error Handling Skills (7) | ✅ |
+| 6 | Agents (2) | ✅ |
+| 7 | Finalisatie | ✅ |
 
-### Toekomstige Verbeteringen (Issue #9)
-- Agent Skills standaard review (agentskills.io)
-- skills-ref validation library integratie
-- Claude Code marketplace configuratie
+---
+
+### 🔄 Fase 8: Post-release Verbeteringen (v1.1)
+
+| Stap | Issue | Beschrijving | Status |
+|------|:-----:|--------------|:------:|
+| 8.1 | #10 | V16 skill updates (9 skills) | ⏳ |
+| 8.2 | #9 | Agent Skills standaard review | ⏳ |
+| 8.3 | #5 | Claude Code native format | ⏳ |
+| 8.4 | #11 | How-to-use documentatie | ⏳ |
+| 8.5 | #12 | Masterplan v4 | ⏳ |
+| 8.6 | #4 | V16 issue sluiten | ⏳ |
+
+**Fase 8 Voortgang**: ░░░░░░░░░░░░░░░░░░░░ **0%**
 
 ---
 
@@ -106,54 +132,26 @@ skills/source/
 
 ---
 
-## Fase Overzicht
+## Changelog
 
-### ✅ Research (13/13 - COMPLEET)
-Alle research documenten in `docs/research/`.
+### 2026-01-18 (sessie 21) - Fase 8 Planning
 
-### ✅ Fase 2: Syntax Skills (8/8 - COMPLEET)
-Alle 8 syntax skills gemigreerd naar `skills/source/syntax/`.
+**V16 Compatibility Audit:**
+- Systematische review van alle 28 skills op V16 documentatie
+- 9 skills geïdentificeerd met ontbrekende V16 vermelding
+- syntax-jinja mist Chrome PDF documentatie
 
-### ✅ Fase 3: Core Skills (3/3 - COMPLEET)
-Alle 3 core skills gemigreerd naar `skills/source/core/`.
+**Nieuwe Issues aangemaakt:**
+- Issue #10: V16 skill updates (9 skills)
+- Issue #11: How-to-use documentatie
+- Issue #12: Masterplan v4 + Fase 8
 
-### ✅ Fase 4: Implementation Skills (8/8 - COMPLEET)
-Alle 8 implementation skills in `skills/source/impl/`.
-
-### ✅ Fase 5: Error Handling Skills (7/7 - COMPLEET)
-
-| Stap | Skill | Status |
-|------|-------|:------:|
-| 5.1 | erpnext-errors-clientscripts | ✅ |
-| 5.2 | erpnext-errors-serverscripts | ✅ |
-| 5.3 | erpnext-errors-controllers | ✅ |
-| 5.4 | erpnext-errors-hooks | ✅ |
-| 5.5 | erpnext-errors-database | ✅ |
-| 5.6 | erpnext-errors-permissions | ✅ |
-| 5.7 | erpnext-errors-api | ✅ |
-
-### ✅ Fase 6: Agents (2/2 - COMPLEET)
-
-| Stap | Agent | Status | Beschrijving |
-|------|-------|:------:|--------------|
-| 6.1 | erpnext-code-interpreter | ✅ | Vage requirements → technische specs |
-| 6.2 | erpnext-code-validator | ✅ | Code validatie tegen alle skills |
-
-### ✅ Fase 7: Finalisatie (COMPLEET)
-
-| Stap | Taak | Status |
-|------|------|:------:|
-| 7.1 | V16 Compatibility Review | ✅ |
-| 7.2 | Dependencies Matrix | ✅ |
-| 7.3 | INDEX.md & INSTALL.md | ✅ |
-| 7.4 | Final Packaging (README update) | ✅ |
-| 7.5 | Cleanup & Archive | ✅ |
-
-🎉 **FASE 7 COMPLEET - PROJECT AFGEROND!** 🎉
+**ROADMAP geüpdatet:**
+- Fase 8 sectie toegevoegd
+- Open Issues tabel toegevoegd
+- V16 status bijgewerkt naar 90%
 
 ---
-
-## Changelog
 
 ### 2026-01-18 (sessie 20) - 🎉 PROJECT COMPLEET! 🎉
 
@@ -185,109 +183,24 @@ Alle 8 implementation skills in `skills/source/impl/`.
 
 ---
 
-🎉🎉🎉 **ERPNext Skills Package v1.0 - RELEASE READY!** 🎉🎉🎉
+🎉🎉🎉 **ERPNext Skills Package v1.0 - RELEASED!** 🎉🎉🎉
 
 ---
 
-### 2026-01-18 (sessie 19) - FASE 6 COMPLEET! 🎉🎉
-
-**Voltooid:**
-
-**6.1 erpnext-code-interpreter agent:**
-- SKILL.md (313 regels): Interpretation workflow, mechanism selection matrix, clarifying questions framework, specification template, skill dependencies map, common pattern recognition
-- references/workflow.md: 5-step interpretation process met gedetailleerde decision trees
-- references/examples.md: 6 complete interpretation examples (auto-calculate, notification, external integration, permission filtering, workflow, scheduled task)
-- references/checklists.md: Pre-interpretation checklist, step-by-step checklists, output quality checklist, common pitfalls, quick reference
-
-**6.2 erpnext-code-validator agent:**
-- SKILL.md (332 regels): Validation workflow, critical checks per code type (Server Script, Client Script, Controller), validation report format, universal rules, version-specific validations
-- references/workflow.md: 5-step validation process, type-specific checks, severity classification
-- references/checklists.md: Complete validation checklists voor Server Script, Client Script, Controller, hooks.py, Jinja, Whitelisted Methods, universal security
-- references/examples.md: 6 validation examples met corrected code (import error, async issue, on_update modification, SQL injection, version issue, clean code)
-
-**🎉🎉 ALLE 28 SKILLS EN AGENTS VOLTOOID! 🎉🎉**
-
-**Milestone bereikt**: 100% van skills/agents compleet
-- 8 Syntax Skills
-- 3 Core Skills
-- 8 Implementation Skills
-- 7 Error Handling Skills
-- 2 Agents
-
-**Volgende**: Fase 7 - Finalisatie en packaging
-
-### 2026-01-18 (sessie 18 cont.) - FASE 5 COMPLEET! 🎉
-
-**Voltooid:**
-- erpnext-errors-api skill compleet met:
-  - SKILL.md: HTTP status codes, whitelisted method patterns, client-side handling, webhook errors
-  - references/patterns.md: 5 complete patterns (whitelisted method, response wrapper, client handler class, external API client, webhook handler)
-  - references/examples.md: 3 complete examples (API module, client-side, external integration)
-  - references/anti-patterns.md: 15 common API error handling mistakes
-
-**🎉 FASE 5 ERROR HANDLING SKILLS VOLLEDIG AFGEROND!**
-
-Alle 7 error handling skills compleet:
-1. ✅ errors-clientscripts
-2. ✅ errors-serverscripts
-3. ✅ errors-controllers
-4. ✅ errors-hooks
-5. ✅ errors-database
-6. ✅ errors-permissions
-7. ✅ errors-api
-
-### 2026-01-18 (sessie 18 cont.) - FASE 5.6 COMPLEET
-
-**Voltooid:**
-- erpnext-errors-permissions skill compleet met:
-  - SKILL.md: Decision tree by context, permission hook patterns, API permission handling
-  - references/patterns.md: 6 complete patterns (has_permission, permission_query_conditions, API endpoint, controller, graceful degradation, security audit)
-  - references/examples.md: 3 complete examples (hooks.py config, API endpoints, client-side)
-  - references/anti-patterns.md: 15 common permission error handling mistakes
-
-### 2026-01-18 (sessie 18 cont.) - FASE 5.5 COMPLEET
-
-**Voltooid:**
-- erpnext-errors-database skill compleet met:
-  - SKILL.md: Exception types reference, decision tree by operation, transaction handling
-  - references/patterns.md: 7 complete error handling patterns
-  - references/examples.md: 5 complete production-ready examples
-  - references/anti-patterns.md: 15 common database error handling mistakes
-
-### 2026-01-18 (sessie 18 cont.) - FASE 5.4 COMPLEET
-
-**Voltooid:**
-- erpnext-errors-hooks skill compleet
-
-### 2026-01-18 (sessie 18 cont.) - FASE 5.3 COMPLEET
-
-**Voltooid:**
-- erpnext-errors-controllers skill compleet
-
-### 2026-01-18 (sessie 18 cont.) - FASE 5.1 & 5.2 COMPLEET
-
-**Voltooid:**
-- erpnext-errors-clientscripts skill compleet
-- erpnext-errors-serverscripts skill compleet
-
-### 2026-01-18 (sessie 18) - FASE 4 COMPLEET! 🎉
-
-**Voltooid:**
-- erpnext-impl-customapp skill compleet
-
-**Milestone bereikt**: Alle 8 Implementation Skills zijn nu voltooid!
-
 ### Eerdere sessies
-- Sessie 17: Fase 4.6, 4.7 compleet
-- Sessie 16: Fase 4.5 compleet
-- Sessie 15: Fase 4.4 compleet
-- Sessie 14: Fase 4.3 compleet
-- Sessie 13: Masterplan v3 consolidatie
-- Sessie 12: Documentatie sync
-- Sessie 11: Fase 4.2 compleet
-- Sessie 10: Grote herstructurering (Engels-only)
-- Sessie 9: Fase 4.1 compleet
-- Sessie 1-8: Research, Syntax, Core skills
+
+- **Sessie 19**: Fase 6 COMPLEET - Beide agents voltooid
+- **Sessie 18**: Fase 5 COMPLEET - Alle 7 error handling skills
+- **Sessie 17**: Fase 4.6, 4.7 compleet
+- **Sessie 16**: Fase 4.5 compleet
+- **Sessie 15**: Fase 4.4 compleet
+- **Sessie 14**: Fase 4.3 compleet
+- **Sessie 13**: Masterplan v3 consolidatie
+- **Sessie 12**: Documentatie sync
+- **Sessie 11**: Fase 4.2 compleet
+- **Sessie 10**: Grote herstructurering (Engels-only)
+- **Sessie 9**: Fase 4.1 compleet
+- **Sessie 1-8**: Research, Syntax, Core skills
 
 ---
 
@@ -298,3 +211,6 @@ Alle 7 error handling skills compleet:
 | ✅ | Voltooid |
 | 🔄 | In progress |
 | ⏳ | Gepland |
+| 🔴 | Hoge prioriteit |
+| 🟡 | Medium prioriteit |
+| 🟢 | Lage prioriteit |

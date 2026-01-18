@@ -42,7 +42,7 @@ This project contains a collection of **28 deterministic skills and agents** tha
 
 Clone and include relevant `SKILL.md` files in your Claude context.
 
-👉 **See [INSTALL.md](INSTALL.md) for detailed instructions**
+👉 **See [USAGE.md](USAGE.md) for detailed platform-specific guides**
 
 ---
 
@@ -151,7 +151,8 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 | Document | Purpose |
 |----------|---------|
 | [INDEX.md](INDEX.md) | Complete skill overview & selection guide |
-| [INSTALL.md](INSTALL.md) | Installation instructions |
+| [USAGE.md](USAGE.md) | Platform-specific installation guides |
+| [INSTALL.md](INSTALL.md) | Legacy installation instructions |
 | [DEPENDENCIES.md](docs/DEPENDENCIES.md) | Skill dependency matrix |
 | [ROADMAP.md](ROADMAP.md) | Project status & changelog |
 | [LESSONS_LEARNED.md](LESSONS_LEARNED.md) | Technical discoveries |

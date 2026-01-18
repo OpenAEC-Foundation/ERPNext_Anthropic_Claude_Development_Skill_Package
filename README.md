@@ -5,18 +5,18 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![ERPNext](https://img.shields.io/badge/ERPNext-v14%20%7C%20v15%20%7C%20v16-blue)](https://erpnext.com)
 [![Frappe](https://img.shields.io/badge/Frappe-Framework-green)](https://frappeframework.com)
-[![Progress](https://img.shields.io/badge/Progress-100%25-brightgreen)](ROADMAP.md)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Compliant-orange)](https://agentskills.io)
 [![Skills](https://img.shields.io/badge/Skills-28-purple)](INDEX.md)
 
 ## 🎯 Project Overview
 
-This project contains a collection of **28 deterministic skills and agents** that enable Claude AI instances to generate accurate, production-ready ERPNext/Frappe code. The skills package follows the [Agent Skills](https://agentskills.io) open standard and provides comprehensive coverage of all major ERPNext/Frappe development mechanisms.
+This project contains a collection of **28 deterministic skills and agents** that enable Claude AI instances to generate accurate, production-ready ERPNext/Frappe code. The skills package follows the [Agent Skills](https://agentskills.io) open standard and provides comprehensive coverage of all major ERPNext/Frappe development patterns.
 
 ### Key Features
 
-- ✅ **100% Complete** - All 28 skills and agents ready to use
+- ✅ **Production Ready** - All 28 skills validated and tested
 - 🎯 **Deterministic Output** - Produces consistent, verified code patterns
-- 📚 **Research-Backed** - Every skill built from verified documentation
+- 📚 **Research-Backed** - Every skill built from official Frappe documentation
 - 🔄 **Version-Aware** - Explicit compatibility for v14, v15, and v16
 - 🛡️ **Error Handling** - Complete error handling patterns for production
 - 🤖 **Agent-Assisted** - Code interpretation and validation agents
@@ -25,35 +25,42 @@ This project contains a collection of **28 deterministic skills and agents** tha
 
 ## 📦 Quick Start
 
-### Option 1: Claude.ai Project (Easiest)
-
-1. Create a new Project in Claude.ai
-2. Upload skill folders from `skills/source/` to Project Knowledge
-3. Start chatting about ERPNext development
-
-### Option 2: Claude Code
+### Option 1: Claude Code (Recommended)
 
 ```bash
-/plugin marketplace add OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package
-/plugin install erpnext-skills@openaec-erpnext-skills
+# Clone repository
+git clone https://github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package.git
+
+# Copy to personal skills directory
+cp -r ERPNext_Anthropic_Claude_Development_Skill_Package/skills/source/* ~/.claude/skills/
 ```
 
-### Option 3: Manual
+### Option 2: Claude.ai Web / Desktop
 
-Clone and include relevant `SKILL.md` files in your Claude context.
+1. Download skill folders from `skills/source/`
+2. ZIP each skill folder
+3. Upload via **Settings > Capabilities > Skills**
+
+### Option 3: Project Knowledge
+
+1. Create a new Project in Claude.ai
+2. Upload relevant `SKILL.md` files to Project Knowledge
+3. Start chatting about ERPNext development
 
 👉 **See [USAGE.md](USAGE.md) for detailed platform-specific guides**
+
+> ⚠️ **Note**: Claude Mobile does not support custom skills.
 
 ---
 
 ## 📚 What's Included
 
-| Category | Skills | Description |
-|----------|:------:|-------------|
-| [Syntax](skills/source/syntax/) | 8 | Language patterns and API syntax |
-| [Core](skills/source/core/) | 3 | Database, Permissions, API fundamentals |
-| [Implementation](skills/source/impl/) | 8 | Step-by-step development workflows |
-| [Error Handling](skills/source/errors/) | 7 | Robust error handling patterns |
+| Category | Count | Description |
+|----------|:-----:|-------------|
+| [Syntax Skills](skills/source/syntax/) | 8 | Language patterns and API syntax |
+| [Core Skills](skills/source/core/) | 3 | Database, Permissions, API fundamentals |
+| [Implementation Skills](skills/source/impl/) | 8 | Step-by-step development workflows |
+| [Error Handling Skills](skills/source/errors/) | 7 | Robust error handling patterns |
 | [Agents](skills/source/agents/) | 2 | Code interpretation & validation |
 | **Total** | **28** | |
 
@@ -64,30 +71,42 @@ Clone and include relevant `SKILL.md` files in your Claude context.
 ## 🎓 Skills Overview
 
 ### Syntax Skills (Foundation)
+
 Define HOW to write code:
-- `syntax-clientscripts` - Client-side JavaScript
-- `syntax-serverscripts` - Server Scripts (sandbox-aware!)
-- `syntax-controllers` - Document Controllers
-- `syntax-hooks` - hooks.py configuration
-- `syntax-whitelisted` - @frappe.whitelist() methods
-- `syntax-jinja` - Jinja templating
-- `syntax-scheduler` - Background jobs
-- `syntax-customapp` - Custom app structure
+
+| Skill | Description |
+|-------|-------------|
+| `erpnext-syntax-clientscripts` | Client-side JavaScript patterns |
+| `erpnext-syntax-serverscripts` | Server Scripts (sandbox-aware!) |
+| `erpnext-syntax-controllers` | Document Controllers |
+| `erpnext-syntax-hooks` | hooks.py configuration |
+| `erpnext-syntax-whitelisted` | @frappe.whitelist() methods |
+| `erpnext-syntax-jinja` | Jinja templating & Print Formats |
+| `erpnext-syntax-scheduler` | Background jobs |
+| `erpnext-syntax-customapp` | Custom app structure |
 
 ### Core Skills (Cross-cutting)
-- `database` - frappe.db API and patterns
-- `permissions` - Complete permission system + Data Masking (v16)
-- `api-patterns` - REST, RPC, webhooks
+
+| Skill | Description |
+|-------|-------------|
+| `erpnext-database` | frappe.db API and query patterns |
+| `erpnext-permissions` | Permission system + Data Masking (v16) |
+| `erpnext-api-patterns` | REST, RPC, webhooks |
 
 ### Implementation Skills (Workflows)
-Step-by-step guides for each development area.
+
+Step-by-step guides for implementing each development area.
 
 ### Error Handling Skills
-Production-ready error handling for every context.
+
+Production-ready error handling for every context (7 skills).
 
 ### Agent Skills
-- `code-interpreter` - Translates vague requirements to technical specs
-- `code-validator` - Validates code against all skill patterns
+
+| Agent | Description |
+|-------|-------------|
+| `erpnext-code-interpreter` | Translates requirements to technical specs |
+| `erpnext-code-validator` | Validates code against all skill patterns |
 
 ---
 
@@ -118,6 +137,7 @@ All skills in this package are designed with this limitation in mind.
 | UUID autoname | ❌ | ❌ | ✅ |
 | Data Masking | ❌ | ❌ | ✅ |
 | 60s Scheduler Tick | ❌ | ❌ | ✅ |
+| Chrome PDF Rendering | ❌ | ❌ | ✅ |
 
 ---
 
@@ -135,11 +155,13 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 │
 ├── docs/
 │   ├── research/   # 13 research documents
-│   ├── masterplan/ # Project planning
-│   └── DEPENDENCIES.md
+│   ├── usage/      # Platform-specific guides
+│   └── masterplan/ # Project planning
+│
+├── tools/          # Validation scripts
 │
 ├── INDEX.md        # Complete skill index
-├── INSTALL.md      # Installation guide
+├── USAGE.md        # Installation guides
 ├── ROADMAP.md      # Project history
 └── LESSONS_LEARNED.md
 ```
@@ -152,8 +174,6 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 |----------|---------|
 | [INDEX.md](INDEX.md) | Complete skill overview & selection guide |
 | [USAGE.md](USAGE.md) | Platform-specific installation guides |
-| [INSTALL.md](INSTALL.md) | Legacy installation instructions |
-| [DEPENDENCIES.md](docs/DEPENDENCIES.md) | Skill dependency matrix |
 | [ROADMAP.md](ROADMAP.md) | Project status & changelog |
 | [LESSONS_LEARNED.md](LESSONS_LEARNED.md) | Technical discoveries |
 | [WAY_OF_WORK.md](WAY_OF_WORK.md) | Development methodology |
@@ -162,9 +182,10 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 
 ## 🎓 Using as a Template
 
-This project also serves as a **template for developing Claude skill packages** for any technology.
+This project serves as a **template for developing Claude skill packages** for any technology.
 
 ### Key Resources
+
 - [WAY_OF_WORK.md](WAY_OF_WORK.md) - Complete 7-phase methodology
 - [LESSONS_LEARNED.md](LESSONS_LEARNED.md) - What we learned
 - [Agent Skills Spec](https://agentskills.io) - Official standard
@@ -181,10 +202,10 @@ This project also serves as a **template for developing Claude skill packages** 
 
 ## 🤝 Contributing
 
-This project is developed by the **OpenAEC Foundation**. 
+This project is developed by the **OpenAEC Foundation**.
 
-- 🐛 Issues: [GitHub Issues](https://github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/issues)
-- 📖 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
+- 🐛 Found an issue? [Open a GitHub Issue](https://github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/issues)
+- 💡 Have a suggestion? We welcome feedback!
 
 ---
 
@@ -202,4 +223,4 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-*ERPNext Skills Package v1.0.0 | Built with Claude AI*
+*ERPNext Skills Package v1.1 | Built with Claude AI | OpenAEC Foundation*

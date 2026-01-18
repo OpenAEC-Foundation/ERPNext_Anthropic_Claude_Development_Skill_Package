@@ -4,7 +4,7 @@
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
 > **Laatste update**: 2026-01-18  
-> **Status**: 🔄 Fase 8 - Post-release verbeteringen  
+> **Status**: 🔄 Fase 8.6 - How-to-use documentatie  
 > **Masterplan**: [erpnext-skills-masterplan-v4.md](docs/masterplan/erpnext-skills-masterplan-v4.md)  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
@@ -32,7 +32,7 @@
 
 | # | Titel | Prioriteit | Status |
 |---|-------|:----------:|:------:|
-| #11 | How-to-use documentatie | 🟢 | Open |
+| #11 | How-to-use documentatie | 🟢 | 🔄 In progress |
 | #12 | Masterplan v4 + Fase 8 | 🟡 | Open |
 
 **Gesloten:**
@@ -40,21 +40,6 @@
 - ~~#5 Claude Code native format~~ → ❌ Niet meer nodig
 - ~~#9 Agent Skills standaard review~~ → ✅ Compleet
 - ~~#10 V16 skill updates (9 skills)~~ → ✅ Compleet
-
----
-
-## V16 Compatibility Status
-
-| Aspect | Status |
-|--------|:------:|
-| `extend_doctype_class` hook | ✅ |
-| Data masking | ✅ |
-| UUID naming | ✅ |
-| Chrome PDF rendering | ✅ |
-| Scheduler tick interval | ✅ |
-| Alle skills V16 frontmatter | ✅ |
-
-**V16 Compatibility: 100% ✅**
 
 ---
 
@@ -75,10 +60,46 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 | 8.3 | - | Validatie & Testing | ✅ |
 | 8.4 | ~~#9~~ | Agent Skills standaard review | ✅ |
 | ~~8.5~~ | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
-| 8.6 | #11 | How-to-use documentatie | ⏳ |
+| **8.6** | #11 | **How-to-use documentatie** | 🔄 |
 | 8.7 | #12 | Final Polish & v1.1 Release | ⏳ |
 
 **Fase 8 Voortgang**: ████████████░░░░░░░░ **60%**
+
+---
+
+## 🔄 Fase 8.6 Detail Plan
+
+### Substappen
+
+| Stap | Beschrijving | Status |
+|------|--------------|:------:|
+| 8.6.1 | Research: Claude Code, Desktop, Mobile, Web docs | 🔄 |
+| 8.6.2 | Schrijven: USAGE.md + platform-specifieke guides | ⏳ |
+| 8.6.3 | README.md Quick Start update | ⏳ |
+
+### 8.6.1 Research Checklist
+
+| Platform | Bron | Status |
+|----------|------|:------:|
+| Claude Code (CLI) | docs.anthropic.com/claude-code | 🔄 |
+| Claude Desktop | support.claude.com | ⏳ |
+| Claude Mobile | support.claude.com | ⏳ |
+| Claude.ai Web | docs.claude.com | ⏳ |
+
+### 8.6.2 Te Creëren Bestanden
+
+| Bestand | Beschrijving | Status |
+|---------|--------------|:------:|
+| `USAGE.md` | Algemene gebruiksinstructies (root) | ⏳ |
+| `docs/usage/claude-code.md` | Claude Code CLI specifiek | ⏳ |
+| `docs/usage/claude-desktop.md` | Desktop app specifiek | ⏳ |
+| `docs/usage/claude-web.md` | Web interface specifiek | ⏳ |
+
+### Acceptatiecriteria
+- [ ] Gebruiker kan binnen 5 minuten skills laden
+- [ ] Stap-voor-stap instructies per platform
+- [ ] Troubleshooting sectie
+- [ ] Screenshots/voorbeelden waar relevant
 
 ---
 
@@ -98,42 +119,17 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
-**Fixes Applied:**
-- 18 skills: YAML description properly quoted
-- impl-scheduler: Reduced from 756 to 189 lines
-- errors-api: Reduced from 550 to 212 lines
-- impl-jinja: Reduced from 506 to 493 lines
-
----
-
-## Agent Skills Review (Fase 8.4)
-
-All 28 skills validated against [agentskills.io](https://agentskills.io) specification:
-
-| Aspect | Status |
-|--------|:------:|
-| YAML Frontmatter | ✅ |
-| Name Format (kebab-case, <64 chars) | ✅ |
-| Description (<1024 chars) | ✅ |
-| Directory Structure | ✅ |
-| SKILL.md Size (<500 lines) | ✅ |
-
-**Decisions:**
-- "agents" folder: Keep as-is (renaming = breaking change)
-- Non-standard frontmatter fields: Keep (harmless, useful context)
-
-Full review: `docs/AGENT_SKILLS_REVIEW.md`
-
 ---
 
 ## Changelog
 
-### 2026-01-18 (sessie 23) - Fase 8.4 Sync
+### 2026-01-18 (sessie 23) - Fase 8.6 Start
 
-**ROADMAP Sync:**
-- Issue #9 was al gesloten maar ROADMAP niet bijgewerkt
-- Fase 8.4 gemarkeerd als ✅ compleet
-- Voortgang bijgewerkt naar 60%
+**ROADMAP Updates:**
+- Fase 8.4 sync (Issue #9 was al gesloten)
+- Fase 8.6 gedetailleerd plan toegevoegd
+- Substappen 8.6.1-8.6.3 gedefinieerd
+- Research gestart met Claude Code documentatie
 
 ---
 
@@ -159,12 +155,6 @@ Full review: `docs/AGENT_SKILLS_REVIEW.md`
 - Package is **fully compliant**
 - Review gedocumenteerd in `docs/AGENT_SKILLS_REVIEW.md`
 - Issue #9 gesloten
-
-**Issues gesloten:**
-- #4: V16 compatibility review
-- #5: Claude Code native format (niet meer nodig)
-- #9: Agent Skills standaard review
-- #10: V16 skill updates
 
 ---
 

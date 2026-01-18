@@ -5,6 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![ERPNext](https://img.shields.io/badge/ERPNext-v14%20%7C%20v15-blue)](https://erpnext.com)
 [![Frappe](https://img.shields.io/badge/Frappe-Framework-green)](https://frappeframework.com)
+[![Progress](https://img.shields.io/badge/Progress-46%25-orange)](ROADMAP.md)
 
 ## 🎯 Project Overview
 
@@ -60,11 +61,12 @@ The skills package covers all major ERPNext/Frappe development areas:
 
 | Category | Skills | Status |
 |----------|:------:|:------:|
-| **Syntax Skills** | 8 | ✅ Complete |
-| **Core Skills** | 3 | ✅ Complete |
-| **Implementation Skills** | 8 | 🔄 In Progress |
-| **Error Handling Skills** | 7 | ⏳ Planned |
-| **Agents** | 2 | ⏳ Planned |
+| **Syntax Skills** | 8/8 | ✅ Complete |
+| **Core Skills** | 3/3 | ✅ Complete |
+| **Implementation Skills** | 2/8 | 🔄 In Progress |
+| **Error Handling Skills** | 0/7 | ⏳ Planned |
+| **Agents** | 0/2 | ⏳ Planned |
+| **TOTAL** | **13/28** | **~46%** |
 
 ### Syntax Skills (How to write code)
 - Client Scripts, Server Scripts, Document Controllers
@@ -87,13 +89,13 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 │
 ├── skills/
 │   └── source/
-│       ├── syntax/           # 8 syntax skills
+│       ├── syntax/           # 8 syntax skills ✅
 │       │   ├── erpnext-syntax-clientscripts/
 │       │   │   ├── SKILL.md  # Main skill file
 │       │   │   └── references/
 │       │   └── ...
-│       ├── core/             # 3 core skills
-│       └── impl/             # Implementation skills
+│       ├── core/             # 3 core skills ✅
+│       └── impl/             # 2/8 implementation skills 🔄
 │
 ├── docs/
 │   ├── masterplan/           # Project planning
@@ -143,6 +145,7 @@ Want to create a skill package for another technology? Follow these steps:
 | SKILL.md in folder ROOT | Required by `package_skill.py` |
 | Research documents per topic | Foundation for deterministic content |
 | Push after EVERY phase | Claude's filesystem resets between sessions |
+| Session recovery protocol | Scan GitHub state before continuing interrupted work |
 
 ---
 

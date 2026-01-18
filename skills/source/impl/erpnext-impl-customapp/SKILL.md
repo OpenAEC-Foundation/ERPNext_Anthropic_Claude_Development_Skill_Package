@@ -1,11 +1,6 @@
 ---
 name: erpnext-impl-customapp
-version: 1.0.0
-description: Implementation workflows and decision trees for building Frappe/ERPNext custom apps. Use when determining HOW to structure apps, organize modules, write patches, configure fixtures, manage dependencies, and deploy custom functionality. Covers app creation, module design, migration strategies, and release management. V14/V15/V16 compatible. Triggers: create custom app, new frappe app, app structure, module organization, write patch, migration script, fixtures export, app deployment, pyproject.toml.
-author: OpenAEC Foundation
-tags: [erpnext, frappe, custom-app, implementation, patches, fixtures, modules, deployment]
-languages: [en]
-frappe_versions: [v14, v15, v16]
+description: "Implementation workflows for building Frappe/ERPNext custom apps. Covers app structure, module creation, doctype design, fixtures, patches, and deployment. V14/V15/V16 compatible. Triggers: create custom app, new frappe app, bench new-app, app structure, module creation, doctype creation, fixtures, patches."
 ---
 
 # ERPNext Custom App - Implementation

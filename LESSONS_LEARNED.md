@@ -620,7 +620,208 @@ Als tijd beperkt is, minimaal:
 
 ---
 
-## 15. Top 15 Lessen (Uitgebreid)
+---
+
+## 15. GitHub API Workflow Patterns
+
+**Geleerd uit**: 40+ gesprekken met intensief GitHub API gebruik
+
+### Bewezen Effectieve Patronen
+
+#### SHA Retrieval voor Updates
+
+```bash
+# ALTIJD SHA eerst ophalen bij file updates
+SHA=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+  "https://api.github.com/repos/.../contents/path/file.md" \
+  | grep '"sha"' | head -1 | cut -d'"' -f4)
+
+# Dan pas update met SHA
+curl -X PUT ... -d '{"message":"...","content":"...","sha":"'$SHA'"}'
+```
+
+**Waarom**: Zonder SHA krijg je conflict errors bij bestaande bestanden.
+
+#### Base64 Encoding
+
+```bash
+# ALTIJD -w 0 gebruiken voor line wrapping te voorkomen
+CONTENT=$(base64 -w 0 bestand.md)
+```
+
+**Waarom**: Zonder `-w 0` bevat de base64 output newlines die JSON breken.
+
+#### Raw Content Ophalen
+
+```bash
+# Voor leesbare content (geen JSON wrapper)
+curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github.raw" \
+  "https://api.github.com/.../contents/path"
+```
+
+**Waarom**: Geeft direct markdown/text content i.p.v. base64-encoded JSON.
+
+### Batch Operations Strategy
+
+| Scenario | Aanpak |
+|----------|--------|
+| <5 bestanden | Direct via API per file |
+| 5-20 bestanden | Download lokaal → valideer → batch upload |
+| >20 bestanden | Download alles → lokale processing → staged commits |
+
+### Key Principle
+
+> "GitHub API is reliable maar stateful. SHA management en encoding zijn de #1 failure points."
+
+---
+
+## 16. YAML Frontmatter Gotchas
+
+**Geleerd uit**: Fase 8.3 validatie - 18 skills hadden parsing issues
+
+### Het Probleem
+
+18 van 28 skills faalden initiële validatie vanwege YAML frontmatter issues:
+
+```yaml
+# ❌ FOUT - "Triggers:" wordt geïnterpreteerd als YAML mapping
+description: Syntax skill for Client Scripts. Triggers: help with ERPNext
+
+# ✅ CORRECT - Quoted string voorkomt YAML parsing
+description: "Syntax skill for Client Scripts. Triggers: help with ERPNext"
+
+# ✅ ALTERNATIEF - Folded scalar voor lange descriptions
+description: >
+  Syntax skill for Client Scripts. Triggers: help with ERPNext 
+  client-side form interactions, validation, and server calls.
+```
+
+### YAML Valkuilen Checklist
+
+| Issue | Symptoom | Oplossing |
+|-------|----------|-----------|
+| Colon in value | `mapping values not allowed` | Quote de hele string |
+| Multi-line | Truncated content | Gebruik `>` of `\|` |
+| Special chars | Parse errors | Quote + escape |
+| Embedded quotes | Nesting errors | Use opposite quote type |
+
+### Key Principle
+
+> "YAML is subtiel. Elke description met ':' of andere special characters MOET gequoted worden."
+
+---
+
+## 17. Context Window Overflow Recovery
+
+**Geleerd uit**: Sessie 22 - mid-sessie overflow na grote validatie operatie
+
+### Recovery Protocol
+
+1. **Scan GitHub state** - Check recente commits en vergelijk met verwachte bestanden
+2. **Check ROADMAP.md** - Laatste changelog entry, komt status overeen?
+3. **Identificeer gaps** - Welke bestanden zijn verloren?
+4. **Communiceer en hervat** - "Status: X gepusht, Y ontbreekt"
+
+### Preventie Tips
+
+- Push incrementeel (na elk bestand)
+- Monitor output bij grote operaties
+- Checkpoint commits tussentijds
+- Max 5-10 files per conversatie-segment
+
+### Key Principle
+
+> "Context overflow is onvermijdelijk bij grote operaties. Plan voor recovery, push vroeg en vaak."
+
+---
+
+## 18. Agent Skills vs Claude Agent SDK
+
+**Geleerd uit**: Fase 7 - ontdekking van agentskills.io standaard
+
+| Aspect | Agent Skills | Claude Agent SDK |
+|--------|--------------|------------------|
+| Type | Instructie-gebaseerd | Programmatisch |
+| Format | YAML + Markdown | Python/TypeScript |
+| Doel | Claude capability extension | Autonomous agent building |
+| Website | agentskills.io | docs.anthropic.com/sdk |
+| Ons package | ✅ Agent Skills | ❌ Niet van toepassing |
+
+### Key Principle
+
+> "Ken het ecosysteem. 'Agent Skills' (instructies voor Claude) ≠ 'Agent SDK' (code om agents te bouwen)."
+
+---
+
+## 19. GitHub Community Standards
+
+**Geleerd uit**: Fase 8.8 planning - gap analyse tegen GitHub best practices
+
+GitHub meet repository "community health" op 7 criteria:
+
+| File | Doel | Ons |
+|------|------|:---:|
+| README.md | Project overview | ✅ |
+| LICENSE | Legal terms | ✅ |
+| CODE_OF_CONDUCT.md | Community behavior | ⏳ |
+| CONTRIBUTING.md | How to contribute | ⏳ |
+| SECURITY.md | Vulnerability reporting | ⏳ |
+| Issue templates | Structured bug reports | ⏳ |
+| PR template | Structured contributions | ⏳ |
+
+**Score**: 2/7 → 7/7 (Doel na Fase 8.8)
+
+### Key Principle
+
+> "Open source is meer dan code. Community health files zijn essentieel voor professionele repositories."
+
+---
+
+## 20. Skill Validation Workflow Optimization
+
+**Geleerd uit**: Fase 8.3 - batch validatie van 28 skills
+
+### Ontdekte Issues
+
+| Issue Type | Aantal | Root Cause |
+|------------|:------:|------------|
+| YAML quoting | 18 | Unquoted colons in descriptions |
+| Line limit exceeded | 3 | Content niet in references verplaatst |
+
+### Geoptimaliseerde Workflow
+
+1. **Bulk Download** - Alle skills lokaal
+2. **Batch Validation** - `quick_validate.py` op alles
+3. **Pattern-Based Fixing** - Sed/grep voor bulk fixes
+4. **Re-validate** - Tot 0 errors
+5. **Batch Upload** - Alles in één sessie
+
+### Key Principle
+
+> "Bulk lokaal verwerken is 3x sneller dan per-file API operaties."
+
+---
+
+## 21. Tool Knowledge Accumulation
+
+**Geleerd uit**: 40+ gesprekken met dezelfde toolset
+
+### Effectieve Tool Combinaties
+
+| Task | Tools | Sequence |
+|------|-------|----------|
+| File update | bash → view → str_replace → bash | Check → Read → Edit → Verify |
+| Multi-file create | create_file (loop) → present_files | Create batch → Present once |
+| GitHub push | bash (encode) → bash (PUT) | Encode → Upload |
+
+### Key Principle
+
+> "Tool mastery komt van patronen herkennen. De beste workflows combineren tools in vaste sequences."
+
+---
+
+## Top 22 Lessen (Finale Update)
 
 | # | Les |
 |---|-----|
@@ -639,6 +840,13 @@ Als tijd beperkt is, minimaal:
 | 13 | **Plan testing als onderdeel van development** |
 | 14 | **Definieer "done" expliciet met levels** |
 | 15 | **GitHub API workflow > proprietary formats** |
+| 16 | **SHA management en base64 encoding zijn GitHub API failure points** |
+| 17 | **YAML descriptions met ':' MOETEN gequoted worden** |
+| 18 | **Plan voor context overflow: push incrementeel** |
+| 19 | **Agent Skills ≠ Agent SDK - ken het verschil** |
+| 20 | **Community health files essentieel voor open source** |
+| 21 | **Bulk lokaal verwerken is 3x sneller dan per-file API** |
+| 22 | **Tool mastery = patroonherkenning + vaste sequences** |
 
 ---
 
@@ -646,8 +854,9 @@ Als tijd beperkt is, minimaal:
 
 | Datum | Wijziging |
 |-------|-----------|
+| 2026-01-18 | Sectie 15-21 toegevoegd: Sessie 24 chat analyse (40+ gesprekken) |
+| 2026-01-18 | Top 15 → Top 22 uitgebreid |
 | 2026-01-18 | Sectie 12-14 toegevoegd: Post-release reflecties |
-| 2026-01-18 | Top 10 → Top 15 uitgebreid |
 | 2026-01-18 | Sectie 10 toegevoegd: Single Source of Truth voor tracking |
 | 2026-01-18 | Sectie 9 toegevoegd: Session Recovery Protocol |
 | 2026-01-17 | Volledige herschrijving na mid-project review |

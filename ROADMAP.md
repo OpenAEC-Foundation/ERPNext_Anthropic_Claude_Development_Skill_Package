@@ -1,5 +1,8 @@
 # ROADMAP - ERPNext Skills Package
 
+> **📍 Dit is de SINGLE SOURCE OF TRUTH voor project status en voortgang.**  
+> Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
+
 > **Laatste update**: 2026-01-18  
 > **Huidige fase**: Fase 4.3 Implementation Skills  
 > **Structuur**: Engels-only, Anthropic-conform
@@ -19,6 +22,14 @@
 | **TOTAAL Skills** | **13** | **15** | **28** |
 
 **Voortgang**: █████████░░░░░░░░░░░ ~46%
+
+---
+
+## Volgende Stappen
+
+1. **Fase 4.3**: erpnext-impl-controllers
+2. **Fase 4.4**: erpnext-impl-hooks
+3. **Fase 4.5-4.8**: Overige implementation skills
 
 ---
 
@@ -82,30 +93,25 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
 ---
 
-## Volgende Stappen
-
-1. **Fase 4.3**: erpnext-impl-controllers
-2. **Fase 4.4**: erpnext-impl-hooks
-3. **Fase 4.5-4.8**: Overige implementation skills
-
----
-
 ## Changelog
 
-### 2026-01-18 (sessie 12) - DOCUMENTATIE SYNC (Issue #8)
+### 2026-01-18 (sessie 12) - DOCUMENTATIE SYNC & CLEANUP
 
 **Documentatie bijgewerkt:**
 - WAY_OF_WORK.md: Session Recovery Protocol sectie toegevoegd
 - LESSONS_LEARNED.md: Sectie 9 (Session Recovery Protocol) + Top 10 #10 bijgewerkt
 - README.md: Status tabel bijgewerkt naar 46% (13/28 skills)
+- ROADMAP.md: Header toegevoegd - "Single Source of Truth" voor tracking
 
 **Issues opgeschoond:**
 - Issue #1 gesloten (duplicate van #4 - V16 compat)
 - Issue #2 gesloten (duplicate van #5 - Claude Code format)
+- Issue #7 klaar (Session Recovery - geïmplementeerd)
 - Issue #8 aangemaakt voor documentatie sync
 
-**Nog te doen (handmatig):**
-- Claude Project Instructies bijwerken via claude.ai
+**Beslissing:**
+- Claude Project Instructies verwijzen nu naar ROADMAP voor status
+- Geen dubbele tracking meer - ROADMAP is single source of truth
 
 ### 2026-01-18 (sessie 11) - FASE 4.2 COMPLEET
 
@@ -143,7 +149,7 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ## Legenda
 
 | Symbool | Betekenis |
-|:-------:|-----------:|
+|:-------:|----------:|
 | ✅ | Voltooid |
 | 🔄 | In progress |
 | ⏳ | Gepland |

@@ -1,13 +1,13 @@
 ---
 name: erpnext-syntax-clientscripts
-description: "Exact JavaScript syntax for ERPNext/Frappe Client Scripts. Use when writing client-side code for form events, field manipulation, server calls, or child table handling in ERPNext v14/v15. Triggers: client script, form event, frm methods, frappe.call, frappe.ui.form.on, JavaScript in ERPNext, browser-side code, UI interaction, client-side field validation."
+description: "Exact JavaScript syntax for ERPNext/Frappe Client Scripts. Use when writing client-side code for form events, field manipulation, server calls, or child table handling in ERPNext v14/v15/v16. Triggers: client script, form event, frm methods, frappe.call, frappe.ui.form.on, JavaScript in ERPNext, browser-side code, UI interaction, client-side field validation."
 ---
 
 # ERPNext Client Scripts Syntax (EN)
 
 Client Scripts run in the browser and control all UI interactions in ERPNext/Frappe. They are created via **Setup → Client Script** or in custom apps under `public/js/`.
 
-**Version**: v14/v15 compatible (unless noted otherwise)
+**Version**: v14/v15/v16 compatible (unless noted otherwise)
 
 ## Quick Reference
 

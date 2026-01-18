@@ -10,7 +10,7 @@ The methodology emphasizes:
 - **Deep research before development**
 - **Deterministic, verifiable content**
 - **One-shot execution without iterations**
-- **Bilingual delivery (or multi-language)**
+- **English-only skills** (Claude reads English, responds in any language)
 - **Version control integration**
 
 ---
@@ -491,3 +491,51 @@ The key insight is that **skills are only as good as the research behind them**.
 ---
 
 *This methodology was developed during the ERPNext/Frappe Skills Package project by the OpenAEC Foundation, January 2025.*
+
+---
+
+## Key Lesson: English-Only Skills
+
+**Original assumption**: Create bilingual (NL + EN) skills for accessibility.
+
+**Discovery**: Anthropic's own skills are ALL English-only. Analysis revealed:
+- Skill instructions are for Claude, not end users
+- Claude can read English instructions and respond in ANY language
+- Bilingual skills double maintenance without functional benefit
+- Anthropic's `package_skill.py` expects simple folder structure
+
+**Recommendation**: Always create English-only skills unless you have a very specific reason to deviate.
+
+---
+
+## Anthropic Tooling Compatibility
+
+Before choosing your directory structure, **test with Anthropic's official tooling**:
+
+```bash
+# Validate skill structure
+python quick_validate.py path/to/skill-folder
+
+# Package skill
+python package_skill.py path/to/skill-folder output/
+```
+
+**Critical requirement**: `SKILL.md` must be DIRECTLY in the skill folder root, not in subfolders.
+
+```
+✅ CORRECT:
+skill-name/
+├── SKILL.md          ← Direct in root
+└── references/
+
+❌ WRONG:
+skill-name/
+├── EN/
+│   └── SKILL.md      ← In subfolder - will FAIL
+└── NL/
+    └── SKILL.md
+```
+
+---
+
+*Updated: January 2026 - Lessons learned from mid-project review*

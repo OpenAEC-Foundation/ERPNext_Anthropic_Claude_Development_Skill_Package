@@ -1,7 +1,7 @@
 # ROADMAP - ERPNext Skills Package
 
 > **Laatste update**: 2026-01-18  
-> **Huidige fase**: Fase 4 Implementation Skills  
+> **Huidige fase**: 4.2 voltooid → Fase 4.3 Implementation Skills  
 > **Structuur**: Engels-only, Anthropic-conform
 
 ---
@@ -92,27 +92,17 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
 ## Changelog
 
-### 2026-01-18 (sessie 11) - FASE 4.2 VOLTOOID
+### 2026-01-18 (sessie 11) - FASE 4.2 COMPLEET
 
-**Nieuwe skill gemaakt:**
-- `erpnext-impl-serverscripts` - Complete implementation skill voor Server Scripts
+**Voltooid:**
+- erpnext-impl-serverscripts skill compleet met:
+  - SKILL.md: Main decision trees en workflows
+  - references/decision-tree.md: Complete script type selection
+  - references/workflows.md: Extended implementation patterns
+  - references/examples.md: 12+ complete working examples
+  - references/anti-patterns.md: Common mistakes and solutions
 
-**Structuur:**
-- SKILL.md (369 regels) - Hoofd workflow document
-- references/decision-tree.md - Complete beslisboom
-- references/workflows.md - 7 categorieën implementatie patronen
-- references/examples.md - 10 complete voorbeelden
-
-**Inhoud:**
-- Server Script vs Controller beslisboom
-- 4 script types: Document Event, API, Scheduler, Permission Query
-- Event name mapping (UI vs internal hooks)
-- 6 core workflows in SKILL.md
-- 7 workflow categorieën in references
-- Client + Server integration patronen
-- Implementation checklist
-
-**Voortgang**: 43% → 46%
+**Nieuwe voortgang**: ~46% (was ~43%)
 
 ### 2026-01-17 (sessie 10) - GROTE HERSTRUCTURERING
 
@@ -128,26 +118,6 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 - LESSONS_LEARNED.md: Secties 12-14 toegevoegd
 - Amendment 6: Engels-only + definitieve structuur
 - ROADMAP: Volledig herschreven
-
-### 2026-01-17 (sessie 10 - vervolg) - CLEANUP VOLTOOID
-
-**Verwijderd:**
-- Alle NL versies en folders (~100 bestanden)
-- Alle oude EN/CORE en NL/CORE folders
-- Alle oude .skill packages met taal suffix
-- Alle ghost folders met reference files
-- README.md bestanden uit skills/
-
-**Opgeschoond:**
-- LESSONS_LEARNED.md: 1500+ → 329 regels (correcte nummering)
-
-**Finale structuur:**
-```
-skills/source/
-├── syntax/   8 skills ✅
-├── core/     3 skills ✅
-└── impl/     2 skills ✅
-```
 
 ### Eerdere sessies
 - Sessie 9: Fase 4.1 compleet

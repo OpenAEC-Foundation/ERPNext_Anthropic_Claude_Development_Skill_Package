@@ -478,21 +478,8 @@ bench --site sitename migrate
 
 ### V16 Chrome PDF Considerations
 
-V16 introduces Chrome-based PDF rendering (replaces wkhtmltopdf):
+See `erpnext-syntax-jinja` for detailed Chrome PDF documentation.
 
-```jinja
-{# CSS that works better with Chrome PDF #}
-<style>
-    @page { margin: 1cm; }
-    .page-break { page-break-after: always; }
-    
-    {# Chrome handles flexbox/grid better #}
-    .container { display: flex; }
-</style>
-```
-
-**Advantages**: Better CSS support, more accurate rendering
-**Note**: Test existing templates after V16 upgrade
 
 ---
 

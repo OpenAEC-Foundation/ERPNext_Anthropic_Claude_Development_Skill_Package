@@ -31,11 +31,13 @@
 | # | Titel | Prioriteit | Status |
 |---|-------|:----------:|:------:|
 | #4 | V16 compatibility review | 🟡 | Bijna klaar |
-| #5 | Claude Code native format | 🟡 | Open |
 | #9 | Agent Skills standaard review | 🟡 | Open |
 | #10 | V16 skill updates (9 skills) | 🔴 | **Nieuw** |
 | #11 | How-to-use documentatie | 🟢 | **Nieuw** |
 | #12 | Masterplan v4 + Fase 8 | 🟡 | **Nieuw** |
+
+**Gesloten deze sessie:**
+- ~~#5 Claude Code native format~~ → Niet meer nodig, huidige GitHub workflow werkt goed
 
 ---
 
@@ -78,12 +80,12 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 |------|:-----:|--------------|:------:|
 | 8.1 | #10 | V16 skill updates (9 skills) | ⏳ |
 | 8.2 | #9 | Agent Skills standaard review | ⏳ |
-| 8.3 | #5 | Claude Code native format | ⏳ |
+| 8.3 | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
 | 8.4 | #11 | How-to-use documentatie | ⏳ |
 | 8.5 | #12 | Masterplan v4 | ⏳ |
 | 8.6 | #4 | V16 issue sluiten | ⏳ |
 
-**Fase 8 Voortgang**: ░░░░░░░░░░░░░░░░░░░░ **0%**
+**Fase 8 Voortgang**: █░░░░░░░░░░░░░░░░░░░ **5%**
 
 ---
 
@@ -134,6 +136,14 @@ skills/source/
 
 ## Changelog
 
+### 2026-01-18 (sessie 22) - Issue cleanup
+
+**Issue #5 gesloten (not_planned):**
+- Claude Code native format conversie niet meer nodig
+- Huidige GitHub API workflow werkt goed met fine-grained tokens
+- Alle project info staat op GitHub (transparant, flexibel)
+- Iedereen kan project oppakken zonder proprietary format
+
 ### 2026-01-18 (sessie 21 cont.) - Masterplan v4
 
 **Kritische reflectie & planning:**
@@ -183,7 +193,6 @@ skills/source/
 
 **7.2 Dependencies Matrix:**
 - Created `docs/DEPENDENCIES.md` met 5-layer hierarchy diagram
-- Detailed dependency tables en loading strategy
 
 **7.3 INDEX.md & INSTALL.md:**
 - Created `INDEX.md` - Complete skills overview
@@ -191,12 +200,9 @@ skills/source/
 
 **7.4 Final Packaging:**
 - Updated `README.md` to v1.0 release status
-- Added badges, quick start, documentation links
 
 **7.5 Cleanup & Archive:**
-- Removed obsolete `SKILL.md` (root - Dutch version)
-- Removed outdated `PROJECT_AUDIT.md`
-- Removed obsolete `memory/PROJECT_MEMORY_EXPORT.md`
+- Removed obsolete files
 
 **GitHub Issue #9**: Agent Skills standard review (agentskills.io)
 
@@ -230,6 +236,7 @@ skills/source/
 | ✅ | Voltooid |
 | 🔄 | In progress |
 | ⏳ | Gepland |
+| ❌ | Vervallen |
 | 🔴 | Hoge prioriteit |
 | 🟡 | Medium prioriteit |
 | 🟢 | Lage prioriteit |

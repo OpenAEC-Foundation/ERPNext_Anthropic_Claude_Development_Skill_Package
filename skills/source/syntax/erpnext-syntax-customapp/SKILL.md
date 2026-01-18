@@ -1,7 +1,7 @@
 ---
 name: erpnext-syntax-customapp
 version: 1.0.0
-description: Deterministic syntax for building Frappe custom apps including app structure, pyproject.toml, modules, patches and fixtures
+description: "Deterministic syntax for building Frappe custom apps including app structure, pyproject.toml, modules, patches and fixtures"
 author: OpenAEC Foundation
 tags: [erpnext, frappe, custom-app, pyproject, patches, fixtures, modules]
 languages: [en]

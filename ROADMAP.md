@@ -4,7 +4,7 @@
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
 > **Laatste update**: 2026-01-18  
-> **Huidige fase**: Fase 4.4 Implementation Skills  
+> **Huidige fase**: Fase 4.6 Implementation Skills  
 > **Masterplan**: [erpnext-skills-masterplan-v3.md](docs/masterplan/erpnext-skills-masterplan-v3.md)  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
@@ -17,12 +17,12 @@
 | Research | 13 | 0 | 13 |
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
-| Implementation Skills | 4 | 4 | 8 |
+| Implementation Skills | 5 | 3 | 8 |
 | Error Handling Skills | 0 | 7 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **15** | **13** | **28** |
+| **TOTAAL Skills** | **16** | **12** | **28** |
 
-**Voortgang**: ███████████░░░░░░░░░ ~54%
+**Voortgang**: ████████████░░░░░░░░ ~57%
 
 ---
 
@@ -40,9 +40,9 @@
 
 ## Volgende Stappen
 
-1. **Fase 4.5**: erpnext-impl-whitelisted
-2. **Fase 4.6**: erpnext-impl-jinja
-3. **Fase 4.7-4.8**: erpnext-impl-scheduler, erpnext-impl-customapp
+1. **Fase 4.6**: erpnext-impl-jinja
+2. **Fase 4.7**: erpnext-impl-scheduler
+3. **Fase 4.8**: erpnext-impl-customapp
 4. **V16 Review**: Alle voltooide skills reviewen op V16 compatibility
 
 ---
@@ -89,7 +89,7 @@ Alle 8 syntax skills gemigreerd naar `skills/source/syntax/`.
 ### ✅ Fase 3: Core Skills (3/3 - COMPLEET)
 Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
-### 🔄 Fase 4: Implementation Skills (4/8 - IN PROGRESS)
+### 🔄 Fase 4: Implementation Skills (5/8 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
@@ -97,7 +97,7 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 | 4.2 | erpnext-impl-serverscripts | ✅ |
 | 4.3 | erpnext-impl-controllers | ✅ |
 | 4.4 | erpnext-impl-hooks | ✅ |
-| 4.5 | erpnext-impl-whitelisted | ⏳ |
+| 4.5 | erpnext-impl-whitelisted | ✅ |
 | 4.6 | erpnext-impl-jinja | ⏳ |
 | 4.7 | erpnext-impl-scheduler | ⏳ |
 | 4.8 | erpnext-impl-customapp | ⏳ |
@@ -109,6 +109,19 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 16) - FASE 4.5 COMPLEET
+
+**Voltooid:**
+- erpnext-impl-whitelisted skill compleet met:
+  - SKILL.md: Main decision trees, permission patterns, security rules
+  - references/decision-tree.md: Complete API type and permission selection
+  - references/workflows.md: 7 step-by-step implementation workflows
+  - references/examples.md: 5 complete production-ready examples
+  - references/anti-patterns.md: 12 common security mistakes to avoid
+- v15+ rate limiting and type validation documented
+
+**Nieuwe voortgang**: ~57% (was ~54%)
 
 ### 2026-01-18 (sessie 15) - FASE 4.4 COMPLEET
 

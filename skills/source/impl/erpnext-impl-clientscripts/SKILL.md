@@ -7,7 +7,7 @@ description: "Implementation workflows and decision trees for ERPNext Client Scr
 
 This skill helps you determine HOW to implement client-side features. For exact syntax, see `erpnext-syntax-clientscripts`.
 
-**Version**: v14/v15 compatible
+**Version**: v14/v15/v16 compatible
 
 ## Main Decision: Client or Server?
 

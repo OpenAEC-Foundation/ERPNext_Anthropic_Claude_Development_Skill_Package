@@ -1,11 +1,6 @@
 ---
 name: erpnext-errors-controllers
-version: 1.0.0
-description: Error handling patterns for Frappe Document Controllers. Covers try/except usage, transaction rollback, validation in lifecycle hooks, error logging, and recovery patterns. Unlike Server Scripts, controllers have full Python power including exception handling. V14/V15/V16 compatible. Triggers: controller error, try except controller, validate error, on_update error, transaction rollback, frappe.throw controller, lifecycle hook error, exception handling, error recovery, controller debugging.
-author: OpenAEC Foundation
-tags: [erpnext, frappe, controllers, error-handling, transactions, lifecycle-hooks]
-languages: [en]
-frappe_versions: [v14, v15, v16]
+description: "Error handling patterns for ERPNext Document Controllers. Use when implementing try/except, validation errors, permission errors, and transaction management. Covers rollback patterns, error logging, and user feedback. V14/V15/V16 compatible. Triggers: controller error, try except catch, ValidationError, PermissionError, rollback, error handling."
 ---
 
 # ERPNext Controllers - Error Handling

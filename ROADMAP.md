@@ -32,9 +32,9 @@
 |---|-------|:----------:|:------:|
 | #4 | V16 compatibility review | 🟡 | Bijna klaar |
 | #9 | Agent Skills standaard review | 🟡 | Open |
-| #10 | V16 skill updates (9 skills) | 🔴 | **Nieuw** |
-| #11 | How-to-use documentatie | 🟢 | **Nieuw** |
-| #12 | Masterplan v4 + Fase 8 | 🟡 | **Nieuw** |
+| #10 | V16 skill updates (9 skills) | 🔴 | Open |
+| #11 | How-to-use documentatie | 🟢 | Open |
+| #12 | Masterplan v4 + Fase 8 | 🟡 | In progress |
 
 **Gesloten deze sessie:**
 - ~~#5 Claude Code native format~~ → Niet meer nodig, huidige GitHub workflow werkt goed
@@ -78,14 +78,15 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 
 | Stap | Issue | Beschrijving | Status |
 |------|:-----:|--------------|:------:|
-| 8.1 | #10 | V16 skill updates (9 skills) | ⏳ |
-| 8.2 | #9 | Agent Skills standaard review | ⏳ |
-| 8.3 | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
-| 8.4 | #11 | How-to-use documentatie | ⏳ |
-| 8.5 | #12 | Masterplan v4 | ⏳ |
-| 8.6 | #4 | V16 issue sluiten | ⏳ |
+| 8.1 | - | Kritische Reflectie (LESSONS_LEARNED §12-14) | ✅ |
+| 8.2 | #10 | V16 skill updates (9 skills) | ⏳ |
+| 8.3 | - | Validatie & Testing | ⏳ |
+| 8.4 | #9 | Agent Skills standaard review | ⏳ |
+| ~~8.5~~ | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
+| 8.6 | #11 | How-to-use documentatie | ⏳ |
+| 8.7 | #12 | Final Polish & v1.1 Release | ⏳ |
 
-**Fase 8 Voortgang**: █░░░░░░░░░░░░░░░░░░░ **5%**
+**Fase 8 Voortgang**: ██░░░░░░░░░░░░░░░░░░ **15%**
 
 ---
 
@@ -136,13 +137,22 @@ skills/source/
 
 ## Changelog
 
-### 2026-01-18 (sessie 22) - Issue cleanup
+### 2026-01-18 (sessie 22) - Fase 8.1 compleet
+
+**8.1 Kritische Reflectie voltooid:**
+- LESSONS_LEARNED.md uitgebreid met secties 12-14:
+  - §12: "Compleet" vs "Kwaliteit" - definitie matrix
+  - §13: V16 Compatibility Mid-Project - retrofit lessen
+  - §14: Test Strategie - skill test workflow
+- Top 10 → Top 15 lessen uitgebreid
+- Changelog bijgewerkt
 
 **Issue #5 gesloten (not_planned):**
 - Claude Code native format conversie niet meer nodig
 - Huidige GitHub API workflow werkt goed met fine-grained tokens
 - Alle project info staat op GitHub (transparant, flexibel)
-- Iedereen kan project oppakken zonder proprietary format
+
+**Volgende stap:** Fase 8.2 - V16 skill updates (Issue #10)
 
 ### 2026-01-18 (sessie 21 cont.) - Masterplan v4
 
@@ -158,11 +168,6 @@ skills/source/
 - 9 skills missen V16 frontmatter
 - Validatie tooling niet consistent gebruikt
 
-**Referenties toegevoegd naar:**
-- LESSONS_LEARNED.md secties
-- WAY_OF_WORK.md secties
-- Gearchiveerde amendments
-
 ### 2026-01-18 (sessie 21) - Fase 8 Planning
 
 **V16 Compatibility Audit:**
@@ -174,11 +179,6 @@ skills/source/
 - Issue #10: V16 skill updates (9 skills)
 - Issue #11: How-to-use documentatie
 - Issue #12: Masterplan v4 + Fase 8
-
-**ROADMAP geüpdatet:**
-- Fase 8 sectie toegevoegd
-- Open Issues tabel toegevoegd
-- V16 status bijgewerkt naar 90%
 
 ---
 
@@ -203,8 +203,6 @@ skills/source/
 
 **7.5 Cleanup & Archive:**
 - Removed obsolete files
-
-**GitHub Issue #9**: Agent Skills standard review (agentskills.io)
 
 ---
 

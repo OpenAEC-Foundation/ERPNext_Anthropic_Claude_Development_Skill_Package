@@ -1,9 +1,9 @@
 ---
 name: erpnext-permissions
-description: Complete guide for Frappe/ERPNext permission system - roles, user permissions, perm levels, and permission hooks
-version: 1.0.0
+description: Complete guide for Frappe/ERPNext permission system - roles, user permissions, perm levels, data masking, and permission hooks
+version: 1.1.0
 author: OpenAEC Foundation
-tags: [erpnext, frappe, permissions, security, roles, access-control]
+tags: [erpnext, frappe, permissions, security, roles, access-control, data-masking]
 frameworks: [frappe-14, frappe-15, frappe-16]
 ---
 
@@ -15,14 +15,15 @@ frameworks: [frappe-14, frappe-15, frappe-16]
 
 ## Overview
 
-Frappe's permission system has four layers:
+Frappe's permission system has five layers:
 
-| Layer | Controls | Configured Via |
-|-------|----------|----------------|
-| **Role Permissions** | What users CAN do | DocType permissions table |
-| **User Permissions** | WHICH documents users see | User Permission records |
-| **Perm Levels** | WHICH fields users see | Field permlevel property |
-| **Permission Hooks** | Custom logic | hooks.py |
+| Layer | Controls | Configured Via | Version |
+|-------|----------|----------------|---------|
+| **Role Permissions** | What users CAN do | DocType permissions table | All |
+| **User Permissions** | WHICH documents users see | User Permission records | All |
+| **Perm Levels** | WHICH fields users see | Field permlevel property | All |
+| **Permission Hooks** | Custom logic | hooks.py | All |
+| **Data Masking** | MASKED field values | Field mask property | v16+ |
 
 ---
 
@@ -39,6 +40,7 @@ Frappe's permission system has four layers:
 | `submit` | `frappe.has_permission(dt, "submit")` | Submit (submittable only) |
 | `cancel` | `frappe.has_permission(dt, "cancel")` | Cancel |
 | `select` | `frappe.has_permission(dt, "select")` | Select in Link (v14+) |
+| `mask` | Role permission for unmasked view | View unmasked data (v16+) |
 
 ### Automatic Roles
 
@@ -123,6 +125,109 @@ add_share(
     read=1,
     write=1
 )
+```
+
+---
+
+## Data Masking (v16+)
+
+Data Masking protects sensitive field values while keeping fields visible. Users without `mask` permission see masked values (e.g., `****`, `+91-811XXXXXXX`).
+
+### Use Cases
+
+- HR: Show employee details but mask salary amounts
+- Support: Show phone numbers partially masked
+- Finance: Show bank account fields without full numbers
+
+### Enable Data Masking
+
+**Via DocType (Developer Mode) or Customize Form:**
+
+```json
+{
+  "fieldname": "phone_number",
+  "fieldtype": "Data",
+  "options": "Phone",
+  "mask": 1
+}
+```
+
+**Supported Field Types:**
+- Data, Date, Datetime
+- Currency, Float, Int, Percent
+- Phone, Password
+- Link, Dynamic Link
+- Select, Read Only, Duration
+
+### Configure Permission
+
+Add `mask` permission to roles that should see unmasked data:
+
+```json
+{
+  "permissions": [
+    {"role": "Employee", "permlevel": 0, "read": 1},
+    {"role": "HR Manager", "permlevel": 0, "read": 1, "mask": 1}
+  ]
+}
+```
+
+### How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ DATA MASKING FLOW                                                   │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  1. Field has mask=1 in DocField configuration                      │
+│                                                                     │
+│  2. System checks: meta.has_permlevel_access_to(                    │
+│        fieldname=df.fieldname,                                      │
+│        df=df,                                                       │
+│        permission_type="mask"                                       │
+│     )                                                               │
+│                                                                     │
+│  3. If user LACKS mask permission:                                  │
+│     └─► Value automatically masked in:                              │
+│         • Form views                                                │
+│         • List views                                                │
+│         • Report views                                              │
+│         • API responses (/api/resource/, /api/method/)              │
+│                                                                     │
+│  4. If user HAS mask permission:                                    │
+│     └─► Full value displayed                                        │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### ⚠️ Critical: Custom SQL Queries
+
+**Data Masking does NOT apply to:**
+- Custom SQL queries
+- Query Reports using raw SQL
+- Direct `frappe.db.sql()` calls
+
+**You must implement masking manually:**
+
+```python
+def get_customer_report(filters):
+    data = frappe.db.sql("""
+        SELECT name, phone, email FROM tabCustomer
+    """, as_dict=True)
+    
+    # Manual masking for users without permission
+    if not frappe.has_permission("Customer", "mask"):
+        for row in data:
+            if row.phone:
+                row.phone = mask_phone(row.phone)
+    
+    return data
+
+def mask_phone(phone):
+    """Mask phone number: +91-81123XXXXX"""
+    if len(phone) > 5:
+        return phone[:6] + "X" * (len(phone) - 6)
+    return "****"
 ```
 
 ---
@@ -237,7 +342,8 @@ docs = frappe.get_all("Sales Order", filters={"status": "Open"})
 Need to control access?
 ├── To entire DocType → Role Permissions
 ├── To specific documents → User Permissions
-├── To specific fields → Perm Levels
+├── To specific fields (hide completely) → Perm Levels
+├── To specific fields (show masked) → Data Masking (v16+)
 ├── With custom logic → has_permission hook
 └── For list queries → permission_query_conditions hook
 
@@ -294,6 +400,7 @@ def sensitive_action():
 4. **ALWAYS return None** - In has_permission hooks (not True)
 5. **ALWAYS document** - When using ignore_permissions
 6. **ALWAYS clear cache** - After permission changes: `frappe.clear_cache()`
+7. **ALWAYS mask manually** - In custom SQL queries (v16+)
 
 ---
 
@@ -306,6 +413,7 @@ def sensitive_action():
 | `return True` in has_permission | `return None` |
 | `f"owner = '{user}'"` | `f"owner = {frappe.db.escape(user)}"` |
 | `frappe.throw()` in hooks | `return False` |
+| Assume masking in custom SQL | Implement masking manually |
 
 ---
 
@@ -316,7 +424,8 @@ def sensitive_action():
 | `select` permission | ✅ | ✅ | ✅ |
 | `Desk User` role | ❌ | ✅ | ✅ |
 | Custom Permission Types | ❌ | ❌ | ✅ (experimental) |
-| Data Masking | ❌ | ❌ | ✅ (experimental) |
+| **Data Masking** | ❌ | ❌ | ✅ |
+| `mask` permission type | ❌ | ❌ | ✅ |
 
 ---
 
@@ -355,4 +464,4 @@ See `references/` folder for:
 
 ---
 
-*Last updated: 2026-01-17 | Frappe v14/v15/v16*
+*Last updated: 2026-01-18 | Frappe v14/v15/v16*

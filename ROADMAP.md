@@ -18,11 +18,11 @@
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
 | Implementation Skills | 8 | 0 | 8 |
-| Error Handling Skills | 5 | 2 | 7 |
+| Error Handling Skills | 6 | 1 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **24** | **4** | **28** |
+| **TOTAAL Skills** | **25** | **3** | **28** |
 
-**Voortgang**: ███████████████████░ ~86%
+**Voortgang**: ███████████████████░ ~89%
 
 ---
 
@@ -40,10 +40,9 @@
 
 ## Volgende Stappen
 
-1. **Fase 5.6**: erpnext-errors-permissions
-2. **Fase 5.7**: erpnext-errors-api
-3. **Fase 6**: Agents (2 agents)
-4. **Fase 7**: Finalisatie en packaging
+1. **Fase 5.7**: erpnext-errors-api (laatste error skill!)
+2. **Fase 6**: Agents (2 agents)
+3. **Fase 7**: Finalisatie en packaging
 
 ---
 
@@ -76,12 +75,13 @@ skills/source/
 │   ├── erpnext-impl-scheduler/
 │   └── erpnext-impl-customapp/
 │
-├── errors/           # 5/7 skills 🔄
+├── errors/           # 6/7 skills 🔄
 │   ├── erpnext-errors-clientscripts/ ✅
 │   ├── erpnext-errors-serverscripts/ ✅
 │   ├── erpnext-errors-controllers/ ✅
 │   ├── erpnext-errors-hooks/ ✅
-│   └── erpnext-errors-database/ ✅
+│   ├── erpnext-errors-database/ ✅
+│   └── erpnext-errors-permissions/ ✅
 │
 └── agents/           # 0/2 agents ⏳
 ```
@@ -102,7 +102,7 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ### ✅ Fase 4: Implementation Skills (8/8 - COMPLEET)
 Alle 8 implementation skills in `skills/source/impl/`.
 
-### 🔄 Fase 5: Error Handling Skills (5/7 - IN PROGRESS)
+### 🔄 Fase 5: Error Handling Skills (6/7 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
@@ -111,7 +111,7 @@ Alle 8 implementation skills in `skills/source/impl/`.
 | 5.3 | erpnext-errors-controllers | ✅ |
 | 5.4 | erpnext-errors-hooks | ✅ |
 | 5.5 | erpnext-errors-database | ✅ |
-| 5.6 | erpnext-errors-permissions | ⏳ |
+| 5.6 | erpnext-errors-permissions | ✅ |
 | 5.7 | erpnext-errors-api | ⏳ |
 
 ### ⏳ Fase 6: Agents (0/2 - GEPLAND)
@@ -120,6 +120,25 @@ Alle 8 implementation skills in `skills/source/impl/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 18 cont.) - FASE 5.6 COMPLEET
+
+**Voltooid:**
+- erpnext-errors-permissions skill compleet met:
+  - SKILL.md: Decision tree by context, permission hook patterns, API permission handling
+  - references/patterns.md: 6 complete patterns (has_permission, permission_query_conditions, API endpoint, controller, graceful degradation, security audit)
+  - references/examples.md: 3 complete examples (hooks.py config, API endpoints, client-side)
+  - references/anti-patterns.md: 15 common permission error handling mistakes
+
+**Key patterns documented:**
+- has_permission hooks should NEVER throw (return False to deny)
+- permission_query_conditions should NEVER throw (return restrictive SQL)
+- Always use frappe.db.escape() in SQL conditions
+- Use frappe.get_list() not frappe.get_all() for user-facing queries
+- Log denied access for security audit
+- Handle None values safely in permission hooks
+
+**Nieuwe voortgang**: ~89% (was ~86%)
 
 ### 2026-01-18 (sessie 18 cont.) - FASE 5.5 COMPLEET
 

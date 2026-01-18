@@ -22,7 +22,8 @@
 | Agents | 2 | 0 | 2 |
 | **TOTAAL Skills** | **28** | **0** | **28** |
 
-**Skills Voortgang**: ████████████████████ **100%** ✅
+**Skills Voortgang**: ████████████████████ **100%** ✅  
+**V16 Compatibility**: ████████████████████ **100%** ✅
 
 ---
 
@@ -30,14 +31,14 @@
 
 | # | Titel | Prioriteit | Status |
 |---|-------|:----------:|:------:|
-| #4 | V16 compatibility review | 🟡 | Bijna klaar |
 | #9 | Agent Skills standaard review | 🟡 | Open |
-| #10 | V16 skill updates (9 skills) | 🔴 | Open |
 | #11 | How-to-use documentatie | 🟢 | Open |
-| #12 | Masterplan v4 + Fase 8 | 🟡 | In progress |
+| #12 | Masterplan v4 + Fase 8 | 🟡 | Open |
 
 **Gesloten deze sessie:**
-- ~~#5 Claude Code native format~~ → Niet meer nodig, huidige GitHub workflow werkt goed
+- ~~#4 V16 compatibility review~~ → ✅ Compleet
+- ~~#5 Claude Code native format~~ → ❌ Niet meer nodig
+- ~~#10 V16 skill updates (9 skills)~~ → ✅ Compleet
 
 ---
 
@@ -48,11 +49,11 @@
 | `extend_doctype_class` hook | ✅ | Gedocumenteerd in impl-hooks |
 | Data masking | ✅ | Gedocumenteerd in erpnext-permissions |
 | UUID naming | ✅ | Gedocumenteerd in syntax-controllers |
-| Chrome PDF rendering | ⚠️ | Alleen in impl-jinja, ontbreekt in syntax-jinja |
+| Chrome PDF rendering | ✅ | **Toegevoegd aan syntax-jinja** |
 | Scheduler tick interval | ✅ | Gedocumenteerd in syntax-scheduler |
-| **9 skills V16 frontmatter** | ❌ | Issue #10 |
+| **Alle skills V16 frontmatter** | ✅ | **9 skills geüpdatet** |
 
-**V16 Compatibility Review: 90% - Issue #10 open**
+**V16 Compatibility: 100% ✅**
 
 ---
 
@@ -79,14 +80,14 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 | Stap | Issue | Beschrijving | Status |
 |------|:-----:|--------------|:------:|
 | 8.1 | - | Kritische Reflectie (LESSONS_LEARNED §12-14) | ✅ |
-| 8.2 | #10 | V16 skill updates (9 skills) | ⏳ |
+| 8.2 | ~~#10~~, ~~#4~~ | V16 skill updates (9 skills) | ✅ |
 | 8.3 | - | Validatie & Testing | ⏳ |
 | 8.4 | #9 | Agent Skills standaard review | ⏳ |
 | ~~8.5~~ | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
 | 8.6 | #11 | How-to-use documentatie | ⏳ |
 | 8.7 | #12 | Final Polish & v1.1 Release | ⏳ |
 
-**Fase 8 Voortgang**: ██░░░░░░░░░░░░░░░░░░ **15%**
+**Fase 8 Voortgang**: ████░░░░░░░░░░░░░░░░ **20%**
 
 ---
 
@@ -137,22 +138,31 @@ skills/source/
 
 ## Changelog
 
-### 2026-01-18 (sessie 22) - Fase 8.1 compleet
+### 2026-01-18 (sessie 22) - Fase 8.1 + 8.2 Compleet
 
-**8.1 Kritische Reflectie voltooid:**
-- LESSONS_LEARNED.md uitgebreid met secties 12-14:
-  - §12: "Compleet" vs "Kwaliteit" - definitie matrix
-  - §13: V16 Compatibility Mid-Project - retrofit lessen
-  - §14: Test Strategie - skill test workflow
-- Top 10 → Top 15 lessen uitgebreid
-- Changelog bijgewerkt
+**Fase 8.1 - Kritische Reflectie:**
+- Bevestigd dat LESSONS_LEARNED §12-14 al toegevoegd waren in sessie 21
 
-**Issue #5 gesloten (not_planned):**
-- Claude Code native format conversie niet meer nodig
-- Huidige GitHub API workflow werkt goed met fine-grained tokens
-- Alle project info staat op GitHub (transparant, flexibel)
+**Fase 8.2 - V16 Skill Updates (Issue #10):**
+- 9 skills geüpdatet met V16 versie info:
+  1. syntax-clientscripts → v14/v15/v16
+  2. syntax-serverscripts → v14/v15/v16
+  3. syntax-scheduler → v14/v15/v16
+  4. syntax-whitelisted → v14/v15/v16 toegevoegd
+  5. syntax-customapp → frappe_versions: [v14, v15, v16]
+  6. syntax-jinja → v16 + **Chrome PDF sectie toegevoegd**
+  7. impl-clientscripts → v14/v15/v16
+  8. impl-serverscripts → v14/v15/v16
+  9. erpnext-api-patterns → v14/v15/v16 toegevoegd
 
-**Volgende stap:** Fase 8.2 - V16 skill updates (Issue #10)
+**Issues gesloten:**
+- Issue #10: V16 skill updates ✅
+- Issue #4: V16 compatibility review ✅
+- Issue #5: Claude Code native format (niet meer nodig)
+
+**V16 Compatibility nu 100%**
+
+---
 
 ### 2026-01-18 (sessie 21 cont.) - Masterplan v4
 
@@ -160,53 +170,16 @@ skills/source/
 - Masterplan v4 aangemaakt met complete Fase 8 planning
 - Kritische reflectie: "100% compleet" vs "100% kwaliteit"
 - Test strategie toegevoegd (ontbrak in v1-v3)
-- V16 compatibility matrix geactualiseerd
-- Skill development workflow uitgebreid met validatie en test stappen
-
-**Nieuwe inzichten vastgelegd:**
-- Skills niet functioneel getest → risico
-- 9 skills missen V16 frontmatter
-- Validatie tooling niet consistent gebruikt
 
 ### 2026-01-18 (sessie 21) - Fase 8 Planning
 
 **V16 Compatibility Audit:**
-- Systematische review van alle 28 skills op V16 documentatie
+- Systematische review van alle 28 skills
 - 9 skills geïdentificeerd met ontbrekende V16 vermelding
-- syntax-jinja mist Chrome PDF documentatie
-
-**Nieuwe Issues aangemaakt:**
-- Issue #10: V16 skill updates (9 skills)
-- Issue #11: How-to-use documentatie
-- Issue #12: Masterplan v4 + Fase 8
-
----
 
 ### 2026-01-18 (sessie 20) - 🎉 PROJECT COMPLEET! 🎉
 
-**Fase 7 Finalisatie - ALLE STAPPEN VOLTOOID:**
-
-**7.1 V16 Compatibility Review:**
-- Updated `erpnext-permissions` met Data Masking documentatie
-- Updated `erpnext-syntax-controllers` met UUID naming documentatie
-- Alle V16 features gedocumenteerd
-
-**7.2 Dependencies Matrix:**
-- Created `docs/DEPENDENCIES.md` met 5-layer hierarchy diagram
-
-**7.3 INDEX.md & INSTALL.md:**
-- Created `INDEX.md` - Complete skills overview
-- Created `INSTALL.md` - Installation guide met 3 methodes
-
-**7.4 Final Packaging:**
-- Updated `README.md` to v1.0 release status
-
-**7.5 Cleanup & Archive:**
-- Removed obsolete files
-
----
-
-🎉🎉🎉 **ERPNext Skills Package v1.0 - RELEASED!** 🎉🎉🎉
+**Fase 7 Finalisatie - ALLE STAPPEN VOLTOOID**
 
 ---
 

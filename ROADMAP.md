@@ -4,176 +4,128 @@
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
 > **Laatste update**: 2026-01-18  
-> **Status**: 🔄 Fase 8.6 - How-to-use documentatie  
+> **Status**: ✅ v1.1 RELEASE COMPLEET  
 > **Masterplan**: [erpnext-skills-masterplan-v4.md](docs/masterplan/erpnext-skills-masterplan-v4.md)  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
 ---
 
-## Quick Status
+## 🎉 Project Status: COMPLETE
 
-| Categorie | Voltooid | Te Doen | Totaal |
-|-----------|:--------:|:-------:|:------:|
-| Research | 13 | 0 | 13 |
-| Syntax Skills | 8 | 0 | 8 |
-| Core Skills | 3 | 0 | 3 |
-| Implementation Skills | 8 | 0 | 8 |
-| Error Handling Skills | 7 | 0 | 7 |
-| Agents | 2 | 0 | 2 |
-| **TOTAAL Skills** | **28** | **0** | **28** |
+| Categorie | Voltooid | Totaal |
+|-----------|:--------:|:------:|
+| Research | 13 | 13 |
+| Syntax Skills | 8 | 8 |
+| Core Skills | 3 | 3 |
+| Implementation Skills | 8 | 8 |
+| Error Handling Skills | 7 | 7 |
+| Agents | 2 | 2 |
+| **TOTAAL Skills** | **28** | **28** |
 
-**Skills Voortgang**: ████████████████████ **100%** ✅  
+**Skills**: ████████████████████ **100%** ✅  
 **V16 Compatibility**: ████████████████████ **100%** ✅  
-**Validation Status**: ████████████████████ **28/28 PASS** ✅
+**Validation**: ████████████████████ **28/28 PASS** ✅  
+**Documentation**: ████████████████████ **100%** ✅
 
 ---
 
-## Open Issues (Fase 8)
+## Release History
 
-| # | Titel | Prioriteit | Status |
-|---|-------|:----------:|:------:|
-| #12 | Masterplan v4 + Fase 8 | 🟡 | Open |
+### v1.1 (2026-01-18) - Current
 
-**Gesloten:**
-- ~~#4 V16 compatibility review~~ → ✅ Compleet
-- ~~#5 Claude Code native format~~ → ❌ Niet meer nodig
-- ~~#9 Agent Skills standaard review~~ → ✅ Compleet
-- ~~#10 V16 skill updates (9 skills)~~ → ✅ Compleet
-- ~~#11 How-to-use documentatie~~ → ✅ Compleet
+- ✅ V16 compatibility for all skills
+- ✅ Agent Skills standard compliance
+- ✅ Platform-specific usage guides (USAGE.md)
+- ✅ Complete README overhaul
+- ✅ Validation: 28/28 skills pass
+
+### v1.0 (2026-01-17)
+
+- 🎉 Initial release
+- ✅ 28 skills and agents
+- ✅ V14/V15 compatibility
+- ✅ Full documentation
+
+---
+
+## Closed Issues
+
+| # | Titel | Resolution |
+|---|-------|:----------:|
+| #4 | V16 compatibility review | ✅ Compleet |
+| #5 | Claude Code native format | ❌ Niet meer nodig |
+| #9 | Agent Skills standaard review | ✅ Compleet |
+| #10 | V16 skill updates (9 skills) | ✅ Compleet |
+| #11 | How-to-use documentatie | ✅ Compleet |
+| #12 | Final Polish & v1.1 Release | ✅ Compleet |
 
 ---
 
 ## Fase Overzicht
 
-### ✅ Fase 1-7: COMPLEET (v1.0 Release)
+### ✅ Fase 1-7: v1.0 Release (Compleet)
 
-Alle 28 skills en agents zijn voltooid en gedocumenteerd.
+Alle 28 skills en agents voltooid en gedocumenteerd.
 
----
-
-### 🔄 Fase 8: Post-release Verbeteringen (v1.1)
+### ✅ Fase 8: Post-release Verbeteringen (v1.1)
 
 | Stap | Issue | Beschrijving | Status |
 |------|:-----:|--------------|:------:|
-| 8.1 | - | Kritische Reflectie (LESSONS_LEARNED §12-14) | ✅ |
-| 8.2 | ~~#10~~, ~~#4~~ | V16 skill updates (9 skills) | ✅ |
+| 8.1 | - | Kritische Reflectie | ✅ |
+| 8.2 | #10, #4 | V16 skill updates | ✅ |
 | 8.3 | - | Validatie & Testing | ✅ |
-| 8.4 | ~~#9~~ | Agent Skills standaard review | ✅ |
-| ~~8.5~~ | ~~#5~~ | ~~Claude Code native format~~ | ❌ Vervallen |
-| 8.6 | ~~#11~~ | How-to-use documentatie | ✅ |
-| 8.7 | #12 | Final Polish & v1.1 Release | ⏳ |
+| 8.4 | #9 | Agent Skills review | ✅ |
+| 8.5 | #5 | ~~Claude Code format~~ | ❌ Vervallen |
+| 8.6 | #11 | How-to-use docs | ✅ |
+| 8.7 | #12 | Final Polish & Release | ✅ |
 
-**Fase 8 Voortgang**: ████████████████░░░░ **80%**
-
----
-
-## 🔄 Fase 8.6 Detail Plan
-
-### Substappen
-
-| Stap | Beschrijving | Status |
-|------|--------------|:------:|
-| 8.6.1 | Research: Claude Code, Desktop, Mobile, Web docs | ✅ |
-| 8.6.2 | Schrijven: USAGE.md + platform-specifieke guides | ✅ |
-| 8.6.3 | README.md Quick Start update | ✅ |
-
-### 8.6.1 Research Checklist
-
-| Platform | Bron | Status |
-|----------|------|:------:|
-| Claude Code (CLI) | docs.anthropic.com/claude-code | ✅ |
-| Claude Desktop | support.claude.com | ✅ |
-| Claude Mobile | support.claude.com | ✅ (Not supported) |
-| Claude.ai Web | docs.claude.com | ✅ |
-
-### 8.6.2 Te Creëren Bestanden
-
-| Bestand | Beschrijving | Status |
-|---------|--------------|:------:|
-| `USAGE.md` | Algemene gebruiksinstructies (root) | ✅ |
-| `docs/usage/claude-code.md` | Claude Code CLI specifiek | ✅ |
-| `docs/usage/claude-desktop.md` | Desktop app specifiek | ✅ |
-| `docs/usage/claude-web.md` | Web interface specifiek | ✅ |
-
-### Acceptatiecriteria
-- [x] Gebruiker kan binnen 5 minuten skills laden
-- [x] Stap-voor-stap instructies per platform
-- [x] Troubleshooting sectie
-- [ ] Screenshots/voorbeelden waar relevant (nice-to-have)
-
----
-
-## Validation Results (Fase 8.3)
-
-```
-╔══════════════════════════════════════════════════════════════╗
-║         VALIDATION REPORT - 28 Skills                        ║
-╠══════════════════════════════════════════════════════════════╣
-║  Syntax Skills:          8/8  ✅                             ║
-║  Core Skills:            3/3  ✅                             ║
-║  Implementation Skills:  8/8  ✅                             ║
-║  Error Handling Skills:  7/7  ✅                             ║
-║  Agents:                 2/2  ✅                             ║
-╠══════════════════════════════════════════════════════════════╣
-║  TOTAL:                 28/28 ✅                             ║
-╚══════════════════════════════════════════════════════════════╝
-```
+**Fase 8**: ████████████████████ **100%** ✅
 
 ---
 
 ## Changelog
 
-### 2026-01-18 (sessie 23) - Fase 8.6 Compleet
+### 2026-01-18 (sessie 23) - v1.1 RELEASE
 
 **Fase 8.6 - How-to-use Documentatie:**
-- Research gedaan voor alle Claude platforms
-- `USAGE.md` gecreëerd (algemene instructies)
-- `docs/usage/claude-code.md` - Claude Code CLI guide
-- `docs/usage/claude-web.md` - Claude.ai Web guide
-- `docs/usage/claude-desktop.md` - Claude Desktop guide
-- README.md bijgewerkt met links naar USAGE.md
+- `USAGE.md` gecreëerd met platform overzicht
+- `docs/usage/claude-code.md` - CLI installation guide
+- `docs/usage/claude-web.md` - Web installation guide  
+- `docs/usage/claude-desktop.md` - Desktop guide
 - Issue #11 gesloten
 
-**Key Findings:**
-- Claude Mobile ondersteunt GEEN custom skills
-- Skills synchen automatisch tussen Desktop en Web
-- Claude Code heeft meeste flexibiliteit (personal + project skills)
+**Fase 8.7 - Final Polish:**
+- README.md volledig herschreven
+  - Correcte skill namen (`erpnext-syntax-*` etc.)
+  - Correcte agent namen
+  - Bijgewerkte project structuur
+  - Verwijzing naar USAGE.md
+  - Version bump naar v1.1
+- INSTALL.md vervangen met redirect naar USAGE.md
+- Issue #12 gesloten
 
-**Voortgang:** Fase 8 nu op 80%
+**Bekend Issue:**
+- Repository topics konden niet worden toegevoegd (token permissies)
+- Handmatig toe te voegen: `erpnext`, `frappe`, `claude`, `anthropic`, `ai-skills`, `agent-skills`
 
 ---
 
-### 2026-01-18 (sessie 22) - Fase 8.1-8.4 Compleet
+### 2026-01-18 (sessie 22) - Fase 8.1-8.4
 
-**Fase 8.1 - Kritische Reflectie:**
-- Bevestigd dat LESSONS_LEARNED §12-14 al toegevoegd waren
-
-**Fase 8.2 - V16 Skill Updates:**
-- 9 skills geüpdatet met V16 versie info
-- Chrome PDF sectie toegevoegd aan syntax-jinja
-- Issues #10 en #4 gesloten
-
-**Fase 8.3 - Validatie & Testing:**
-- Validatiescript geschreven (quick_validate.py)
-- Alle 28 skills gevalideerd
-- 18 skills gefixed: YAML description quoting
-- 3 skills ingekort: impl-scheduler, errors-api, impl-jinja
-- **Resultaat: 28/28 skills PASS** ✅
-
-**Fase 8.4 - Agent Skills Review:**
-- Alle 28 skills gevalideerd tegen agentskills.io standaard
-- Package is **fully compliant**
-- Review gedocumenteerd in `docs/AGENT_SKILLS_REVIEW.md`
-- Issue #9 gesloten
+**Fase 8.1-8.4:**
+- V16 skill updates (9 skills)
+- 28/28 skills gevalideerd
+- Agent Skills standaard review compleet
+- Issues #4, #9, #10 gesloten
 
 ---
 
 ### Eerdere sessies
 
-- **Sessie 21**: Fase 8 planning, V16 audit, masterplan v4
-- **Sessie 20**: 🎉 PROJECT v1.0 COMPLEET
+- **Sessie 21**: Fase 8 planning, V16 audit
+- **Sessie 20**: 🎉 v1.0 RELEASE
 - **Sessie 19**: Fase 6 - Agents
-- **Sessie 18**: Fase 5 - Error handling skills
+- **Sessie 18**: Fase 5 - Error handling
 - **Sessie 17**: Fase 4.6-4.7
 - **Sessie 16**: Fase 4.5
 - **Sessie 15**: Fase 4.4
@@ -186,6 +138,17 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 
 ---
 
+## Future Considerations
+
+Deze items zijn niet gepland maar kunnen in de toekomst worden overwogen:
+
+- [ ] Plugin marketplace publicatie
+- [ ] Meer agents (debugging, migration, etc.)
+- [ ] Community contributions
+- [ ] Video tutorials
+
+---
+
 ## Legenda
 
 | Symbool | Betekenis |
@@ -194,6 +157,3 @@ Alle 28 skills en agents zijn voltooid en gedocumenteerd.
 | 🔄 | In progress |
 | ⏳ | Gepland |
 | ❌ | Vervallen |
-| 🔴 | Hoge prioriteit |
-| 🟡 | Medium prioriteit |
-| 🟢 | Lage prioriteit |

@@ -1,11 +1,6 @@
 ---
 name: erpnext-errors-hooks
-version: 1.0.0
-description: Error handling patterns for Frappe hooks.py configurations. Covers doc_events, scheduler_events, permission hooks, override hooks, and extend_bootinfo error handling. Includes transaction behavior, multiple handler chains, and silent failure patterns. V14/V15/V16 compatible. Triggers: hooks.py error, doc_events error, scheduler error, permission hook error, override error, extend_bootinfo error, hook chain failure, multiple handlers error.
-author: OpenAEC Foundation
-tags: [erpnext, frappe, hooks, error-handling, doc-events, scheduler]
-languages: [en]
-frappe_versions: [v14, v15, v16]
+description: "Error handling patterns for ERPNext hooks.py configurations. Use when debugging doc_events errors, scheduler failures, boot session issues, and app initialization problems. V14/V15/V16 compatible. Triggers: hooks.py error, doc_events error, scheduler error, boot session error, app initialization error."
 ---
 
 # ERPNext Hooks - Error Handling

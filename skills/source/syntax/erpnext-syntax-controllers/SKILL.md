@@ -5,9 +5,9 @@ description: >
   Use when Claude needs to generate code for DocType controllers, lifecycle
   hooks (validate, on_update, on_submit, etc.), document methods, controller
   override, submittable documents, or when questions concern controller structure,
-  naming conventions, autoname patterns, or the flags system.
+  naming conventions, autoname patterns, UUID naming, or the flags system.
   Triggers: controller, validate hook, on_update, on_submit, lifecycle,
-  document class, autoname, flags, override controller, doc_events,
+  document class, autoname, UUID, flags, override controller, doc_events,
   submittable, virtual doctype.
 ---
 
@@ -143,6 +143,84 @@ def on_update(self):
     linked.flags.from_linked_doc = True
     linked.save()
 ```
+
+---
+
+## Document Naming (autoname)
+
+### Available Naming Options
+
+| Option | Example | Result | Version |
+|--------|---------|--------|---------|
+| `field:fieldname` | `field:customer_name` | `ABC Company` | All |
+| `naming_series:` | `naming_series:` | `SO-2024-00001` | All |
+| `format:PREFIX-{##}` | `format:INV-{YYYY}-{####}` | `INV-2024-0001` | All |
+| `hash` | `hash` | `a1b2c3d4e5` | All |
+| `Prompt` | `Prompt` | User enters name | All |
+| **`UUID`** | `UUID` | `01948d5f-...` | **v16+** |
+| Custom method | Controller autoname() | Any pattern | All |
+
+### UUID Naming (v16+)
+
+New in v16: UUID-based naming for globally unique identifiers.
+
+```json
+{
+  "doctype": "DocType",
+  "autoname": "UUID"
+}
+```
+
+**Benefits:**
+- Globally unique across systems
+- Better data integrity and traceability
+- Reduced database storage
+- Faster bulk record creation
+- Link fields store UUID in native format
+
+**Implementation:**
+```python
+# Frappe automatically generates UUID7
+# In naming.py:
+if meta.autoname == "UUID":
+    doc.name = str(uuid_utils.uuid7())
+```
+
+**Validation:**
+```python
+# UUID names are validated on import
+from uuid import UUID
+try:
+    UUID(doc.name)
+except ValueError:
+    frappe.throw(_("Invalid UUID: {}").format(doc.name))
+```
+
+### Custom autoname Method
+
+```python
+from frappe.model.naming import getseries
+
+class Project(Document):
+    def autoname(self):
+        # Custom naming based on customer
+        prefix = f"P-{self.customer}-"
+        self.name = getseries(prefix, 3)
+        # Result: P-ACME-001, P-ACME-002, etc.
+```
+
+### Format Patterns
+
+| Pattern | Description | Example |
+|---------|-------------|---------|
+| `{#}` | Counter | 1, 2, 3 |
+| `{##}` | Zero-padded counter | 01, 02, 03 |
+| `{####}` | 4-digit counter | 0001, 0002 |
+| `{YYYY}` | Full year | 2024 |
+| `{YY}` | 2-digit year | 24 |
+| `{MM}` | Month | 01-12 |
+| `{DD}` | Day | 01-31 |
+| `{fieldname}` | Field value | (value) |
 
 ---
 
@@ -290,14 +368,39 @@ export_python_type_annotations = True
 
 ---
 
-## Version Differences (v14 vs v15)
+## Version Differences
 
-| Feature | v14 | v15 |
-|---------|-----|-----|
-| Type annotations | ❌ | ✅ Auto-generated |
-| `before_discard` hook | ❌ | ✅ New |
-| `on_discard` hook | ❌ | ✅ New |
-| `flags.notify_update` | ❌ | ✅ New |
+| Feature | v14 | v15 | v16 |
+|---------|-----|-----|-----|
+| Type annotations | ❌ | ✅ Auto-generated | ✅ |
+| `before_discard` hook | ❌ | ✅ | ✅ |
+| `on_discard` hook | ❌ | ✅ | ✅ |
+| `flags.notify_update` | ❌ | ✅ | ✅ |
+| **UUID autoname** | ❌ | ❌ | ✅ |
+| **UUID in Link fields (native)** | ❌ | ❌ | ✅ |
+
+### v16-Specific Notes
+
+**UUID Naming:**
+- Set `autoname = "UUID"` in DocType definition
+- Uses `uuid7()` for time-ordered UUIDs
+- Link fields store UUIDs in native format (not text)
+- Improves performance for bulk operations
+
+**Choosing UUID vs Traditional Naming:**
+```
+When to use UUID:
+├── Cross-system data synchronization
+├── Bulk record creation
+├── Global uniqueness required
+└── No human-readable name needed
+
+When to use traditional naming:
+├── User-facing document references (SO-00001)
+├── Sequential numbering required
+├── Auditing requires readable names
+└── Integration with legacy systems
+```
 
 ---
 

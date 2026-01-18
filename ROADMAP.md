@@ -1,7 +1,7 @@
 # ROADMAP - ERPNext Skills Package
 
 > **Laatste update**: 2026-01-18  
-> **Huidige fase**: 4.2 voltooid → Fase 4.3 Implementation Skills  
+> **Huidige fase**: Fase 4.3 Implementation Skills  
 > **Structuur**: Engels-only, Anthropic-conform
 
 ---
@@ -91,6 +91,21 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 12) - DOCUMENTATIE SYNC (Issue #8)
+
+**Documentatie bijgewerkt:**
+- WAY_OF_WORK.md: Session Recovery Protocol sectie toegevoegd
+- LESSONS_LEARNED.md: Sectie 9 (Session Recovery Protocol) + Top 10 #10 bijgewerkt
+- README.md: Status tabel bijgewerkt naar 46% (13/28 skills)
+
+**Issues opgeschoond:**
+- Issue #1 gesloten (duplicate van #4 - V16 compat)
+- Issue #2 gesloten (duplicate van #5 - Claude Code format)
+- Issue #8 aangemaakt voor documentatie sync
+
+**Nog te doen (handmatig):**
+- Claude Project Instructies bijwerken via claude.ai
 
 ### 2026-01-18 (sessie 11) - FASE 4.2 COMPLEET
 

@@ -18,11 +18,11 @@
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
 | Implementation Skills | 8 | 0 | 8 |
-| Error Handling Skills | 1 | 6 | 7 |
+| Error Handling Skills | 2 | 5 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **20** | **8** | **28** |
+| **TOTAAL Skills** | **21** | **7** | **28** |
 
-**Voortgang**: █████████████████░░░ ~71%
+**Voortgang**: █████████████████░░░ ~75%
 
 ---
 
@@ -76,8 +76,9 @@ skills/source/
 │   ├── erpnext-impl-scheduler/
 │   └── erpnext-impl-customapp/
 │
-├── errors/           # 1/7 skills 🔄
-│   └── erpnext-errors-clientscripts/ ✅
+├── errors/           # 2/7 skills 🔄
+│   ├── erpnext-errors-clientscripts/ ✅
+│   └── erpnext-errors-serverscripts/ ✅
 │
 └── agents/           # 0/2 agents ⏳
 ```
@@ -98,12 +99,12 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ### ✅ Fase 4: Implementation Skills (8/8 - COMPLEET)
 Alle 8 implementation skills in `skills/source/impl/`.
 
-### 🔄 Fase 5: Error Handling Skills (1/7 - IN PROGRESS)
+### 🔄 Fase 5: Error Handling Skills (2/7 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
 | 5.1 | erpnext-errors-clientscripts | ✅ |
-| 5.2 | erpnext-errors-serverscripts | ⏳ |
+| 5.2 | erpnext-errors-serverscripts | ✅ |
 | 5.3 | erpnext-errors-controllers | ⏳ |
 | 5.4 | erpnext-errors-hooks | ⏳ |
 | 5.5 | erpnext-errors-database | ⏳ |
@@ -116,6 +117,25 @@ Alle 8 implementation skills in `skills/source/impl/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 18 cont.) - FASE 5.2 COMPLEET
+
+**Voltooid:**
+- erpnext-errors-serverscripts skill compleet met:
+  - SKILL.md: Sandbox limitations voor error handling, decision tree, error methods reference (throw/msgprint/log_error), transaction behavior, 6 core patterns
+  - references/patterns.md: 10 complete error handling patterns (comprehensive validation, safe DB operations, API full error handling, scheduler batch processing, cross-document validation, conditional processing, permission query, dependent field calculation, linked document creation, idempotent scheduler)
+  - references/examples.md: 5 complete production-ready examples (Sales Order validation, REST API with full error handling, scheduler with comprehensive error handling, permission query with fallbacks, document event with external integration)
+  - references/anti-patterns.md: 17 common server script error handling mistakes
+
+**Key patterns documented:**
+- Sandbox restrictions (no try/except, no raise, no imports)
+- frappe.throw() vs frappe.msgprint() vs frappe.log_error()
+- API error responses with correct HTTP status codes
+- Scheduler error isolation and batch processing
+- Transaction rollback behavior
+- Safe database operations with existence checks
+
+**Nieuwe voortgang**: ~75% (was 71%)
 
 ### 2026-01-18 (sessie 18 cont.) - FASE 5.1 COMPLEET
 

@@ -7,7 +7,7 @@ description: "Implementation workflows and decision trees for ERPNext Server Scr
 
 This skill helps you determine HOW to implement server-side features. For exact syntax, see `erpnext-syntax-serverscripts`.
 
-**Version**: v14/v15 compatible
+**Version**: v14/v15/v16 compatible
 
 ## CRITICAL: Sandbox Limitation
 

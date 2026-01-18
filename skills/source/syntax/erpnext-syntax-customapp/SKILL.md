@@ -5,7 +5,7 @@ description: Deterministic syntax for building Frappe custom apps including app 
 author: OpenAEC Foundation
 tags: [erpnext, frappe, custom-app, pyproject, patches, fixtures, modules]
 languages: [en]
-frappe_versions: [v14, v15]
+frappe_versions: [v14, v15, v16]
 ---
 
 # ERPNext Custom App Syntax Skill

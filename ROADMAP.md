@@ -121,3 +121,25 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 | ✅ | Voltooid |
 | 🔄 | In progress |
 | ⏳ | Gepland |
+
+### 2026-01-17 (sessie 10 - vervolg) - CLEANUP VOLTOOID
+
+**Verwijderd:**
+- Alle NL versies en folders (~100 bestanden)
+- Alle oude EN/CORE en NL/CORE folders
+- Alle oude .skill packages met taal suffix
+- Alle ghost folders met reference files
+- README.md bestanden uit skills/
+
+**Opgeschoond:**
+- LESSONS_LEARNED.md: 1500+ → 329 regels (correcte nummering)
+
+**Finale structuur:**
+```
+skills/source/
+├── syntax/   8 skills ✅
+├── core/     3 skills ✅
+└── impl/     1 skill  ✅
+```
+
+**Status**: Klaar voor Fase 4.2

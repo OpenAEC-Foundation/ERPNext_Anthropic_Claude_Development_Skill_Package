@@ -109,6 +109,21 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
 ## Changelog
 
+### 2026-01-18 (sessie 13 cont.) - AMENDMENTS CLEANUP
+
+**Amendments gearchiveerd:**
+- 10 oude amendment bestanden verplaatst naar `docs/masterplan/amendments/archived/`
+- `docs/masterplan/amendments/` nu alleen nog `archived/` subfolder
+- Masterplan v3 is nu de enige actieve masterplan versie
+
+**Bestanden gearchiveerd:**
+- amendment-5-mid-project-review.md
+- amendment-6-english-only-final-structure.md
+- masterplan-aanpassing-fase-2_*.md (4 files)
+- masterplan-aanvulling-fase-opsplitsingen.md
+- masterplan-skill-uploads.md
+- skill-uploads-voortgang*.md (2 files)
+
 ### 2026-01-18 (sessie 13) - MASTERPLAN V3 CONSOLIDATIE
 
 **Masterplan geconsolideerd:**

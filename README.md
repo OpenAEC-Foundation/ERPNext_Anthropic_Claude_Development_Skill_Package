@@ -8,32 +8,49 @@
 
 ## 🎯 Project Overview
 
-This project contains a collection of **56 deterministic skills and agents** that enable Claude AI instances to generate accurate, production-ready ERPNext/Frappe code. The skills package follows Anthropic's official skill-creator conventions and provides comprehensive coverage of all major ERPNext/Frappe development mechanisms.
+This project contains a collection of **28 deterministic skills and agents** that enable Claude AI instances to generate accurate, production-ready ERPNext/Frappe code. The skills package follows Anthropic's official skill-creator conventions and provides comprehensive coverage of all major ERPNext/Frappe development mechanisms.
 
 ### Key Features
 
-- **Bilingual Documentation**: All skills available in Dutch (NL) and English (EN)
+- **Anthropic-Conformant**: Follows official skill-creator structure and tooling
 - **Version-Specific**: Explicit compatibility documentation for ERPNext v14 and v15
 - **Deterministic Output**: Skills produce consistent, verified code patterns
-- **One-Shot Execution**: Designed for direct, production-quality code generation without iterations
+- **One-Shot Execution**: Designed for direct, production-quality code generation
+- **Research-First**: Every skill backed by verified research documentation
 
 ---
 
-## 📘 Way of Work (Methodology)
+## 🎓 Template Methodology
 
-This project also serves as a **template methodology** for developing AI skill packages for any open source project.
+**This project serves as a template for developing Claude skill packages for ANY open source project.**
 
-👉 **[Read the Way of Work document](WAY_OF_WORK.md)** to learn our 7-phase methodology:
+### What You Can Learn Here
 
-1. **Deep Research** - Comprehensive exploration of the target technology
-2. **Preliminary Research Document** - Consolidate findings into a reference
-3. **Requirements Definition** - Define what the skills must achieve
-4. **Detailed Masterplan** - Create phased execution plan with prompts
-5. **Topic-Specific Research** - Deep-dive per skill topic
-6. **Skill Creation** - Transform research into deterministic skills
-7. **Validation & Version Control** - Quality assurance and GitHub sync
+1. **How to structure Claude skills** following Anthropic's conventions
+2. **Research-first methodology** for creating deterministic AI outputs
+3. **Phase-based development** with clear checkpoints and validation
+4. **Lessons learned** from real-world skill development
 
-This methodology can be applied to create skill packages for any framework or technology.
+### Key Documents
+
+| Document | Purpose |
+|----------|---------|
+| [WAY_OF_WORK.md](WAY_OF_WORK.md) | Complete 7-phase methodology |
+| [LESSONS_LEARNED.md](LESSONS_LEARNED.md) | Technical & process insights |
+| [ROADMAP.md](ROADMAP.md) | Project status & planning |
+| [docs/masterplan/](docs/masterplan/) | Original vision + amendments |
+
+### The Methodology in Brief
+
+```
+Phase 1: Deep Research → Understand the technology deeply
+Phase 2: Preliminary Research → Document findings
+Phase 3: Requirements → Define skill scope
+Phase 4: Masterplan → Create execution plan
+Phase 5: Topic Research → Deep-dive per skill
+Phase 6: Skill Creation → Transform research into skills
+Phase 7: Validation → Test with Anthropic tooling
+```
 
 ---
 
@@ -41,124 +58,104 @@ This methodology can be applied to create skill packages for any framework or te
 
 The skills package covers all major ERPNext/Frappe development areas:
 
-| Category | Topics |
-|----------|--------|
-| **Client-Side** | Client Scripts, Form Events, List Events, Field Manipulation |
-| **Server-Side** | Server Scripts, Document Controllers, Whitelisted Methods |
-| **Configuration** | hooks.py, Fixtures, Permissions, Scheduler Events |
-| **Templates** | Jinja Templates, Print Formats, Web Templates |
-| **Background Jobs** | Scheduler Jobs, Background Workers, Queues |
-| **Custom Apps** | App Structure, Data Management, Migrations |
+| Category | Skills | Status |
+|----------|:------:|:------:|
+| **Syntax Skills** | 8 | ✅ Complete |
+| **Core Skills** | 3 | ✅ Complete |
+| **Implementation Skills** | 8 | 🔄 In Progress |
+| **Error Handling Skills** | 7 | ⏳ Planned |
+| **Agents** | 2 | ⏳ Planned |
 
----
-
-## 📁 Repository Structure
-
-```
-├── WAY_OF_WORK.md            # Methodology guide (start here!)
-├── README.md
-├── SKILL.md
-├── docs/
-│   ├── masterplan/           # Project masterplan and amendments
-│   ├── research/             # Research documents per topic
-│   └── reference/            # Quick reference documentation
-├── skills/
-│   ├── syntax/               # Syntax skills (.skill packages)
-│   ├── implementation/       # Implementation skills (planned)
-│   ├── error-handling/       # Error handling skills (planned)
-│   └── agents/               # Intelligent agents (planned)
-└── memory/                   # Project memory exports
-```
-
----
-
-## 🚀 Getting Started
-
-### For Claude.ai Users
-
-1. Download the relevant skill files from the `skills/` directory
-2. Upload them to your Claude.ai project as project knowledge
-3. The skills will automatically guide Claude in generating ERPNext code
-
-### For Developers Creating Their Own Skill Package
-
-1. Read the [Way of Work](WAY_OF_WORK.md) methodology
-2. Study how we structured our research documents in `docs/research/`
-3. Use our masterplan as a template for your own project
-4. Follow the 7-phase methodology for your target technology
-
----
-
-## 📖 Documentation
-
-### Methodology & Planning
-
-| Document | Description |
-|----------|-------------|
-| [`WAY_OF_WORK.md`](WAY_OF_WORK.md) | **Start here!** Complete methodology guide |
-| [`docs/masterplan/erpnext-skills-masterplan-v2.md`](docs/masterplan/erpnext-skills-masterplan-v2.md) | Detailed project masterplan |
-| [`docs/masterplan/erpnext-vooronderzoek.md`](docs/masterplan/erpnext-vooronderzoek.md) | Preliminary research document |
-
-### Research Documents
-
-Comprehensive research documents are available in `docs/research/`:
-
+### Syntax Skills (How to write code)
 - Client Scripts, Server Scripts, Document Controllers
-- Document Hooks, Whitelisted Methods, Jinja Templates
-- Scheduler/Background Jobs, Custom App Structure & Data Management
+- hooks.py, Whitelisted Methods, Jinja Templates
+- Scheduler/Background Jobs, Custom App Structure
+
+### Core Skills (Framework fundamentals)
+- Database Operations, Permissions, API Patterns
+
+### Implementation Skills (Complete workflows)
+- Decision trees for choosing the right approach
+- End-to-end implementation patterns
 
 ---
 
-## ⚠️ Important Notes
+## 🏗️ Project Structure
 
-### Frappe Server Script Sandbox Limitations
+```
+ERPNext_Anthropic_Claude_Development_Skill_Package/
+│
+├── skills/
+│   └── source/
+│       ├── syntax/           # 8 syntax skills
+│       │   ├── erpnext-syntax-clientscripts/
+│       │   │   ├── SKILL.md  # Main skill file
+│       │   │   └── references/
+│       │   └── ...
+│       ├── core/             # 3 core skills
+│       └── impl/             # Implementation skills
+│
+├── docs/
+│   ├── masterplan/           # Project planning
+│   └── research/             # 13 research documents
+│
+├── WAY_OF_WORK.md            # Template methodology
+├── LESSONS_LEARNED.md        # Project insights
+└── ROADMAP.md                # Current status
+```
 
-A critical discovery: Frappe Server Scripts run in a sandboxed environment where **all import statements are blocked** for security reasons. Instead, use Frappe's pre-loaded namespace:
+---
+
+## 🔑 Critical Technical Discovery
+
+**Server Scripts run in a RestrictedPython sandbox where ALL imports are blocked:**
 
 ```python
 # ❌ WRONG - Will fail in Server Scripts
-from frappe.utils import nowdate
-date = nowdate()
+from frappe.utils import nowdate, getdate
+import json
 
-# ✅ CORRECT - Use pre-loaded namespace
+# ✅ CORRECT - Use frappe namespace directly
 date = frappe.utils.nowdate()
+data = frappe.parse_json(json_string)
 ```
 
-### Version Differences (v14 vs v15)
+This single discovery prevents the most common AI-generated ERPNext code failures.
 
-Key differences documented in our skills:
-- Scheduler tick interval: 4 minutes (v14) → 60 seconds (v15)
-- `job_name` parameter deprecated in favor of `job_id`
-- New hooks: `before_discard`, `on_discard` (v15+)
-- `on_change` hook triggers after every modification including `db_set()`
+---
+
+## 📖 Using This as a Template
+
+Want to create a skill package for another technology? Follow these steps:
+
+1. **Clone this repository** as a starting point
+2. **Read [WAY_OF_WORK.md](WAY_OF_WORK.md)** for the complete methodology
+3. **Study [LESSONS_LEARNED.md](LESSONS_LEARNED.md)** to avoid our mistakes
+4. **Follow the Anthropic skill-creator conventions** (SKILL.md in folder root!)
+5. **Research first, code second** - deterministic outputs require deep understanding
+
+### Key Lessons for Your Project
+
+| Lesson | Why It Matters |
+|--------|----------------|
+| Test Anthropic tooling FIRST | Ensures your structure is compatible |
+| English-only skills | Claude reads English, responds in any language |
+| SKILL.md in folder ROOT | Required by `package_skill.py` |
+| Research documents per topic | Foundation for deterministic content |
+| Push after EVERY phase | Claude's filesystem resets between sessions |
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please ensure:
-
-1. All code examples are tested on both ERPNext v14 and v15
-2. Documentation includes both Dutch and English versions
-3. Skills follow the Anthropic skill-creator conventions
-4. Follow the [Way of Work](WAY_OF_WORK.md) methodology
-5. Changes are verified against official Frappe documentation
+This project is developed by the OpenAEC Foundation. Contributions welcome!
 
 ---
 
-## 📜 License
+## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- [Frappe Framework](https://frappeframework.com) - The foundation of ERPNext
-- [ERPNext](https://erpnext.com) - Open source ERP
-- [Anthropic](https://anthropic.com) - Claude AI and skill-creator framework
-- [OpenAEC Foundation](https://github.com/OpenAEC-Foundation) - Project maintainers
+MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-**Note**: This project demonstrates a reusable methodology for creating AI skill packages. The [Way of Work](WAY_OF_WORK.md) can be applied to any open source project where you want to enable Claude to generate correct code.
+*Developed with Claude AI using the methodology documented in this repository.*

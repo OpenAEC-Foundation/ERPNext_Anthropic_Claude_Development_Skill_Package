@@ -1,11 +1,6 @@
 ---
 name: erpnext-errors-serverscripts
-version: 1.0.0
-description: Error handling patterns for ERPNext/Frappe Server Scripts. Covers frappe.throw(), frappe.log_error(), transaction rollback, scheduler error handling, API error responses, and sandbox limitations. V14/V15/V16 compatible. Triggers: server script error, frappe.throw, frappe.log_error, validation error, rollback, scheduler error, API error response, exception handling, error logging, transaction error.
-author: OpenAEC Foundation
-tags: [erpnext, frappe, server-scripts, error-handling, python, sandbox]
-languages: [en]
-frappe_versions: [v14, v15, v16]
+description: "Error handling patterns for ERPNext Server Scripts. Use when handling sandbox errors, frappe.throw usage, validation in server scripts, and debugging. V14/V15/V16 compatible. Triggers: server script error, frappe.throw, sandbox error, validation error, debugging server script."
 ---
 
 # ERPNext Server Scripts - Error Handling

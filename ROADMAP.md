@@ -4,7 +4,7 @@
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
 > **Laatste update**: 2026-01-18  
-> **Huidige fase**: Fase 4.6 Implementation Skills  
+> **Huidige fase**: Fase 4.7 Implementation Skills  
 > **Masterplan**: [erpnext-skills-masterplan-v3.md](docs/masterplan/erpnext-skills-masterplan-v3.md)  
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
 
@@ -17,12 +17,12 @@
 | Research | 13 | 0 | 13 |
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
-| Implementation Skills | 5 | 3 | 8 |
+| Implementation Skills | 6 | 2 | 8 |
 | Error Handling Skills | 0 | 7 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **16** | **12** | **28** |
+| **TOTAAL Skills** | **17** | **11** | **28** |
 
-**Voortgang**: ████████████░░░░░░░░ ~57%
+**Voortgang**: █████████████░░░░░░░ ~61%
 
 ---
 
@@ -30,19 +30,19 @@
 
 | Aspect | Status | Notes |
 |--------|:------:|-------|
-| `extend_doctype_class` hook | ⏳ | Te documenteren in hooks skills |
+| `extend_doctype_class` hook | ✅ | Gedocumenteerd in impl-hooks |
 | Data masking | ⏳ | Te documenteren in permissions skill |
 | UUID naming | ⏳ | Te documenteren in controllers skill |
-| Chrome PDF rendering | ⏳ | Te documenteren in jinja skills |
+| Chrome PDF rendering | ✅ | Gedocumenteerd in impl-jinja |
 | Scheduler tick interval | ✅ | Gedocumenteerd in research |
 
 ---
 
 ## Volgende Stappen
 
-1. **Fase 4.6**: erpnext-impl-jinja
-2. **Fase 4.7**: erpnext-impl-scheduler
-3. **Fase 4.8**: erpnext-impl-customapp
+1. **Fase 4.7**: erpnext-impl-scheduler
+2. **Fase 4.8**: erpnext-impl-customapp
+3. **Fase 5**: Error Handling Skills
 4. **V16 Review**: Alle voltooide skills reviewen op V16 compatibility
 
 ---
@@ -66,10 +66,13 @@ skills/source/
 │   ├── erpnext-permissions/
 │   └── erpnext-api-patterns/
 │
-├── impl/             # 3/8 skills 🔄
+├── impl/             # 6/8 skills 🔄
 │   ├── erpnext-impl-clientscripts/ ✅
 │   ├── erpnext-impl-serverscripts/ ✅
-│   └── erpnext-impl-controllers/ ✅
+│   ├── erpnext-impl-controllers/ ✅
+│   ├── erpnext-impl-hooks/ ✅
+│   ├── erpnext-impl-whitelisted/ ✅
+│   └── erpnext-impl-jinja/ ✅
 │
 ├── errors/           # 0/7 skills ⏳
 │
@@ -89,7 +92,7 @@ Alle 8 syntax skills gemigreerd naar `skills/source/syntax/`.
 ### ✅ Fase 3: Core Skills (3/3 - COMPLEET)
 Alle 3 core skills gemigreerd naar `skills/source/core/`.
 
-### 🔄 Fase 4: Implementation Skills (5/8 - IN PROGRESS)
+### 🔄 Fase 4: Implementation Skills (6/8 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
@@ -98,7 +101,7 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 | 4.3 | erpnext-impl-controllers | ✅ |
 | 4.4 | erpnext-impl-hooks | ✅ |
 | 4.5 | erpnext-impl-whitelisted | ✅ |
-| 4.6 | erpnext-impl-jinja | ⏳ |
+| 4.6 | erpnext-impl-jinja | ✅ |
 | 4.7 | erpnext-impl-scheduler | ⏳ |
 | 4.8 | erpnext-impl-customapp | ⏳ |
 
@@ -109,6 +112,20 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 17) - FASE 4.6 COMPLEET
+
+**Voltooid:**
+- erpnext-impl-jinja skill compleet met:
+  - SKILL.md: Main decision trees, template type selection, implementation workflows
+  - references/decision-tree.md: Complete template type selection flowcharts
+  - references/workflows.md: 8 step-by-step implementation workflows (Print Format, Email Template, Portal Page, Custom jenv methods, Letter Head, Report Print Format)
+  - references/examples.md: 5 complete production-ready examples (Professional Invoice, Packing Slip, Order Confirmation Email, Customer Dashboard Portal, Custom Jinja Methods Library)
+  - references/anti-patterns.md: 15 common template mistakes to avoid
+- V16 Chrome PDF rendering documented
+- Report Print Format JS templating clearly distinguished from Jinja
+
+**Nieuwe voortgang**: ~61% (was ~57%)
 
 ### 2026-01-18 (sessie 16) - FASE 4.5 COMPLEET
 

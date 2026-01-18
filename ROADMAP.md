@@ -42,15 +42,14 @@
 
 ## Volgende Stappen
 
-1. **Fase 7**: Finalisatie en packaging
-   - ~~V16 Compatibility Review van alle skills~~ ✅
-   - Dependencies matrix
-   - Final packaging (28 .skill files)
-   - INDEX.md en INSTALL.md
+1. **Fase 7.5**: Cleanup & Archive
    - Archive oude amendments
+   - Verwijder obsolete bestanden
+   - Final review
 
 🎉 **ALLE 28 SKILLS EN AGENTS COMPLEET!**
 🎉 **V16 COMPATIBILITY REVIEW COMPLEET!**
+🎉 **DOCUMENTATIE COMPLEET!**
 
 ---
 
@@ -137,16 +136,16 @@ Alle 8 implementation skills in `skills/source/impl/`.
 | Stap | Taak | Status |
 |------|------|:------:|
 | 7.1 | V16 Compatibility Review | ✅ |
-| 7.2 | Dependencies Matrix | ⏳ |
-| 7.3 | INDEX.md & INSTALL.md | ⏳ |
-| 7.4 | Final Packaging (.skill files) | ⏳ |
+| 7.2 | Dependencies Matrix | ✅ |
+| 7.3 | INDEX.md & INSTALL.md | ✅ |
+| 7.4 | Final Packaging (README update) | ✅ |
 | 7.5 | Cleanup & Archive | ⏳ |
 
 ---
 
 ## Changelog
 
-### 2026-01-18 (sessie 20) - FASE 7.1 V16 COMPATIBILITY REVIEW COMPLEET ✅
+### 2026-01-18 (sessie 20) - FASE 7.1-7.4 COMPLEET ✅
 
 **Voltooid:**
 
@@ -157,25 +156,44 @@ Alle 8 implementation skills in `skills/source/impl/`.
   - Added supported field types for masking
   - Added critical warning for custom SQL queries
   - Updated decision tree with Data Masking option
-  - Added v16 to Version Differences table
 
 - Updated `erpnext-syntax-controllers` skill:
   - Added UUID naming documentation
   - Documented `autoname = "UUID"` option
   - Added UUID vs traditional naming decision tree
   - Updated Version Differences table with v16 features
-  - Added UUID in Link fields (native format) note
 
-**V16 Compatibility Status: ALL ITEMS COMPLETE**
-| Item | Skill | Status |
-|------|-------|--------|
-| extend_doctype_class | impl-hooks | ✅ |
-| Data masking | erpnext-permissions | ✅ |
-| UUID naming | syntax-controllers | ✅ |
-| Chrome PDF | impl-jinja | ✅ |
-| Scheduler tick | impl-scheduler | ✅ |
+**7.2 Dependencies Matrix:**
+- Created `docs/DEPENDENCIES.md` with:
+  - 5-layer skill hierarchy diagram
+  - Detailed dependency tables per category
+  - Common skill combinations
+  - Loading strategy recommendations
 
-**Also created**: GitHub Issue #9 for Agent Skills standard review (agentskills.io)
+**7.3 INDEX.md & INSTALL.md:**
+- Created `INDEX.md` - Complete skills overview with:
+  - All 28 skills categorized and described
+  - Quick selection guide decision tree
+  - Version-specific features table
+  - Related documentation links
+
+- Created `INSTALL.md` - Installation guide with:
+  - 3 installation methods (Claude.ai, Claude Code, Manual)
+  - Recommended skill sets by use case
+  - Usage tips and troubleshooting
+  - Critical Server Script sandbox warning
+
+**7.4 Final Packaging:**
+- Updated `README.md` to v1.0 release status:
+  - Changed progress badge to 100%
+  - Added v16 to version badges
+  - Updated skills count and structure
+  - Added Quick Start section
+  - Linked to new documentation
+
+**Also created**: GitHub Issue #9 for Agent Skills standard review
+
+**Remaining**: 7.5 Cleanup & Archive
 
 ---
 

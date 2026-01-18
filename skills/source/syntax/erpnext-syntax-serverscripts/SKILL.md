@@ -1,6 +1,6 @@
 ---
 name: erpnext-syntax-serverscripts
-description: Complete syntax reference for Frappe Server Scripts. Use this skill when Claude needs to write Python code for Server Scripts in ERPNext/Frappe, including Document Events, API endpoints, Scheduler Events, and Permission Queries. Covers sandbox limitations, available frappe.* methods, event name mapping, and correct syntax for v14/v15.
+description: Complete syntax reference for Frappe Server Scripts. Use this skill when Claude needs to write Python code for Server Scripts in ERPNext/Frappe, including Document Events, API endpoints, Scheduler Events, and Permission Queries. Covers sandbox limitations, available frappe.* methods, event name mapping, and correct syntax for v14/v15/v16.
 ---
 
 # ERPNext Server Scripts Syntax

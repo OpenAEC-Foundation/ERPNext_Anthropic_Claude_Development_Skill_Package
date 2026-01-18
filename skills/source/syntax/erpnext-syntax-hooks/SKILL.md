@@ -1,6 +1,6 @@
 ---
 name: erpnext-syntax-hooks
-description: >
+description: ">"
   Deterministic syntax for all Frappe hooks.py configuration. Event hooks (doc_events, scheduler_events, 
   extend_bootinfo), override hooks (override_doctype_class, override_whitelisted_methods), permission hooks 
   (permission_query_conditions, has_permission), fixtures, and asset includes. Triggers: hooks.py, doc_events, 

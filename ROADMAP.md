@@ -31,23 +31,26 @@
 | Aspect | Status | Notes |
 |--------|:------:|-------|
 | `extend_doctype_class` hook | ✅ | Gedocumenteerd in impl-hooks |
-| Data masking | ⏳ | Te documenteren in permissions skill |
-| UUID naming | ⏳ | Te documenteren in controllers skill |
+| Data masking | ✅ | Gedocumenteerd in erpnext-permissions |
+| UUID naming | ✅ | Gedocumenteerd in syntax-controllers |
 | Chrome PDF rendering | ✅ | Gedocumenteerd in impl-jinja |
 | Scheduler tick interval | ✅ | Gedocumenteerd in impl-scheduler |
+
+**V16 Compatibility Review: COMPLEET ✅**
 
 ---
 
 ## Volgende Stappen
 
 1. **Fase 7**: Finalisatie en packaging
-   - V16 Compatibility Review van alle skills
+   - ~~V16 Compatibility Review van alle skills~~ ✅
    - Dependencies matrix
    - Final packaging (28 .skill files)
    - INDEX.md en INSTALL.md
    - Archive oude amendments
 
 🎉 **ALLE 28 SKILLS EN AGENTS COMPLEET!**
+🎉 **V16 COMPATIBILITY REVIEW COMPLEET!**
 
 ---
 
@@ -129,11 +132,52 @@ Alle 8 implementation skills in `skills/source/impl/`.
 | 6.1 | erpnext-code-interpreter | ✅ | Vage requirements → technische specs |
 | 6.2 | erpnext-code-validator | ✅ | Code validatie tegen alle skills |
 
-### ⏳ Fase 7: Finalisatie (GEPLAND)
+### 🔄 Fase 7: Finalisatie (IN PROGRESS)
+
+| Stap | Taak | Status |
+|------|------|:------:|
+| 7.1 | V16 Compatibility Review | ✅ |
+| 7.2 | Dependencies Matrix | ⏳ |
+| 7.3 | INDEX.md & INSTALL.md | ⏳ |
+| 7.4 | Final Packaging (.skill files) | ⏳ |
+| 7.5 | Cleanup & Archive | ⏳ |
 
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 20) - FASE 7.1 V16 COMPATIBILITY REVIEW COMPLEET ✅
+
+**Voltooid:**
+
+**7.1 V16 Compatibility Review:**
+- Updated `erpnext-permissions` skill (v1.0.0 → v1.1.0):
+  - Added comprehensive Data Masking section
+  - Documented `mask` permission type
+  - Added supported field types for masking
+  - Added critical warning for custom SQL queries
+  - Updated decision tree with Data Masking option
+  - Added v16 to Version Differences table
+
+- Updated `erpnext-syntax-controllers` skill:
+  - Added UUID naming documentation
+  - Documented `autoname = "UUID"` option
+  - Added UUID vs traditional naming decision tree
+  - Updated Version Differences table with v16 features
+  - Added UUID in Link fields (native format) note
+
+**V16 Compatibility Status: ALL ITEMS COMPLETE**
+| Item | Skill | Status |
+|------|-------|--------|
+| extend_doctype_class | impl-hooks | ✅ |
+| Data masking | erpnext-permissions | ✅ |
+| UUID naming | syntax-controllers | ✅ |
+| Chrome PDF | impl-jinja | ✅ |
+| Scheduler tick | impl-scheduler | ✅ |
+
+**Also created**: GitHub Issue #9 for Agent Skills standard review (agentskills.io)
+
+---
 
 ### 2026-01-18 (sessie 19) - FASE 6 COMPLEET! 🎉🎉
 

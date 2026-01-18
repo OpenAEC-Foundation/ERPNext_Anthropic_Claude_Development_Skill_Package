@@ -312,9 +312,15 @@ Examples:
 - [ ] Commit with descriptive message
 - [ ] Push to GitHub
 - [ ] Verify files in repository
+- [ ] **UPDATE ROADMAP.md** ← CRITICAL!
+  - [ ] Add changelog entry with date and description
+  - [ ] Update status table (percentages, checkmarks)
+  - [ ] Update "Next Steps" section
 
 ### Key Principle
 > "Every completed phase must be pushed to version control. Work that isn't committed doesn't exist."
+
+> "ROADMAP.md is the single source of truth for project status. If it's not updated, the next session won't know where we left off."
 
 ---
 
@@ -378,6 +384,81 @@ Commit and push after every completed phase. This ensures:
 - Progress is trackable
 - Collaboration is possible
 - Rollback is available
+
+---
+
+## Project Status Tracking
+
+### The Problem: Duplicate Tracking
+
+A common mistake is tracking project status in multiple places:
+- Claude Project Instructions
+- ROADMAP.md
+- README.md
+- Conversation context
+
+This leads to:
+- **Inconsistency**: Different sources show different status
+- **Maintenance burden**: Must update multiple places
+- **Confusion**: Which source is correct?
+
+### The Solution: Single Source of Truth
+
+**ROADMAP.md is the ONLY place for project status tracking.**
+
+| What | Where | Update Frequency |
+|------|-------|------------------|
+| Current phase & progress | ROADMAP.md | After EVERY phase |
+| Methodology & workflows | WAY_OF_WORK.md | When process changes |
+| Technical lessons | LESSONS_LEARNED.md | When discoveries made |
+| Open tasks | GitHub Issues | As needed |
+| Project instructions | Claude Project | Only for HOW, never for WHERE |
+
+### Why This Matters
+
+Claude's filesystem resets between sessions. The only persistent state is GitHub. If ROADMAP.md isn't updated:
+- Next session starts without knowing current progress
+- Risk of duplicate work
+- Lost context about what was completed
+
+### Implementation Rules
+
+1. **Never hardcode status in Claude Project Instructions**
+   - Instructions should describe HOW to work, not WHERE we are
+   - Reference ROADMAP.md for current status
+
+2. **ROADMAP.md update is MANDATORY after each phase**
+   - Add changelog entry with date
+   - Update status percentages
+   - Update "Next Steps" section
+
+3. **Session start protocol**
+   - Always fetch ROADMAP.md first
+   - Check changelog for last completed work
+   - Confirm current phase before proceeding
+
+### Template: ROADMAP.md Structure
+
+```markdown
+# ROADMAP - [Project Name]
+
+> **📍 This is the SINGLE SOURCE OF TRUTH for project status.**
+
+> **Last update**: [date]
+> **Current phase**: [phase]
+
+## Quick Status
+[Table with categories, completed, remaining, total]
+
+## Next Steps
+[Immediate priorities]
+
+## Phase Overview
+[Detailed phase breakdown with status]
+
+## Changelog
+[Reverse chronological log of completed work]
+```
 
 ---
 
@@ -503,9 +584,11 @@ To minimize recovery complexity:
 
 3. **Memory Helps Continuity**: Using Claude's memory feature to store project context greatly improved consistency across conversations.
 
-4. **Bilingual Takes Time**: Creating both language versions doubles the work but makes the package more accessible.
+4. **Bilingual Takes Time**: Creating both language versions doubles the work but makes the package more accessible. (Later revised: English-only is better - see below)
 
 5. **GitHub Integration is Essential**: Pushing after each phase prevents work loss and enables collaboration.
+
+6. **Single Source of Truth for Status**: Never track project status in multiple places. ROADMAP.md is the only place for status - Claude Project Instructions should describe HOW to work, not WHERE we are. Duplicate tracking leads to inconsistency and confusion.
 
 ---
 
@@ -608,4 +691,4 @@ skill-name/
 
 ---
 
-*Updated: January 2026 - Added Session Recovery Protocol*
+*Updated: January 2026 - Added Session Recovery Protocol, Project Status Tracking principles*

@@ -104,9 +104,8 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 - INSTALL.md vervangen met redirect naar USAGE.md
 - Issue #12 gesloten
 
-**Bekend Issue:**
-- Repository topics konden niet worden toegevoegd (token permissies)
-- Handmatig toe te voegen: `erpnext`, `frappe`, `claude`, `anthropic`, `ai-skills`, `agent-skills`
+**Open Issue:**
+- #14: Repository topics handmatig toe te voegen (`erpnext`, `frappe`, `claude`, `anthropic`, `ai-skills`, `agent-skills`)
 
 ---
 

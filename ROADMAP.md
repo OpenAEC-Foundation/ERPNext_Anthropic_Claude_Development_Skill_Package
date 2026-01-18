@@ -18,11 +18,11 @@
 | Syntax Skills | 8 | 0 | 8 |
 | Core Skills | 3 | 0 | 3 |
 | Implementation Skills | 8 | 0 | 8 |
-| Error Handling Skills | 3 | 4 | 7 |
+| Error Handling Skills | 4 | 3 | 7 |
 | Agents | 0 | 2 | 2 |
-| **TOTAAL Skills** | **22** | **6** | **28** |
+| **TOTAAL Skills** | **23** | **5** | **28** |
 
-**Voortgang**: ██████████████████░░ ~79%
+**Voortgang**: ██████████████████░░ ~82%
 
 ---
 
@@ -40,8 +40,8 @@
 
 ## Volgende Stappen
 
-1. **Fase 5.4**: erpnext-errors-hooks
-2. **Fase 5.5-5.7**: Remaining error handling skills
+1. **Fase 5.5**: erpnext-errors-database
+2. **Fase 5.6-5.7**: Remaining error handling skills
 3. **Fase 6**: Agents (2 agents)
 4. **Fase 7**: Finalisatie en packaging
 
@@ -76,10 +76,11 @@ skills/source/
 │   ├── erpnext-impl-scheduler/
 │   └── erpnext-impl-customapp/
 │
-├── errors/           # 3/7 skills 🔄
+├── errors/           # 4/7 skills 🔄
 │   ├── erpnext-errors-clientscripts/ ✅
 │   ├── erpnext-errors-serverscripts/ ✅
-│   └── erpnext-errors-controllers/ ✅
+│   ├── erpnext-errors-controllers/ ✅
+│   └── erpnext-errors-hooks/ ✅
 │
 └── agents/           # 0/2 agents ⏳
 ```
@@ -100,14 +101,14 @@ Alle 3 core skills gemigreerd naar `skills/source/core/`.
 ### ✅ Fase 4: Implementation Skills (8/8 - COMPLEET)
 Alle 8 implementation skills in `skills/source/impl/`.
 
-### 🔄 Fase 5: Error Handling Skills (3/7 - IN PROGRESS)
+### 🔄 Fase 5: Error Handling Skills (4/7 - IN PROGRESS)
 
 | Stap | Skill | Status |
 |------|-------|:------:|
 | 5.1 | erpnext-errors-clientscripts | ✅ |
 | 5.2 | erpnext-errors-serverscripts | ✅ |
 | 5.3 | erpnext-errors-controllers | ✅ |
-| 5.4 | erpnext-errors-hooks | ⏳ |
+| 5.4 | erpnext-errors-hooks | ✅ |
 | 5.5 | erpnext-errors-database | ⏳ |
 | 5.6 | erpnext-errors-permissions | ⏳ |
 | 5.7 | erpnext-errors-api | ⏳ |
@@ -118,6 +119,24 @@ Alle 8 implementation skills in `skills/source/impl/`.
 ---
 
 ## Changelog
+
+### 2026-01-18 (sessie 18 cont.) - FASE 5.4 COMPLEET
+
+**Voltooid:**
+- erpnext-errors-hooks skill compleet met:
+  - SKILL.md: Decision tree per hook type, transaction behavior, error method reference
+  - references/patterns.md: 7 complete error handling patterns (doc_events multi-operation, scheduler with tracking, permission query, has_permission, override class, extend_bootinfo, wildcard handler)
+  - references/examples.md: 5 complete production-ready examples (hooks.py config, sales invoice events, scheduler task, permission hooks, boot extension)
+  - references/anti-patterns.md: 15 common hooks error handling mistakes
+
+**Key differences documented:**
+- permission_query_conditions and has_permission should NEVER throw
+- extend_bootinfo errors break entire page load
+- Scheduler tasks have NO user feedback - logging is critical
+- Wildcard (*) handlers must never break other apps' saves
+- Multiple apps can register handlers - order matters
+
+**Nieuwe voortgang**: ~82% (was ~79%)
 
 ### 2026-01-18 (sessie 18 cont.) - FASE 5.3 COMPLEET
 

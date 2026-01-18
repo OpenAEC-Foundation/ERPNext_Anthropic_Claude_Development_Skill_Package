@@ -413,13 +413,243 @@ Status tracking op meerdere plekken:
 
 ---
 
+## 12. "Compleet" vs "Kwaliteit"
+
+**Geleerd uit**: Fase 7 "PROJECT COMPLEET" → Fase 8 reflectie toonde gaps
+
+### Het Probleem
+
+We verklaarden "100% compleet" terwijl:
+- ✅ 28 skills structureel aanwezig
+- ❌ 9 skills missen V16 frontmatter
+- ❌ Geen systematische validatie met tooling uitgevoerd
+- ❌ Geen functionele tests in Claude gedaan
+- ❌ Skills nooit daadwerkelijk gebruikt voor code generatie
+
+### De Definitie Matrix
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ NIVEAU VAN "COMPLEET"                                               │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ Level 1: Structureel Compleet                                      │
+│ • Alle bestanden bestaan                                           │
+│ • Correcte directory structuur                                     │
+│ • Frontmatter aanwezig                                             │
+│ → Dit hadden we ✅                                                  │
+│                                                                     │
+│ Level 2: Inhoudelijk Correct                                       │
+│ • Geen factual errors                                              │
+│ • Versie markers consistent                                        │
+│ • Alle features gedocumenteerd                                     │
+│ → Dit dachten we, maar V16 gaps ⚠️                                 │
+│                                                                     │
+│ Level 3: Technisch Gevalideerd                                     │
+│ • quick_validate.py passed                                         │
+│ • package_skill.py succesvol                                       │
+│ • .skill bestanden gegenereerd                                     │
+│ → Dit niet gedaan ❌                                                │
+│                                                                     │
+│ Level 4: Functioneel Getest                                        │
+│ • Skills laden in Claude                                           │
+│ • Triggers activeren correct                                       │
+│ • Code generatie werkt                                             │
+│ → Dit niet gedaan ❌                                                │
+│                                                                     │
+│ Level 5: Productie Bewezen                                         │
+│ • Echte ERPNext projecten                                          │
+│ • User feedback verwerkt                                           │
+│ • Edge cases getest                                                │
+│ → Toekomst                                                         │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### De Les
+
+> **"We hebben het gemaakt" ≠ "Het werkt"**
+
+Structurele completeness is een milestone, niet de finish line. Zonder validatie en testing is "compleet" een aanname.
+
+### Preventie voor Toekomstige Projecten
+
+1. **Definieer "done" expliciet per fase**
+   - Welk niveau van compleet is vereist?
+   - Wat zijn de exit criteria?
+
+2. **Bouw validatie in de workflow**
+   - Niet als laatste stap
+   - Na elke skill, niet na alle skills
+
+3. **Plan functionele tests vanaf begin**
+   - Niet "als we tijd hebben"
+   - Als onderdeel van de definitie van done
+
+### Key Principle
+
+> "100% structureel compleet kan nog steeds 0% functioneel getest zijn. Wees expliciet over welk niveau je claimt."
+
+---
+
+## 13. V16 Compatibility Mid-Project
+
+**Geleerd uit**: ERPNext V16 release tijdens projectontwikkeling
+
+### De Situatie
+
+- Project gestart met scope: V14 + V15
+- ERPNext V16 released tijdens ontwikkeling
+- Besluit: V16 alsnog toevoegen aan scope
+- Resultaat: Retrofit nodig in reeds "voltooide" skills
+
+### Het Probleem
+
+V16 toevoegen achteraf betekende:
+- Opnieuw door alle skills gaan
+- Sommige skills al "afgevinkt" in ROADMAP
+- Inconsistente V16 coverage (sommige wel, sommige niet)
+- 9 skills met ontbrekende V16 vermelding ontdekt in audit
+
+### Retrofit vs Vanaf Begin
+
+| Aspect | Retrofit | Vanaf Begin |
+|--------|----------|-------------|
+| Tijdsinvestering | Hoog (dubbel werk) | Normaal |
+| Consistentie | Risico op gaps | Uniform |
+| Motivatie | Laag ("was al klaar") | Hoog (onderdeel van werk) |
+| Fouten | Meer kans | Minder kans |
+
+### Wat We Anders Hadden Kunnen Doen
+
+1. **Versie scope lock bij start**
+   - Expliciete beslissing: "V14+V15 only, V16 is v2.0"
+   - Of: wacht tot V16 stabiel is
+
+2. **Versie-agnostisch ontwerpen**
+   - Frontmatter: `frappe_versions: [14, 15, 16+]`
+   - Content: "Version Differences" tabel standaard
+
+3. **Monitoring van releases**
+   - Frappe release calendar volgen
+   - Scope beslissing herzien bij major release
+
+### Key Principle
+
+> "Versie scope wijzigen mid-project is technische schuld. Beter: expliciet scopen of versie-agnostisch ontwerpen."
+
+---
+
+## 14. Test Strategie (Ontbrak!)
+
+**Geleerd uit**: Fase 8 reflectie - skills nooit daadwerkelijk getest
+
+### Wat Ontbrak
+
+Geen enkele skill is:
+- ✅ Structureel gevalideerd met `quick_validate.py`
+- ✅ Gepackaged met `package_skill.py`
+- ❌ Geladen in Claude om te zien of trigger werkt
+- ❌ Gebruikt om ERPNext code te genereren
+- ❌ Getest op edge cases (bijv. V16-specifieke code)
+
+### Waarom Het Ontbrak
+
+1. **Niet in masterplan**
+   - Fase 7 was "Finalisatie" → docs, cleanup
+   - Geen "Testing" fase gepland
+
+2. **Aanname van correctheid**
+   - "Research was grondig"
+   - "Voorbeelden komen uit officiële docs"
+   - "Dus het zal wel werken"
+
+3. **Tijd/scope druk**
+   - 28 skills is veel
+   - Focus op "af krijgen"
+   - Testing voelt als "extra"
+
+### Test Strategie voor Skills (Alsnog/Toekomst)
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ SKILL TEST WORKFLOW                                                 │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│ LEVEL 1: Structurele Validatie (per skill)                         │
+│ □ python quick_validate.py [skill-folder]                          │
+│ □ Output: "Skill is valid!" of errors                              │
+│                                                                     │
+│ LEVEL 2: Package Generatie (per skill)                             │
+│ □ python package_skill.py [skill-folder] output/                   │
+│ □ Output: [skill-name].skill bestand                               │
+│                                                                     │
+│ LEVEL 3: Loading Test (per skill)                                  │
+│ □ Upload skill naar Claude Project                                 │
+│ □ Vraag: "Welke skills heb je geladen?"                            │
+│ □ Verifieer: skill naam + beschrijving correct                     │
+│                                                                     │
+│ LEVEL 4: Trigger Test (per skill)                                  │
+│ □ Gebruik een trigger phrase uit de description                    │
+│ □ Verifieer: Claude activeert skill content                        │
+│                                                                     │
+│ LEVEL 5: Functionele Test (per skill type)                         │
+│ □ Syntax skill: "Genereer een [X] voor ERPNext"                    │
+│ □ Impl skill: "Help me [workflow] implementeren"                   │
+│ □ Error skill: "Ik krijg deze error: [X]"                          │
+│ □ Agent: End-to-end code interpretatie/validatie                   │
+│                                                                     │
+│ LEVEL 6: Edge Case Test                                            │
+│ □ V16-specifieke code request                                      │
+│ □ Anti-pattern scenario (moet waarschuwen)                         │
+│ □ Ambigue vraag (moet juiste skill kiezen)                         │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Minimum Viable Testing
+
+Als tijd beperkt is, minimaal:
+- **Alle skills**: Level 1 + 2 (tooling validatie)
+- **Sample per categorie**: Level 3-5 (1 syntax, 1 impl, 1 error, 1 agent)
+- **Kritieke skills**: Level 6 (server-scripts vanwege sandbox issue)
+
+### Key Principle
+
+> "Een skill zonder test is een aanname. Plan testing als onderdeel van development, niet als afterthought."
+
+---
+
+## 15. Top 15 Lessen (Uitgebreid)
+
+| # | Les |
+|---|-----|
+| 1 | **Test platform tooling VOORDAT je structuur kiest** |
+| 2 | **Server Scripts: GEEN imports, alles via frappe namespace** |
+| 3 | **Research-first: documenteer voordat je bouwt** |
+| 4 | **Push na ELKE fase - Claude's filesystem reset** |
+| 5 | **SKILL.md moet DIRECT in skill folder root staan** |
+| 6 | **Engels-only is Anthropic best practice** |
+| 7 | **Eén source of truth voor status (ROADMAP.md)** |
+| 8 | **Split grote fases proactief (>700 regels research)** |
+| 9 | **Valideer altijd met officiële tooling** |
+| 10 | **Scan GitHub EERST bij sessie-hervatting** |
+| 11 | **"Structureel compleet" ≠ "Functioneel getest"** |
+| 12 | **Versie scope wijzigen mid-project = technische schuld** |
+| 13 | **Plan testing als onderdeel van development** |
+| 14 | **Definieer "done" expliciet met levels** |
+| 15 | **GitHub API workflow > proprietary formats** |
+
+---
+
 ## Changelog
 
 | Datum | Wijziging |
 |-------|-----------|
+| 2026-01-18 | Sectie 12-14 toegevoegd: Post-release reflecties |
+| 2026-01-18 | Top 10 → Top 15 uitgebreid |
 | 2026-01-18 | Sectie 10 toegevoegd: Single Source of Truth voor tracking |
 | 2026-01-18 | Sectie 9 toegevoegd: Session Recovery Protocol |
-| 2026-01-18 | Top 10 #10 bijgewerkt met recovery tip |
 | 2026-01-17 | Volledige herschrijving na mid-project review |
 | 2026-01-17 | Engels-only beslissing gedocumenteerd |
 | 2026-01-17 | Anthropic tooling compatibiliteit toegevoegd |

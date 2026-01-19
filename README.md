@@ -3,21 +3,24 @@
 </p>
 
 <p align="center">
-  <a href="#installation"><img src="https://img.shields.io/badge/Claude_Code-Ready-green?style=flat-square" alt="Claude Code Ready"></a>
-  <a href="#version-compatibility"><img src="https://img.shields.io/badge/ERPNext-v14_|_v15_|_v16-blue?style=flat-square" alt="ERPNext Versions"></a>
-  <a href="https://agentskills.org"><img src="https://img.shields.io/badge/Agent_Skills-Standard-orange?style=flat-square" alt="Agent Skills Standard"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square" alt="MIT License"></a>
+  <a href="#-installation"><img src="https://img.shields.io/badge/Claude_Code-Ready-27ca40?style=for-the-badge" alt="Claude Code Ready"></a>
+  <a href="#-version-compatibility"><img src="https://img.shields.io/badge/ERPNext-v14_|_v15_|_v16-0089FF?style=for-the-badge" alt="ERPNext Versions"></a>
+  <a href="https://agentskills.org"><img src="https://img.shields.io/badge/Agent_Skills-Standard-DA7756?style=for-the-badge" alt="Agent Skills Standard"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge" alt="MIT License"></a>
+</p>
+
+<p align="center">
+  <strong>28 deterministic skills</strong> enabling Claude AI to generate flawless ERPNext/Frappe code.<br>
+  Built on the <a href="https://agentskills.org">Agent Skills</a> open standard.
 </p>
 
 ---
 
-# ERPNext Claude Skills Package
+## 🎯 Why This Exists
 
-**28 deterministic skills** enabling Claude AI to generate flawless ERPNext/Frappe code. Built on the [Agent Skills](https://agentskills.org) open standard.
+Claude is powerful, but without domain-specific guidance it generates ERPNext code that *looks* correct but **fails in production**.
 
-## Why This Exists
-
-Claude is powerful, but without domain-specific guidance it generates ERPNext code that *looks* correct but fails in production. The #1 cause?
+**The #1 cause of AI-generated ERPNext failures:**
 
 ```python
 # ❌ WRONG - This fails silently in Server Scripts
@@ -28,64 +31,92 @@ today = nowdate()
 today = frappe.utils.nowdate()
 ```
 
-This package encodes 28 hard-won lessons like this into deterministic skills that Claude follows automatically.
+This package encodes **28 hard-won lessons** like this into deterministic skills that Claude follows automatically.
 
-## Skill Categories
+---
 
-| Category | Count | Coverage |
-|----------|-------|----------|
-| **Syntax** | 8 | Client scripts, server scripts, controllers, hooks, whitelisting, Jinja, scheduler, custom apps |
-| **Core** | 3 | Database operations, permissions, API patterns |
-| **Implementation** | 8 | Step-by-step development workflows |
-| **Error Handling** | 7 | Production-ready error patterns |
-| **Agents** | 2 | Code interpretation and validation |
+## 📦 Skill Categories
 
-## Installation
+| Category | Count | What's Covered |
+|:---------|:-----:|:---------------|
+| **Syntax** | 8 | Client scripts, server scripts, controllers, hooks, whitelisting, Jinja templating, scheduler events, custom apps |
+| **Core** | 3 | Database operations, permissions system, REST API patterns |
+| **Implementation** | 8 | Step-by-step development workflows for common tasks |
+| **Error Handling** | 7 | Production-ready error patterns and debugging |
+| **Agents** | 2 | Code interpretation and validation agents |
+
+---
+
+## 🚀 Installation
 
 ### Claude Code (Recommended)
 
 ```bash
+# Clone the repository
 git clone https://github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package.git
+
+# Copy skills to your Claude Code skills directory
 cp -r ERPNext_Anthropic_Claude_Development_Skill_Package/skills/source/* ~/.claude/skills/
 ```
 
 ### Claude.ai Web/Desktop
 
-1. Download skill folders from `skills/source/`
+1. Download skill folders from [`skills/source/`](skills/source/)
 2. ZIP each folder individually
 3. Upload via **Settings → Capabilities → Skills**
 
 ### Claude.ai Projects
 
 1. Create a new project
-2. Upload `SKILL.md` files to the Knowledge section
+2. Upload `SKILL.md` files to the **Knowledge** section
 
-## Version Compatibility
+---
+
+## 🔄 Version Compatibility
 
 | Feature | v14 | v15 | v16 |
-|---------|-----|-----|-----|
+|:--------|:---:|:---:|:---:|
 | Type annotations | ❌ | ✅ | ✅ |
 | UUID autoname | ❌ | ✅ | ✅ |
 | Data masking | ❌ | ❌ | ✅ |
 | Scheduler improvements | ❌ | ✅ | ✅ |
+| Virtual DocTypes | ❌ | ✅ | ✅ |
 
-## Documentation
+---
 
-- **[INDEX.md](INDEX.md)** — Complete skill descriptions
-- **[USAGE.md](USAGE.md)** — Platform-specific guides
-- **[WAY_OF_WORK.md](WAY_OF_WORK.md)** — 7-phase development methodology
-- **[LESSONS_LEARNED.md](LESSONS_LEARNED.md)** — Technical discoveries
+## 📚 Documentation
 
-## Contributing
+| Document | Description |
+|:---------|:------------|
+| **[INDEX.md](INDEX.md)** | Complete skill catalog with descriptions |
+| **[USAGE.md](USAGE.md)** | Platform-specific installation guides |
+| **[WAY_OF_WORK.md](WAY_OF_WORK.md)** | 7-phase development methodology |
+| **[LESSONS_LEARNED.md](LESSONS_LEARNED.md)** | Technical discoveries and gotchas |
 
-This package also serves as a **template** for building Claude skill packages in other technology domains. See `WAY_OF_WORK.md` for the methodology.
+---
 
-## License
+## 🤝 Contributing
 
-MIT — See [LICENSE](LICENSE)
+This package also serves as a **template** for building Claude skill packages in other technology domains.
+
+See [`WAY_OF_WORK.md`](WAY_OF_WORK.md) for the methodology we used to build these skills.
+
+**Found an issue?** [Open an issue](https://github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/issues/new)
+**Want to contribute?** PRs welcome!
+
+---
+
+## 📄 License
+
+MIT — See [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
-  <sub>Built by <a href="https://github.com/OpenAEC-Foundation">OpenAEC Foundation</a> — Open standards for AEC technology</sub>
+  <sub>Built with ❤️ by <a href="https://github.com/OpenAEC-Foundation">OpenAEC Foundation</a></sub><br>
+  <sub>Open standards for AEC technology</sub>
+</p>
+
+<p align="center">
+  <a href="https://github.com/OpenAEC-Foundation/ERPNext_Anthropic_Claude_Development_Skill_Package/stargazers">⭐ Star this repo if it helps you!</a>
 </p>

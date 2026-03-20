@@ -16,7 +16,6 @@
   Built on the <a href="https://agentskills.org">Agent Skills</a> open standard.
 </p>
 
-> **Note:** A repository rename from `ERPNext_Anthropic_Claude_Development_Skill_Package` to `Frappe_Claude_Skill_Package` is pending. All skill prefixes have already been migrated from `erpnext-*` to `frappe-*`.
 
 ---
 

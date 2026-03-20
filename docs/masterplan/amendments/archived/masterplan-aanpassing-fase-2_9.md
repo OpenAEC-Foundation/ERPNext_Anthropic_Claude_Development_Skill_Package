@@ -1,13 +1,13 @@
 # Masterplan Aanpassing: Opsplitsing Fase 2.9
 
 > **Datum**: 13 januari 2026  
-> **Betreft**: Fase 2.9 (CreÃ«er erpnext-syntax-whitelisted) opsplitsen in 2.9.1 en 2.9.2
+> **Betreft**: Fase 2.9 (CreÃ«er frappe-syntax-whitelisted) opsplitsen in 2.9.1 en 2.9.2
 
 ---
 
 ## Reden voor Opsplitsing
 
-De `erpnext-syntax-whitelisted` skill bevat uitgebreide content:
+De `frappe-syntax-whitelisted` skill bevat uitgebreide content:
 - **10 secties** in het research document (834 regels)
 - **8 reference bestanden** gepland
 - Complexe onderwerpen die zowel API basics als security patterns beslaan
@@ -27,7 +27,7 @@ De `erpnext-syntax-whitelisted` skill bevat uitgebreide content:
 
 | Origineel | Nieuw |
 |-----------|-------|
-| Stap 2.9: CreÃ«er erpnext-syntax-whitelisted | Stap 2.9.1: CreÃ«er skill Deel A (Core API) |
+| Stap 2.9: CreÃ«er frappe-syntax-whitelisted | Stap 2.9.1: CreÃ«er skill Deel A (Core API) |
 | - | Stap 2.9.2: CreÃ«er skill Deel B (Security & Errors) |
 | Stap 2.10-2.12: Overige skills | Stap 2.10-2.12: Ongewijzigd |
 
@@ -54,7 +54,7 @@ Het research document bevat 10 secties:
 
 ## Nieuwe Fase Definities
 
-### Stap 2.9.1: CreÃ«er erpnext-syntax-whitelisted - Core API
+### Stap 2.9.1: CreÃ«er frappe-syntax-whitelisted - Core API
 
 **Focus**: Hoe Whitelisted Methods werken - de fundamenten van API creatie
 
@@ -72,7 +72,7 @@ Het research document bevat 10 secties:
 
 ---
 
-### Stap 2.9.2: CreÃ«er erpnext-syntax-whitelisted - Security & Errors
+### Stap 2.9.2: CreÃ«er frappe-syntax-whitelisted - Security & Errors
 
 **Focus**: Beveiliging, foutafhandeling en best practices voor productie-klare APIs
 
@@ -93,15 +93,15 @@ Het research document bevat 10 secties:
 
 ## Aangepaste Prompts
 
-### PROMPT FASE 2.9.1 - CREÃ‹ER SKILL: erpnext-syntax-whitelisted (CORE API)
+### PROMPT FASE 2.9.1 - CREÃ‹ER SKILL: frappe-syntax-whitelisted (CORE API)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.9.1 - CREÃ‹ER SKILL: erpnext-syntax-whitelisted (A)   â”‚
+â”‚ PROMPT FASE 2.9.1 - CREÃ‹ER SKILL: frappe-syntax-whitelisted (A)   â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-whitelisted-methods.md SECTIES 1-3 en 5 om het    â”‚
-â”‚ EERSTE DEEL van de 'erpnext-syntax-whitelisted' skill te maken.    â”‚
+â”‚ EERSTE DEEL van de 'frappe-syntax-whitelisted' skill te maken.    â”‚
 â”‚                                                                     â”‚
 â”‚ VEREISTEN:                                                          â”‚
 â”‚ 1. Volg exact de Anthropic skill-creator richtlijnen               â”‚
@@ -133,15 +133,15 @@ Het research document bevat 10 secties:
 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-### PROMPT FASE 2.9.2 - CREÃ‹ER SKILL: erpnext-syntax-whitelisted (SECURITY & ERRORS)
+### PROMPT FASE 2.9.2 - CREÃ‹ER SKILL: frappe-syntax-whitelisted (SECURITY & ERRORS)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.9.2 - CREÃ‹ER SKILL: erpnext-syntax-whitelisted (B)   â”‚
+â”‚ PROMPT FASE 2.9.2 - CREÃ‹ER SKILL: frappe-syntax-whitelisted (B)   â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-whitelisted-methods.md SECTIES 4 en 6-9 om het    â”‚
-â”‚ TWEEDE DEEL van de 'erpnext-syntax-whitelisted' skill te maken.    â”‚
+â”‚ TWEEDE DEEL van de 'frappe-syntax-whitelisted' skill te maken.    â”‚
 â”‚                                                                     â”‚
 â”‚ VOORWAARDE: Deel A (2.9.1) is compleet.                            â”‚
 â”‚                                                                     â”‚
@@ -193,7 +193,7 @@ Het research document bevat 10 secties:
 
 ### Relatie met Controllers Skill
 
-De `erpnext-syntax-controllers` skill (fase 2.7) behandelt `@frappe.whitelist()` binnen controller context (frm.call naar controller methods). Deze skill focust op **standalone API methods** - de volledige API laag los van DocType controllers.
+De `frappe-syntax-controllers` skill (fase 2.7) behandelt `@frappe.whitelist()` binnen controller context (frm.call naar controller methods). Deze skill focust op **standalone API methods** - de volledige API laag los van DocType controllers.
 
 **Overlap intentioneel vermijden**:
 - Controllers skill: `frm.call('method_name')` â†’ controller method

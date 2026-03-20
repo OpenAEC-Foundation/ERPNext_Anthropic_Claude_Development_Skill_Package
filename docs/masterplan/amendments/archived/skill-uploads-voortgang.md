@@ -8,9 +8,9 @@
 
 | Skill | NL | EN | Status |
 |-------|----|----|--------|
-| erpnext-syntax-clientscripts | âœ… | âœ… | Compleet |
-| erpnext-syntax-serverscripts | âœ… | âœ… | Compleet |
-| erpnext-syntax-hooks | âœ… | âœ… | Compleet |
+| frappe-syntax-clientscripts | âœ… | âœ… | Compleet |
+| frappe-syntax-serverscripts | âœ… | âœ… | Compleet |
+| frappe-syntax-hooks | âœ… | âœ… | Compleet |
 
 ---
 
@@ -25,7 +25,7 @@
 | 2.10 | Jinja Templates | âœ— Geen |
 | 2.11 | Scheduler/Background Jobs | âœ— Geen |
 | 2.12.1 | Custom App (Setup) | âœ— Geen |
-| 2.12.2 | Custom App (Data) | ðŸ“Ž `erpnext-syntax-customapp` (van 2.12.1) |
+| 2.12.2 | Custom App (Data) | ðŸ“Ž `frappe-syntax-customapp` (van 2.12.1) |
 
 *\* 2.9.2 heeft output van 2.9.1 nodig, maar die zit al in project files*
 
@@ -41,26 +41,26 @@
 
 | Fase | Skill | Upload Vereist |
 |------|-------|----------------|
-| 4.1 | impl-clientscripts | ðŸ“Ž `erpnext-syntax-clientscripts` |
-| 4.2 | impl-serverscripts | ðŸ“Ž `erpnext-syntax-serverscripts` |
-| 4.3 | impl-controllers | ðŸ“Ž `erpnext-syntax-controllers` |
-| 4.4 | impl-hooks | ðŸ“Ž `erpnext-syntax-hooks` |
-| 4.5 | impl-whitelisted | ðŸ“Ž `erpnext-syntax-whitelisted` |
-| 4.6 | impl-jinja | ðŸ“Ž `erpnext-syntax-jinja` |
-| 4.7 | impl-scheduler | ðŸ“Ž `erpnext-syntax-scheduler` |
-| 4.8 | impl-customapp | ðŸ“Ž `erpnext-syntax-customapp` |
+| 4.1 | impl-clientscripts | ðŸ“Ž `frappe-syntax-clientscripts` |
+| 4.2 | impl-serverscripts | ðŸ“Ž `frappe-syntax-serverscripts` |
+| 4.3 | impl-controllers | ðŸ“Ž `frappe-syntax-controllers` |
+| 4.4 | impl-hooks | ðŸ“Ž `frappe-syntax-hooks` |
+| 4.5 | impl-whitelisted | ðŸ“Ž `frappe-syntax-whitelisted` |
+| 4.6 | impl-jinja | ðŸ“Ž `frappe-syntax-jinja` |
+| 4.7 | impl-scheduler | ðŸ“Ž `frappe-syntax-scheduler` |
+| 4.8 | impl-customapp | ðŸ“Ž `frappe-syntax-customapp` |
 
 ### Fase 5: Error Handling Skills (elk 1 upload)
 
 | Fase | Skill | Upload Vereist |
 |------|-------|----------------|
-| 5.1 | errors-clientscripts | ðŸ“Ž `erpnext-syntax-clientscripts` |
-| 5.2 | errors-serverscripts | ðŸ“Ž `erpnext-syntax-serverscripts` |
-| 5.3 | errors-controllers | ðŸ“Ž `erpnext-syntax-controllers` |
-| 5.4 | errors-hooks | ðŸ“Ž `erpnext-syntax-hooks` |
-| 5.5 | errors-whitelisted | ðŸ“Ž `erpnext-syntax-whitelisted` |
-| 5.6 | errors-jinja | ðŸ“Ž `erpnext-syntax-jinja` |
-| 5.7 | errors-scheduler | ðŸ“Ž `erpnext-syntax-scheduler` |
+| 5.1 | errors-clientscripts | ðŸ“Ž `frappe-syntax-clientscripts` |
+| 5.2 | errors-serverscripts | ðŸ“Ž `frappe-syntax-serverscripts` |
+| 5.3 | errors-controllers | ðŸ“Ž `frappe-syntax-controllers` |
+| 5.4 | errors-hooks | ðŸ“Ž `frappe-syntax-hooks` |
+| 5.5 | errors-whitelisted | ðŸ“Ž `frappe-syntax-whitelisted` |
+| 5.6 | errors-jinja | ðŸ“Ž `frappe-syntax-jinja` |
+| 5.7 | errors-scheduler | ðŸ“Ž `frappe-syntax-scheduler` |
 
 ### Fase 6: Intelligent Agents
 
@@ -97,11 +97,11 @@ Fase 7                    â†’ Alle (~28)
 
 | Skill | Research | Status |
 |-------|----------|--------|
-| erpnext-syntax-whitelisted | âœ… research-whitelisted-methods.md | ðŸ”œ Fase 2.9 |
-| erpnext-syntax-jinja | âœ… research-jinja-templates.md | â³ Fase 2.10 |
-| erpnext-syntax-scheduler | âœ… research-scheduler-background-jobs.md | â³ Fase 2.11 |
-| erpnext-syntax-controllers | âœ… research-document-controllers.md | â³ Fase 2.7* |
-| erpnext-syntax-customapp | âœ… research-customapp-*.md | â³ Fase 2.12 |
+| frappe-syntax-whitelisted | âœ… research-whitelisted-methods.md | ðŸ”œ Fase 2.9 |
+| frappe-syntax-jinja | âœ… research-jinja-templates.md | â³ Fase 2.10 |
+| frappe-syntax-scheduler | âœ… research-scheduler-background-jobs.md | â³ Fase 2.11 |
+| frappe-syntax-controllers | âœ… research-document-controllers.md | â³ Fase 2.7* |
+| frappe-syntax-customapp | âœ… research-customapp-*.md | â³ Fase 2.12 |
 
 *\* Controllers skill lijkt nog niet gemaakt - verifiÃ«ren!*
 
@@ -121,14 +121,14 @@ Voltooide research documenten:
 - [x] research-customapp-datamanagement.md
 
 Voltooide skills (packages):
-- [x] erpnext-syntax-clientscripts (NL + EN)
-- [x] erpnext-syntax-serverscripts (NL + EN)
-- [x] erpnext-syntax-hooks (NL + EN)
-- [ ] erpnext-syntax-controllers â“
-- [ ] erpnext-syntax-whitelisted
-- [ ] erpnext-syntax-jinja
-- [ ] erpnext-syntax-scheduler
-- [ ] erpnext-syntax-customapp
+- [x] frappe-syntax-clientscripts (NL + EN)
+- [x] frappe-syntax-serverscripts (NL + EN)
+- [x] frappe-syntax-hooks (NL + EN)
+- [ ] frappe-syntax-controllers â“
+- [ ] frappe-syntax-whitelisted
+- [ ] frappe-syntax-jinja
+- [ ] frappe-syntax-scheduler
+- [ ] frappe-syntax-customapp
 
 ---
 

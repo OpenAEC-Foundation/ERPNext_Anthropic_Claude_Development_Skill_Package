@@ -84,11 +84,11 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
     ├── source/                  # Bronbestanden (Anthropic-conform)
     │   │
     │   ├── syntax/
-    │   │   ├── erpnext-syntax-clientscripts-nl/
+    │   │   ├── frappe-syntax-clientscripts-nl/
     │   │   │   ├── SKILL.md              ← DIRECT in root
     │   │   │   └── references/
     │   │   │
-    │   │   ├── erpnext-syntax-clientscripts-en/
+    │   │   ├── frappe-syntax-clientscripts-en/
     │   │   │   ├── SKILL.md
     │   │   │   └── references/
     │   │   │
@@ -114,11 +114,11 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 
 | Aspect | Conventie | Voorbeeld |
 |--------|-----------|-----------|
-| Skill folder | `{prefix}-{type}-{name}-{taal}` | `erpnext-syntax-clientscripts-nl` |
+| Skill folder | `{prefix}-{type}-{name}-{taal}` | `frappe-syntax-clientscripts-nl` |
 | Taal suffix | lowercase: `nl`, `en` | Niet `NL` of `EN` |
 | SKILL.md | Altijd in folder root | `skill-name/SKILL.md` |
 | References | In `references/` subfolder | `skill-name/references/*.md` |
-| Package | Folder naam + `.skill` | `erpnext-syntax-clientscripts-nl.skill` |
+| Package | Folder naam + `.skill` | `frappe-syntax-clientscripts-nl.skill` |
 
 ### 2.3 Validatie Regels (uit quick_validate.py)
 

@@ -73,7 +73,7 @@ curl -X PUT ... -d '{"message":"...","content":"...","sha":"'$SHA'"}'
 Fase [nummer]: [actie] [onderwerp]
 
 Voorbeelden:
-- Fase 2.10: Add erpnext-syntax-jinja skill (NL+EN)
+- Fase 2.10: Add frappe-syntax-jinja skill (NL+EN)
 - Fase 2.11: Complete scheduler research
 ```
 

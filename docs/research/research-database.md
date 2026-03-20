@@ -1,6 +1,6 @@
 # Research Document: ERPNext Database Operations
 > **Fase**: 3.1  
-> **Skill**: erpnext-database  
+> **Skill**: frappe-core-database  
 > **Datum**: 2026-01-17  
 > **Bronnen**: docs.frappe.io (Database API, Document API, Query Builder, Caching)
 

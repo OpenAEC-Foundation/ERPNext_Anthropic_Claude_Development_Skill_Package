@@ -1,12 +1,62 @@
-# ROADMAP - ERPNext Skills Package
+# ROADMAP - Frappe Claude Skill Package
 
-> **📍 Dit is de SINGLE SOURCE OF TRUTH voor project status en voortgang.**  
+> **📍 Dit is de SINGLE SOURCE OF TRUTH voor project status en voortgang.**
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
-> **Laatste update**: 2026-01-18  
-> **Status**: ✅ Fase 8.8 - GitHub Community Standards COMPLEET  
-> **Masterplan**: [erpnext-skills-masterplan-v4.md](docs/masterplan/erpnext-skills-masterplan-v4.md)  
+> **Laatste update**: 2026-03-20
+> **Status**: V2.0 UPGRADE GEPLAND
+> **V2 Tech Spec**: [frappe-skill-package-tech-spec-v2.md](docs/masterplan/frappe-skill-package-tech-spec-v2.md)
+> **V2 Gap Analysis**: [frappe-skill-package-gap-analysis.md](docs/masterplan/frappe-skill-package-gap-analysis.md)
+> **V1 Masterplan**: [erpnext-skills-masterplan-v4.md](docs/masterplan/erpnext-skills-masterplan-v4.md)
 > **Structuur**: Engels-only, Anthropic-conform, V14/V15/V16 compatible
+
+---
+
+## V2.0 Upgrade — Frappe Framework Full Coverage
+
+> **Doel**: Van 28 ERPNext-specifieke skills naar 53 Frappe Framework skills
+> **Scope**: Rename + restructure + 25 nieuwe skills
+> **Dekking**: ~16% → ~85% van het Frappe surface area
+
+### V2 Status
+
+| Categorie | Voltooid | Totaal |
+|-----------|:--------:|:------:|
+| Rename + frontmatter upgrade | 28 | 28 |
+| Content upgrade bestaande skills | 0 | 28 |
+| Nieuwe Syntax skills | 0 | 3 |
+| Nieuwe Core skills | 0 | 4 |
+| Nieuwe Impl skills | 0 | 5 |
+| Nieuwe Ops skills | 0 | 8 |
+| Nieuwe Agents | 0 | 3 |
+| Nieuwe Testing skills | 0 | 2 |
+| **TOTAAL v2.0** | **28** | **81** |
+
+**V2 Progress**: ███░░░░░░░░░░░░░░░░░ **35%** — V2.2 Compleet
+
+### V2 Fasen
+
+| Fase | Beschrijving | Status |
+|------|-------------|:------:|
+| V2.1 | Gap analysis valideren | ✅ Compleet |
+| V2.2 | Rename + frontmatter upgrade (28 skills) | ✅ Compleet |
+| V2.3 | Directory herstructurering (ops/, testing/ lagen) + stubs | ⏳ Volgende |
+| V2.4 | Content upgrade bestaande 28 skills (research + rewrite) | ⏳ Gepland |
+| V2.5 | Nieuwe skills vullen (P0 → P1 → P2 → P3) | ⏳ Gepland |
+| V2.6 | Validatie, README, repo rename, release | ⏳ Gepland |
+
+### V2 Prioriteiten
+
+| Prioriteit | Skills | Status |
+|:----------:|--------|:------:|
+| **P0** | doctypes, reports, workflow, testing, app-lifecycle | ⏳ |
+| **P1** | notifications, ui-components, website, files, hooks-comprehensive | ⏳ |
+| **P2** | bench, deployment, backup, performance, upgrades, frontend-build | ⏳ |
+| **P3** | cloud, hosting, cache, integrations, architect, debugger, migrator | ⏳ |
+
+---
+
+## V1.x — Completed Releases
 
 ---
 
@@ -149,6 +199,20 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 ---
 
 ## Changelog
+
+### 2026-03-20 (sessie 25) - V2.2 COMPLEET
+
+**V2.0 Upgrade gestart:**
+- Beslissingen D-016 t/m D-020 vastgelegd
+- Research: hooks scope (95 hooks, split in 2 skills) + hosting setup (bench op Hetzner VPS)
+- 28/28 skill directories hernoemd: `erpnext-*` -> `frappe-*`
+- 64 bestanden bijgewerkt met nieuwe cross-referenties
+- Alle YAML frontmatter geupgraded: MIT license, v2.0, Frappe v14-v16 compatibility
+- Rename script: `tools/rename_skills.py`
+
+**Status:** V2.2 compleet, V2.3 (directory herstructurering + stubs) is volgende stap.
+
+---
 
 ### 2026-01-18 (sessie 24) - Fase 8.8 COMPLEET
 

@@ -1,13 +1,13 @@
 # Masterplan Aanpassing: Opsplitsing Fase 2.7
 
 > **Datum**: 13 januari 2026  
-> **Betreft**: Fase 2.7 (CreÃ«er erpnext-syntax-controllers) opsplitsen in 2.7.1 en 2.7.2
+> **Betreft**: Fase 2.7 (CreÃ«er frappe-syntax-controllers) opsplitsen in 2.7.1 en 2.7.2
 
 ---
 
 ## Reden voor Opsplitsing
 
-De `erpnext-syntax-controllers` skill bevat uitgebreide content:
+De `frappe-syntax-controllers` skill bevat uitgebreide content:
 - **12 secties** in het research document (744 regels)
 - **5 reference bestanden** gepland
 - Complexe onderwerpen die zowel basics als geavanceerde patronen beslaan
@@ -17,7 +17,7 @@ De `erpnext-syntax-controllers` skill bevat uitgebreide content:
 
 | Origineel | Nieuw |
 |-----------|-------|
-| Stap 2.7: CreÃ«er erpnext-syntax-controllers | Stap 2.7.1: CreÃ«er skill Deel A (Basics) |
+| Stap 2.7: CreÃ«er frappe-syntax-controllers | Stap 2.7.1: CreÃ«er skill Deel A (Basics) |
 | - | Stap 2.7.2: CreÃ«er skill Deel B (Patterns) |
 | Stap 2.8-2.11: Overige skills | Stap 2.8-2.11: Ongewijzigd |
 
@@ -46,7 +46,7 @@ Het research document bevat 12 secties:
 
 ## Nieuwe Fase Definities
 
-### Stap 2.7.1: CreÃ«er erpnext-syntax-controllers - Basics
+### Stap 2.7.1: CreÃ«er frappe-syntax-controllers - Basics
 
 **Focus**: Hoe Document Controllers werken - de fundamenten
 
@@ -65,7 +65,7 @@ Het research document bevat 12 secties:
 
 ---
 
-### Stap 2.7.2: CreÃ«er erpnext-syntax-controllers - Patterns
+### Stap 2.7.2: CreÃ«er frappe-syntax-controllers - Patterns
 
 **Focus**: Geavanceerde patronen voor uitbreiden en specialiseren van controllers
 
@@ -85,15 +85,15 @@ Het research document bevat 12 secties:
 
 ## Aangepaste Prompts
 
-### PROMPT FASE 2.7.1 - CREÃ‹ER SKILL: erpnext-syntax-controllers (BASICS)
+### PROMPT FASE 2.7.1 - CREÃ‹ER SKILL: frappe-syntax-controllers (BASICS)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.7.1 - CREÃ‹ER SKILL: erpnext-syntax-controllers (A)   â”‚
+â”‚ PROMPT FASE 2.7.1 - CREÃ‹ER SKILL: frappe-syntax-controllers (A)   â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-document-controllers.md SECTIES 1-6 om het        â”‚
-â”‚ EERSTE DEEL van de 'erpnext-syntax-controllers' skill te maken.    â”‚
+â”‚ EERSTE DEEL van de 'frappe-syntax-controllers' skill te maken.    â”‚
 â”‚                                                                     â”‚
 â”‚ VEREISTEN:                                                          â”‚
 â”‚ 1. Volg exact de Anthropic skill-creator richtlijnen               â”‚
@@ -126,15 +126,15 @@ Het research document bevat 12 secties:
 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-### PROMPT FASE 2.7.2 - CREÃ‹ER SKILL: erpnext-syntax-controllers (PATTERNS)
+### PROMPT FASE 2.7.2 - CREÃ‹ER SKILL: frappe-syntax-controllers (PATTERNS)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.7.2 - CREÃ‹ER SKILL: erpnext-syntax-controllers (B)   â”‚
+â”‚ PROMPT FASE 2.7.2 - CREÃ‹ER SKILL: frappe-syntax-controllers (B)   â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-document-controllers.md SECTIES 7-12 om het       â”‚
-â”‚ TWEEDE DEEL van de 'erpnext-syntax-controllers' skill te maken.    â”‚
+â”‚ TWEEDE DEEL van de 'frappe-syntax-controllers' skill te maken.    â”‚
 â”‚                                                                     â”‚
 â”‚ VOORWAARDE: Deel A (2.7.1) is compleet.                            â”‚
 â”‚                                                                     â”‚
@@ -182,7 +182,7 @@ Het research document bevat 12 secties:
 
 ### Noot over Whitelisted Methods
 
-Sectie 5 (Whitelisted Methods) behandelt de decorator binnen controllers. De standalone whitelisted API methods worden behandeld in een aparte skill (`erpnext-syntax-whitelisted` in fase 2.9).
+Sectie 5 (Whitelisted Methods) behandelt de decorator binnen controllers. De standalone whitelisted API methods worden behandeld in een aparte skill (`frappe-syntax-whitelisted` in fase 2.9).
 
 ---
 

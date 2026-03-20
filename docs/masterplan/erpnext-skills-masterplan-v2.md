@@ -168,34 +168,34 @@ erpnext-skills/
 ### Syntax Skills (8 × 2 talen = 16 files)
 | ID | Skill Naam | Focus |
 |----|------------|-------|
-| SYN-CS | `erpnext-syntax-clientscripts` | JavaScript, frm.*, frappe.* |
-| SYN-SS | `erpnext-syntax-serverscripts` | Python in sandbox |
-| SYN-CT | `erpnext-syntax-controllers` | Document controller classes |
-| SYN-HK | `erpnext-syntax-hooks` | hooks.py structuur |
-| SYN-WL | `erpnext-syntax-whitelisted` | @frappe.whitelist() |
-| SYN-JJ | `erpnext-syntax-jinja` | Jinja2 templates |
-| SYN-SC | `erpnext-syntax-scheduler` | Cron, scheduler_events |
-| SYN-CA | `erpnext-syntax-customapp` | App structuur |
+| SYN-CS | `frappe-syntax-clientscripts` | JavaScript, frm.*, frappe.* |
+| SYN-SS | `frappe-syntax-serverscripts` | Python in sandbox |
+| SYN-CT | `frappe-syntax-controllers` | Document controller classes |
+| SYN-HK | `frappe-syntax-hooks` | hooks.py structuur |
+| SYN-WL | `frappe-syntax-whitelisted` | @frappe.whitelist() |
+| SYN-JJ | `frappe-syntax-jinja` | Jinja2 templates |
+| SYN-SC | `frappe-syntax-scheduler` | Cron, scheduler_events |
+| SYN-CA | `frappe-syntax-customapp` | App structuur |
 
 ### Implementation Skills (8 × 2 talen = 16 files)
 | ID | Skill Naam | Focus |
 |----|------------|-------|
-| IMP-CS | `erpnext-impl-clientscripts` | Form events, async calls |
-| IMP-SS | `erpnext-impl-serverscripts` | Doc events, API, scheduled |
-| IMP-CT | `erpnext-impl-controllers` | Lifecycle, method chaining |
-| IMP-HK | `erpnext-impl-hooks` | Event wiring, overrides |
-| IMP-WL | `erpnext-impl-whitelisted` | Security, responses |
-| IMP-JJ | `erpnext-impl-jinja` | Print, email, web |
-| IMP-SC | `erpnext-impl-scheduler` | Jobs, queues, timeouts |
-| IMP-CA | `erpnext-impl-customapp` | Fixtures, migrations |
+| IMP-CS | `frappe-impl-clientscripts` | Form events, async calls |
+| IMP-SS | `frappe-impl-serverscripts` | Doc events, API, scheduled |
+| IMP-CT | `frappe-impl-controllers` | Lifecycle, method chaining |
+| IMP-HK | `frappe-impl-hooks` | Event wiring, overrides |
+| IMP-WL | `frappe-impl-whitelisted` | Security, responses |
+| IMP-JJ | `frappe-impl-jinja` | Print, email, web |
+| IMP-SC | `frappe-impl-scheduler` | Jobs, queues, timeouts |
+| IMP-CA | `frappe-impl-customapp` | Fixtures, migrations |
 
 ### Error Handling Skills (7 × 2 talen = 14 files)
 | ID | Skill Naam | Focus |
 |----|------------|-------|
-| ERR-CS | `erpnext-errors-clientscripts` | try/catch, user feedback |
-| ERR-SS | `erpnext-errors-serverscripts` | throw, log, rollback |
-| ERR-CT | `erpnext-errors-controllers` | Validation, transactions |
-| ERR-HK | `erpnext-errors-hooks` | Hook isolation |
+| ERR-CS | `frappe-errors-clientscripts` | try/catch, user feedback |
+| ERR-SS | `frappe-errors-serverscripts` | throw, log, rollback |
+| ERR-CT | `frappe-errors-controllers` | Validation, transactions |
+| ERR-HK | `frappe-errors-hooks` | Hook isolation |
 | ERR-WL | `erpnext-errors-whitelisted` | HTTP codes, responses |
 | ERR-JJ | `erpnext-errors-jinja` | Fallbacks, missing data |
 | ERR-SC | `erpnext-errors-scheduler` | Retry, notifications |
@@ -203,9 +203,9 @@ erpnext-skills/
 ### Core Skills (3 × 2 talen = 6 files)
 | ID | Skill Naam | Focus |
 |----|------------|-------|
-| CORE-DB | `erpnext-database` | frappe.db.*, queries |
-| CORE-PM | `erpnext-permissions` | Roles, access control |
-| CORE-API | `erpnext-api-patterns` | REST/RPC conventies |
+| CORE-DB | `frappe-core-database` | frappe.db.*, queries |
+| CORE-PM | `frappe-core-permissions` | Roles, access control |
+| CORE-API | `frappe-core-api` | REST/RPC conventies |
 
 ### Agents (2 × 2 talen = 4 files)
 | ID | Agent Naam | Functie |
@@ -323,11 +323,11 @@ Research uitvoeren en eerste twee syntax skills direct volledig opleveren
 ### Stap 1.3: Maak eerste skill (NL + EN)
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 1.3 - CREËER SKILL: erpnext-syntax-clientscripts       │
+│ PROMPT FASE 1.3 - CREËER SKILL: frappe-syntax-clientscripts       │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │ Gebruik het research document uit stap 1.1 om de skill             │
-│ 'erpnext-syntax-clientscripts' te maken.                           │
+│ 'frappe-syntax-clientscripts' te maken.                           │
 │                                                                     │
 │ VEREISTEN:                                                          │
 │ 1. Volg exact de Anthropic skill-creator richtlijnen               │
@@ -335,7 +335,7 @@ Research uitvoeren en eerste twee syntax skills direct volledig opleveren
 │ 3. Maak TWEE versies: NL en EN                                     │
 │                                                                     │
 │ STRUCTUUR:                                                          │
-│ erpnext-syntax-clientscripts/                                       │
+│ frappe-syntax-clientscripts/                                       │
 │ ├── SKILL.md (lean, <500 regels)                                   │
 │ └── references/                                                     │
 │     ├── methods.md (alle frm.* signatures)                         │
@@ -357,11 +357,11 @@ Research uitvoeren en eerste twee syntax skills direct volledig opleveren
 ### Stap 1.4: Maak tweede skill (NL + EN)
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 1.4 - CREËER SKILL: erpnext-syntax-serverscripts       │
+│ PROMPT FASE 1.4 - CREËER SKILL: frappe-syntax-serverscripts       │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │ Gebruik het research document uit stap 1.2 om de skill             │
-│ 'erpnext-syntax-serverscripts' te maken.                           │
+│ 'frappe-syntax-serverscripts' te maken.                           │
 │                                                                     │
 │ [Zelfde structuur en vereisten als 1.3]                            │
 │                                                                     │
@@ -390,8 +390,8 @@ Research uitvoeren en eerste twee syntax skills direct volledig opleveren
 
 ### Exit Criteria Fase 1
 - [ ] Research documenten voor Client Scripts en Server Scripts
-- [ ] `erpnext-syntax-clientscripts` NL + EN compleet
-- [ ] `erpnext-syntax-serverscripts` NL + EN compleet
+- [ ] `frappe-syntax-clientscripts` NL + EN compleet
+- [ ] `frappe-syntax-serverscripts` NL + EN compleet
 - [ ] Skills gepackaged met package_skill.py
 
 ---
@@ -607,12 +607,12 @@ Alle 6 overige syntax skills compleet maken (beide talen)
 │ Scheduler, Custom App):                                             │
 │                                                                     │
 │ Gebruik het research document om de syntax skill te maken:         │
-│ - erpnext-syntax-controllers                                        │
-│ - erpnext-syntax-hooks                                              │
-│ - erpnext-syntax-whitelisted                                        │
-│ - erpnext-syntax-jinja                                              │
-│ - erpnext-syntax-scheduler                                          │
-│ - erpnext-syntax-customapp                                          │
+│ - frappe-syntax-controllers                                        │
+│ - frappe-syntax-hooks                                              │
+│ - frappe-syntax-whitelisted                                        │
+│ - frappe-syntax-jinja                                              │
+│ - frappe-syntax-scheduler                                          │
+│ - frappe-syntax-customapp                                          │
 │                                                                     │
 │ Maak NL + EN versies. Volg zelfde structuur als Fase 1.            │
 │                                                                     │
@@ -631,10 +631,10 @@ Alle 6 overige syntax skills compleet maken (beide talen)
 ### Doel
 Cross-cutting concerns: database, permissions, API patterns
 
-### Stap 3.1: Research & Create erpnext-database
+### Stap 3.1: Research & Create frappe-core-database
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 3.1 - CORE SKILL: erpnext-database                     │
+│ PROMPT FASE 3.1 - CORE SKILL: frappe-core-database                     │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │ STARTPUNT: Lees erpnext-vooronderzoek.md sectie 9 (Best Practices) │
@@ -670,10 +670,10 @@ Cross-cutting concerns: database, permissions, API patterns
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-### Stap 3.2: Research & Create erpnext-permissions
+### Stap 3.2: Research & Create frappe-core-permissions
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 3.2 - CORE SKILL: erpnext-permissions                  │
+│ PROMPT FASE 3.2 - CORE SKILL: frappe-core-permissions                  │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │ STARTPUNT: Lees erpnext-vooronderzoek.md sectie 4 (hooks.py) voor  │
@@ -709,10 +709,10 @@ Cross-cutting concerns: database, permissions, API patterns
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-### Stap 3.3: Research & Create erpnext-api-patterns
+### Stap 3.3: Research & Create frappe-core-api
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 3.3 - CORE SKILL: erpnext-api-patterns                 │
+│ PROMPT FASE 3.3 - CORE SKILL: frappe-core-api                 │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │ STARTPUNT: Lees erpnext-vooronderzoek.md sectie 5 (Whitelisted     │
@@ -808,14 +808,14 @@ Workflow patterns en decision trees voor correcte implementatie
 ```
 
 ### Skills te maken in Fase 4
-1. erpnext-impl-clientscripts
-2. erpnext-impl-serverscripts
-3. erpnext-impl-controllers
-4. erpnext-impl-hooks
-5. erpnext-impl-whitelisted
-6. erpnext-impl-jinja
-7. erpnext-impl-scheduler
-8. erpnext-impl-customapp
+1. frappe-impl-clientscripts
+2. frappe-impl-serverscripts
+3. frappe-impl-controllers
+4. frappe-impl-hooks
+5. frappe-impl-whitelisted
+6. frappe-impl-jinja
+7. frappe-impl-scheduler
+8. frappe-impl-customapp
 
 ### Exit Criteria Fase 4
 - [ ] 8 implementation skills compleet (NL + EN = 16 SKILL.md files)
@@ -882,10 +882,10 @@ Robuuste code met correcte foutafhandeling
 ```
 
 ### Skills te maken in Fase 5
-1. erpnext-errors-clientscripts
-2. erpnext-errors-serverscripts
-3. erpnext-errors-controllers
-4. erpnext-errors-hooks
+1. frappe-errors-clientscripts
+2. frappe-errors-serverscripts
+3. frappe-errors-controllers
+4. frappe-errors-hooks
 5. erpnext-errors-whitelisted
 6. erpnext-errors-jinja
 7. erpnext-errors-scheduler

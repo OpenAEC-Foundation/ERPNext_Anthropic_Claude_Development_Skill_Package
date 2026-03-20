@@ -14,14 +14,14 @@ Fase 1 van het ERPNext Skills Project is succesvol afgerond. Alle vier de skills
 
 | Skill | Taal | Bestandsnaam | Grootte | Status |
 |-------|------|--------------|---------|--------|
-| erpnext-syntax-clientscripts | Nederlands | erpnext-syntax-clientscripts-NL.skill | 42.7 KB | âœ… Valid |
-| erpnext-syntax-clientscripts | English | erpnext-syntax-clientscripts-EN.skill | ~42 KB | âœ… Valid |
-| erpnext-syntax-serverscripts | Nederlands | erpnext-syntax-serverscripts-NL.skill | 49.0 KB | âœ… Valid |
-| erpnext-syntax-serverscripts | English | erpnext-syntax-serverscripts-EN.skill | ~49 KB | âœ… Valid |
+| frappe-syntax-clientscripts | Nederlands | frappe-syntax-clientscripts-NL.skill | 42.7 KB | âœ… Valid |
+| frappe-syntax-clientscripts | English | frappe-syntax-clientscripts-EN.skill | ~42 KB | âœ… Valid |
+| frappe-syntax-serverscripts | Nederlands | frappe-syntax-serverscripts-NL.skill | 49.0 KB | âœ… Valid |
+| frappe-syntax-serverscripts | English | frappe-syntax-serverscripts-EN.skill | ~49 KB | âœ… Valid |
 
 ## Validatie Details
 
-### erpnext-syntax-clientscripts
+### frappe-syntax-clientscripts
 
 **NL versie:**
 - âœ… SKILL.md aanwezig (5,680 bytes)
@@ -39,7 +39,7 @@ Fase 1 van het ERPNext Skills Project is succesvol afgerond. Alle vier de skills
 - âœ… Reference files compleet (zelfde structuur als NL)
 - âœ… quick_validate.py: **"Skill is valid!"**
 
-### erpnext-syntax-serverscripts
+### frappe-syntax-serverscripts
 
 **NL versie:**
 - âœ… SKILL.md aanwezig (6,575 bytes)
@@ -86,10 +86,10 @@ skill-name/
 - [x] Research documenten voor Client Scripts en Server Scripts
   - âœ… research-client-scripts.md aanwezig
   - âœ… research-server-scripts.md aanwezig
-- [x] `erpnext-syntax-clientscripts` NL + EN compleet
+- [x] `frappe-syntax-clientscripts` NL + EN compleet
   - âœ… NL: 42.7 KB package, gevalideerd
   - âœ… EN: ~42 KB package, gevalideerd
-- [x] `erpnext-syntax-serverscripts` NL + EN compleet
+- [x] `frappe-syntax-serverscripts` NL + EN compleet
   - âœ… NL: 49.0 KB package, gevalideerd
   - âœ… EN: ~49 KB package, gevalideerd
 - [x] Skills gepackaged met package_skill.py

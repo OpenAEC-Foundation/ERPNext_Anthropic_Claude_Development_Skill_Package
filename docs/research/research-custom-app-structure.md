@@ -572,10 +572,10 @@ app_include_css = "/assets/my_custom_app/css/my_custom_app.css"
 # DocType JavaScript
 doctype_js = {"Sales Invoice": "public/js/sales_invoice.js"}
 
-# Document Events (zie erpnext-syntax-hooks skill)
+# Document Events (zie frappe-syntax-hooks skill)
 doc_events = {}
 
-# Scheduler Events (zie erpnext-syntax-scheduler skill)
+# Scheduler Events (zie frappe-syntax-scheduler skill)
 scheduler_events = {}
 
 # Fixtures

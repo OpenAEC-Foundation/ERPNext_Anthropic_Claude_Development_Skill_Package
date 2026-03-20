@@ -25,14 +25,14 @@ Foundation skills that define HOW to write code.
 
 | Skill | Description | Key Topics |
 |-------|-------------|------------|
-| `erpnext-syntax-clientscripts` | Client-side JavaScript patterns | frappe.ui.form, triggers, field manipulation |
-| `erpnext-syntax-serverscripts` | Server Script sandbox patterns | Restricted Python, frappe namespace, doc events |
-| `erpnext-syntax-controllers` | Document Controller patterns | Lifecycle hooks, autoname, UUID (v16), flags |
-| `erpnext-syntax-hooks` | hooks.py configuration | doc_events, override_doctype_class, scheduler |
-| `erpnext-syntax-whitelisted` | @frappe.whitelist() methods | API endpoints, permissions, async patterns |
-| `erpnext-syntax-jinja` | Jinja templating patterns | Print formats, web templates, filters |
-| `erpnext-syntax-scheduler` | Scheduled jobs patterns | Cron syntax, background jobs, tick intervals |
-| `erpnext-syntax-customapp` | Custom app structure | Module creation, fixtures, patches |
+| `frappe-syntax-clientscripts` | Client-side JavaScript patterns | frappe.ui.form, triggers, field manipulation |
+| `frappe-syntax-serverscripts` | Server Script sandbox patterns | Restricted Python, frappe namespace, doc events |
+| `frappe-syntax-controllers` | Document Controller patterns | Lifecycle hooks, autoname, UUID (v16), flags |
+| `frappe-syntax-hooks` | hooks.py configuration | doc_events, override_doctype_class, scheduler |
+| `frappe-syntax-whitelisted` | @frappe.whitelist() methods | API endpoints, permissions, async patterns |
+| `frappe-syntax-jinja` | Jinja templating patterns | Print formats, web templates, filters |
+| `frappe-syntax-scheduler` | Scheduled jobs patterns | Cron syntax, background jobs, tick intervals |
+| `frappe-syntax-customapp` | Custom app structure | Module creation, fixtures, patches |
 
 ---
 
@@ -42,9 +42,9 @@ Cross-cutting concerns that apply to all development.
 
 | Skill | Description | Key Topics |
 |-------|-------------|------------|
-| `erpnext-database` | Database operations | frappe.db API, transactions, SQL patterns |
-| `erpnext-permissions` | Permission system | Roles, user permissions, data masking (v16) |
-| `erpnext-api-patterns` | API design patterns | REST, RPC, webhooks, authentication |
+| `frappe-core-database` | Database operations | frappe.db API, transactions, SQL patterns |
+| `frappe-core-permissions` | Permission system | Roles, user permissions, data masking (v16) |
+| `frappe-core-api` | API design patterns | REST, RPC, webhooks, authentication |
 
 ---
 
@@ -54,14 +54,14 @@ Step-by-step workflows for common development tasks.
 
 | Skill | Description | When to Use |
 |-------|-------------|-------------|
-| `erpnext-impl-clientscripts` | Client Script workflows | Form customization, UX enhancement |
-| `erpnext-impl-serverscripts` | Server Script workflows | Quick server-side logic without custom app |
-| `erpnext-impl-controllers` | Controller workflows | Full DocType customization |
-| `erpnext-impl-hooks` | hooks.py workflows | Extending existing DocTypes |
-| `erpnext-impl-whitelisted` | API endpoint workflows | Building custom API endpoints |
-| `erpnext-impl-jinja` | Template workflows | Print formats, emails, reports |
-| `erpnext-impl-scheduler` | Scheduled job workflows | Background processing, automation |
-| `erpnext-impl-customapp` | Custom app workflows | Building complete Frappe apps |
+| `frappe-impl-clientscripts` | Client Script workflows | Form customization, UX enhancement |
+| `frappe-impl-serverscripts` | Server Script workflows | Quick server-side logic without custom app |
+| `frappe-impl-controllers` | Controller workflows | Full DocType customization |
+| `frappe-impl-hooks` | hooks.py workflows | Extending existing DocTypes |
+| `frappe-impl-whitelisted` | API endpoint workflows | Building custom API endpoints |
+| `frappe-impl-jinja` | Template workflows | Print formats, emails, reports |
+| `frappe-impl-scheduler` | Scheduled job workflows | Background processing, automation |
+| `frappe-impl-customapp` | Custom app workflows | Building complete Frappe apps |
 
 ---
 
@@ -71,13 +71,13 @@ Robust error handling patterns for production code.
 
 | Skill | Description | Covers |
 |-------|-------------|--------|
-| `erpnext-errors-clientscripts` | Client-side error handling | JavaScript errors, API call failures |
-| `erpnext-errors-serverscripts` | Server Script error handling | Sandbox limitations, exception handling |
-| `erpnext-errors-controllers` | Controller error handling | Validation, transaction failures |
-| `erpnext-errors-hooks` | hooks.py error handling | Hook failures, event handling |
-| `erpnext-errors-database` | Database error handling | Deadlocks, constraints, transactions |
-| `erpnext-errors-permissions` | Permission error handling | Access denied, graceful degradation |
-| `erpnext-errors-api` | API error handling | HTTP errors, response formatting |
+| `frappe-errors-clientscripts` | Client-side error handling | JavaScript errors, API call failures |
+| `frappe-errors-serverscripts` | Server Script error handling | Sandbox limitations, exception handling |
+| `frappe-errors-controllers` | Controller error handling | Validation, transaction failures |
+| `frappe-errors-hooks` | hooks.py error handling | Hook failures, event handling |
+| `frappe-errors-database` | Database error handling | Deadlocks, constraints, transactions |
+| `frappe-errors-permissions` | Permission error handling | Access denied, graceful degradation |
+| `frappe-errors-api` | API error handling | HTTP errors, response formatting |
 
 ---
 
@@ -87,8 +87,8 @@ Intelligent skills that orchestrate other skills.
 
 | Skill | Description | Use Case |
 |-------|-------------|----------|
-| `erpnext-code-interpreter` | Requirements → Technical specs | Vague requests like "make invoice auto-calculate" |
-| `erpnext-code-validator` | Code validation against all skills | Verify code before deployment |
+| `frappe-agent-interpreter` | Requirements → Technical specs | Vague requests like "make invoice auto-calculate" |
+| `frappe-agent-validator` | Code validation against all skills | Verify code before deployment |
 
 ---
 

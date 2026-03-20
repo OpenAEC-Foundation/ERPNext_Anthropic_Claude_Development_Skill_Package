@@ -46,10 +46,10 @@ Sommige skills hebben extra velden die niet in de spec staan:
 
 | Skill | Non-Standard Fields |
 |-------|---------------------|
-| erpnext-syntax-customapp | version, author, tags, languages, frappe_versions |
-| erpnext-syntax-jinja | version, author, tags, languages, frappe_versions |
-| erpnext-database | version, author, triggers |
-| erpnext-permissions | version, author, tags, frameworks |
+| frappe-syntax-customapp | version, author, tags, languages, frappe_versions |
+| frappe-syntax-jinja | version, author, tags, languages, frappe_versions |
+| frappe-core-database | version, author, triggers |
+| frappe-core-permissions | version, author, tags, frameworks |
 
 **Impact**: GEEN - Compliant parsers negeren onbekende velden.
 
@@ -104,8 +104,8 @@ We don't use `scripts/` or `assets/` - this is fine, they're optional.
 ### Issue
 
 Onze `agents/` folder bevat:
-- `erpnext-code-interpreter` - Translates vague requirements to specs
-- `erpnext-code-validator` - Validates code against best practices
+- `frappe-agent-interpreter` - Translates vague requirements to specs
+- `frappe-agent-validator` - Validates code against best practices
 
 Dit zijn **orchestrating skills**, geen programmatic agents (zoals Claude Agent SDK).
 

@@ -1,7 +1,7 @@
 # Research Document: Frappe Permissions System
 
 > **Project**: ERPNext/Frappe Skills Package  
-> **Phase**: 3.2 - erpnext-permissions  
+> **Phase**: 3.2 - frappe-core-permissions  
 > **Date**: 2026-01-17  
 > **Status**: Research Complete
 

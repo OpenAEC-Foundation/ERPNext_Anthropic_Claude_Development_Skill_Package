@@ -169,3 +169,61 @@
 **Decision**: Topic-specific research was conducted inline during skill creation phases, not as separate documents. The 13 research documents in `docs/research/` serve as both vooronderzoek and topic research.
 **Rationale**: The 13 comprehensive research documents (500-1000+ lines each) already covered topic-level detail. Separate topic-research documents would have been redundant.
 **Impact**: No `docs/research/topic-research/` directory exists. This is by design, not omission.
+
+---
+
+### D-016: V2.0 — Massive Upgrade, Not Incremental Rename
+
+**Date**: 2026-03-20
+**Status**: ACCEPTED
+**Context**: V2.0 was initially scoped as rename + 25 new skills. User wants full quality upgrade.
+**Decision**: All 28 existing skills get full content upgrade to v2 standard, not just rename. Functional quality must improve. Research-first at every step — when new insights emerge, stop, study impact, and continue from the right step with new information.
+**Rationale**: "One-shot" philosophy. Half-measures create technical debt. Skills must be production-quality.
+**Impact**: Significantly larger scope for V2.2-V2.4. Each skill batch requires research + rewrite + validation.
+
+---
+
+### D-017: V2.0 — Repo Rename to Frappe_Claude_Skill_Package
+
+**Date**: 2026-03-20
+**Status**: ACCEPTED
+**Context**: All 28 skills are Frappe Framework skills, not ERPNext-specific.
+**Decision**: Rename repo from `ERPNext_Anthropic_Claude_Development_Skill_Package` to `Frappe_Claude_Skill_Package`. GitHub auto-redirect handles old URLs.
+**Rationale**: Accurate naming. Frappe is the framework; ERPNext is one app built on it.
+**Impact**: README, badges, topics, description all need updating after rename.
+
+---
+
+### D-018: V2.0 — No Separate ERPNext Module Skills
+
+**Date**: 2026-03-20
+**Status**: ACCEPTED
+**Context**: Question whether to add ERPNext-specific module skills (Accounting, HR, Manufacturing) after the 53 Frappe skills.
+**Decision**: No. The package focuses on Frappe Framework. ERPNext module-specific skills are out of scope.
+**Rationale**: Frappe Framework knowledge is what Claude needs for correct code generation. ERPNext module logic is business logic, not framework patterns.
+**Impact**: Final scope is 53 Frappe skills, no ERPNext module additions planned.
+
+---
+
+### D-019: V2.0 — Split Hooks Into 2 Syntax Skills
+
+**Date**: 2026-03-20
+**Status**: ACCEPTED
+**Context**: Research found 66+ hook keys (~95 distinct hook points) in Frappe v14-v16. Current skill covers ~15.
+**Decision**: Split `frappe-syntax-hooks` into two skills:
+  - `frappe-syntax-hooks-config` — Declarative configuration hooks (assets, lifecycle, website, email, PDF, jinja, permissions, overrides, session, scheduler). ~40 hooks.
+  - `frappe-syntax-hooks-events` — Document lifecycle hooks (all doc_events, event ordering, controller vs hooks.py patterns, extend/override doctype class). ~25+ events.
+  - `frappe-impl-hooks` and `frappe-errors-hooks` remain as single skills (implementation and error handling are cross-cutting).
+**Rationale**: 95 hook points cannot fit in one SKILL.md under 500 lines. Natural split between "config" (set-and-forget) and "events" (lifecycle logic). Each gets its own decision tree.
+**Impact**: Total skill count changes from 53 to 54. Syntax layer gets 11 skills instead of 10.
+
+---
+
+### D-020: V2.0 — Ops Skills Focus on Bench Self-Hosting
+
+**Date**: 2026-03-20
+**Status**: ACCEPTED
+**Context**: Research confirmed team runs traditional bench on Hetzner VPS (Pattern A: nginx + supervisor + MariaDB + Redis). Not Frappe Cloud or Docker.
+**Decision**: Ops skills focus on bench-based self-hosting as primary pattern. Docker noted as alternative where relevant. Frappe Cloud/Press covered briefly for awareness. No Hetzner-specific skill — hosting patterns are generic (any VPS provider).
+**Rationale**: Traditional bench on VPS is the dominant deployment pattern in the ERPNext community. Making skills provider-specific reduces reusability without adding value.
+**Impact**: `frappe-ops-hosting` becomes generic self-hosted VPS ops (not Hetzner-specific). Total ops skills: 8 (was 9, removed hosting-specific skill). Total skill count: 53 (54 from hooks split - 1 from hosting merge = 53).

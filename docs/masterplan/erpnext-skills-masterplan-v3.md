@@ -48,7 +48,7 @@ extend_doctype_class = {
 **Impact**: Veiligere manier om DocType classes uit te breiden zonder overschrijven.
 - Meerdere apps kunnen dezelfde DocType extenden
 - Werkt bovenop `override_doctype_class`
-- **Relevante skills**: erpnext-syntax-hooks, erpnext-impl-hooks
+- **Relevante skills**: frappe-syntax-hooks, frappe-impl-hooks
 
 #### 2. Data Masking (V16+)
 
@@ -57,7 +57,7 @@ Field-level data masking voor privacy compliance:
 # In DocType field configuration
 "data_masking": True
 ```
-**Relevante skills**: erpnext-permissions
+**Relevante skills**: frappe-core-permissions
 
 #### 3. UUID Naming Rule (V16+)
 
@@ -66,7 +66,7 @@ Nieuwe naming optie voor globally unique identifiers:
 # In DocType
 naming_rule = "UUID"
 ```
-**Relevante skills**: erpnext-syntax-controllers
+**Relevante skills**: frappe-syntax-controllers
 
 #### 4. Performance Verbeteringen
 
@@ -87,7 +87,7 @@ Print Formats kunnen nu Chrome-based PDF generatie gebruiken i.p.v. wkhtmltopdf:
 # In Print Format
 pdf_renderer = "chrome"  # of "wkhtmltopdf"
 ```
-**Relevante skills**: erpnext-syntax-jinja, erpnext-impl-jinja
+**Relevante skills**: frappe-syntax-jinja, frappe-impl-jinja
 
 #### 7. Scheduler Tick Interval Change
 
@@ -96,7 +96,7 @@ pdf_renderer = "chrome"  # of "wkhtmltopdf"
 | v14 | 4 minuten |
 | v15+ | 60 seconden |
 
-**Relevante skills**: erpnext-syntax-scheduler
+**Relevante skills**: frappe-syntax-scheduler
 
 ---
 
@@ -147,54 +147,54 @@ erpnext-{type}-{name}/
 
 | ID | Skill | Focus | V16 Updates |
 |----|-------|-------|-------------|
-| SYN-CS | `erpnext-syntax-clientscripts` | JavaScript, frm.*, frappe.* | Geen |
-| SYN-SS | `erpnext-syntax-serverscripts` | Python in sandbox | Geen |
-| SYN-CT | `erpnext-syntax-controllers` | Document controller classes | UUID naming |
-| SYN-HK | `erpnext-syntax-hooks` | hooks.py structuur | `extend_doctype_class` |
-| SYN-WL | `erpnext-syntax-whitelisted` | @frappe.whitelist() | Geen |
-| SYN-JJ | `erpnext-syntax-jinja` | Jinja2 templates | Chrome PDF |
-| SYN-SC | `erpnext-syntax-scheduler` | Cron, scheduler_events | Tick interval |
-| SYN-CA | `erpnext-syntax-customapp` | App structuur | CI workflow |
+| SYN-CS | `frappe-syntax-clientscripts` | JavaScript, frm.*, frappe.* | Geen |
+| SYN-SS | `frappe-syntax-serverscripts` | Python in sandbox | Geen |
+| SYN-CT | `frappe-syntax-controllers` | Document controller classes | UUID naming |
+| SYN-HK | `frappe-syntax-hooks` | hooks.py structuur | `extend_doctype_class` |
+| SYN-WL | `frappe-syntax-whitelisted` | @frappe.whitelist() | Geen |
+| SYN-JJ | `frappe-syntax-jinja` | Jinja2 templates | Chrome PDF |
+| SYN-SC | `frappe-syntax-scheduler` | Cron, scheduler_events | Tick interval |
+| SYN-CA | `frappe-syntax-customapp` | App structuur | CI workflow |
 
 ### Core Skills (3)
 
 | ID | Skill | Focus | V16 Updates |
 |----|-------|-------|-------------|
-| CORE-DB | `erpnext-database` | frappe.db.*, queries | Query performance |
-| CORE-PM | `erpnext-permissions` | Roles, access control | Data masking |
-| CORE-API | `erpnext-api-patterns` | REST/RPC conventies | Geen |
+| CORE-DB | `frappe-core-database` | frappe.db.*, queries | Query performance |
+| CORE-PM | `frappe-core-permissions` | Roles, access control | Data masking |
+| CORE-API | `frappe-core-api` | REST/RPC conventies | Geen |
 
 ### Implementation Skills (8)
 
 | ID | Skill | Focus |
 |----|-------|-------|
-| IMP-CS | `erpnext-impl-clientscripts` | Form events, async calls |
-| IMP-SS | `erpnext-impl-serverscripts` | Doc events, API, scheduled |
-| IMP-CT | `erpnext-impl-controllers` | Lifecycle, method chaining |
-| IMP-HK | `erpnext-impl-hooks` | Event wiring, overrides, `extend_doctype_class` |
-| IMP-WL | `erpnext-impl-whitelisted` | Security, responses |
-| IMP-JJ | `erpnext-impl-jinja` | Print, email, web |
-| IMP-SC | `erpnext-impl-scheduler` | Jobs, queues, timeouts |
-| IMP-CA | `erpnext-impl-customapp` | Fixtures, migrations |
+| IMP-CS | `frappe-impl-clientscripts` | Form events, async calls |
+| IMP-SS | `frappe-impl-serverscripts` | Doc events, API, scheduled |
+| IMP-CT | `frappe-impl-controllers` | Lifecycle, method chaining |
+| IMP-HK | `frappe-impl-hooks` | Event wiring, overrides, `extend_doctype_class` |
+| IMP-WL | `frappe-impl-whitelisted` | Security, responses |
+| IMP-JJ | `frappe-impl-jinja` | Print, email, web |
+| IMP-SC | `frappe-impl-scheduler` | Jobs, queues, timeouts |
+| IMP-CA | `frappe-impl-customapp` | Fixtures, migrations |
 
 ### Error Handling Skills (7)
 
 | ID | Skill | Focus |
 |----|-------|-------|
-| ERR-CS | `erpnext-errors-clientscripts` | try/catch, user feedback |
-| ERR-SS | `erpnext-errors-serverscripts` | throw, log, rollback |
-| ERR-CT | `erpnext-errors-controllers` | Validation, transactions |
-| ERR-HK | `erpnext-errors-hooks` | Hook isolation |
-| ERR-DB | `erpnext-errors-database` | Query errors, deadlocks |
-| ERR-PM | `erpnext-errors-permissions` | Permission denied handling |
-| ERR-API | `erpnext-errors-api` | HTTP codes, responses |
+| ERR-CS | `frappe-errors-clientscripts` | try/catch, user feedback |
+| ERR-SS | `frappe-errors-serverscripts` | throw, log, rollback |
+| ERR-CT | `frappe-errors-controllers` | Validation, transactions |
+| ERR-HK | `frappe-errors-hooks` | Hook isolation |
+| ERR-DB | `frappe-errors-database` | Query errors, deadlocks |
+| ERR-PM | `frappe-errors-permissions` | Permission denied handling |
+| ERR-API | `frappe-errors-api` | HTTP codes, responses |
 
 ### Agents (2)
 
 | ID | Agent | Functie |
 |----|-------|---------|
-| AGT-INT | `erpnext-code-interpreter` | Vage input → technische specs |
-| AGT-VAL | `erpnext-code-validator` | Code verificatie tegen skills |
+| AGT-INT | `frappe-agent-interpreter` | Vage input → technische specs |
+| AGT-VAL | `frappe-agent-validator` | Code verificatie tegen skills |
 
 ---
 
@@ -267,33 +267,33 @@ def has_permission(doc, user, permission_type):
 
 | Stap | Skill | Status | Research Doc |
 |------|-------|--------|--------------|
-| 4.1 | erpnext-impl-clientscripts | ✅ | research-client-scripts.md |
-| 4.2 | erpnext-impl-serverscripts | ✅ | research-server-scripts.md |
-| 4.3 | erpnext-impl-controllers | ⏳ NEXT | research-document-controllers.md |
-| 4.4 | erpnext-impl-hooks | ⏳ | research-document-hooks.md |
-| 4.5 | erpnext-impl-whitelisted | ⏳ | research-whitelisted-methods.md |
-| 4.6 | erpnext-impl-jinja | ⏳ | research-jinja-templates.md |
-| 4.7 | erpnext-impl-scheduler | ⏳ | research-scheduler-background-jobs.md |
-| 4.8 | erpnext-impl-customapp | ⏳ | research-custom-app-structure.md |
+| 4.1 | frappe-impl-clientscripts | ✅ | research-client-scripts.md |
+| 4.2 | frappe-impl-serverscripts | ✅ | research-server-scripts.md |
+| 4.3 | frappe-impl-controllers | ⏳ NEXT | research-document-controllers.md |
+| 4.4 | frappe-impl-hooks | ⏳ | research-document-hooks.md |
+| 4.5 | frappe-impl-whitelisted | ⏳ | research-whitelisted-methods.md |
+| 4.6 | frappe-impl-jinja | ⏳ | research-jinja-templates.md |
+| 4.7 | frappe-impl-scheduler | ⏳ | research-scheduler-background-jobs.md |
+| 4.8 | frappe-impl-customapp | ⏳ | research-custom-app-structure.md |
 
 ### Fase 5: Error Handling Skills
 
 | Stap | Skill | Basis |
 |------|-------|-------|
-| 5.1 | erpnext-errors-clientscripts | syntax-clientscripts + impl-clientscripts |
-| 5.2 | erpnext-errors-serverscripts | syntax-serverscripts + impl-serverscripts |
-| 5.3 | erpnext-errors-controllers | syntax-controllers + impl-controllers |
-| 5.4 | erpnext-errors-hooks | syntax-hooks + impl-hooks |
-| 5.5 | erpnext-errors-database | core-database |
-| 5.6 | erpnext-errors-permissions | core-permissions |
-| 5.7 | erpnext-errors-api | core-api-patterns |
+| 5.1 | frappe-errors-clientscripts | syntax-clientscripts + impl-clientscripts |
+| 5.2 | frappe-errors-serverscripts | syntax-serverscripts + impl-serverscripts |
+| 5.3 | frappe-errors-controllers | syntax-controllers + impl-controllers |
+| 5.4 | frappe-errors-hooks | syntax-hooks + impl-hooks |
+| 5.5 | frappe-errors-database | core-database |
+| 5.6 | frappe-errors-permissions | core-permissions |
+| 5.7 | frappe-errors-api | core-api-patterns |
 
 ### Fase 6: Agents
 
 | Stap | Agent | Doel |
 |------|-------|------|
-| 6.1 | erpnext-code-interpreter | Vage requirements → technische specs |
-| 6.2 | erpnext-code-validator | Code validatie tegen alle skills |
+| 6.1 | frappe-agent-interpreter | Vage requirements → technische specs |
+| 6.2 | frappe-agent-validator | Code validatie tegen alle skills |
 
 ### Fase 7: Finalisatie
 

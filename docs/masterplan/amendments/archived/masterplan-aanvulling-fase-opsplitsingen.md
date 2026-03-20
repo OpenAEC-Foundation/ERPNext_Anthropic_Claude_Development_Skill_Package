@@ -70,14 +70,14 @@ Het masterplan groepeert 8 skills onder Ã©Ã©n fase met een template. Dit is 
 
 | Stap | Skill | Verwachte omvang |
 |------|-------|------------------|
-| 4.1 | erpnext-impl-clientscripts | 3 reference files |
-| 4.2 | erpnext-impl-serverscripts | 3 reference files |
-| 4.3 | erpnext-impl-controllers | 3 reference files |
-| 4.4 | erpnext-impl-hooks | 3 reference files |
-| 4.5 | erpnext-impl-whitelisted | 3 reference files |
-| 4.6 | erpnext-impl-jinja | 3 reference files |
-| 4.7 | erpnext-impl-scheduler | 3 reference files |
-| 4.8 | erpnext-impl-customapp | 3 reference files |
+| 4.1 | frappe-impl-clientscripts | 3 reference files |
+| 4.2 | frappe-impl-serverscripts | 3 reference files |
+| 4.3 | frappe-impl-controllers | 3 reference files |
+| 4.4 | frappe-impl-hooks | 3 reference files |
+| 4.5 | frappe-impl-whitelisted | 3 reference files |
+| 4.6 | frappe-impl-jinja | 3 reference files |
+| 4.7 | frappe-impl-scheduler | 3 reference files |
+| 4.8 | frappe-impl-customapp | 3 reference files |
 
 **Impact**: 8 aparte stappen in plaats van 1 gebundelde fase. Elk gesprek maakt 1 skill met NL + EN versies.
 
@@ -91,10 +91,10 @@ Zelfde situatie als Fase 4:
 
 | Stap | Skill | Verwachte omvang |
 |------|-------|------------------|
-| 5.1 | erpnext-errors-clientscripts | 3 reference files |
-| 5.2 | erpnext-errors-serverscripts | 3 reference files |
-| 5.3 | erpnext-errors-controllers | 3 reference files |
-| 5.4 | erpnext-errors-hooks | 3 reference files |
+| 5.1 | frappe-errors-clientscripts | 3 reference files |
+| 5.2 | frappe-errors-serverscripts | 3 reference files |
+| 5.3 | frappe-errors-controllers | 3 reference files |
+| 5.4 | frappe-errors-hooks | 3 reference files |
 | 5.5 | erpnext-errors-whitelisted | 3 reference files |
 | 5.6 | erpnext-errors-jinja | 3 reference files |
 | 5.7 | erpnext-errors-scheduler | 3 reference files |
@@ -152,7 +152,7 @@ Zelfde situatie als Fase 4:
 
 ## Voorgestelde Gedetailleerde Opsplitsing Fase 2.8
 
-### Stap 2.8.1: CreÃ«er erpnext-syntax-hooks - Event Hooks
+### Stap 2.8.1: CreÃ«er frappe-syntax-hooks - Event Hooks
 
 **Focus**: Hooks die reageren op events
 
@@ -168,7 +168,7 @@ Zelfde situatie als Fase 4:
 
 ---
 
-### Stap 2.8.2: CreÃ«er erpnext-syntax-hooks - Configuration Hooks
+### Stap 2.8.2: CreÃ«er frappe-syntax-hooks - Configuration Hooks
 
 **Focus**: Hooks voor configuratie en overrides
 
@@ -211,23 +211,23 @@ Zelfde situatie als Fase 4:
 
 | Nieuw | Skill |
 |-------|-------|
-| 4.1 | erpnext-impl-clientscripts |
-| 4.2 | erpnext-impl-serverscripts |
-| 4.3 | erpnext-impl-controllers |
-| 4.4 | erpnext-impl-hooks |
-| 4.5 | erpnext-impl-whitelisted |
-| 4.6 | erpnext-impl-jinja |
-| 4.7 | erpnext-impl-scheduler |
-| 4.8 | erpnext-impl-customapp |
+| 4.1 | frappe-impl-clientscripts |
+| 4.2 | frappe-impl-serverscripts |
+| 4.3 | frappe-impl-controllers |
+| 4.4 | frappe-impl-hooks |
+| 4.5 | frappe-impl-whitelisted |
+| 4.6 | frappe-impl-jinja |
+| 4.7 | frappe-impl-scheduler |
+| 4.8 | frappe-impl-customapp |
 
 ### Fase 5 (verduidelijking)
 
 | Nieuw | Skill |
 |-------|-------|
-| 5.1 | erpnext-errors-clientscripts |
-| 5.2 | erpnext-errors-serverscripts |
-| 5.3 | erpnext-errors-controllers |
-| 5.4 | erpnext-errors-hooks |
+| 5.1 | frappe-errors-clientscripts |
+| 5.2 | frappe-errors-serverscripts |
+| 5.3 | frappe-errors-controllers |
+| 5.4 | frappe-errors-hooks |
 | 5.5 | erpnext-errors-whitelisted |
 | 5.6 | erpnext-errors-jinja |
 | 5.7 | erpnext-errors-scheduler |

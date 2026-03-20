@@ -18,7 +18,7 @@
 
 ## Reden voor Opsplitsing
 
-De `erpnext-syntax-jinja` skill bevat uitgebreide content:
+De `frappe-syntax-jinja` skill bevat uitgebreide content:
 - **11 secties** in het research document (928 regels)
 - **8 reference bestanden** gepland
 - Logische scheiding mogelijk tussen "templating basics" en "custom uitbreidingen"
@@ -81,7 +81,7 @@ Focus op:
 
 ## Nieuwe Fase Definities
 
-### Stap 2.10.1: CreÃ«er erpnext-syntax-jinja - Core Templating
+### Stap 2.10.1: CreÃ«er frappe-syntax-jinja - Core Templating
 
 **Onderzoeksonderwerpen uit research document**:
 1. BESCHIKBARE OBJECTEN IN JINJA CONTEXT - doc, frappe, session
@@ -98,7 +98,7 @@ Focus op:
 
 ---
 
-### Stap 2.10.2: CreÃ«er erpnext-syntax-jinja - Advanced & Custom
+### Stap 2.10.2: CreÃ«er frappe-syntax-jinja - Advanced & Custom
 
 **Onderzoeksonderwerpen uit research document**:
 5. PORTAL PAGES - www templates, Python controllers, routing
@@ -118,15 +118,15 @@ Focus op:
 
 ## Aangepaste Prompts
 
-### PROMPT FASE 2.10.1 - CREÃ‹ER SKILL: erpnext-syntax-jinja (CORE)
+### PROMPT FASE 2.10.1 - CREÃ‹ER SKILL: frappe-syntax-jinja (CORE)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.10.1 - CREÃ‹ER SKILL: erpnext-syntax-jinja (A)        â”‚
+â”‚ PROMPT FASE 2.10.1 - CREÃ‹ER SKILL: frappe-syntax-jinja (A)        â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-jinja-templates.md SECTIES 1-4 en 7 om het        â”‚
-â”‚ EERSTE DEEL van de 'erpnext-syntax-jinja' skill te maken.          â”‚
+â”‚ EERSTE DEEL van de 'frappe-syntax-jinja' skill te maken.          â”‚
 â”‚                                                                     â”‚
 â”‚ VEREISTEN:                                                          â”‚
 â”‚ 1. Volg exact de Anthropic skill-creator richtlijnen               â”‚
@@ -159,15 +159,15 @@ Focus op:
 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-### PROMPT FASE 2.10.2 - CREÃ‹ER SKILL: erpnext-syntax-jinja (ADVANCED)
+### PROMPT FASE 2.10.2 - CREÃ‹ER SKILL: frappe-syntax-jinja (ADVANCED)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.10.2 - CREÃ‹ER SKILL: erpnext-syntax-jinja (B)        â”‚
+â”‚ PROMPT FASE 2.10.2 - CREÃ‹ER SKILL: frappe-syntax-jinja (B)        â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-jinja-templates.md SECTIES 5-6 en 8-11 om het     â”‚
-â”‚ TWEEDE DEEL van de 'erpnext-syntax-jinja' skill te maken.          â”‚
+â”‚ TWEEDE DEEL van de 'frappe-syntax-jinja' skill te maken.          â”‚
 â”‚                                                                     â”‚
 â”‚ VOORWAARDE: Deel A (2.10.1) is compleet.                           â”‚
 â”‚                                                                     â”‚
@@ -247,7 +247,7 @@ Focus op:
 
 ## Reden voor Opsplitsing
 
-De `erpnext-syntax-scheduler` skill bevat uitgebreide content:
+De `frappe-syntax-scheduler` skill bevat uitgebreide content:
 - **12 secties** in het research document (751 regels)
 - **7 reference bestanden** gepland
 - Logische scheiding mogelijk tussen "scheduler events" en "background jobs"
@@ -310,7 +310,7 @@ Focus op:
 
 ## Nieuwe Fase Definities
 
-### Stap 2.11.1: CreÃ«er erpnext-syntax-scheduler - Basics
+### Stap 2.11.1: CreÃ«er frappe-syntax-scheduler - Basics
 
 **Onderzoeksonderwerpen uit research document**:
 1. SCHEDULER_EVENTS - all, hourly, daily, cron syntax
@@ -326,7 +326,7 @@ Focus op:
 
 ---
 
-### Stap 2.11.2: CreÃ«er erpnext-syntax-scheduler - Advanced
+### Stap 2.11.2: CreÃ«er frappe-syntax-scheduler - Advanced
 
 **Onderzoeksonderwerpen uit research document**:
 5. JOB DEDUPLICATIE - job_id, is_job_enqueued()
@@ -347,15 +347,15 @@ Focus op:
 
 ## Aangepaste Prompts
 
-### PROMPT FASE 2.11.1 - CREÃ‹ER SKILL: erpnext-syntax-scheduler (BASICS)
+### PROMPT FASE 2.11.1 - CREÃ‹ER SKILL: frappe-syntax-scheduler (BASICS)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.11.1 - CREÃ‹ER SKILL: erpnext-syntax-scheduler (A)    â”‚
+â”‚ PROMPT FASE 2.11.1 - CREÃ‹ER SKILL: frappe-syntax-scheduler (A)    â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-scheduler-background-jobs.md SECTIES 1-4 en 9 om  â”‚
-â”‚ het EERSTE DEEL van de 'erpnext-syntax-scheduler' skill te maken.  â”‚
+â”‚ het EERSTE DEEL van de 'frappe-syntax-scheduler' skill te maken.  â”‚
 â”‚                                                                     â”‚
 â”‚ VEREISTEN:                                                          â”‚
 â”‚ 1. Volg exact de Anthropic skill-creator richtlijnen               â”‚
@@ -387,15 +387,15 @@ Focus op:
 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-### PROMPT FASE 2.11.2 - CREÃ‹ER SKILL: erpnext-syntax-scheduler (ADVANCED)
+### PROMPT FASE 2.11.2 - CREÃ‹ER SKILL: frappe-syntax-scheduler (ADVANCED)
 
 ```
 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚ PROMPT FASE 2.11.2 - CREÃ‹ER SKILL: erpnext-syntax-scheduler (B)    â”‚
+â”‚ PROMPT FASE 2.11.2 - CREÃ‹ER SKILL: frappe-syntax-scheduler (B)    â”‚
 â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
 â”‚                                                                     â”‚
 â”‚ Gebruik research-scheduler-background-jobs.md SECTIES 5-8, 10-12   â”‚
-â”‚ om het TWEEDE DEEL van de 'erpnext-syntax-scheduler' skill te      â”‚
+â”‚ om het TWEEDE DEEL van de 'frappe-syntax-scheduler' skill te      â”‚
 â”‚ maken.                                                              â”‚
 â”‚                                                                     â”‚
 â”‚ VOORWAARDE: Deel A (2.11.1) is compleet.                           â”‚

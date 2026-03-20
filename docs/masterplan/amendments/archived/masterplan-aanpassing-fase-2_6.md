@@ -7,7 +7,7 @@
 
 ## Reden voor Opsplitsing
 
-De `erpnext-syntax-customapp` skill is de grootste syntax skill in het project:
+De `frappe-syntax-customapp` skill is de grootste syntax skill in het project:
 - **8 reference bestanden** gepland (vs 4-5 voor andere skills)
 - **16 secties** in het research document
 - Te veel content voor één gesprek/sessie
@@ -19,8 +19,8 @@ De `erpnext-syntax-customapp` skill is de grootste syntax skill in het project:
 | Stap 2.6: Research Custom App | Stap 2.6.1: Research Custom App - Deel A |
 | - | Stap 2.6.2: Research Custom App - Deel B |
 | Stap 2.7-2.12: Creëer Skills | Stap 2.7-2.11: Creëer Skills (5 skills) |
-| - | Stap 2.12.1: Creëer erpnext-syntax-customapp Deel A |
-| - | Stap 2.12.2: Creëer erpnext-syntax-customapp Deel B |
+| - | Stap 2.12.1: Creëer frappe-syntax-customapp Deel A |
+| - | Stap 2.12.2: Creëer frappe-syntax-customapp Deel B |
 
 ---
 
@@ -168,21 +168,21 @@ De `erpnext-syntax-customapp` skill is de grootste syntax skill in het project:
 ### Stap 2.7-2.11: Creëer Skills (5 van 6)
 
 Ongewijzigd voor:
-- 2.7: erpnext-syntax-controllers
-- 2.8: erpnext-syntax-hooks
-- 2.9: erpnext-syntax-whitelisted
-- 2.10: erpnext-syntax-jinja
-- 2.11: erpnext-syntax-scheduler
+- 2.7: frappe-syntax-controllers
+- 2.8: frappe-syntax-hooks
+- 2.9: frappe-syntax-whitelisted
+- 2.10: frappe-syntax-jinja
+- 2.11: frappe-syntax-scheduler
 
-### Stap 2.12.1: Creëer erpnext-syntax-customapp Deel A
+### Stap 2.12.1: Creëer frappe-syntax-customapp Deel A
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 2.12.1 - CREËER SKILL: erpnext-syntax-customapp (A)    │
+│ PROMPT FASE 2.12.1 - CREËER SKILL: frappe-syntax-customapp (A)    │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │ Gebruik research document uit Fase 2.6.1 om het EERSTE DEEL        │
-│ van de 'erpnext-syntax-customapp' skill te maken.                  │
+│ van de 'frappe-syntax-customapp' skill te maken.                  │
 │                                                                     │
 │ VEREISTEN:                                                          │
 │ 1. Volg exact de Anthropic skill-creator richtlijnen               │
@@ -205,15 +205,15 @@ Ongewijzigd voor:
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-### Stap 2.12.2: Creëer erpnext-syntax-customapp Deel B
+### Stap 2.12.2: Creëer frappe-syntax-customapp Deel B
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│ PROMPT FASE 2.12.2 - CREËER SKILL: erpnext-syntax-customapp (B)    │
+│ PROMPT FASE 2.12.2 - CREËER SKILL: frappe-syntax-customapp (B)    │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │ Gebruik research document uit Fase 2.6.2 om het TWEEDE DEEL        │
-│ van de 'erpnext-syntax-customapp' skill te maken.                  │
+│ van de 'frappe-syntax-customapp' skill te maken.                  │
 │                                                                     │
 │ VOORWAARDE: Deel A (2.12.1) is compleet.                           │
 │                                                                     │
@@ -277,7 +277,7 @@ Hoewel de delen op elkaar voortbouwen, zijn ze **zelfstandig uitvoerbaar**:
 - Fase 2.12.2 vereist wel 2.12.1 (skill bestanden moeten samengevoegd worden)
 
 Als alternatief kan 2.12 ook als **twee aparte skills** worden behandeld:
-- `erpnext-syntax-customapp-structure`
-- `erpnext-syntax-customapp-data`
+- `frappe-syntax-customapp-structure`
+- `frappe-syntax-customapp-data`
 
 Dit zou echter afwijken van het oorspronkelijke ontwerp (1 skill per mechanisme).

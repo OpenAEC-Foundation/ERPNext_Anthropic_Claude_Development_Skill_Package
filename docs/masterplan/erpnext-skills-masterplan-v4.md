@@ -213,7 +213,7 @@ Een complete, modulaire verzameling van **28 deterministische skills** die Claud
 | syntax-customapp | v16 niet in frontmatter | Frontmatter update |
 | impl-clientscripts | v16 niet in version statement | Version update |
 | impl-serverscripts | v16 niet in version statement | Version update |
-| erpnext-api-patterns | Geen versie info | Frontmatter toevoegen |
+| frappe-core-api | Geen versie info | Frontmatter toevoegen |
 
 **Workflow per skill**:
 
@@ -665,7 +665,7 @@ TE REVIEWEN:
 | V16 Feature | Relevante Skills | Status |
 |-------------|------------------|:------:|
 | `extend_doctype_class` | syntax-hooks, impl-hooks | ✅ |
-| Data Masking | erpnext-permissions | ✅ |
+| Data Masking | frappe-core-permissions | ✅ |
 | UUID Naming | syntax-controllers | ✅ |
 | Chrome PDF | syntax-jinja, impl-jinja | ⚠️ Alleen impl |
 | Scheduler 60s tick | syntax-scheduler, impl-scheduler | ✅ |
@@ -690,9 +690,9 @@ TE REVIEWEN:
 | impl-customapp | ✅ | N.v.t. |
 | impl-clientscripts | ⚠️ | N.v.t. |
 | impl-serverscripts | ⚠️ | N.v.t. |
-| erpnext-database | ✅ | N.v.t. |
-| erpnext-permissions | ✅ | ✅ |
-| erpnext-api-patterns | ❌ | N.v.t. |
+| frappe-core-database | ✅ | N.v.t. |
+| frappe-core-permissions | ✅ | ✅ |
+| frappe-core-api | ❌ | N.v.t. |
 | errors-* (7) | ✅ | N.v.t. |
 | agents (2) | N.v.t. | N.v.t. |
 

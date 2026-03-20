@@ -26,7 +26,7 @@ De directorystructuur gebruikt `skills/source/` terwijl het Blender package `ski
 **Huidige stijl (minimaal):**
 ```yaml
 ---
-name: erpnext-syntax-serverscripts
+name: frappe-syntax-serverscripts
 description: Complete syntax reference for Frappe Server Scripts...
 ---
 ```
@@ -34,7 +34,7 @@ description: Complete syntax reference for Frappe Server Scripts...
 **Aanbevolen stijl (volledig + trigger-geoptimaliseerd):**
 ```yaml
 ---
-name: erpnext-syntax-serverscripts
+name: frappe-syntax-serverscripts
 description: >
   Use when writing Python code for ERPNext/Frappe Server Scripts including
   Document Events, API endpoints, Scheduler Events, and Permission Queries.

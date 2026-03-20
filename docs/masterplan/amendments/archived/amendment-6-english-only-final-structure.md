@@ -53,48 +53,48 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
     ├── source/                  # Bronbestanden (Anthropic-conform)
     │   │
     │   ├── syntax/              # 8 skills
-    │   │   ├── erpnext-syntax-clientscripts/
+    │   │   ├── frappe-syntax-clientscripts/
     │   │   │   ├── SKILL.md
     │   │   │   └── references/
-    │   │   ├── erpnext-syntax-serverscripts/
-    │   │   ├── erpnext-syntax-controllers/
-    │   │   ├── erpnext-syntax-hooks/
-    │   │   ├── erpnext-syntax-whitelisted/
-    │   │   ├── erpnext-syntax-jinja/
-    │   │   ├── erpnext-syntax-scheduler/
-    │   │   └── erpnext-syntax-customapp/
+    │   │   ├── frappe-syntax-serverscripts/
+    │   │   ├── frappe-syntax-controllers/
+    │   │   ├── frappe-syntax-hooks/
+    │   │   ├── frappe-syntax-whitelisted/
+    │   │   ├── frappe-syntax-jinja/
+    │   │   ├── frappe-syntax-scheduler/
+    │   │   └── frappe-syntax-customapp/
     │   │
     │   ├── core/                # 3 skills
-    │   │   ├── erpnext-database/
-    │   │   ├── erpnext-permissions/
-    │   │   └── erpnext-api-patterns/
+    │   │   ├── frappe-core-database/
+    │   │   ├── frappe-core-permissions/
+    │   │   └── frappe-core-api/
     │   │
     │   ├── impl/                # 8 skills
-    │   │   ├── erpnext-impl-clientscripts/
-    │   │   ├── erpnext-impl-serverscripts/
-    │   │   ├── erpnext-impl-controllers/
-    │   │   ├── erpnext-impl-hooks/
-    │   │   ├── erpnext-impl-whitelisted/
-    │   │   ├── erpnext-impl-jinja/
-    │   │   ├── erpnext-impl-scheduler/
-    │   │   └── erpnext-impl-customapp/
+    │   │   ├── frappe-impl-clientscripts/
+    │   │   ├── frappe-impl-serverscripts/
+    │   │   ├── frappe-impl-controllers/
+    │   │   ├── frappe-impl-hooks/
+    │   │   ├── frappe-impl-whitelisted/
+    │   │   ├── frappe-impl-jinja/
+    │   │   ├── frappe-impl-scheduler/
+    │   │   └── frappe-impl-customapp/
     │   │
     │   ├── errors/              # 7 skills
-    │   │   ├── erpnext-errors-clientscripts/
-    │   │   ├── erpnext-errors-serverscripts/
-    │   │   ├── erpnext-errors-controllers/
-    │   │   ├── erpnext-errors-hooks/
-    │   │   ├── erpnext-errors-database/
-    │   │   ├── erpnext-errors-permissions/
-    │   │   └── erpnext-errors-api/
+    │   │   ├── frappe-errors-clientscripts/
+    │   │   ├── frappe-errors-serverscripts/
+    │   │   ├── frappe-errors-controllers/
+    │   │   ├── frappe-errors-hooks/
+    │   │   ├── frappe-errors-database/
+    │   │   ├── frappe-errors-permissions/
+    │   │   └── frappe-errors-api/
     │   │
     │   └── agents/              # 2 agents
-    │       ├── erpnext-code-interpreter/
-    │       └── erpnext-code-validator/
+    │       ├── frappe-agent-interpreter/
+    │       └── frappe-agent-validator/
     │
     └── packaged/                # .skill files voor distributie
-        ├── erpnext-syntax-clientscripts.skill
-        ├── erpnext-syntax-serverscripts.skill
+        ├── frappe-syntax-clientscripts.skill
+        ├── frappe-syntax-serverscripts.skill
         └── ... (28 .skill files totaal)
 ```
 
@@ -104,9 +104,9 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 
 | Aspect | Conventie | Voorbeeld |
 |--------|-----------|-----------|
-| Folder naam | `erpnext-{type}-{name}` | `erpnext-syntax-clientscripts` |
-| SKILL.md locatie | Direct in folder root | `erpnext-syntax-clientscripts/SKILL.md` |
-| Package naam | Folder naam + `.skill` | `erpnext-syntax-clientscripts.skill` |
+| Folder naam | `erpnext-{type}-{name}` | `frappe-syntax-clientscripts` |
+| SKILL.md locatie | Direct in folder root | `frappe-syntax-clientscripts/SKILL.md` |
+| Package naam | Folder naam + `.skill` | `frappe-syntax-clientscripts.skill` |
 | References | In `references/` subfolder | `references/methods.md` |
 
 **Geen taal suffix meer** - alles is Engels.
@@ -120,26 +120,26 @@ ERPNext_Anthropic_Claude_Development_Skill_Package/
 **Syntax Skills (8):**
 | Skill | Huidige Locatie | Nieuwe Locatie |
 |-------|-----------------|----------------|
-| clientscripts | `skills/source/erpnext-syntax-clientscripts/EN/` | `skills/source/syntax/erpnext-syntax-clientscripts/` |
-| serverscripts | `skills/source/erpnext-syntax-serverscripts/EN/` | `skills/source/syntax/erpnext-syntax-serverscripts/` |
-| controllers | `skills/source/erpnext-syntax-controllers/EN/` | `skills/source/syntax/erpnext-syntax-controllers/` |
-| hooks | `skills/source/erpnext-syntax-hooks/EN/` | `skills/source/syntax/erpnext-syntax-hooks/` |
-| whitelisted | `skills/source/erpnext-syntax-whitelisted/EN/` | `skills/source/syntax/erpnext-syntax-whitelisted/` |
-| jinja | `skills/source/.../EN/` | `skills/source/syntax/erpnext-syntax-jinja/` |
-| scheduler | `skills/source/.../EN/` | `skills/source/syntax/erpnext-syntax-scheduler/` |
-| customapp | `skills/source/.../EN/` | `skills/source/syntax/erpnext-syntax-customapp/` |
+| clientscripts | `skills/source/frappe-syntax-clientscripts/EN/` | `skills/source/syntax/frappe-syntax-clientscripts/` |
+| serverscripts | `skills/source/frappe-syntax-serverscripts/EN/` | `skills/source/syntax/frappe-syntax-serverscripts/` |
+| controllers | `skills/source/frappe-syntax-controllers/EN/` | `skills/source/syntax/frappe-syntax-controllers/` |
+| hooks | `skills/source/frappe-syntax-hooks/EN/` | `skills/source/syntax/frappe-syntax-hooks/` |
+| whitelisted | `skills/source/frappe-syntax-whitelisted/EN/` | `skills/source/syntax/frappe-syntax-whitelisted/` |
+| jinja | `skills/source/.../EN/` | `skills/source/syntax/frappe-syntax-jinja/` |
+| scheduler | `skills/source/.../EN/` | `skills/source/syntax/frappe-syntax-scheduler/` |
+| customapp | `skills/source/.../EN/` | `skills/source/syntax/frappe-syntax-customapp/` |
 
 **Core Skills (3):**
 | Skill | Huidige Locatie | Nieuwe Locatie |
 |-------|-----------------|----------------|
-| database | `skills/EN/CORE/erpnext-database/` | `skills/source/core/erpnext-database/` |
-| permissions | `skills/.../EN/` | `skills/source/core/erpnext-permissions/` |
-| api-patterns | `skills/EN/CORE/erpnext-api-patterns/` | `skills/source/core/erpnext-api-patterns/` |
+| database | `skills/EN/CORE/frappe-core-database/` | `skills/source/core/frappe-core-database/` |
+| permissions | `skills/.../EN/` | `skills/source/core/frappe-core-permissions/` |
+| api-patterns | `skills/EN/CORE/frappe-core-api/` | `skills/source/core/frappe-core-api/` |
 
 **Impl Skills (1):**
 | Skill | Huidige Locatie | Nieuwe Locatie |
 |-------|-----------------|----------------|
-| impl-clientscripts | `skills/source/erpnext-impl-clientscripts/EN/` | `skills/source/impl/erpnext-impl-clientscripts/` |
+| impl-clientscripts | `skills/source/frappe-impl-clientscripts/EN/` | `skills/source/impl/frappe-impl-clientscripts/` |
 
 **Research (13) - blijft op huidige locatie:**
 `docs/research/research-*.md` - geen wijziging nodig
@@ -238,32 +238,32 @@ Na migratie starten we effectief op ~43% met een schone structuur.
 
 | Stap | Skill | Vereist |
 |------|-------|---------|
-| 4.2 | erpnext-impl-serverscripts | research-server-scripts.md |
-| 4.3 | erpnext-impl-controllers | research-document-controllers.md |
-| 4.4 | erpnext-impl-hooks | research-document-hooks.md |
-| 4.5 | erpnext-impl-whitelisted | research-whitelisted-methods.md |
-| 4.6 | erpnext-impl-jinja | research-jinja-templates.md |
-| 4.7 | erpnext-impl-scheduler | research-scheduler-background-jobs.md |
-| 4.8 | erpnext-impl-customapp | research-custom-app-structure.md |
+| 4.2 | frappe-impl-serverscripts | research-server-scripts.md |
+| 4.3 | frappe-impl-controllers | research-document-controllers.md |
+| 4.4 | frappe-impl-hooks | research-document-hooks.md |
+| 4.5 | frappe-impl-whitelisted | research-whitelisted-methods.md |
+| 4.6 | frappe-impl-jinja | research-jinja-templates.md |
+| 4.7 | frappe-impl-scheduler | research-scheduler-background-jobs.md |
+| 4.8 | frappe-impl-customapp | research-custom-app-structure.md |
 
 ### Fase 5: Error Handling Skills (7 new)
 
 | Stap | Skill |
 |------|-------|
-| 5.1 | erpnext-errors-clientscripts |
-| 5.2 | erpnext-errors-serverscripts |
-| 5.3 | erpnext-errors-controllers |
-| 5.4 | erpnext-errors-hooks |
-| 5.5 | erpnext-errors-database |
-| 5.6 | erpnext-errors-permissions |
-| 5.7 | erpnext-errors-api |
+| 5.1 | frappe-errors-clientscripts |
+| 5.2 | frappe-errors-serverscripts |
+| 5.3 | frappe-errors-controllers |
+| 5.4 | frappe-errors-hooks |
+| 5.5 | frappe-errors-database |
+| 5.6 | frappe-errors-permissions |
+| 5.7 | frappe-errors-api |
 
 ### Fase 6: Agents (2 new)
 
 | Stap | Agent |
 |------|-------|
-| 6.1 | erpnext-code-interpreter |
-| 6.2 | erpnext-code-validator |
+| 6.1 | frappe-agent-interpreter |
+| 6.2 | frappe-agent-validator |
 
 ### Fase 7: Finalisatie
 

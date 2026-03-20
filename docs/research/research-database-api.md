@@ -2,7 +2,7 @@
 
 > **Fase**: 3.1  
 > **Datum**: 2026-01-17  
-> **Doel**: Uitgebreide documentatie van Frappe Database API voor erpnext-database skill  
+> **Doel**: Uitgebreide documentatie van Frappe Database API voor frappe-core-database skill  
 > **Bronnen**: Officiële Frappe Framework documentatie (frappeframework.com)
 
 ---

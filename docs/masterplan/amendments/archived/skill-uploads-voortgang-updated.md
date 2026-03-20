@@ -8,10 +8,10 @@
 
 | Skill | NL | EN | Status |
 |-------|----|----|--------|
-| erpnext-syntax-clientscripts | ✅ | ✅ | Compleet |
-| erpnext-syntax-serverscripts | ✅ | ✅ | Compleet |
-| erpnext-syntax-hooks | ✅ | ✅ | Compleet |
-| erpnext-syntax-whitelisted | ✅ | ✅ | **Compleet (fase 2.9.1 + 2.9.2)** |
+| frappe-syntax-clientscripts | ✅ | ✅ | Compleet |
+| frappe-syntax-serverscripts | ✅ | ✅ | Compleet |
+| frappe-syntax-hooks | ✅ | ✅ | Compleet |
+| frappe-syntax-whitelisted | ✅ | ✅ | **Compleet (fase 2.9.1 + 2.9.2)** |
 
 ---
 
@@ -26,7 +26,7 @@
 | 2.10 | Jinja Templates | ✗ Geen | ⏳ Volgende |
 | 2.11 | Scheduler/Background Jobs | ✗ Geen | ⏳ |
 | 2.12.1 | Custom App (Setup) | ✗ Geen | ⏳ |
-| 2.12.2 | Custom App (Data) | 📎 `erpnext-syntax-customapp` (van 2.12.1) | ⏳ |
+| 2.12.2 | Custom App (Data) | 📎 `frappe-syntax-customapp` (van 2.12.1) | ⏳ |
 
 ### Fase 3: Core Skills
 
@@ -40,26 +40,26 @@
 
 | Fase | Skill | Upload Vereist |
 |------|-------|----------------|
-| 4.1 | impl-clientscripts | 📎 `erpnext-syntax-clientscripts` |
-| 4.2 | impl-serverscripts | 📎 `erpnext-syntax-serverscripts` |
-| 4.3 | impl-controllers | 📎 `erpnext-syntax-controllers` |
-| 4.4 | impl-hooks | 📎 `erpnext-syntax-hooks` |
-| 4.5 | impl-whitelisted | 📎 `erpnext-syntax-whitelisted` |
-| 4.6 | impl-jinja | 📎 `erpnext-syntax-jinja` |
-| 4.7 | impl-scheduler | 📎 `erpnext-syntax-scheduler` |
-| 4.8 | impl-customapp | 📎 `erpnext-syntax-customapp` |
+| 4.1 | impl-clientscripts | 📎 `frappe-syntax-clientscripts` |
+| 4.2 | impl-serverscripts | 📎 `frappe-syntax-serverscripts` |
+| 4.3 | impl-controllers | 📎 `frappe-syntax-controllers` |
+| 4.4 | impl-hooks | 📎 `frappe-syntax-hooks` |
+| 4.5 | impl-whitelisted | 📎 `frappe-syntax-whitelisted` |
+| 4.6 | impl-jinja | 📎 `frappe-syntax-jinja` |
+| 4.7 | impl-scheduler | 📎 `frappe-syntax-scheduler` |
+| 4.8 | impl-customapp | 📎 `frappe-syntax-customapp` |
 
 ### Fase 5: Error Handling Skills (elk 1 upload)
 
 | Fase | Skill | Upload Vereist |
 |------|-------|----------------|
-| 5.1 | errors-clientscripts | 📎 `erpnext-syntax-clientscripts` |
-| 5.2 | errors-serverscripts | 📎 `erpnext-syntax-serverscripts` |
-| 5.3 | errors-controllers | 📎 `erpnext-syntax-controllers` |
-| 5.4 | errors-hooks | 📎 `erpnext-syntax-hooks` |
-| 5.5 | errors-whitelisted | 📎 `erpnext-syntax-whitelisted` |
-| 5.6 | errors-jinja | 📎 `erpnext-syntax-jinja` |
-| 5.7 | errors-scheduler | 📎 `erpnext-syntax-scheduler` |
+| 5.1 | errors-clientscripts | 📎 `frappe-syntax-clientscripts` |
+| 5.2 | errors-serverscripts | 📎 `frappe-syntax-serverscripts` |
+| 5.3 | errors-controllers | 📎 `frappe-syntax-controllers` |
+| 5.4 | errors-hooks | 📎 `frappe-syntax-hooks` |
+| 5.5 | errors-whitelisted | 📎 `frappe-syntax-whitelisted` |
+| 5.6 | errors-jinja | 📎 `frappe-syntax-jinja` |
+| 5.7 | errors-scheduler | 📎 `frappe-syntax-scheduler` |
 
 ### Fase 6: Intelligent Agents
 
@@ -96,10 +96,10 @@ Fase 7                    → Alle (~28)
 
 | Skill | Research | Status |
 |-------|----------|--------|
-| erpnext-syntax-jinja | ✅ research-jinja-templates.md | 📜 Fase 2.10 (volgende) |
-| erpnext-syntax-scheduler | ✅ research-scheduler-background-jobs.md | ⏳ Fase 2.11 |
-| erpnext-syntax-controllers | ✅ research-document-controllers.md | ⏳ Fase 2.7* |
-| erpnext-syntax-customapp | ✅ research-customapp-*.md | ⏳ Fase 2.12 |
+| frappe-syntax-jinja | ✅ research-jinja-templates.md | 📜 Fase 2.10 (volgende) |
+| frappe-syntax-scheduler | ✅ research-scheduler-background-jobs.md | ⏳ Fase 2.11 |
+| frappe-syntax-controllers | ✅ research-document-controllers.md | ⏳ Fase 2.7* |
+| frappe-syntax-customapp | ✅ research-customapp-*.md | ⏳ Fase 2.12 |
 
 *\* Controllers skill lijkt nog niet gemaakt - verifiëren!*
 
@@ -119,14 +119,14 @@ Voltooide research documenten:
 - [x] research-customapp-datamanagement.md
 
 Voltooide skills (packages):
-- [x] erpnext-syntax-clientscripts (NL + EN)
-- [x] erpnext-syntax-serverscripts (NL + EN)
-- [x] erpnext-syntax-hooks (NL + EN)
-- [x] **erpnext-syntax-whitelisted (NL + EN)** ← NIEUW
-- [ ] erpnext-syntax-controllers ❓
-- [ ] erpnext-syntax-jinja
-- [ ] erpnext-syntax-scheduler
-- [ ] erpnext-syntax-customapp
+- [x] frappe-syntax-clientscripts (NL + EN)
+- [x] frappe-syntax-serverscripts (NL + EN)
+- [x] frappe-syntax-hooks (NL + EN)
+- [x] **frappe-syntax-whitelisted (NL + EN)** ← NIEUW
+- [ ] frappe-syntax-controllers ❓
+- [ ] frappe-syntax-jinja
+- [ ] frappe-syntax-scheduler
+- [ ] frappe-syntax-customapp
 
 ---
 
@@ -145,10 +145,10 @@ Mogelijke verklaringen:
 
 ## 📦 Fase 2.9 Deliverables
 
-**erpnext-syntax-whitelisted-nl.skill** (28 KB)
+**frappe-syntax-whitelisted-nl.skill** (28 KB)
 - SKILL.md (337 regels)
 - 8 reference files: decorator-options, parameter-handling, response-patterns, client-calls, permission-patterns, error-handling, examples, anti-patterns
 
-**erpnext-syntax-whitelisted-en.skill** (27 KB)
+**frappe-syntax-whitelisted-en.skill** (27 KB)
 - SKILL.md (337 regels)  
 - 8 reference files (zelfde structuur als NL)

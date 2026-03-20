@@ -1,6 +1,6 @@
 # Research Document: ERPNext API Patterns
 > **Fase**: 3.3  
-> **Skill**: erpnext-api-patterns  
+> **Skill**: frappe-core-api  
 > **Datum**: 2026-01-17  
 > **Bronnen**: docs.frappe.io (REST API, Authentication, Webhooks, Rate Limiting)
 

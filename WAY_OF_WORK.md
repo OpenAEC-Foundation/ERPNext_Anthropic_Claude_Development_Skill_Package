@@ -300,7 +300,7 @@ Ensure quality and preserve all work in version control.
 Phase [number]: [action] [subject]
 
 Examples:
-- Phase 4.3: Add erpnext-impl-controllers skill
+- Phase 4.3: Add frappe-impl-controllers skill
 - Phase 2.8.1: Add hooks event documentation
 - Phase 1.2: Complete server scripts research
 ```
@@ -350,7 +350,7 @@ project-root/
 | Type | Pattern | Example |
 |------|---------|---------|
 | Research | `research-[topic].md` | `research-client-scripts.md` |
-| Skill | `erpnext-syntax-[topic]-[lang].skill` | `erpnext-syntax-hooks-NL.skill` |
+| Skill | `erpnext-syntax-[topic]-[lang].skill` | `frappe-syntax-hooks-NL.skill` |
 | Amendment | `masterplan-aanpassing-fase-[x].md` | `masterplan-aanpassing-fase-2_6.md` |
 
 ---

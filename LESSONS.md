@@ -198,7 +198,7 @@ curl -X PUT ... -d '{"message":"...","content":"...","sha":"'$SHA'"}'
 Fase [nummer]: [actie] [onderwerp]
 
 Voorbeelden:
-- Fase 2.5: Add erpnext-syntax-hooks skill
+- Fase 2.5: Add frappe-syntax-hooks skill
 - Cleanup: Remove old NL/EN structure
 - Fix: Correct SKILL.md frontmatter
 ```

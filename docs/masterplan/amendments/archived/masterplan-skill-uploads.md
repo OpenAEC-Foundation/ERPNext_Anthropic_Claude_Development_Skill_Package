@@ -35,12 +35,12 @@
 | 2.7.1 | CreÃ«er controllers skill (Basics) | âœ“ Geen |
 | 2.7.2 | CreÃ«er controllers skill (Patterns) | âœ“ Geen |
 | 2.8.1 | CreÃ«er hooks skill (Events) | âœ“ Geen |
-| 2.8.2 | CreÃ«er hooks skill (Config) | ðŸ“Ž `erpnext-syntax-hooks.skill` (van 2.8.1) |
+| 2.8.2 | CreÃ«er hooks skill (Config) | ðŸ“Ž `frappe-syntax-hooks.skill` (van 2.8.1) |
 | 2.9 | CreÃ«er whitelisted skill | âœ“ Geen |
 | 2.10 | CreÃ«er jinja skill | âœ“ Geen |
 | 2.11 | CreÃ«er scheduler skill | âœ“ Geen |
 | 2.12.1 | CreÃ«er customapp skill (Basis) | âœ“ Geen |
-| 2.12.2 | CreÃ«er customapp skill (Data) | ðŸ“Ž `erpnext-syntax-customapp.skill` (van 2.12.1) |
+| 2.12.2 | CreÃ«er customapp skill (Data) | ðŸ“Ž `frappe-syntax-customapp.skill` (van 2.12.1) |
 
 ---
 
@@ -60,14 +60,14 @@
 
 | Fase | Beschrijving | Uploads |
 |------|--------------|---------|
-| 4.1 | CreÃ«er impl-clientscripts | ðŸ“Ž `erpnext-syntax-clientscripts.skill` |
-| 4.2 | CreÃ«er impl-serverscripts | ðŸ“Ž `erpnext-syntax-serverscripts.skill` |
-| 4.3 | CreÃ«er impl-controllers | ðŸ“Ž `erpnext-syntax-controllers.skill` |
-| 4.4 | CreÃ«er impl-hooks | ðŸ“Ž `erpnext-syntax-hooks.skill` |
-| 4.5 | CreÃ«er impl-whitelisted | ðŸ“Ž `erpnext-syntax-whitelisted.skill` |
-| 4.6 | CreÃ«er impl-jinja | ðŸ“Ž `erpnext-syntax-jinja.skill` |
-| 4.7 | CreÃ«er impl-scheduler | ðŸ“Ž `erpnext-syntax-scheduler.skill` |
-| 4.8 | CreÃ«er impl-customapp | ðŸ“Ž `erpnext-syntax-customapp.skill` |
+| 4.1 | CreÃ«er impl-clientscripts | ðŸ“Ž `frappe-syntax-clientscripts.skill` |
+| 4.2 | CreÃ«er impl-serverscripts | ðŸ“Ž `frappe-syntax-serverscripts.skill` |
+| 4.3 | CreÃ«er impl-controllers | ðŸ“Ž `frappe-syntax-controllers.skill` |
+| 4.4 | CreÃ«er impl-hooks | ðŸ“Ž `frappe-syntax-hooks.skill` |
+| 4.5 | CreÃ«er impl-whitelisted | ðŸ“Ž `frappe-syntax-whitelisted.skill` |
+| 4.6 | CreÃ«er impl-jinja | ðŸ“Ž `frappe-syntax-jinja.skill` |
+| 4.7 | CreÃ«er impl-scheduler | ðŸ“Ž `frappe-syntax-scheduler.skill` |
+| 4.8 | CreÃ«er impl-customapp | ðŸ“Ž `frappe-syntax-customapp.skill` |
 
 **Toelichting**: Elke implementation skill bouwt voort op de bijbehorende syntax skill om workflow patterns en decision trees te maken.
 
@@ -77,13 +77,13 @@
 
 | Fase | Beschrijving | Uploads |
 |------|--------------|---------|
-| 5.1 | CreÃ«er errors-clientscripts | ðŸ“Ž `erpnext-syntax-clientscripts.skill` |
-| 5.2 | CreÃ«er errors-serverscripts | ðŸ“Ž `erpnext-syntax-serverscripts.skill` |
-| 5.3 | CreÃ«er errors-controllers | ðŸ“Ž `erpnext-syntax-controllers.skill` |
-| 5.4 | CreÃ«er errors-hooks | ðŸ“Ž `erpnext-syntax-hooks.skill` |
-| 5.5 | CreÃ«er errors-whitelisted | ðŸ“Ž `erpnext-syntax-whitelisted.skill` |
-| 5.6 | CreÃ«er errors-jinja | ðŸ“Ž `erpnext-syntax-jinja.skill` |
-| 5.7 | CreÃ«er errors-scheduler | ðŸ“Ž `erpnext-syntax-scheduler.skill` |
+| 5.1 | CreÃ«er errors-clientscripts | ðŸ“Ž `frappe-syntax-clientscripts.skill` |
+| 5.2 | CreÃ«er errors-serverscripts | ðŸ“Ž `frappe-syntax-serverscripts.skill` |
+| 5.3 | CreÃ«er errors-controllers | ðŸ“Ž `frappe-syntax-controllers.skill` |
+| 5.4 | CreÃ«er errors-hooks | ðŸ“Ž `frappe-syntax-hooks.skill` |
+| 5.5 | CreÃ«er errors-whitelisted | ðŸ“Ž `frappe-syntax-whitelisted.skill` |
+| 5.6 | CreÃ«er errors-jinja | ðŸ“Ž `frappe-syntax-jinja.skill` |
+| 5.7 | CreÃ«er errors-scheduler | ðŸ“Ž `frappe-syntax-scheduler.skill` |
 
 **Toelichting**: Error handling skills moeten de syntax kennen om foutpatronen te kunnen identificeren en corrigeren.
 
@@ -99,32 +99,32 @@
 ### Volledige Upload Lijst Fase 6.1
 
 ```
-erpnext-syntax-clientscripts.skill
-erpnext-syntax-serverscripts.skill
-erpnext-syntax-controllers.skill
-erpnext-syntax-hooks.skill
-erpnext-syntax-whitelisted.skill
-erpnext-syntax-jinja.skill
-erpnext-syntax-scheduler.skill
-erpnext-syntax-customapp.skill
+frappe-syntax-clientscripts.skill
+frappe-syntax-serverscripts.skill
+frappe-syntax-controllers.skill
+frappe-syntax-hooks.skill
+frappe-syntax-whitelisted.skill
+frappe-syntax-jinja.skill
+frappe-syntax-scheduler.skill
+frappe-syntax-customapp.skill
 ```
 
 ### Volledige Upload Lijst Fase 6.2
 
 Alle bovenstaande PLUS:
 ```
-erpnext-impl-clientscripts.skill
-erpnext-impl-serverscripts.skill
-erpnext-impl-controllers.skill
-erpnext-impl-hooks.skill
-erpnext-impl-whitelisted.skill
-erpnext-impl-jinja.skill
-erpnext-impl-scheduler.skill
-erpnext-impl-customapp.skill
-erpnext-errors-clientscripts.skill
-erpnext-errors-serverscripts.skill
-erpnext-errors-controllers.skill
-erpnext-errors-hooks.skill
+frappe-impl-clientscripts.skill
+frappe-impl-serverscripts.skill
+frappe-impl-controllers.skill
+frappe-impl-hooks.skill
+frappe-impl-whitelisted.skill
+frappe-impl-jinja.skill
+frappe-impl-scheduler.skill
+frappe-impl-customapp.skill
+frappe-errors-clientscripts.skill
+frappe-errors-serverscripts.skill
+frappe-errors-controllers.skill
+frappe-errors-hooks.skill
 erpnext-errors-whitelisted.skill
 erpnext-errors-jinja.skill
 erpnext-errors-scheduler.skill
@@ -169,9 +169,9 @@ Bewaar alle `.skill` bestanden in Ã©Ã©n lokale map, bijvoorbeeld:
 ```
 ERPNext-Skills/
 â”œâ”€â”€ completed/
-â”‚   â”œâ”€â”€ erpnext-syntax-clientscripts-NL.skill
-â”‚   â”œâ”€â”€ erpnext-syntax-clientscripts-EN.skill
-â”‚   â”œâ”€â”€ erpnext-syntax-serverscripts-NL.skill
+â”‚   â”œâ”€â”€ frappe-syntax-clientscripts-NL.skill
+â”‚   â”œâ”€â”€ frappe-syntax-clientscripts-EN.skill
+â”‚   â”œâ”€â”€ frappe-syntax-serverscripts-NL.skill
 â”‚   â””â”€â”€ ...
 â””â”€â”€ in-progress/
 ```
@@ -206,14 +206,14 @@ Fase 7?                           â†’ JA, alle skills
 Gebruik deze checklist om bij te houden welke skills compleet zijn:
 
 ### Syntax Skills (Fase 1-2)
-- [x] erpnext-syntax-clientscripts (NL + EN)
-- [x] erpnext-syntax-serverscripts (NL + EN)
-- [ ] erpnext-syntax-controllers (NL + EN)
-- [x] erpnext-syntax-hooks (NL + EN)
-- [ ] erpnext-syntax-whitelisted (NL + EN)
-- [ ] erpnext-syntax-jinja (NL + EN)
-- [ ] erpnext-syntax-scheduler (NL + EN)
-- [ ] erpnext-syntax-customapp (NL + EN)
+- [x] frappe-syntax-clientscripts (NL + EN)
+- [x] frappe-syntax-serverscripts (NL + EN)
+- [ ] frappe-syntax-controllers (NL + EN)
+- [x] frappe-syntax-hooks (NL + EN)
+- [ ] frappe-syntax-whitelisted (NL + EN)
+- [ ] frappe-syntax-jinja (NL + EN)
+- [ ] frappe-syntax-scheduler (NL + EN)
+- [ ] frappe-syntax-customapp (NL + EN)
 
 ### Core Skills (Fase 3)
 - [ ] erpnext-core-database (NL + EN)
@@ -221,20 +221,20 @@ Gebruik deze checklist om bij te houden welke skills compleet zijn:
 - [ ] erpnext-core-api (NL + EN)
 
 ### Implementation Skills (Fase 4)
-- [ ] erpnext-impl-clientscripts (NL + EN)
-- [ ] erpnext-impl-serverscripts (NL + EN)
-- [ ] erpnext-impl-controllers (NL + EN)
-- [ ] erpnext-impl-hooks (NL + EN)
-- [ ] erpnext-impl-whitelisted (NL + EN)
-- [ ] erpnext-impl-jinja (NL + EN)
-- [ ] erpnext-impl-scheduler (NL + EN)
-- [ ] erpnext-impl-customapp (NL + EN)
+- [ ] frappe-impl-clientscripts (NL + EN)
+- [ ] frappe-impl-serverscripts (NL + EN)
+- [ ] frappe-impl-controllers (NL + EN)
+- [ ] frappe-impl-hooks (NL + EN)
+- [ ] frappe-impl-whitelisted (NL + EN)
+- [ ] frappe-impl-jinja (NL + EN)
+- [ ] frappe-impl-scheduler (NL + EN)
+- [ ] frappe-impl-customapp (NL + EN)
 
 ### Error Handling Skills (Fase 5)
-- [ ] erpnext-errors-clientscripts (NL + EN)
-- [ ] erpnext-errors-serverscripts (NL + EN)
-- [ ] erpnext-errors-controllers (NL + EN)
-- [ ] erpnext-errors-hooks (NL + EN)
+- [ ] frappe-errors-clientscripts (NL + EN)
+- [ ] frappe-errors-serverscripts (NL + EN)
+- [ ] frappe-errors-controllers (NL + EN)
+- [ ] frappe-errors-hooks (NL + EN)
 - [ ] erpnext-errors-whitelisted (NL + EN)
 - [ ] erpnext-errors-jinja (NL + EN)
 - [ ] erpnext-errors-scheduler (NL + EN)

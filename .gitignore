@@ -32,6 +32,8 @@ Thumbs.db
 .env
 .env.local
 PROMPTS.md
+.claude/
+*.code-workspace
 
 # Node (if any JS tooling)
 node_modules/

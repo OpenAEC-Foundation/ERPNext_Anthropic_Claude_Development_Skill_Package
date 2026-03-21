@@ -317,6 +317,7 @@ See `references/anti-patterns.md` for expanded anti-patterns with examples.
 - `frappe-impl-jinja` — Jinja templating patterns
 - `frappe-impl-controllers` — DocType controllers (WebsiteGenerator)
 - `frappe-syntax-clientscripts` — Client-side API for Web Forms
+- `references/generators.md` — Portal generators, blog system, custom routing patterns
 - `references/workflows.md` — Extended workflow walkthroughs
 - `references/examples.md` — Complete code examples
 - `references/decision-tree.md` — Full decision tree for page types

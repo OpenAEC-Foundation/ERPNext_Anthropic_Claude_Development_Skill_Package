@@ -3,8 +3,8 @@
 > **📍 Dit is de SINGLE SOURCE OF TRUTH voor project status en voortgang.**
 > Claude Project Instructies verwijzen hiernaar - geen dubbele tracking.
 
-> **Laatste update**: 2026-03-20
-> **Status**: V2.0 COMPLEET — V3.0 GEPLAND
+> **Laatste update**: 2026-03-21
+> **Status**: V3.0 COMPLEET — Release pending
 > **V3 Gap Analysis**: [frappe-skill-package-gap-analysis-v3.md](docs/masterplan/frappe-skill-package-gap-analysis-v3.md)
 > **V2 Tech Spec**: [frappe-skill-package-tech-spec-v2.md](docs/masterplan/frappe-skill-package-tech-spec-v2.md)
 > **V2 Gap Analysis**: [frappe-skill-package-gap-analysis.md](docs/masterplan/frappe-skill-package-gap-analysis.md)
@@ -67,22 +67,22 @@
 
 | Categorie | Voltooid | Totaal |
 |-----------|:--------:|:------:|
-| Nieuwe skills (P0: translation, utils) | 0 | 2 |
-| Nieuwe skills (P1: print, query-builder, workspace) | 0 | 3 |
-| Nieuwe skills (P2: logging, search) | 0 | 2 |
-| Uitbreidingen bestaande skills | 0 | 12 |
-| **TOTAAL v3.0** | **0** | **19** |
+| Nieuwe skills (P0: translation, utils) | 2 | 2 |
+| Nieuwe skills (P1: print, query-builder, workspace) | 3 | 3 |
+| Nieuwe skills (P2: logging, search) | 2 | 2 |
+| Uitbreidingen bestaande skills | 12 | 12 |
+| **TOTAAL v3.0** | **19** | **19** |
 
-**V3 Progress**: ░░░░░░░░░░░░░░░░░░░░ **0%** — Gepland
+**V3 Progress**: ████████████████████ **100%** — Alle 60 skills compleet!
 
 ### V3 Fasen
 
 | Fase | Beschrijving | Status |
 |------|-------------|:------:|
-| V3.1 | Research voor 7 nieuwe skills | ⏳ Gepland |
-| V3.2 | Nieuwe skills creeren (P0 -> P1 -> P2) | ⏳ Gepland |
-| V3.3 | 12 bestaande skills uitbreiden | ⏳ Gepland |
-| V3.4 | Validatie + INDEX + README | ⏳ Gepland |
+| V3.1 | Research voor 7 nieuwe skills | ✅ Compleet |
+| V3.2 | Nieuwe skills creeren (P0 -> P1 -> P2) | ✅ Compleet |
+| V3.3 | 12 bestaande skills uitbreiden | ✅ Compleet |
+| V3.4 | Validatie + INDEX + README | ✅ Compleet |
 | V3.5 | Release v3.0.0 | ⏳ Gepland |
 
 ### V3 Nieuwe Skills
@@ -219,6 +219,14 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 
 ## Release History
 
+### v3.0.0 (2026-03-21) - Full Coverage (~95%) ✅
+
+- 60 skills (was 53) across 7 categories
+- 7 new skills: translation, utils, print, query-builder, workspace, logging, search
+- 12 existing skills extended with new reference files
+- ~95% Frappe Framework surface area coverage (was ~85%)
+- All 60 skills validated (under 500 lines, valid frontmatter)
+
 ### v2.0.0 (2026-03-20) - Frappe Framework Full Coverage ✅
 
 - 53 skills (was 28) across 7 categories
@@ -270,6 +278,26 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 ---
 
 ## Changelog
+
+### 2026-03-21 (sessie 26) - V3.0 COMPLEET
+
+**V3.0 Upgrade — 53 skills -> 60 skills + 12 uitbreidingen:**
+- V3.1: Research voor 7 nieuwe skills (5 agents parallel)
+- V3.2: 7 nieuwe skills gecreeerd (P0: translation, utils; P1: print, query-builder, workspace; P2: logging, search)
+- V3.3: 12 bestaande skills uitgebreid met nieuwe reference files (12 agents parallel)
+- V3.4: Validatie (60/60 pass), INDEX.md herbouwd, README.md geupdate
+- Issue #14 gesloten (topics waren al ingesteld)
+
+**Totaal: 60 skills, ~95% Frappe surface area dekking**
+- syntax: 13 skills (+2: print, query-builder)
+- core: 11 skills (+4: translation, utils, logging, search)
+- impl: 14 skills (+1: workspace)
+- errors: 7 skills (unchanged)
+- ops: 8 skills (unchanged)
+- agents: 5 skills (unchanged)
+- testing: 2 skills (unchanged)
+
+---
 
 ### 2026-03-20 (sessie 25) - V2.0 COMPLEET
 
@@ -354,13 +382,12 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 
 ## Next Steps
 
-🎉 **Project is feature-complete!**
+🎉 **V3.0 feature-complete! 60 skills, ~95% coverage.**
 
-Handmatige acties nog nodig:
-1. Repository public maken via GitHub UI
-2. Topics toevoegen (Issue #14): `erpnext`, `frappe`, `claude`, `anthropic`, `skills`, `ai-coding`
-3. Description toevoegen: "28 deterministic skills for Claude to generate flawless ERPNext/Frappe code"
-4. API tokens regenereren na public release
+Nog te doen:
+1. Release tag v3.0.0 aanmaken
+2. GitHub release publiceren
+3. Social preview banner updaten (60 skills)
 
 ---
 

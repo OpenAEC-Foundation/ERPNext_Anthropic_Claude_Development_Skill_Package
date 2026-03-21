@@ -1,19 +1,19 @@
 # Frappe Claude Skill Package — Index
 
-> 53 deterministic skills for Frappe Framework v14-v16 development and operations.
+> 60 deterministic skills for Frappe Framework v14-v16 development and operations.
 
 ## Quick Stats
 
 | Category | Count | Purpose |
 |----------|:-----:|---------|
-| syntax/ | 11 | Code syntax reference |
-| core/ | 7 | Cross-cutting concerns |
-| impl/ | 13 | Implementation workflows |
+| syntax/ | 13 | Code syntax reference |
+| core/ | 11 | Cross-cutting concerns |
+| impl/ | 14 | Implementation workflows |
 | errors/ | 7 | Error handling |
 | ops/ | 8 | Operations & deployment |
 | agents/ | 5 | Intelligent agents |
 | testing/ | 2 | Quality & CI/CD |
-| **Total** | **53** | |
+| **Total** | **60** | |
 
 ## Skills by Category
 
@@ -28,6 +28,8 @@
 | [frappe-syntax-hooks](skills/source/syntax/frappe-syntax-hooks/) | Use when configuring Frappe hooks.py for app events, scheduler tasks, document events, fixtures, boot session, jenv customization, or website routing. |
 | [frappe-syntax-hooks-events](skills/source/syntax/frappe-syntax-hooks-events/) | Use when implementing document lifecycle hooks via doc_events in hooks.py, understanding event execution order, or extending/overriding document behavior from another app. |
 | [frappe-syntax-jinja](skills/source/syntax/frappe-syntax-jinja/) | Use when writing Jinja templates for ERPNext/Frappe Print Formats, Email Templates, and Portal Pages. |
+| [frappe-syntax-print](skills/source/syntax/frappe-syntax-print/) | Use when creating print formats or generating PDFs in Frappe v14-v16. Covers Jinja, Print Designer, Letter Head, get_pdf(). |
+| [frappe-syntax-query-builder](skills/source/syntax/frappe-syntax-query-builder/) | Use when building database queries with frappe.qb in Frappe v14-v16. Covers joins, aggregation, cross-DB compatibility. |
 | [frappe-syntax-reports](skills/source/syntax/frappe-syntax-reports/) | Use when building Query Reports, Script Reports, or configuring Report Builder, including chart data integration. |
 | [frappe-syntax-scheduler](skills/source/syntax/frappe-syntax-scheduler/) | Use when configuring scheduler events and background jobs in Frappe/ERPNext v14/v15/v16. |
 | [frappe-syntax-serverscripts](skills/source/syntax/frappe-syntax-serverscripts/) | Use when writing Python code for ERPNext/Frappe Server Scripts including Document Events, API endpoints, Scheduler Events, and Permission Queries. |
@@ -41,8 +43,12 @@
 | [frappe-core-cache](skills/source/core/frappe-core-cache/) | Use when implementing Redis caching, cache invalidation, or distributed locking in Frappe. |
 | [frappe-core-database](skills/source/core/frappe-core-database/) | Use when performing database operations in ERPNext/Frappe v14-v16. |
 | [frappe-core-files](skills/source/core/frappe-core-files/) | Use when handling file uploads, attachments, private/public file access, or S3 storage configuration. |
+| [frappe-core-logging](skills/source/core/frappe-core-logging/) | Use when implementing logging, error tracking, or monitoring in Frappe v14-v16. Covers frappe.logger(), log_error(), Sentry. |
 | [frappe-core-notifications](skills/source/core/frappe-core-notifications/) | Use when implementing email notifications, system alerts, Assignment Rules, Auto Repeat, or ToDo items. |
 | [frappe-core-permissions](skills/source/core/frappe-core-permissions/) | Use when implementing the Frappe/ERPNext permission system. |
+| [frappe-core-search](skills/source/core/frappe-core-search/) | Use when implementing search functionality in Frappe v14-v16. Covers link search, global search, SQLiteSearch FTS5. |
+| [frappe-core-translation](skills/source/core/frappe-core-translation/) | Use when implementing translations/i18n in Frappe v14-v16 apps. Covers _(), __(), CSV/PO files, string extraction. |
+| [frappe-core-utils](skills/source/core/frappe-core-utils/) | Use when working with utility functions in Frappe v14-v16. Covers 140+ date, number, string, validation functions. |
 | [frappe-core-workflow](skills/source/core/frappe-core-workflow/) | Use when creating or modifying Frappe Workflows, defining states and transitions, adding action conditions, or troubleshooting workflow permission errors. |
 
 ### impl/ — Implementation Workflows
@@ -62,6 +68,7 @@
 | [frappe-impl-website](skills/source/impl/frappe-impl-website/) | Use when building portal pages, Web Forms, website routes, or configuring themes and SEO in Frappe. |
 | [frappe-impl-whitelisted](skills/source/impl/frappe-impl-whitelisted/) | Use when building API endpoints with @frappe.whitelist() in Frappe. |
 | [frappe-impl-workflow](skills/source/impl/frappe-impl-workflow/) | Use when implementing document Workflows, approval chains, or state-based transitions in Frappe. |
+| [frappe-impl-workspace](skills/source/impl/frappe-impl-workspace/) | Use when creating or customizing Workspace pages in Frappe v14-v16. Covers shortcuts, number cards, charts, JSON format. |
 
 ### errors/ — Error Handling
 
@@ -128,8 +135,8 @@ What do you need to build?
 ├─► Build API endpoints
 │   └─► syntax-whitelisted + impl-whitelisted + core-api + errors-api
 │
-├─► Print formats / Templates
-│   └─► syntax-jinja + impl-jinja
+├─► Print formats / Templates / PDF
+│   └─► syntax-print + syntax-jinja + impl-jinja
 │
 ├─► Reports & Dashboards
 │   └─► syntax-reports + impl-reports
@@ -151,6 +158,24 @@ What do you need to build?
 │
 ├─► Website / Portal
 │   └─► impl-website + syntax-jinja + impl-jinja
+│
+├─► Translation / i18n
+│   └─► core-translation
+│
+├─► Utility functions (date, money, string)
+│   └─► core-utils
+│
+├─► Search functionality
+│   └─► core-search
+│
+├─► Logging & error tracking
+│   └─► core-logging + agent-debugger
+│
+├─► Workspace / Dashboard
+│   └─► impl-workspace + impl-ui-components
+│
+├─► Complex database queries
+│   └─► syntax-query-builder + core-database
 │
 ├─► Deploy to production
 │   └─► ops-deployment + ops-bench + ops-performance + ops-backup
@@ -185,4 +210,4 @@ What do you need to build?
 
 ---
 
-*Frappe Claude Skill Package v2.0 | 53 skills | Last updated: 2026-03-20*
+*Frappe Claude Skill Package v3.0 | 60 skills | Last updated: 2026-03-21*

@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-03-21
+
+### Added
+- 7 new skills: frappe-core-translation, frappe-core-utils, frappe-syntax-print, frappe-syntax-query-builder, frappe-impl-workspace, frappe-core-logging, frappe-core-search
+- 13 new reference files extending 12 existing skills (controls-api, tree-view, generators, print-format-decision, email-system, module-workspace-shipping, document-api-complete, custom-commands, request-lifecycle, advanced-debugging, frappe-packages, data-masking, type-stubs)
+
+### Changed
+- Total skill count: 53 → 60
+- Framework coverage: ~85% → ~95%
+- INDEX.md rebuilt with all 60 skills and expanded selection guide
+- README.md updated with v3.0 stats
+
+## [2.0.0] - 2026-03-20
+
+### Added
+- 25 new skills (ops, testing, agents, syntax, core, impl categories)
+- All 28 existing skills fully rewritten with fresh research
+- Renamed erpnext-* → frappe-* (all 28 existing skills)
+
+### Changed
+- Total skill count: 28 → 53
+- Framework coverage: ~16% → ~85%
+- 7 categories (added ops/, testing/)
+
 ## [1.2.0] - 2026-01-18
 
 ### Added

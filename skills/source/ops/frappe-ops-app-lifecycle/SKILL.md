@@ -432,5 +432,7 @@ ALWAYS test updates on staging before applying to production.
 - [references/examples.md](references/examples.md) — Complete app scaffolding examples
 - [references/anti-patterns.md](references/anti-patterns.md) — Common mistakes
 - [references/workflows.md](references/workflows.md) — Step-by-step workflows
+- [references/module-workspace-shipping.md](references/module-workspace-shipping.md) — Module Def, modules.txt, and workspace shipping
 - `frappe-syntax-hooks` — Complete hooks.py reference
 - `frappe-core-database` — Database and migration patterns
+- `frappe-impl-workspace` — Workspace builder, components, and customization

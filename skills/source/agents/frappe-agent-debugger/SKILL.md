@@ -3,8 +3,8 @@ name: frappe-agent-debugger
 description: >
   Use when debugging Frappe errors, using bench console for live inspection, analyzing tracebacks, or reading Frappe log files.
   Prevents wasted debugging time from ignoring log context, misreading tracebacks, and not using bench console effectively.
-  Covers bench console, frappe.logger, error log DocType, traceback analysis, common error patterns, log file locations, pdb/debugger integration.
-  Keywords: debug, bench console, traceback, error log, frappe.logger, pdb, debugging, log analysis, inspect.
+  Covers bench console, frappe.logger, error log DocType, traceback analysis, common error patterns, log file locations, pdb/debugger integration, VS Code DAP, profiling, Frappe Recorder, mariadb diagnostics.
+  Keywords: debug, bench console, traceback, error log, frappe.logger, pdb, debugging, log analysis, inspect, VS Code, DAP, profiling, recorder, mariadb, monitor.
 license: MIT
 compatibility: "Claude Code, Claude.ai Projects, Claude API. Frappe v14-v16."
 metadata:
@@ -274,3 +274,4 @@ ERROR RECEIVED
 
 See [references/checklists.md](references/checklists.md) for complete diagnosis checklists.
 See [references/examples.md](references/examples.md) for debugging walkthrough examples.
+See [references/advanced-debugging.md](references/advanced-debugging.md) for VS Code DAP setup, bench console patterns, mariadb diagnostics, and profiling tools.

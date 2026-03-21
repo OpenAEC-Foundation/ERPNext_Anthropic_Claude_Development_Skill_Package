@@ -439,6 +439,7 @@ Enable auto-generation in `hooks.py`: `export_python_type_annotations = True`
 | File | Contents |
 |---|---|
 | [lifecycle-methods.md](references/lifecycle-methods.md) | All hooks with execution order diagrams |
+| [document-api-complete.md](references/document-api-complete.md) | **Complete Document API**: all methods by category (CRUD, fields, DB, permissions, flags, child tables, naming) |
 | [methods.md](references/methods.md) | Document class method signatures |
 | [events.md](references/events.md) | All document events in order |
 | [examples.md](references/examples.md) | Complete working controller examples |

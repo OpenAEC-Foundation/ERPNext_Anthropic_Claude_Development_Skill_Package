@@ -271,6 +271,32 @@ make_property_setter("Sales Invoice", "posting_date", "default", "Today", "Text"
 
 > Full customization reference: [references/customization.md](references/customization.md)
 
+## Data Masking (v16+)
+
+Fields with `mask=1` hide sensitive values from users without `mask` permission at the field's `permlevel`. The server replaces values with patterns like `XXXXXXXX` before sending to the client. Administrator ALWAYS sees unmasked values.
+
+```json
+{ "fieldname": "phone", "fieldtype": "Data", "options": "Phone", "mask": 1, "permlevel": 1 }
+```
+
+> Full masking reference: [references/data-masking.md](references/data-masking.md)
+
+## Python Type Stubs
+
+Frappe auto-generates type annotations in controller files via `TypeExporter`. Fields get `DF.*` types inside a `TYPE_CHECKING` guard:
+
+```python
+if TYPE_CHECKING:
+    from frappe.types import DF
+    customer: DF.Link
+    items: DF.Table[SalesInvoiceItem]
+    status: DF.Literal["Draft", "Submitted", "Paid"]
+```
+
+NEVER modify code between `# begin: auto-generated types` and `# end: auto-generated types`.
+
+> Full type stubs reference: [references/type-stubs.md](references/type-stubs.md)
+
 ## Critical Rules
 
 1. ALWAYS name DocTypes in **singular** form ("Sales Invoice", not "Sales Invoices").
@@ -289,3 +315,5 @@ make_property_setter("Sales Invoice", "posting_date", "default", "Today", "Text"
 - [references/examples.md](references/examples.md) -- Real DocType JSON examples
 - [references/anti-patterns.md](references/anti-patterns.md) -- Common schema design mistakes
 - [references/customization.md](references/customization.md) -- Custom Fields and Property Setter APIs
+- [references/data-masking.md](references/data-masking.md) -- Field-level data masking for privacy (v16+)
+- [references/type-stubs.md](references/type-stubs.md) -- Python type hints, DF types, TypeExporter

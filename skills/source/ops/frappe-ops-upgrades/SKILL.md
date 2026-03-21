@@ -283,6 +283,49 @@ bench start  # or: sudo bench restart (production)
 
 ---
 
+## Frappe Packages — Moving Customizations Between Sites
+
+Frappe Packages (v14+) are lightweight UI-built applications — bundles of Custom Module Defs distributed as `.tar.gz` tarballs. For Custom Fields, Property Setters, and DocPerms on standard DocTypes, use **Fixtures** instead.
+
+### Quick Reference — Package vs Fixtures vs App
+
+| Mechanism | Use When | CLI Command |
+|-----------|----------|-------------|
+| **Package** | UI-built DocTypes, Scripts, Web Pages | UI only (Package Import/Release) |
+| **Fixtures** | Custom Fields, Property Setters, DocPerms | `bench --site mysite export-fixtures` |
+| **Frappe App** | Full development workflow, CI/CD, tests | `bench get-app`, `bench install-app` |
+
+### Package Workflow (UI-Based)
+
+1. Create a **Package** document → assign Custom Module Defs to it
+2. Create a **Package Release** → exports to `[bench]/sites/[site]/packages/` as `[package]-[version].tar.gz`
+3. On target site, create **Package Import** → attach tarball, check **Activate**
+4. System migrates data like an app migration; use **Force** to overwrite existing files
+
+### Fixtures Workflow (CLI-Based)
+
+```python
+# hooks.py — define what to export
+fixtures = [
+    "Custom Field",
+    "Property Setter",
+    {"dt": "Client Script", "filters": [["module", "=", "My Module"]]}
+]
+```
+
+```bash
+# Export fixtures to JSON in your app
+bench --site mysite export-fixtures --app myapp
+
+# Fixtures auto-sync on: bench --site mysite migrate
+```
+
+**NEVER** use Packages to modify standard/core DocTypes — use a Frappe App with Fixtures.
+
+See [frappe-packages.md](references/frappe-packages.md) for the complete reference including decision trees, limitations, and best practices.
+
+---
+
 ## Custom App Compatibility Checks
 
 Before upgrading, audit each custom app:
@@ -336,3 +379,4 @@ Choosing upgrade strategy:
 | [examples.md](references/examples.md) | Complete upgrade workflow examples |
 | [anti-patterns.md](references/anti-patterns.md) | Common upgrade mistakes and fixes |
 | [breaking-changes.md](references/breaking-changes.md) | Detailed breaking changes per version |
+| [frappe-packages.md](references/frappe-packages.md) | Packages, fixtures, and moving customizations between sites |

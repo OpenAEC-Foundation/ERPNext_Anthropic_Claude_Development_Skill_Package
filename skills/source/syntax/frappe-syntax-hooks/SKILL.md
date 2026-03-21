@@ -28,10 +28,10 @@ behavior. This skill covers ALL non-document-event hooks. For `doc_events`
 | Install/migrate | `before_install`, `after_install`, `after_migrate` | Below |
 | Scheduler | `hourly`, `daily`, `cron`, `*_long` | [scheduler-events.md](references/scheduler-events.md) |
 | Session/auth | `on_login`, `on_logout`, `auth_hooks` | [bootinfo.md](references/bootinfo.md) |
-| Request middleware | `before_request`, `after_request` | Below |
+| Request middleware | `before_request`, `after_request` | [request-lifecycle.md](references/request-lifecycle.md) |
 | Permissions | `permission_query_conditions`, `has_permission` | [permissions.md](references/permissions.md) |
 | DocType overrides | `override_doctype_class`, `doctype_js` | [overrides.md](references/overrides.md) |
-| Website/portal | `website_route_rules`, `portal_menu_items` | Below |
+| Website/portal | `website_route_rules`, `portal_menu_items` | [request-lifecycle.md](references/request-lifecycle.md) |
 | File handling | `before_write_file`, `write_file` | Below |
 | Email | `override_email_send`, `default_mail_footer` | Below |
 | PDF | `pdf_header_html`, `pdf_footer_html` | Below |
@@ -87,6 +87,15 @@ What do you want to achieve?
 |
 +-- CUSTOMIZE website routing?
 |   +-- website_route_rules
+|   See: request-lifecycle.md for full routing pipeline
+|
++-- INTERCEPT every request/response?
+|   +-- before_request / after_request
+|   See: request-lifecycle.md for lifecycle flow
+|
++-- CUSTOM page rendering?
+|   +-- page_renderer hook
+|   See: request-lifecycle.md for renderer architecture
 ```
 
 ---
@@ -190,6 +199,9 @@ Execution order: `on_login` --> session created --> `on_session_creation` --> `e
 ---
 
 ## 6. Request/Response Middleware
+
+See [request-lifecycle.md](references/request-lifecycle.md) for the full request
+lifecycle flow, page renderer architecture, and router API.
 
 ```python
 before_request = ["myapp.middleware.before_request"]   # List of dotted paths
@@ -427,6 +439,7 @@ Full anti-patterns: [anti-patterns.md](references/anti-patterns.md)
 | [overrides.md](references/overrides.md) | DocType class override patterns |
 | [bootinfo.md](references/bootinfo.md) | extend_bootinfo, session hooks, notification_config |
 | [examples.md](references/examples.md) | Working hooks.py examples for each category |
+| [request-lifecycle.md](references/request-lifecycle.md) | Request lifecycle, routing pipeline, page renderers, router API |
 | [anti-patterns.md](references/anti-patterns.md) | Common hook mistakes and corrections |
 
 For document lifecycle events (doc_events), see: **frappe-syntax-hooks-events**

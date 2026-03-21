@@ -483,13 +483,17 @@ let scanner = new frappe.ui.Scanner({
 | Missing start/end in calendar field_map | ALWAYS map both `start` and `end` fields |
 | 2-element array from get_indicator | ALWAYS return 3 elements: [label, color, filter] |
 
-See `references/anti-patterns.md` for expanded anti-patterns with code examples.
+## Reference Files
+
+- `references/controls-api.md` — Standalone controls via `frappe.ui.form.make_control()`, full control type reference, control methods and events
+- `references/tree-view.md` — Tree DocType configuration, `frappe.views.TreeView` API, `frappe.ui.Tree` low-level API, tree node operations
+- `references/workflows.md` — Extended workflow walkthroughs
+- `references/examples.md` — Complete code examples
+- `references/decision-tree.md` — Full UI component decision tree
+- `references/anti-patterns.md` — Expanded anti-patterns with code examples
 
 ## See Also
 
 - `frappe-impl-clientscripts` — Form-level client scripts
 - `frappe-syntax-clientscripts` — Client-side API syntax reference
 - `frappe-impl-hooks` — Hook registration for pages and routes
-- `references/workflows.md` — Extended workflow walkthroughs
-- `references/examples.md` — Complete code examples
-- `references/decision-tree.md` — Full UI component decision tree

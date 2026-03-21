@@ -494,4 +494,5 @@ bench disable-production                    # Back to development
 |------|----------|
 | [commands.md](references/commands.md) | Full command reference with all options |
 | [examples.md](references/examples.md) | Common workflow examples |
+| [custom-commands.md](references/custom-commands.md) | Creating custom bench CLI commands with Click |
 | [anti-patterns.md](references/anti-patterns.md) | Common bench mistakes and fixes |

@@ -489,5 +489,6 @@ thead { display: table-header-group; }   /* Repeat header on pages */
 | File | Contents |
 |------|----------|
 | [decision-tree.md](references/decision-tree.md) | Complete template type selection flowcharts |
+| [print-format-decision.md](references/print-format-decision.md) | Jinja vs Print Designer vs JS Microtemplate decision tree |
 | [workflows.md](references/workflows.md) | Step-by-step patterns for all template types |
 | [examples.md](references/examples.md) | Production-ready templates (invoice, email, portal) |

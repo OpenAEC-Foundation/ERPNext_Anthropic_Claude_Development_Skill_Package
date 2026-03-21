@@ -2,6 +2,8 @@
 
 > Query Builder (frappe.qb), filter operators, raw SQL patterns. Verified against Frappe v14-v16 docs.
 
+> **Note**: For comprehensive Query Builder coverage (advanced joins, HAVING, window functions, subquery patterns, cross-DB compatibility), see the dedicated **[frappe-syntax-query-builder](../../../syntax/frappe-syntax-query-builder/SKILL.md)** skill.
+
 ---
 
 ## Filter Operators

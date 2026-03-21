@@ -484,6 +484,13 @@ sql = qb_obj.get_sql()
 
 ---
 
+## Query Builder — Dedicated Skill
+
+For complex queries (joins, aggregations, subqueries, cross-DB compatibility), see **[frappe-syntax-query-builder](../../syntax/frappe-syntax-query-builder/SKILL.md)**.
+- **frappe.db methods** (this skill) — Simple CRUD, get_value, get_list, exists checks
+- **frappe.qb** (query-builder skill) — Joins, GROUP BY, HAVING, subqueries, cross-DB functions
+- **frappe.db.sql** — Very complex SQL not expressible in qb (ALWAYS parameterized)
+
 ## Reference Files
 
 - **[methods-reference.md](references/methods-reference.md)** — Complete API signatures for all database and document methods

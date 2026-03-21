@@ -315,6 +315,7 @@ tags = doc.get_tags()  # returns list of tag strings
 
 ## See Also
 
+- [references/email-system.md](references/email-system.md) — Email Account, Email Queue, Communication linking, Newsletter, Notification Log
 - [references/examples.md](references/examples.md) — Full notification workflow examples
 - [references/anti-patterns.md](references/anti-patterns.md) — Common mistakes and fixes
 - [references/api-reference.md](references/api-reference.md) — Complete API signatures

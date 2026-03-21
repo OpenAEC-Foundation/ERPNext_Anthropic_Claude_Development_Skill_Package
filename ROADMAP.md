@@ -83,7 +83,7 @@
 | V3.2 | Nieuwe skills creeren (P0 -> P1 -> P2) | ✅ Compleet |
 | V3.3 | 12 bestaande skills uitbreiden | ✅ Compleet |
 | V3.4 | Validatie + INDEX + README | ✅ Compleet |
-| V3.5 | Release v3.0.0 | ⏳ Gepland |
+| V3.5 | Release v3.0.0 | ✅ Compleet |
 
 ### V3 Nieuwe Skills
 
@@ -384,10 +384,10 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 
 🎉 **V3.0 feature-complete! 60 skills, ~95% coverage.**
 
-Nog te doen:
-1. Release tag v3.0.0 aanmaken
-2. GitHub release publiceren
-3. Social preview banner updaten (60 skills)
+Alles compleet:
+- ✅ Release tag v3.0.0
+- ✅ GitHub release gepubliceerd
+- ✅ Social preview banner bijgewerkt (60 skills)
 
 ---
 

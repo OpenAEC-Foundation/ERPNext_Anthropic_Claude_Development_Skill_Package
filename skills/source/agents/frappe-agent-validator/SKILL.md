@@ -3,7 +3,7 @@ name: frappe-agent-validator
 description: >
   Use when reviewing or validating Frappe/ERPNext code against best
   practices and common pitfalls. Checks generated code before deployment,
-  validates against all 60 frappe-* skills, catches v16 patterns
+  validates against all 61 frappe-* skills, catches v16 patterns
   (extend_doctype_class, type annotations), validates ops patterns (bench
   commands, deployment), and generates correction reports. Keywords: review
   code, check script, validate deployment, find bugs, code quality,
@@ -17,7 +17,7 @@ metadata:
 
 # Frappe Code Validator Agent
 
-Validates Frappe/ERPNext code against the complete 60-skill knowledge base, catching errors BEFORE deployment.
+Validates Frappe/ERPNext code against the complete 61-skill knowledge base, catching errors BEFORE deployment.
 
 **Purpose**: Catch errors before deployment, not after
 
@@ -244,7 +244,7 @@ ALWAYS generate reports in this format:
 
 ## Skill Catalog Cross-Reference
 
-This validator validates against ALL 60 frappe-* skills:
+This validator validates against ALL 61 frappe-* skills:
 
 ### Syntax Validation (11 skills)
 `frappe-syntax-clientscripts`, `frappe-syntax-serverscripts`, `frappe-syntax-controllers`, `frappe-syntax-hooks`, `frappe-syntax-hooks-events`, `frappe-syntax-whitelisted`, `frappe-syntax-jinja`, `frappe-syntax-scheduler`, `frappe-syntax-customapp`, `frappe-syntax-doctypes`, `frappe-syntax-reports`

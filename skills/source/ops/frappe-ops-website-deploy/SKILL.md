@@ -1,5 +1,5 @@
 ---
-name: frappe-website-deploy
+name: frappe-ops-website-deploy
 description: >
   Deploy HTML/CSS websites to ERPNext/Frappe (v15/v16) as Web Pages via the REST API.
   Use this skill whenever a user wants to host a website on ERPNext, deploy HTML mockups

@@ -1,7 +1,7 @@
 {
   "name": "@openaec/frappe-claude-skill-package",
-  "version": "3.1.0",
-  "description": "60 deterministic Claude AI skills for Frappe Framework & ERPNext v14-v16 development and operations",
+  "version": "3.2.0",
+  "description": "61 deterministic Claude AI skills for Frappe Framework & ERPNext v14-v16 development and operations",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -55,6 +55,7 @@
       { "name": "frappe-ops-frontend-build", "path": "./skills/source/ops/frappe-ops-frontend-build" },
       { "name": "frappe-ops-performance", "path": "./skills/source/ops/frappe-ops-performance" },
       { "name": "frappe-ops-upgrades", "path": "./skills/source/ops/frappe-ops-upgrades" },
+      { "name": "frappe-ops-website-deploy", "path": "./skills/source/ops/frappe-ops-website-deploy" },
       { "name": "frappe-syntax-clientscripts", "path": "./skills/source/syntax/frappe-syntax-clientscripts" },
       { "name": "frappe-syntax-controllers", "path": "./skills/source/syntax/frappe-syntax-controllers" },
       { "name": "frappe-syntax-customapp", "path": "./skills/source/syntax/frappe-syntax-customapp" },

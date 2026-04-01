@@ -59,7 +59,7 @@ This package is the OLDEST skill package (v1.2, 28 skills). A v2 upgrade is plan
 1. **Repo rename**: `ERPNext_Anthropic_Claude_Development_Skill_Package` → `Frappe_Claude_Skill_Package`
 2. **Skill rename**: All 28 `erpnext-*` skills → `frappe-*` naming
 3. **25 new skills** toevoegen (ops, testing, workflow, UI, reports, etc.)
-4. **Totaal**: 60 skills over 7 layers (syntax, core, impl, errors, ops, agents, testing)
+4. **Totaal**: 61 skills over 7 layers (syntax, core, impl, errors, ops, agents, testing)
 
 ### V2 Key Documents
 

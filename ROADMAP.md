@@ -73,7 +73,7 @@
 | Uitbreidingen bestaande skills | 12 | 12 |
 | **TOTAAL v3.0** | **19** | **19** |
 
-**V3 Progress**: ████████████████████ **100%** — Alle 60 skills compleet!
+**V3 Progress**: ████████████████████ **100%** — Alle 61 skills compleet!
 
 ### V3 Fasen
 
@@ -221,11 +221,11 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 
 ### v3.0.0 (2026-03-21) - Full Coverage (~95%) ✅
 
-- 60 skills (was 53) across 7 categories
+- 61 skills (was 53) across 7 categories
 - 7 new skills: translation, utils, print, query-builder, workspace, logging, search
 - 12 existing skills extended with new reference files
 - ~95% Frappe Framework surface area coverage (was ~85%)
-- All 60 skills validated (under 500 lines, valid frontmatter)
+- All 61 skills validated (under 500 lines, valid frontmatter)
 
 ### v2.0.0 (2026-03-20) - Frappe Framework Full Coverage ✅
 
@@ -288,7 +288,7 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 - V3.4: Validatie (60/60 pass), INDEX.md herbouwd, README.md geupdate
 - Issue #14 gesloten (topics waren al ingesteld)
 
-**Totaal: 60 skills, ~95% Frappe surface area dekking**
+**Totaal: 61 skills, ~95% Frappe surface area dekking**
 - syntax: 13 skills (+2: print, query-builder)
 - core: 11 skills (+4: translation, utils, logging, search)
 - impl: 14 skills (+1: workspace)
@@ -382,12 +382,12 @@ Alle 28 skills en agents voltooid en gedocumenteerd.
 
 ## Next Steps
 
-🎉 **V3.0 feature-complete! 60 skills, ~95% coverage.**
+🎉 **V3.0 feature-complete! 61 skills, ~95% coverage.**
 
 Alles compleet:
 - ✅ Release tag v3.0.0
 - ✅ GitHub release gepubliceerd
-- ✅ Social preview banner bijgewerkt (60 skills)
+- ✅ Social preview banner bijgewerkt (61 skills)
 
 ---
 

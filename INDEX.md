@@ -1,6 +1,6 @@
 # Frappe Claude Skill Package — Index
 
-> 60 deterministic skills for Frappe Framework v14-v16 development and operations.
+> 61 deterministic skills for Frappe Framework v14-v16 development and operations.
 
 ## Quick Stats
 
@@ -13,7 +13,7 @@
 | ops/ | 8 | Operations & deployment |
 | agents/ | 5 | Intelligent agents |
 | testing/ | 2 | Quality & CI/CD |
-| **Total** | **60** | |
+| **Total** | **61** | |
 
 ## Skills by Category
 
@@ -210,4 +210,4 @@ What do you need to build?
 
 ---
 
-*Frappe Claude Skill Package v3.0 | 60 skills | Last updated: 2026-03-21*
+*Frappe Claude Skill Package v3.0 | 61 skills | Last updated: 2026-03-21*

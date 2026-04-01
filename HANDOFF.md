@@ -4,7 +4,7 @@
 
 ## Status
 
-- **Package versie**: v3.0.0 (60 skills, feature-complete)
+- **Package versie**: v3.0.0 (61 skills, feature-complete)
 - **Repo**: `OpenAEC-Foundation/Frappe_Claude_Skill_Package`
 - **CLAUDE.md**: Upgraded naar v2 template (alle protocols P-000a t/m P-010)
 - **CI/CD**: quality.yml workflow toegevoegd
@@ -20,7 +20,7 @@
 | ops/ | 8 | bench, deployment, backup, performance, upgrades, cloud, app-lifecycle, frontend-build |
 | agents/ | 5 | interpreter, validator, debugger, migrator, architect |
 | testing/ | 2 | unit, cicd |
-| **Totaal** | **60** | |
+| **Totaal** | **61** | |
 
 ## Skill Naming
 
@@ -45,7 +45,7 @@ Alle skills volgen het patroon `frappe-{laag}-{onderwerp}`:
 | SOURCES.md | Verified Frappe doc URLs |
 | REQUIREMENTS.md | Quality criteria |
 | CHANGELOG.md | Keep a Changelog format |
-| INDEX.md | 60 skills catalogus |
+| INDEX.md | 61 skills catalogus |
 | README.md | GitHub landing page (v3.0) |
 | HANDOFF.md | Dit bestand |
 
